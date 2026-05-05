@@ -1,11 +1,35 @@
+# Environment & secrets
 .env
 .claude
+
+# Editor
 .vscode
+
+# Dependencies
 node_modules
-dist/*/*
+
+# Build output — never commit compiled artefacts
+dist/
+
+# Test coverage
 coverage
+
+# Logs & temp files
 *.log
 *.tmp
+
+# macOS
 .DS_Store
+
+# Kiro config
 .kiro/specs/adaptive-calculus-tutor/.config.kiro
-models/gemma4-e4b-Q8.gguf
+
+# Model files — too large for git (download via scripts/installModel.ts)
+models/*.gguf
+
+# SQLite WAL/SHM sidecar files (transient, not needed in repo)
+*.sqlite-shm
+*.sqlite-wal
+
+# Generated helper scripts (not part of the codebase)
+scripts/writeProblems.py
