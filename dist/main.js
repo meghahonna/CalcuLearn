@@ -1,0 +1,113 @@
+/**
+ * Production wiring for CalcuLearn.
+ *
+ * Constructs the full component graph end-to-end so the offline-first app can
+ * actually run, not just pass tests. Components are wired through their narrow
+ * DI interfaces; nothing here depends on a specific test mock.
+ *
+ * Use `createApp(config)` from a UI shell or CLI; the top-level `if` block at
+ * the bottom of this file allows `tsx src/main.ts` for a smoke run.
+ *
+ * Requirements: 7.1, 7.2, 7.3
+ */
+import { recoverOrCreate } from './db/database.js';
+import { CONCEPTS, CONCEPT_MAP } from './data/concepts.js';
+import { KnowledgeStateManager } from './components/knowledgeStateManager.js';
+import { ProblemEngine } from './components/problemEngine.js';
+import { AnswerEvaluator } from './components/answerEvaluator.js';
+import { DialogueGenerator } from './components/dialogueGenerator.js';
+import { TranslationLayer } from './components/translationLayer.js';
+import { SessionEngine } from './components/sessionEngine.js';
+import { bootstrapModel } from './bootstrap.js';
+export async function createApp(config) {
+    const logger = config.logger ?? console;
+    // 1. Verify model integrity before anything else touches the bytes.
+    const { modelPath, nllbModelPath } = await bootstrapModel({
+        modelDir: config.modelDir,
+        hashes: config.gemmaHashes,
+        quantisation: config.quantisation,
+        nllb: config.nllb,
+        logger,
+    });
+    // 2. Open or recover the SQLite DB; schema is initialised idempotently.
+    const db = recoverOrCreate(config.dbPath);
+    // 3. Wire components in dependency order.
+    const ksm = new KnowledgeStateManager(db, CONCEPTS);
+    const dialogueGenerator = new DialogueGenerator({
+        modelPath,
+        expectedSha256: config.gemmaHashes[
+        // The bootstrap already verified, but DialogueGenerator's own loader will
+        // re-verify on first use. Pass through whichever hash matches `modelPath`.
+        modelPath.includes('Q4_K_M') ? 'Q4_K_M' : 'Q8'],
+        timeoutMs: config.inferenceTimeoutMs ?? 10_000,
+        logger,
+        conceptMap: CONCEPT_MAP,
+    });
+    const problemEngine = new ProblemEngine(db, CONCEPTS, {
+        dialogueGenerator,
+    });
+    // DialogueGenerator implements SemanticAnswerEvaluator structurally — see
+    // Task 23. The AnswerEvaluator's LLM cascade now reaches Gemma in production.
+    const answerEvaluator = new AnswerEvaluator({
+        semanticEvaluator: dialogueGenerator,
+    });
+    const translationLayer = new TranslationLayer({
+        modelPath: nllbModelPath ?? `${config.modelDir}/nllb-200.gguf`,
+        expectedSha256: config.nllb?.hash,
+        logger,
+    });
+    const sessionEngine = new SessionEngine({
+        ksm,
+        problemEngine,
+        answerEvaluator,
+        dialogueGenerator,
+        translationLayer,
+        db,
+        targetLanguage: config.targetLanguage ?? 'en',
+    });
+    return {
+        db,
+        ksm,
+        problemEngine,
+        answerEvaluator,
+        dialogueGenerator,
+        translationLayer,
+        sessionEngine,
+        close() {
+            db.close();
+        },
+    };
+}
+// ---------------------------------------------------------------------------
+// CLI smoke entry — `npm run start` or `tsx src/main.ts`
+// ---------------------------------------------------------------------------
+const isMain = process.argv[1]?.endsWith('main.ts') || process.argv[1]?.endsWith('main.js');
+if (isMain) {
+    const config = {
+        dbPath: process.env['DB_PATH'] ?? './data/calculearn.sqlite',
+        modelDir: process.env['MODEL_DIR'] ?? './models',
+        gemmaHashes: {
+            Q4_K_M: process.env['GEMMA_Q4_SHA256'] ?? '',
+            Q8: process.env['GEMMA_Q8_SHA256'] ?? '',
+        },
+        nllb: process.env['NLLB_SHA256']
+            ? { fileName: process.env['NLLB_FILE'] ?? 'nllb-200.gguf', hash: process.env['NLLB_SHA256'] }
+            : undefined,
+        targetLanguage: process.env['TARGET_LANGUAGE'] ?? 'en',
+    };
+    createApp(config).then((app) => {
+        console.log('[main] CalcuLearn ready. Components wired:', {
+            ksm: typeof app.ksm,
+            problemEngine: typeof app.problemEngine,
+            answerEvaluator: typeof app.answerEvaluator,
+            dialogueGenerator: typeof app.dialogueGenerator,
+            translationLayer: typeof app.translationLayer,
+            sessionEngine: typeof app.sessionEngine,
+        });
+        app.close();
+    }, (err) => {
+        console.error('[main] startup failed:', err instanceof Error ? err.message : err);
+        process.exitCode = 1;
+    });
+}
+//# sourceMappingURL=main.js.map

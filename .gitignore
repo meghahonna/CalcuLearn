@@ -1,0 +1,11 @@
+.env
+.claude
+.vscode
+node_modules
+dist/*/*
+coverage
+*.log
+*.tmp
+.DS_Store
+.kiro/specs/adaptive-calculus-tutor/.config.kiro
+models/gemma4-e4b-Q8.gguf

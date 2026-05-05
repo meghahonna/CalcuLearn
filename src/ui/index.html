@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CalcuLearn</title>
+
+  <!--
+    KaTeX is bundled offline by `scripts/bundle.ts` from
+    `node_modules/katex/dist`, so this stylesheet resolves locally without
+    network. Reqs 4.3, 7.1, 14.2.
+  -->
+  <link rel="stylesheet" href="./katex/katex.min.css" />
+
+  <style>
+    :root {
+      --bg: #f7f7f9;
+      --fg: #1c1c1f;
+      --muted: #6b6b73;
+      --accent: #1f6feb;
+      --accent-bg: #e7f0fd;
+      --border: #d8d8de;
+      --error: #b5325b;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { padding: 1rem; max-width: 720px; margin: 0 auto; line-height: 1.5; }
+    header { padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+    h1 { font-size: 1.25rem; margin: 0; }
+    .muted { color: var(--muted); font-size: 0.9rem; }
+    .panel { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+    .problem-stem { font-size: 1.05rem; margin-bottom: 1rem; min-height: 2.5rem; }
+    .feedback, .hint { font-style: italic; color: var(--muted); }
+    .feedback { background: var(--accent-bg); border-left: 3px solid var(--accent); padding: 0.5rem 0.75rem; border-radius: 4px; margin-top: 0.75rem; }
+    .hint { background: #fffbe6; border-left: 3px solid #d4a72c; padding: 0.5rem 0.75rem; border-radius: 4px; margin-top: 0.75rem; }
+    .answer-row { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
+    input[type="text"] { flex: 1; padding: 0.6rem; border: 1px solid var(--border); border-radius: 4px; font-size: 1rem; font-family: ui-monospace, "SF Mono", Consolas, monospace; }
+    button { padding: 0.6rem 1rem; border: 1px solid var(--accent); background: var(--accent); color: white; border-radius: 4px; cursor: pointer; font-size: 0.95rem; }
+    button.ghost { background: white; color: var(--accent); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .button-row { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+    .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1rem; }
+    .summary-grid dt { color: var(--muted); font-size: 0.85rem; }
+    .summary-grid dd { margin: 0; font-weight: 600; }
+    .delta-positive { color: #2c7a3a; }
+    .delta-negative { color: var(--error); }
+
+    @media (max-width: 480px) {
+      body { padding: 0.75rem; }
+      h1 { font-size: 1.1rem; }
+      .problem-stem { font-size: 1rem; }
+      input[type="text"] { font-size: 0.95rem; }
+      .answer-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CalcuLearn</h1>
+    <p class="muted">Adaptive calculus tutor — running on-device, offline.</p>
+  </header>
+
+  <main id="app">
+    <section id="problem-panel" class="panel">
+      <div class="muted">Problem</div>
+      <div id="problem-stem" class="problem-stem">Click <b>Start session</b> to begin.</div>
+      <div class="answer-row">
+        <input id="answer-input" type="text" autocomplete="off" placeholder="Type your answer (e.g. 2*x*cos(x^2))" disabled />
+        <button id="submit-btn" disabled>Submit</button>
+      </div>
+      <div class="button-row">
+        <button id="start-btn">Start session</button>
+        <button id="hint-btn" class="ghost" disabled>Hint</button>
+        <button id="end-btn" class="ghost" disabled>End session</button>
+      </div>
+      <div id="feedback-area"></div>
+      <div id="hint-area"></div>
+    </section>
+
+    <section id="summary-panel" class="panel" hidden>
+      <h2 style="margin-top: 0; font-size: 1.1rem;">Session summary</h2>
+      <dl class="summary-grid" id="summary-grid"></dl>
+      <h3 style="font-size: 1rem; margin-bottom: 0.25rem;">Mastery changes</h3>
+      <ul id="mastery-deltas" style="padding-left: 1.25rem;"></ul>
+    </section>
+  </main>
+
+  <!--
+    KaTeX render exposes a global `katex` object. The application module reads
+    it via `window.katex` so we don't need a separate import path. The bundle
+    script copies katex.min.js next to katex.min.css in dist/ui/katex/.
+  -->
+  <script src="./katex/katex.min.js" defer></script>
+  <script type="module" src="./app.js" defer></script>
+</body>
+</html>
