@@ -315,38 +315,50 @@ export class DialogueGenerator {
  * LlamaChatSession for every infer() call. This keeps inference time consistent
  * across turns while still amortising the expensive model-load cost.
  */
+/**
+ * NodeLlamaCppBackend — Phase 1 fix #3.
+ *
+ * Hold the loaded llama + model at class level (expensive, load once).
+ * For each inference call, create a fresh context + session so there is
+ * no accumulated chat history and no "No sequences left" exhaustion.
+ * This keeps inference time consistent across turns.
+ */
 class NodeLlamaCppBackend implements DialogueModelBackend {
   private llama: Awaited<ReturnType<typeof getLlama>> | null = null
   private model: Awaited<ReturnType<Awaited<ReturnType<typeof getLlama>>['loadModel']>> | null = null
-  private context: Awaited<ReturnType<NonNullable<typeof this.model>['createContext']>> | null = null
   private currentContextTokens = DEFAULT_CONTEXT_TOKENS
+  private modelPath = ''
 
   async load(config: { modelPath: string; contextTokens: number }): Promise<void> {
-    // Re-use existing model/context if nothing changed
+    // Re-use existing model if nothing changed
     if (
       this.model !== null &&
-      this.context !== null &&
+      this.modelPath === config.modelPath &&
       this.currentContextTokens === config.contextTokens
     ) return
 
     this.currentContextTokens = config.contextTokens
+    this.modelPath = config.modelPath
     this.llama = await getLlama()
     this.model = await this.llama.loadModel({ modelPath: config.modelPath })
-    this.context = await this.model.createContext({
-      contextSize: Math.min(DEFAULT_CONTEXT_TOKENS, config.contextTokens),
-      sequences: 1,
-    })
     console.log(`[NodeLlamaCppBackend] Model loaded: ${config.modelPath}`)
   }
 
-  async infer(prompt: string, config: { contextTokens: number; maxTokens: number }): Promise<string> {
-    if (this.context === null) {
-      throw new Error('Gemma model has not been loaded')
-    }
-    // Phase 1 fix #3: fresh session per inference — no accumulated history
-    const session = new LlamaChatSession({
-      contextSequence: this.context.getSequence(),
+  /**
+   * Create a fresh context + session per call.
+   * Contexts are cheap to create once the model weights are loaded.
+   */
+  private async createSession(contextTokens: number): Promise<LlamaChatSession> {
+    if (this.model === null) throw new Error('Gemma model has not been loaded')
+    const context = await this.model.createContext({
+      contextSize: Math.min(DEFAULT_CONTEXT_TOKENS, contextTokens),
+      sequences: 1,
     })
+    return new LlamaChatSession({ contextSequence: context.getSequence() })
+  }
+
+  async infer(prompt: string, config: { contextTokens: number; maxTokens: number }): Promise<string> {
+    const session = await this.createSession(config.contextTokens)
     return session.prompt(prompt, {
       maxTokens: config.maxTokens,
       temperature: 0.4,
@@ -357,12 +369,7 @@ class NodeLlamaCppBackend implements DialogueModelBackend {
     prompt: string,
     config: { contextTokens: number; maxTokens: number }
   ): AsyncIterable<string> {
-    if (this.context === null) {
-      throw new Error('Gemma model has not been loaded')
-    }
-    const session = new LlamaChatSession({
-      contextSequence: this.context.getSequence(),
-    })
+    const session = await this.createSession(config.contextTokens)
     const tokens: string[] = []
     await session.prompt(prompt, {
       maxTokens: config.maxTokens,
