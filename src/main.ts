@@ -76,11 +76,12 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
   const dialogueGenerator = new DialogueGenerator({
     modelPath,
     expectedSha256: config.gemmaHashes[
-      // The bootstrap already verified, but DialogueGenerator's own loader will
-      // re-verify on first use. Pass through whichever hash matches `modelPath`.
       modelPath.includes('Q4_K_M') ? 'Q4_K_M' : 'Q8'
     ],
-    timeoutMs: config.inferenceTimeoutMs ?? 10_000,
+    // Phase 1 fix: bootstrapModel() already verified the hash at startup.
+    // Skip the redundant 1.6 GB SHA-256 re-read on every loadModel() call.
+    skipHashVerification: true,
+    timeoutMs: config.inferenceTimeoutMs ?? 30_000,
     logger,
     conceptMap: CONCEPT_MAP,
   })
@@ -107,6 +108,12 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
     db,
     targetLanguage: config.targetLanguage ?? 'en',
   })
+
+  // Phase 1 fix: warm up Gemma immediately so the first student click is fast.
+  // loadModel() is idempotent — subsequent calls return the cached promise.
+  logger.log('[createApp] Warming up Gemma model...')
+  await dialogueGenerator.loadModel()
+  logger.log('[createApp] Gemma ready.')
 
   return {
     db,

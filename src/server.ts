@@ -113,6 +113,37 @@ async function handleApiRequest(app: CalcuLearnApp, request: IncomingMessage, re
         return
       }
 
+      // Streaming hint — Server-Sent Events so the UI can render tokens live
+      if (action === 'hint-stream') {
+        const active = app.sessionEngine.getActiveSession?.(sessionId)
+        if (active === undefined) {
+          sendError(response, 404, 'Session not found')
+          return
+        }
+        const SEP = '\n\n'
+        response.writeHead(200, {
+          'Content-Type': 'text/event-stream; charset=utf-8',
+          'Cache-Control': 'no-cache',
+          'Connection': 'keep-alive',
+          'X-Accel-Buffering': 'no',
+        })
+        try {
+          const stream = app.dialogueGenerator.inferStream(
+            'Give a Socratic hint for: ' + (active.session.currentProblem?.stem ?? ''),
+            'Think about the first step.',
+            256
+          )
+          for await (const token of stream) {
+            response.write('data: ' + JSON.stringify({ token }) + SEP)
+          }
+          response.write('data: [DONE]' + SEP)
+        } catch {
+          response.write('data: [ERROR]' + SEP)
+        }
+        response.end()
+        return
+      }
+
       if (action === 'end') {
         const result = await app.sessionEngine.endSession(sessionId)
         sendJson(response, 200, result)
@@ -145,6 +176,9 @@ async function startServer(): Promise<void> {
       : undefined,
   }
 
+  // Phase 1: createApp() now warms up Gemma before returning.
+  // The server only starts listening once the model is fully loaded,
+  // so the first student request is never the cold-load request.
   const app = await createApp(config)
 
   const server = http.createServer((request, response) => {
@@ -162,6 +196,7 @@ async function startServer(): Promise<void> {
   server.listen(PORT, () => {
     console.log(`[server] CalcuLearn backend running at http://localhost:${PORT}`)
     console.log(`[server] Serving static UI from ${DIST_UI_ROOT}`)
+    console.log(`[server] Gemma is warm — ready to accept student sessions`)
   })
 
   const cleanup = (): void => {

@@ -37,7 +37,7 @@ export interface SessionEngineOptions {
   idGenerator?: () => string
 }
 
-interface ActiveSession {
+export interface ActiveSession {
   session: Session
   state: KnowledgeState
   startingMastery: Map<string, number>
@@ -211,6 +211,11 @@ export class SessionEngine {
         endTime.getTime(),
         JSON.stringify(session.turns)
       )
+  }
+
+  /** Returns the active session for streaming access, or undefined if not found. */
+  getActiveSession(sessionId: string): ActiveSession | undefined {
+    return this.sessions.get(sessionId)
   }
 
   private requireSession(sessionId: string): ActiveSession {
