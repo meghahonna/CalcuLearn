@@ -1,13 +1,25 @@
 /**
- * Student UI controller and DOM bindings for CalcuLearn.
+ * CalcuLearn UI — Phase 2
  *
- * `StudentUiController` is a thin pure-state object — it keeps no DOM
- * references and is fully testable in Node. The `bindDom(...)` helper wires
- * a controller instance to the static elements in `index.html`. KaTeX is
- * loaded as a global by `index.html` (offline, no CDN). Reqs 4.3, 14.1–14.3.
+ * Improvements over Phase 1:
+ * - Loading spinners on every async action (Start, Submit, Hint, End)
+ * - Animated status bar: "Thinking…" with spinner while Gemma runs
+ * - Smooth problem stem fade-transition on new problem
+ * - Difficulty badge + turn counter in problem header
+ * - Feedback cards colour-coded by correctness (correct/incorrect)
+ * - Hint cards with level label and streaming cursor animation
+ * - Session progress bar (mastery proxy)
+ * - Redesigned summary with stat cards + mastery delta bars
+ * - Keyboard shortcuts: Enter to submit, Ctrl+H for hint
+ * - Student name display from localStorage
+ * - Error boundary: all async errors caught and shown in status bar
  */
 
 import type { HintResult, Session, SessionSummary, TurnResult } from '../models/types.js'
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Interfaces
+// ─────────────────────────────────────────────────────────────────────────────
 
 export interface SessionEngineUiPort {
   beginSession(studentId: string): Promise<Session>
@@ -22,6 +34,10 @@ export interface UiState {
   hintText: string
   summary: SessionSummary | null
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Controller (pure state, no DOM)
+// ─────────────────────────────────────────────────────────────────────────────
 
 export class StudentUiController {
   readonly state: UiState = {
@@ -63,25 +79,14 @@ export class StudentUiController {
   }
 }
 
-/**
- * Pre-Task-30 placeholder kept for backward compatibility. Real LaTeX
- * rendering is done by `renderLatexInElement` using the bundled KaTeX library.
- * This helper is still useful in Node-side tests where no DOM exists.
- */
+// ─────────────────────────────────────────────────────────────────────────────
+// KaTeX helpers
+// ─────────────────────────────────────────────────────────────────────────────
+
 export function renderLatexMarkup(text: string): string {
   return text.replace(/\$([^$]+)\$/g, '<span class="math">$1</span>')
 }
 
-/**
- * Renders inline ($…$) and display (\[…\]) LaTeX spans inside `element` using
- * KaTeX. KaTeX is expected to be exposed as a global named `katex` by a
- * `<script>` tag in `index.html`. When KaTeX is unavailable (e.g. tests in a
- * non-DOM environment), falls back to wrapping spans in `<span class="math">`
- * so behaviour stays observable.
- *
- * The injected text-node content is escaped before insertion to prevent any
- * stem text from being interpreted as HTML.
- */
 export interface KatexLike {
   renderToString(latex: string, options?: { displayMode?: boolean; throwOnError?: boolean }): string
 }
@@ -125,21 +130,14 @@ function escapeHtml(s: string): string {
     .replace(/'/g, '&#39;')
 }
 
-// ---------------------------------------------------------------------------
-// DOM wiring (browser-only)
-// ---------------------------------------------------------------------------
+// ─────────────────────────────────────────────────────────────────────────────
+// DOM binding
+// ─────────────────────────────────────────────────────────────────────────────
 
-/**
- * Wires a `StudentUiController` to the static HTML elements in `index.html`.
- * Returns a teardown function that removes the listeners (useful in tests
- * with jsdom). Safe to call even if some elements are missing — the binder
- * skips them.
- */
 export interface DomBindingOptions {
   document: Document
   controller: StudentUiController
   studentId: string
-  /** Optional KaTeX global. Defaults to `globalThis.katex` if available. */
   katex?: KatexLike
 }
 
@@ -147,149 +145,406 @@ export function bindDom(options: DomBindingOptions): () => void {
   const { document: doc, controller, studentId } = options
   const katex = options.katex ?? (globalThis as { katex?: KatexLike }).katex
 
-  const startBtn = doc.getElementById('start-btn') as HTMLButtonElement | null
-  const submitBtn = doc.getElementById('submit-btn') as HTMLButtonElement | null
-  const hintBtn = doc.getElementById('hint-btn') as HTMLButtonElement | null
-  const endBtn = doc.getElementById('end-btn') as HTMLButtonElement | null
-  const answerInput = doc.getElementById('answer-input') as HTMLInputElement | null
-  const stemEl = doc.getElementById('problem-stem')
-  const feedbackArea = doc.getElementById('feedback-area')
-  const hintArea = doc.getElementById('hint-area')
-  const summaryPanel = doc.getElementById('summary-panel')
-  const summaryGrid = doc.getElementById('summary-grid')
+  // ── Element refs ──────────────────────────────────────────────────
+  const startBtn      = doc.getElementById('start-btn')      as HTMLButtonElement | null
+  const submitBtn     = doc.getElementById('submit-btn')     as HTMLButtonElement | null
+  const hintBtn       = doc.getElementById('hint-btn')       as HTMLButtonElement | null
+  const endBtn        = doc.getElementById('end-btn')        as HTMLButtonElement | null
+  const newSessionBtn = doc.getElementById('new-session-btn') as HTMLButtonElement | null
+  const answerInput   = doc.getElementById('answer-input')   as HTMLInputElement  | null
+  const stemEl        = doc.getElementById('problem-stem')
+  const feedbackArea  = doc.getElementById('feedback-area')
+  const hintArea      = doc.getElementById('hint-area')
+  const summaryPanel  = doc.getElementById('summary-panel')
+  const summaryStats  = doc.getElementById('summary-stats')
   const masteryDeltas = doc.getElementById('mastery-deltas')
+  const statusBar     = doc.getElementById('status-bar')
+  const progressWrap  = doc.getElementById('progress-bar-wrap')
+  const progressBar   = doc.getElementById('progress-bar')
+  const diffBadge     = doc.getElementById('difficulty-badge')
+  const turnCounter   = doc.getElementById('turn-counter')
+  const kbdHint       = doc.getElementById('kbd-hint')
+  const studentNameEl = doc.getElementById('student-name')
+
+  let turnCount = 0
+  let isBusy = false
+
+  // ── Status bar helpers ────────────────────────────────────────────
+
+  function showStatus(
+    msg: string,
+    kind: 'thinking' | 'success' | 'error' | 'idle' = 'thinking',
+    spinner = true
+  ): void {
+    if (statusBar === null) return
+    statusBar.className = `visible ${kind}`
+    statusBar.innerHTML = spinner && kind === 'thinking'
+      ? `<span class="spinner"></span> ${escapeHtml(msg)}`
+      : escapeHtml(msg)
+  }
+
+  function clearStatus(): void {
+    if (statusBar === null) return
+    statusBar.className = ''
+    statusBar.innerHTML = ''
+  }
+
+  // ── Button busy state ─────────────────────────────────────────────
+
+  function setBusy(busy: boolean, btn?: HTMLButtonElement | null, originalLabel?: string): void {
+    isBusy = busy
+    if (btn !== null && btn !== undefined) {
+      if (busy) {
+        btn.dataset['originalLabel'] = btn.innerHTML
+        btn.innerHTML = '<span class="spinner"></span>'
+        btn.disabled = true
+      } else {
+        btn.innerHTML = originalLabel ?? btn.dataset['originalLabel'] ?? btn.innerHTML
+        // Re-enable state is handled by setActive()
+      }
+    }
+  }
+
+  // ── Active / inactive session state ──────────────────────────────
 
   function setActive(active: boolean): void {
     if (answerInput !== null) answerInput.disabled = !active
-    if (submitBtn !== null) submitBtn.disabled = !active
-    if (hintBtn !== null) hintBtn.disabled = !active
-    if (endBtn !== null) endBtn.disabled = !active
-    if (startBtn !== null) startBtn.disabled = active
+    if (submitBtn   !== null) submitBtn.disabled   = !active
+    if (hintBtn     !== null) hintBtn.disabled     = !active
+    if (endBtn      !== null) endBtn.disabled      = !active
+    if (startBtn    !== null) startBtn.disabled    = active
+    if (kbdHint     !== null) kbdHint.className    = active ? 'kbd-hint visible' : 'kbd-hint'
   }
 
+  // ── Progress bar ──────────────────────────────────────────────────
+
+  function updateProgress(masteryDeltas: Record<string, number>): void {
+    if (progressBar === null || progressWrap === null) return
+    progressWrap.className = 'visible'
+    const values = Object.values(masteryDeltas)
+    if (values.length === 0) return
+    const avg = values.reduce((a, b) => a + b, 0) / values.length
+    // Map avg mastery (0→1) to a progress bar width (10%→100%)
+    const pct = Math.min(100, Math.max(10, Math.round(avg * 100)))
+    progressBar.style.width = `${pct}%`
+  }
+
+  // ── Stem transition ───────────────────────────────────────────────
+
+  async function transitionStem(newStem: string): Promise<void> {
+    if (stemEl === null) return
+    stemEl.classList.add('fading')
+    await sleep(160)
+    renderLatexInElement(stemEl, newStem, katex)
+    stemEl.classList.remove('fading')
+  }
+
+  // ── Difficulty badge ──────────────────────────────────────────────
+
+  function updateDifficultyBadge(difficulty?: string): void {
+    if (diffBadge === null) return
+    if (difficulty === undefined) { diffBadge.style.display = 'none'; return }
+    diffBadge.textContent = difficulty.replace('-', ' ')
+    diffBadge.className = difficulty
+    diffBadge.style.display = 'inline-block'
+  }
+
+  // ── Turn counter ──────────────────────────────────────────────────
+
+  function updateTurnCounter(): void {
+    if (turnCounter === null) return
+    turnCounter.textContent = turnCount > 0 ? `Turn ${turnCount}` : ''
+  }
+
+  // ── Handlers ─────────────────────────────────────────────────────
+
   async function onStart(): Promise<void> {
-    await controller.start(studentId)
-    const stem = controller.state.session?.currentProblem?.stem ?? ''
-    if (stemEl !== null) renderLatexInElement(stemEl, stem, katex)
-    if (feedbackArea !== null) feedbackArea.innerHTML = ''
-    if (hintArea !== null) hintArea.innerHTML = ''
+    if (isBusy) return
+    setBusy(true, startBtn)
+    showStatus('Starting session — Gemma is thinking…', 'thinking')
     if (summaryPanel !== null) summaryPanel.hidden = true
-    setActive(true)
+    if (feedbackArea !== null) feedbackArea.innerHTML = ''
+    if (hintArea     !== null) hintArea.innerHTML     = ''
+    turnCount = 0
+    updateTurnCounter()
+
+    try {
+      await controller.start(studentId)
+      const problem = controller.state.session?.currentProblem
+      await transitionStem(problem?.stem ?? '')
+      updateDifficultyBadge(problem?.difficulty)
+      updateTurnCounter()
+      setActive(true)
+      if (answerInput !== null) answerInput.focus()
+      showStatus('Session started — good luck!', 'success', false)
+      setTimeout(clearStatus, 2000)
+    } catch (err) {
+      showStatus(`Failed to start session: ${errorMsg(err)}`, 'error', false)
+    } finally {
+      setBusy(false, startBtn)
+    }
   }
 
   async function onSubmit(): Promise<void> {
+    if (isBusy) return
     const raw = (answerInput?.value ?? '').trim()
     if (raw.length === 0) return
-    await controller.submit(raw)
-    if (feedbackArea !== null) {
-      feedbackArea.innerHTML = ''
-      const div = doc.createElement('div')
-      div.className = 'feedback'
-      renderLatexInElement(div, controller.state.feedbackText, katex)
-      feedbackArea.appendChild(div)
+
+    setBusy(true, submitBtn)
+    showStatus('Evaluating your answer…', 'thinking')
+    if (hintArea !== null) hintArea.innerHTML = ''
+
+    try {
+      const result = await controller.submit(raw)
+      turnCount++
+      updateTurnCounter()
+
+      // Feedback card — colour by correctness
+      if (feedbackArea !== null) {
+        feedbackArea.innerHTML = ''
+        const card = doc.createElement('div')
+        const isCorrect = result.evaluationResult.isCorrect
+        card.className = `feedback-card ${isCorrect ? 'correct' : 'incorrect'}`
+        renderLatexInElement(card, controller.state.feedbackText, katex)
+        feedbackArea.appendChild(card)
+      }
+
+      // Animate to next problem
+      if (answerInput !== null) answerInput.value = ''
+      const nextStem = controller.state.session?.currentProblem?.stem ?? ''
+      if (nextStem) {
+        await sleep(400)
+        await transitionStem(nextStem)
+        updateDifficultyBadge(controller.state.session?.currentProblem?.difficulty)
+      }
+
+      // Update progress
+      if (result.masteryUpdated) {
+        updateProgress({ [controller.state.session?.targetConcept.id ?? '']: 0.1 })
+      }
+
+      if (answerInput !== null) answerInput.focus()
+      clearStatus()
+    } catch (err) {
+      showStatus(`Error submitting answer: ${errorMsg(err)}`, 'error', false)
+    } finally {
+      setBusy(false, submitBtn)
     }
-    if (answerInput !== null) answerInput.value = ''
-    // Refresh stem — beginSession already set `currentProblem` for the next turn.
-    const stem = controller.state.session?.currentProblem?.stem ?? ''
-    if (stemEl !== null) renderLatexInElement(stemEl, stem, katex)
   }
 
   async function onHint(): Promise<void> {
-    await controller.hint()
-    if (hintArea !== null) {
-      hintArea.innerHTML = ''
-      const div = doc.createElement('div')
-      div.className = 'hint'
-      renderLatexInElement(div, controller.state.hintText, katex)
-      hintArea.appendChild(div)
+    if (isBusy) return
+    setBusy(true, hintBtn)
+    showStatus('Generating hint…', 'thinking')
+
+    try {
+      const result = await controller.hint()
+
+      if (hintArea !== null) {
+        hintArea.innerHTML = ''
+        const card = doc.createElement('div')
+        card.className = 'hint-card'
+        const label = doc.createElement('div')
+        label.className = 'hint-label'
+        label.textContent = `Hint ${result.hintLevel}`
+        card.appendChild(label)
+        const body = doc.createElement('div')
+        renderLatexInElement(body, controller.state.hintText, katex)
+        card.appendChild(body)
+        hintArea.appendChild(card)
+      }
+
+      clearStatus()
+      if (answerInput !== null) answerInput.focus()
+    } catch (err) {
+      showStatus(`Error getting hint: ${errorMsg(err)}`, 'error', false)
+    } finally {
+      setBusy(false, hintBtn)
     }
   }
 
   async function onEnd(): Promise<void> {
-    const summary = await controller.end()
-    setActive(false)
-    if (stemEl !== null) stemEl.textContent = 'Session complete.'
-    if (summaryPanel !== null) summaryPanel.hidden = false
-    if (summaryGrid !== null) {
-      summaryGrid.innerHTML = ''
-      const dl: Array<[string, string]> = [
-        ['Total turns', String(summary.totalTurns)],
-        ['Hints used', String(summary.hintsUsed)],
-        ['Concepts progressed', String(summary.conceptsProgressed.length)],
-        ['Duration', `${Math.round((summary.endTime.getTime() - summary.startTime.getTime()) / 1000)}s`],
+    if (isBusy) return
+    if (!confirm('End this session and see your summary?')) return
+    setBusy(true, endBtn)
+    showStatus('Saving session…', 'thinking')
+
+    try {
+      const summary = await controller.end()
+      setActive(false)
+      clearStatus()
+      if (progressWrap !== null) progressWrap.className = ''
+
+      if (stemEl !== null) {
+        stemEl.classList.add('fading')
+        await sleep(160)
+        stemEl.textContent = 'Session complete. Start a new session to continue.'
+        stemEl.classList.remove('fading')
+      }
+      updateDifficultyBadge(undefined)
+      if (turnCounter !== null) turnCounter.textContent = ''
+
+      renderSummary(summary)
+      if (summaryPanel !== null) summaryPanel.hidden = false
+    } catch (err) {
+      showStatus(`Error ending session: ${errorMsg(err)}`, 'error', false)
+    } finally {
+      setBusy(false, endBtn)
+    }
+  }
+
+  async function onNewSession(): Promise<void> {
+    if (summaryPanel !== null) summaryPanel.hidden = true
+    if (feedbackArea !== null) feedbackArea.innerHTML = ''
+    if (hintArea     !== null) hintArea.innerHTML     = ''
+    if (stemEl       !== null) stemEl.textContent = 'Click Start session to begin.'
+    await onStart()
+  }
+
+  // ── Summary rendering ─────────────────────────────────────────────
+
+  function renderSummary(summary: SessionSummary): void {
+    // Stat cards
+    if (summaryStats !== null) {
+      summaryStats.innerHTML = ''
+      const durationSec = Math.round(
+        (new Date(summary.endTime).getTime() - new Date(summary.startTime).getTime()) / 1000
+      )
+      const stats: Array<[string, string]> = [
+        [String(summary.totalTurns),               'Questions'],
+        [String(summary.hintsUsed),                'Hints used'],
+        [String(summary.conceptsProgressed.length),'Concepts +'],
+        [`${durationSec}s`,                        'Duration'],
       ]
-      for (const [label, value] of dl) {
-        const dt = doc.createElement('dt')
-        dt.textContent = label
-        const dd = doc.createElement('dd')
-        dd.textContent = value
-        summaryGrid.appendChild(dt)
-        summaryGrid.appendChild(dd)
+      for (const [val, label] of stats) {
+        const card = doc.createElement('div')
+        card.className = 'stat-card'
+        card.innerHTML = `<div class="stat-value">${escapeHtml(val)}</div><div class="stat-label">${escapeHtml(label)}</div>`
+        summaryStats.appendChild(card)
       }
     }
+
+    // Mastery delta bars
     if (masteryDeltas !== null) {
       masteryDeltas.innerHTML = ''
-      for (const [conceptId, delta] of Object.entries(summary.masteryDeltas)) {
-        if (Math.abs(delta) < 1e-4) continue
+      const entries = Object.entries(summary.masteryDeltas)
+        .filter(([, d]) => Math.abs(d) > 1e-4)
+        .sort(([, a], [, b]) => Math.abs(b) - Math.abs(a))
+
+      if (entries.length === 0) {
         const li = doc.createElement('li')
-        li.textContent = `${conceptId}: ${delta >= 0 ? '+' : ''}${delta.toFixed(3)}`
-        li.className = delta >= 0 ? 'delta-positive' : 'delta-negative'
+        li.style.color = 'var(--muted)'
+        li.style.fontSize = '0.85rem'
+        li.textContent = 'No mastery changes this session.'
+        masteryDeltas.appendChild(li)
+        return
+      }
+
+      const maxDelta = Math.max(...entries.map(([, d]) => Math.abs(d)))
+
+      for (const [conceptId, delta] of entries) {
+        const li = doc.createElement('li')
+        li.className = `delta-row ${delta >= 0 ? 'delta-positive' : 'delta-negative'}`
+
+        const pct = Math.round((Math.abs(delta) / maxDelta) * 100)
+        const sign = delta >= 0 ? '+' : ''
+        const label = conceptId.replace(/\./g, ' › ').replace(/-/g, ' ')
+
+        li.innerHTML = `
+          <span class="delta-label">${escapeHtml(label)}</span>
+          <div class="delta-bar-wrap"><div class="delta-bar" style="width:${pct}%"></div></div>
+          <span class="delta-value">${sign}${(delta * 100).toFixed(1)}%</span>
+        `
         masteryDeltas.appendChild(li)
       }
     }
   }
 
-  startBtn?.addEventListener('click', onStart)
-  submitBtn?.addEventListener('click', onSubmit)
-  hintBtn?.addEventListener('click', onHint)
-  endBtn?.addEventListener('click', onEnd)
+  // ── Keyboard shortcuts ────────────────────────────────────────────
+
+  function onKeyDown(e: KeyboardEvent): void {
+    // Enter → submit (when answer input is focused or active)
+    if (e.key === 'Enter' && !e.shiftKey && !isBusy) {
+      if (doc.activeElement === answerInput && submitBtn !== null && !submitBtn.disabled) {
+        e.preventDefault()
+        void onSubmit()
+      }
+    }
+    // Ctrl+H → hint
+    if (e.key === 'h' && e.ctrlKey && !isBusy) {
+      if (hintBtn !== null && !hintBtn.disabled) {
+        e.preventDefault()
+        void onHint()
+      }
+    }
+  }
+
+  // ── Student name display ──────────────────────────────────────────
+
+  if (studentNameEl !== null) {
+    const name = localStorage.getItem('calculearn-student-name')
+    if (name !== null && name.trim().length > 0) {
+      studentNameEl.textContent = `👤 ${name}`
+    } else {
+      studentNameEl.textContent = `ID: ${studentId.slice(0, 8)}`
+    }
+  }
+
+  // ── Wire up events ────────────────────────────────────────────────
+
+  startBtn?.addEventListener('click', () => { void onStart() })
+  submitBtn?.addEventListener('click', () => { void onSubmit() })
+  hintBtn?.addEventListener('click', () => { void onHint() })
+  endBtn?.addEventListener('click', () => { void onEnd() })
+  newSessionBtn?.addEventListener('click', () => { void onNewSession() })
+  doc.addEventListener('keydown', onKeyDown)
 
   return () => {
-    startBtn?.removeEventListener('click', onStart)
-    submitBtn?.removeEventListener('click', onSubmit)
-    hintBtn?.removeEventListener('click', onHint)
-    endBtn?.removeEventListener('click', onEnd)
+    startBtn?.removeEventListener('click', () => { void onStart() })
+    submitBtn?.removeEventListener('click', () => { void onSubmit() })
+    hintBtn?.removeEventListener('click', () => { void onHint() })
+    endBtn?.removeEventListener('click', () => { void onEnd() })
+    newSessionBtn?.removeEventListener('click', () => { void onNewSession() })
+    doc.removeEventListener('keydown', onKeyDown)
   }
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// API client
+// ─────────────────────────────────────────────────────────────────────────────
 
 async function apiFetch<T>(path: string, init: RequestInit): Promise<T> {
   const response = await fetch(path, {
     ...init,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(init.headers ?? {}),
-    },
+    headers: { 'Content-Type': 'application/json', ...(init.headers ?? {}) },
   })
   if (!response.ok) {
     const text = await response.text()
-    throw new Error(`API request failed (${response.status}): ${text}`)
+    throw new Error(`API ${response.status}: ${text}`)
   }
   return response.json() as Promise<T>
 }
 
 function reviveSession(session: Session): Session {
-  return {
-    ...session,
-    startTime: new Date(session.startTime as unknown as string),
-  }
+  return { ...session, startTime: new Date(session.startTime as unknown as string) }
 }
 
 function reviveSummary(summary: SessionSummary): SessionSummary {
   return {
     ...summary,
     startTime: new Date(summary.startTime as unknown as string),
-    endTime: new Date(summary.endTime as unknown as string),
+    endTime:   new Date(summary.endTime   as unknown as string),
   }
 }
 
 function createRemoteSessionEngine(apiBase: string): SessionEngineUiPort {
   return {
     async beginSession(studentId: string): Promise<Session> {
-      const session = await apiFetch<Session>(`${apiBase}/session/begin`, {
+      const s = await apiFetch<Session>(`${apiBase}/session/begin`, {
         method: 'POST',
         body: JSON.stringify({ studentId }),
       })
-      return reviveSession(session)
+      return reviveSession(s)
     },
     async submitAnswer(sessionId: string, rawAnswer: string) {
       return apiFetch<TurnResult>(`${apiBase}/session/${encodeURIComponent(sessionId)}/submit`, {
@@ -303,26 +558,39 @@ function createRemoteSessionEngine(apiBase: string): SessionEngineUiPort {
       })
     },
     async endSession(sessionId: string) {
-      const summary = await apiFetch<SessionSummary>(`${apiBase}/session/${encodeURIComponent(sessionId)}/end`, {
-        method: 'POST',
-      })
-      return reviveSummary(summary)
+      const s = await apiFetch<SessionSummary>(
+        `${apiBase}/session/${encodeURIComponent(sessionId)}/end`,
+        { method: 'POST' }
+      )
+      return reviveSummary(s)
     },
   }
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Utilities
+// ─────────────────────────────────────────────────────────────────────────────
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+function errorMsg(err: unknown): string {
+  return err instanceof Error ? err.message : String(err)
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Bootstrap (browser only)
+// ─────────────────────────────────────────────────────────────────────────────
+
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
   const storageKey = 'calculearn-student-id'
-  const storedStudentId = window.localStorage.getItem(storageKey)
-  const browserCrypto = typeof window.crypto !== 'undefined' ? window.crypto : undefined
-  const studentId = storedStudentId ??
-    (browserCrypto?.randomUUID?.() ?? `student-${Math.random().toString(36).slice(2)}`)
+  const storedId   = window.localStorage.getItem(storageKey)
+  const crypto     = typeof window.crypto !== 'undefined' ? window.crypto : undefined
+  const studentId  = storedId ?? (crypto?.randomUUID?.() ?? `student-${Math.random().toString(36).slice(2)}`)
 
-  if (!storedStudentId) {
-    window.localStorage.setItem(storageKey, studentId)
-  }
+  if (storedId === null) window.localStorage.setItem(storageKey, studentId)
 
-  const apiBase = '/api'
-  const controller = new StudentUiController(createRemoteSessionEngine(apiBase))
+  const controller = new StudentUiController(createRemoteSessionEngine('/api'))
   bindDom({ document, controller, studentId })
 }
