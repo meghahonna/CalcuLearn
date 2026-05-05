@@ -305,82 +305,83 @@ export class DialogueGenerator {
 }
 
 /**
- * NodeLlamaCppBackend — Phase 1 fix #3.
+ * NodeLlamaCppBackend
  *
- * Previously a single LlamaChatSession was reused across all inference calls,
- * causing the chat history to grow with every turn. This made inference
- * progressively slower as the session accumulated context.
- *
- * Fix: hold the loaded model + context at the class level but create a fresh
- * LlamaChatSession for every infer() call. This keeps inference time consistent
- * across turns while still amortising the expensive model-load cost.
- */
-/**
- * NodeLlamaCppBackend — Phase 1 fix #3.
- *
- * Hold the loaded llama + model at class level (expensive, load once).
- * For each inference call, create a fresh context + session so there is
- * no accumulated chat history and no "No sequences left" exhaustion.
- * This keeps inference time consistent across turns.
+ * Strategy:
+ * - Load model ONCE (expensive).
+ * - Create ONE context with sequences=1 after model load.
+ * - For each inference: get the sequence, run prompt, then call
+ *   sequence.clearHistory() to wipe the KV cache so the next call
+ *   starts clean — no context accumulation, no dispose() crashes.
+ * - All calls serialised via inferQueue (node-llama-cpp is single-threaded).
  */
 class NodeLlamaCppBackend implements DialogueModelBackend {
   private llama: Awaited<ReturnType<typeof getLlama>> | null = null
   private model: Awaited<ReturnType<Awaited<ReturnType<typeof getLlama>>['loadModel']>> | null = null
+  private context: Awaited<ReturnType<NonNullable<typeof this.model>['createContext']>> | null = null
   private currentContextTokens = DEFAULT_CONTEXT_TOKENS
-  private modelPath = ''
+  private loadedModelPath = ''
+  private inferQueue: Promise<unknown> = Promise.resolve()
 
   async load(config: { modelPath: string; contextTokens: number }): Promise<void> {
-    // Re-use existing model if nothing changed
     if (
       this.model !== null &&
-      this.modelPath === config.modelPath &&
+      this.context !== null &&
+      this.loadedModelPath === config.modelPath &&
       this.currentContextTokens === config.contextTokens
     ) return
 
     this.currentContextTokens = config.contextTokens
-    this.modelPath = config.modelPath
+    this.loadedModelPath = config.modelPath
     this.llama = await getLlama()
     this.model = await this.llama.loadModel({ modelPath: config.modelPath })
+    this.context = await this.model.createContext({
+      contextSize: Math.min(DEFAULT_CONTEXT_TOKENS, config.contextTokens),
+      sequences: 1,
+    })
     console.log(`[NodeLlamaCppBackend] Model loaded: ${config.modelPath}`)
   }
 
-  /**
-   * Create a fresh context + session per call.
-   * Contexts are cheap to create once the model weights are loaded.
-   */
-  private async createSession(contextTokens: number): Promise<LlamaChatSession> {
-    if (this.model === null) throw new Error('Gemma model has not been loaded')
-    const context = await this.model.createContext({
-      contextSize: Math.min(DEFAULT_CONTEXT_TOKENS, contextTokens),
-      sequences: 1,
-    })
-    return new LlamaChatSession({ contextSequence: context.getSequence() })
+  private async runInference(
+    prompt: string,
+    maxTokens: number,
+    onChunk?: (chunk: string) => void
+  ): Promise<string> {
+    if (this.context === null) throw new Error('Gemma model has not been loaded')
+    const sequence = this.context.getSequence()
+    try {
+      const session = new LlamaChatSession({ contextSequence: sequence })
+      const output = await session.prompt(prompt, {
+        maxTokens,
+        temperature: 0.4,
+        ...(onChunk !== undefined ? { onTextChunk: onChunk } : {}),
+      })
+      return output
+    } finally {
+      // Clear KV cache history so the sequence slot is reusable next call
+      // without calling dispose() which triggers a native crash on this version
+      try { await sequence.clearHistory() } catch { /* best-effort */ }
+    }
   }
 
   async infer(prompt: string, config: { contextTokens: number; maxTokens: number }): Promise<string> {
-    const session = await this.createSession(config.contextTokens)
-    return session.prompt(prompt, {
-      maxTokens: config.maxTokens,
-      temperature: 0.4,
-    })
+    const result = this.inferQueue.then(() => this.runInference(prompt, config.maxTokens))
+    this.inferQueue = result.catch(() => undefined)
+    return result
   }
 
   async *inferStream(
     prompt: string,
     config: { contextTokens: number; maxTokens: number }
   ): AsyncIterable<string> {
-    const session = await this.createSession(config.contextTokens)
     const tokens: string[] = []
-    await session.prompt(prompt, {
-      maxTokens: config.maxTokens,
-      temperature: 0.4,
-      onTextChunk: (chunk: string) => { tokens.push(chunk) },
-    })
-    for (const token of tokens) {
-      yield token
-    }
+    await (this.inferQueue = this.inferQueue
+      .then(() => this.runInference(prompt, config.maxTokens, (chunk) => tokens.push(chunk)))
+      .catch(() => undefined))
+    for (const token of tokens) yield token
   }
 }
+
 
 function systemInstruction(): string {
   return [
@@ -520,4 +521,18 @@ function capApproxContext(prompt: string, maxTokens: number): string {
   return prompt.length <= maxChars
     ? prompt
     : `${prompt.slice(0, maxChars - 80)}\n[Session history summarized due to context limit.]`
-}
+}/**
+ * NodeLlamaCppBackend
+ *
+ * Strategy: load model + context + session ONCE, then reuse the same
+ * LlamaChatSession for every prompt. This is the only pattern that works
+ * reliably with node-llama-cpp — creating new sessions/contexts causes
+ * sequence exhaustion or native crashes on this version.
+ *
+ * The session accumulates chat history across calls, which is fine because
+ * each prompt is self-contained (we pass the full context in the prompt text)
+ * and the context window (2048 tokens) is large enough for many turns.
+ *
+ * All calls are serialised via inferQueue (node-llama-cpp is single-threaded).
+ */
+
