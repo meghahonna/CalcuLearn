@@ -31,8 +31,8 @@ import type {
 } from '../models/types.js'
 
 // Raised from 10 s → 30 s (Phase 1 fix #4)
-const DEFAULT_TIMEOUT_MS = 30_000
-const DEFAULT_CONTEXT_TOKENS = 2048
+const DEFAULT_TIMEOUT_MS = 120_000
+const DEFAULT_CONTEXT_TOKENS = 4096
 const MIN_CONTEXT_TOKENS = 512
 const MAX_OUTPUT_WORDS = 150
 
@@ -285,20 +285,18 @@ export class DialogueGenerator {
         this.backend.infer(prompt, { contextTokens: this.contextTokens, maxTokens }),
         this.timeoutMs
       )
-      return capWords(output.trim(), MAX_OUTPUT_WORDS)
+      // Guard against undefined/null from the backend
+      const text = (output ?? '').trim()
+      return capWords(text.length > 0 ? text : fallback, MAX_OUTPUT_WORDS)
     } catch (err: unknown) {
-      const previousContext = this.contextTokens
-      this.contextTokens = Math.max(MIN_CONTEXT_TOKENS, Math.floor(this.contextTokens / 2))
-
-      if (this.contextTokens < previousContext) {
-        this.loadPromise = null
-      }
-
       this.logger.error(
-        `[DialogueGenerator] Inference timeout/failure; using fallback and reducing context to ${this.contextTokens}: ${
+        `[DialogueGenerator] Inference timeout/failure; using fallback: ${
           err instanceof Error ? err.message : String(err)
         }`
       )
+      // Do NOT null loadPromise or reduce contextTokens — the session is
+      // still valid and reloading creates a new backend that can't get a
+      // sequence slot, causing an infinite "No sequences left" cascade.
       return capWords(fallback, MAX_OUTPUT_WORDS)
     }
   }
@@ -315,69 +313,39 @@ export class DialogueGenerator {
  *   starts clean — no context accumulation, no dispose() crashes.
  * - All calls serialised via inferQueue (node-llama-cpp is single-threaded).
  */
+
 class NodeLlamaCppBackend implements DialogueModelBackend {
-  private llama: Awaited<ReturnType<typeof getLlama>> | null = null
-  private model: Awaited<ReturnType<Awaited<ReturnType<typeof getLlama>>['loadModel']>> | null = null
-  private context: Awaited<ReturnType<NonNullable<typeof this.model>['createContext']>> | null = null
-  private currentContextTokens = DEFAULT_CONTEXT_TOKENS
+  private session: LlamaChatSession | null = null
   private loadedModelPath = ''
+  private loadedContextTokens = DEFAULT_CONTEXT_TOKENS
   private inferQueue: Promise<unknown> = Promise.resolve()
 
   async load(config: { modelPath: string; contextTokens: number }): Promise<void> {
-    if (
-      this.model !== null &&
-      this.context !== null &&
-      this.loadedModelPath === config.modelPath &&
-      this.currentContextTokens === config.contextTokens
-    ) return
-
-    this.currentContextTokens = config.contextTokens
+    if (this.session !== null && this.loadedModelPath === config.modelPath && this.loadedContextTokens === config.contextTokens) return
     this.loadedModelPath = config.modelPath
-    this.llama = await getLlama()
-    this.model = await this.llama.loadModel({ modelPath: config.modelPath })
-    this.context = await this.model.createContext({
-      contextSize: Math.min(DEFAULT_CONTEXT_TOKENS, config.contextTokens),
-      sequences: 1,
-    })
+    this.loadedContextTokens = config.contextTokens
+    const llama = await getLlama()
+    const model = await llama.loadModel({ modelPath: config.modelPath })
+    const context = await model.createContext({ contextSize: Math.min(DEFAULT_CONTEXT_TOKENS, config.contextTokens), sequences: 1 })
+    this.session = new LlamaChatSession({ contextSequence: context.getSequence() })
     console.log(`[NodeLlamaCppBackend] Model loaded: ${config.modelPath}`)
   }
 
-  private async runInference(
-    prompt: string,
-    maxTokens: number,
-    onChunk?: (chunk: string) => void
-  ): Promise<string> {
-    if (this.context === null) throw new Error('Gemma model has not been loaded')
-    const sequence = this.context.getSequence()
-    try {
-      const session = new LlamaChatSession({ contextSequence: sequence })
-      const output = await session.prompt(prompt, {
-        maxTokens,
-        temperature: 0.4,
-        ...(onChunk !== undefined ? { onTextChunk: onChunk } : {}),
-      })
-      return output
-    } finally {
-      // Clear KV cache history so the sequence slot is reusable next call
-      // without calling dispose() which triggers a native crash on this version
-      try { await sequence.clearHistory() } catch { /* best-effort */ }
-    }
-  }
-
   async infer(prompt: string, config: { contextTokens: number; maxTokens: number }): Promise<string> {
-    const result = this.inferQueue.then(() => this.runInference(prompt, config.maxTokens))
+    const result = this.inferQueue.then(async () => {
+      if (this.session === null) throw new Error('Model not loaded')
+      return this.session.prompt(prompt, { maxTokens: config.maxTokens, temperature: 0.4 })
+    })
     this.inferQueue = result.catch(() => undefined)
     return result
   }
 
-  async *inferStream(
-    prompt: string,
-    config: { contextTokens: number; maxTokens: number }
-  ): AsyncIterable<string> {
+  async *inferStream(prompt: string, config: { contextTokens: number; maxTokens: number }): AsyncIterable<string> {
     const tokens: string[] = []
-    await (this.inferQueue = this.inferQueue
-      .then(() => this.runInference(prompt, config.maxTokens, (chunk) => tokens.push(chunk)))
-      .catch(() => undefined))
+    await (this.inferQueue = this.inferQueue.then(async () => {
+      if (this.session === null) throw new Error('Model not loaded')
+      await this.session.prompt(prompt, { maxTokens: config.maxTokens, temperature: 0.4, onTextChunk: (chunk: string) => { tokens.push(chunk) } })
+    }).catch(() => undefined))
     for (const token of tokens) yield token
   }
 }
@@ -511,7 +479,8 @@ function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
   })
 }
 
-function capWords(text: string, maxWords: number): string {
+function capWords(text: string | undefined | null, maxWords: number): string {
+  if (text === undefined || text === null) return ''
   const words = text.split(/\s+/).filter(Boolean)
   return words.length <= maxWords ? text : words.slice(0, maxWords).join(' ')
 }

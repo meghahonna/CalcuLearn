@@ -81,7 +81,7 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
     // Phase 1 fix: bootstrapModel() already verified the hash at startup.
     // Skip the redundant 1.6 GB SHA-256 re-read on every loadModel() call.
     skipHashVerification: true,
-    timeoutMs: config.inferenceTimeoutMs ?? 30_000,
+    timeoutMs: config.inferenceTimeoutMs ?? 120_000,
     logger,
     conceptMap: CONCEPT_MAP,
   })
