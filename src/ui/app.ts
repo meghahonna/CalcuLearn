@@ -595,4 +595,67 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
 
   const controller = new StudentUiController(createRemoteSessionEngine('/api'))
   bindDom({ document, controller, studentId })
+
+  // ── Phase C: mode tabs + Learn Mode wiring ──
+  void (async () => {
+    const { LearnModeUi } = await import('./learnMode.js')
+    const learnContainer = document.getElementById('learn-container') as HTMLElement
+    const practicePanel = document.getElementById('problem-panel') as HTMLElement
+    const summaryPanel = document.getElementById('summary-panel') as HTMLElement
+    const learnUi = new LearnModeUi({ document, studentId })
+    let learnMounted = false
+
+    async function ensureLearnMounted(): Promise<void> {
+      if (!learnMounted) {
+        await learnUi.mount(learnContainer)
+        learnMounted = true
+      }
+    }
+
+    function setMode(mode: 'practice' | 'learn' | 'challenge'): void {
+      document.querySelectorAll('.mode-tab').forEach((b) => {
+        b.classList.toggle('active', (b as HTMLElement).dataset['mode'] === mode)
+      })
+      const showPractice = mode === 'practice'
+      practicePanel.hidden = !showPractice
+      summaryPanel.hidden = !showPractice || summaryPanel.hasAttribute('data-stay-hidden')
+      if (!showPractice) summaryPanel.hidden = true
+      learnContainer.hidden = mode !== 'learn'
+      if (mode === 'learn') void ensureLearnMounted()
+    }
+
+    document.querySelectorAll('.mode-tab').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const mode = (btn as HTMLElement).dataset['mode'] as 'practice' | 'learn' | 'challenge'
+        if (mode && !(btn as HTMLButtonElement).disabled) setMode(mode)
+      })
+    })
+
+    // "I don't know — help me understand" off-ramp from Practice Mode.
+    // Switches to Learn Mode and starts a session for the current problem's concept.
+    const helpBtn = document.getElementById('help-understand-btn') as HTMLButtonElement
+    if (helpBtn) {
+      helpBtn.addEventListener('click', async () => {
+        const conceptId = controller.state.session?.currentProblem?.conceptId
+        if (!conceptId) return
+        helpBtn.disabled = true
+        await ensureLearnMounted()
+        setMode('learn')
+        // Default to novice tier for the off-ramp — student is asking for help
+        try {
+          await learnUi.startConcept(conceptId, 'novice')
+        } catch (err) {
+          console.error('[learn off-ramp]', err)
+        }
+        helpBtn.disabled = false
+      })
+
+      // Enable/disable the help button based on whether a problem is active.
+      // We poll because controller doesn't emit events.
+      setInterval(() => {
+        const hasProblem = !!controller.state.session?.currentProblem
+        helpBtn.disabled = !hasProblem
+      }, 500)
+    }
+  })()
 }
