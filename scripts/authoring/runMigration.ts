@@ -21,7 +21,13 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const DB_PATH = process.env['DB_PATH'] ?? './data/calculearn.sqlite'
-const MIGRATION_SQL = path.resolve(__dirname, '../../migrations/002_concept_content.sql')
+const MIGRATIONS_DIR = path.resolve(__dirname, '../../migrations')
+
+/** Migrations to run, in order. CREATE TABLE IF NOT EXISTS only — idempotent. */
+const MIGRATIONS = [
+  '002_concept_content.sql',
+  '003_adaptive_signals.sql',
+]
 
 interface ColumnInfo {
   cid: number
@@ -68,13 +74,16 @@ function main(): void {
   db.pragma('foreign_keys = ON')
   db.pragma('journal_mode = WAL')
 
-  // --- Step 1: run the SQL file (CREATE TABLE IF NOT EXISTS statements) ---
-  if (!fs.existsSync(MIGRATION_SQL)) {
-    throw new Error(`Migration file not found: ${MIGRATION_SQL}`)
+  // --- Step 1: run each migration SQL file in order ---
+  for (const filename of MIGRATIONS) {
+    const fullPath = path.resolve(MIGRATIONS_DIR, filename)
+    if (!fs.existsSync(fullPath)) {
+      throw new Error(`Migration file not found: ${fullPath}`)
+    }
+    const sql = fs.readFileSync(fullPath, 'utf8')
+    console.log(`[migrate] Executing ${filename}`)
+    db.exec(sql)
   }
-  const sql = fs.readFileSync(MIGRATION_SQL, 'utf8')
-  console.log(`[migrate] Executing 002_concept_content.sql`)
-  db.exec(sql)
 
   // --- Step 2: idempotent ALTER TABLE on problems ---
   console.log(`[migrate] Checking problems table additions`)
@@ -99,6 +108,7 @@ function main(): void {
     'concept_checks',
     'concept_deep_dives',
     'concept_applications',
+    'student_concept_signals',
   ]
   for (const t of expected) {
     if (!tableExists(db, t)) {

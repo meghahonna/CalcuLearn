@@ -216,6 +216,71 @@ async function handleApiRequest(app: CalcuLearnApp, request: IncomingMessage, re
       return
     }
 
+    // -------------------- Phase D: Adaptive Routing --------------------
+
+    // Record a self-reported confidence chip after a Practice problem
+    if (request.method === 'POST' && pathname === '/api/practice/confidence') {
+      const body = (await readRequestBody(request)) as Record<string, unknown>
+      const studentId = requireString(body['studentId'])
+      const conceptId = requireString(body['conceptId'])
+      const confidence = requireString(body['confidence']) as 'got_it' | 'guessed' | 'shaky'
+      if (!['got_it', 'guessed', 'shaky'].includes(confidence)) {
+        sendError(response, 400, `Invalid confidence: \${confidence}`)
+        return
+      }
+      const sig = app.adaptiveRouter.recordConfidence({ studentId, conceptId, confidence })
+      sendJson(response, 200, {
+        archetype: sig.archetype,
+        challengeUnlocked: sig.challengeUnlocked,
+      })
+      return
+    }
+
+    // Get a routing suggestion (e.g., open Learn Mode? unlock Challenge?)
+    if (request.method === 'GET' && pathname.startsWith('/api/adaptive/suggestion')) {
+      const url = new URL(request.url ?? '/', `http://\${request.headers.host}`)
+      const studentId = url.searchParams.get('studentId') ?? ''
+      const conceptId = url.searchParams.get('conceptId') ?? ''
+      if (!studentId || !conceptId) {
+        sendError(response, 400, 'studentId and conceptId required')
+        return
+      }
+      const suggestion = app.adaptiveRouter.suggest(studentId, conceptId)
+      sendJson(response, 200, suggestion)
+      return
+    }
+
+    // Get the full per-concept signal profile for a student (UI dashboard)
+    if (request.method === 'GET' && pathname.startsWith('/api/adaptive/profile')) {
+      const url = new URL(request.url ?? '/', `http://\${request.headers.host}`)
+      const studentId = url.searchParams.get('studentId') ?? ''
+      if (!studentId) {
+        sendError(response, 400, 'studentId required')
+        return
+      }
+      const signals = app.adaptiveRouter.listSignalsForStudent(studentId)
+      sendJson(response, 200, {
+        signals: signals.map((s) => ({
+          conceptId: s.conceptId,
+          archetype: s.archetype,
+          challengeUnlocked: s.challengeUnlocked,
+          practiceAttempts: s.practiceAttempts,
+          practiceCorrect: s.practiceCorrect,
+          accuracy: s.practiceAttempts > 0
+            ? s.practiceCorrect / s.practiceAttempts
+            : null,
+          consecutiveAces: s.consecutiveAces,
+          consecutiveFailures: s.consecutiveFailures,
+          dontKnowCount: s.dontKnowCount,
+          learnEngagements: s.learnEngagements,
+          learnCompletions: s.learnCompletions,
+          lastConfidence: s.lastConfidence,
+          updatedAt: s.updatedAt,
+        })),
+      })
+      return
+    }
+
     sendError(response, 404, 'Not found')
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error'

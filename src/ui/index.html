@@ -625,6 +625,87 @@
       color: white;
     }
 
+
+    /* ── Phase D: confidence chip + adaptive nudge ─────────────────── */
+    .confidence-chip-row {
+      display: none;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 0.6rem;
+      padding: 0.55rem 0.75rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .confidence-chip-row[style*="display: ;"] { display: flex !important; }
+    .confidence-chip-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-right: 0.4rem;
+    }
+    .confidence-chip {
+      background: var(--surface);
+      color: var(--fg);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .confidence-chip:hover {
+      background: var(--accent-light);
+      border-color: var(--accent);
+    }
+    .confidence-chip.selected {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .confidence-chip:disabled {
+      opacity: 0.55;
+      cursor: default;
+    }
+
+    .adaptive-nudge {
+      margin-top: 0.7rem;
+      padding: 0.85rem 1rem;
+      background: var(--accent-light);
+      border: 1px solid var(--accent);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .nudge-message {
+      color: var(--accent-dark);
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+    .nudge-actions {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: flex-end;
+    }
+    .nudge-actions button { font-size: 0.82rem; padding: 0.4rem 0.85rem; }
+
+    .archetype-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-left: 0.4rem;
+    }
+    .archetype-badge.struggling { background: var(--error-bg);   color: var(--error); }
+    .archetype-badge.on_pace    { background: var(--accent-light); color: var(--accent-dark); }
+    .archetype-badge.advanced   { background: var(--success-bg); color: var(--success); }
+    .archetype-badge.unknown    { background: var(--bg); color: var(--muted); }
+
     /* ── Responsive ────────────────────────────────────────────────── */
     @media (max-width: 520px) {
       body { padding: 0.75rem; }
@@ -700,6 +781,9 @@
           I don't know — help me understand
         </button>
       </div>
+
+      <div id="confidence-chip" class="confidence-chip-row" style="display:none;"></div>
+      <div id="adaptive-nudge" class="adaptive-nudge" style="display:none;"></div>
 
       <div class="kbd-hint" id="kbd-hint">
         <kbd>Enter</kbd> to submit &nbsp;·&nbsp; <kbd>Ctrl H</kbd> for hint

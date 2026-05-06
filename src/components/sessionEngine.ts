@@ -19,6 +19,7 @@ import { ProblemEngine } from './problemEngine.js'
 import { AnswerEvaluator } from './answerEvaluator.js'
 import { DialogueGenerator } from './dialogueGenerator.js'
 import { TranslationLayer } from './translationLayer.js'
+import type { AdaptiveRouter } from './adaptiveRouter.js'
 
 export interface SessionEngineOptions {
   ksm: KnowledgeStateManager
@@ -35,6 +36,8 @@ export interface SessionEngineOptions {
   db?: Database
   targetLanguage?: string
   idGenerator?: () => string
+  /** Phase D: optional engagement-signal tracker. */
+  adaptiveRouter?: AdaptiveRouter
 }
 
 export interface ActiveSession {
@@ -54,6 +57,7 @@ export class SessionEngine {
   private readonly db: Database | undefined
   private readonly targetLanguage: string
   private readonly idGenerator: () => string
+  private readonly adaptiveRouter: AdaptiveRouter | undefined
   private readonly sessions = new Map<string, ActiveSession>()
 
   constructor(options: SessionEngineOptions) {
@@ -65,6 +69,7 @@ export class SessionEngine {
     this.db = options.db
     this.targetLanguage = options.targetLanguage ?? 'en'
     this.idGenerator = options.idGenerator ?? (() => randomUUID())
+    this.adaptiveRouter = options.adaptiveRouter
   }
 
   async beginSession(studentId: string): Promise<Session> {
@@ -113,6 +118,14 @@ export class SessionEngine {
     const result = await this.answerEvaluator.evaluate(problem, rawAnswer)
     this.ksm.updateStateForConcept(active.session.studentId, active.state, result, problem.conceptId)
     this.updateCorrectStreak(active, problem, result)
+
+    // Phase D: record this attempt with the adaptive router (if wired).
+    this.adaptiveRouter?.recordPracticeAttempt({
+      studentId: active.session.studentId,
+      conceptId: problem.conceptId,
+      correct: result.isCorrect,
+      hintsUsed: active.session.hintCount,
+    })
 
     const feedbackText = await this.translationLayer.translate(
       await this.dialogueGenerator.generateFeedback(problem, result, active.state),

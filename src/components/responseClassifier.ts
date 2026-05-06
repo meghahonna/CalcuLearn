@@ -114,6 +114,12 @@ export class ResponseClassifier {
       }
     }
 
+    // ---- Heuristic fast path: short answers exact-match ----
+    if (args.expectedAnswer) {
+      const heuristic = quickAnswerMatch(input, args.expectedAnswer)
+      if (heuristic !== null) return { label: heuristic, reason: 'heuristic match' }
+    }
+
     // ---- SLM-based classification (slow path) ----
     return await this.classifyWithSlm({
       studentInput: input,
@@ -183,3 +189,54 @@ Respond with ONLY the label word (e.g. "correct" or "misconception:7"). No prose
     return { label: 'partial_correct', reason: `slm unparseable: ${cleaned}` }
   }
 }
+
+// ---------- Heuristic answer matcher (no SLM call) ----------
+
+/**
+ * Quick match for short, numeric, or single-symbol answers. Returns
+ * 'correct' / 'partial_correct' / 'off_topic' if confident, else null.
+ * The classifier falls back to an SLM call when this returns null.
+ */
+function quickAnswerMatch(
+  input: string,
+  expected: string
+): 'correct' | 'partial_correct' | 'off_topic' | null {
+  const normExp = normalizeForCompare(expected)
+  const normIn = normalizeForCompare(input)
+
+  // Short answers (<= 25 chars normalized) get exact-equality check
+  if (normExp.length <= 25 && normIn.length <= 80) {
+    if (normIn === normExp) return 'correct'
+    // Pure number / single symbol mismatch -> off_topic if the input
+    // doesn't even contain a digit/var the expected does
+    if (/^[\-+]?\d+(\.\d+)?$/.test(normExp)) {
+      // Expected is a plain number
+      if (/^[\-+]?\d+(\.\d+)?$/.test(normIn)) {
+        // Both are numbers but mismatch -> partial (could be small slip)
+        return 'partial_correct'
+      }
+      // Input is not a number at all
+      return null // let SLM decide (could be a worded answer)
+    }
+  }
+
+  // Numeric expected with units / coefficient: extract the number,
+  // see if input contains it.
+  const expNum = expected.match(/-?\d+(?:\.\d+)?/)?.[0]
+  if (expNum && input.includes(expNum)) {
+    // Only call this a partial match — the SLM/structure verifies the rest
+    return 'partial_correct'
+  }
+
+  return null
+}
+
+function normalizeForCompare(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/\$/g, '')             // strip LaTeX delimiters
+    .replace(/\\\\/g, '')        // strip backslashes from LaTeX
+    .replace(/\s+/g, '')            // strip whitespace
+    .replace(/[.,;:!?]+$/g, '')      // trailing punctuation
+}
+

@@ -29,6 +29,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import type { DialogueGenerator } from './dialogueGenerator.js'
 import type { ResponseClassifier, ClassificationResult } from './responseClassifier.js'
+import type { AdaptiveRouter } from './adaptiveRouter.js'
 import type {
   ContentRetrieval,
   Tier,
@@ -247,6 +248,8 @@ export interface LearnModeServiceOptions {
   defaultTier?: Tier
   /** Hard cap on session duration; aborts if exceeded. */
   maxDurationMs?: number
+  /** Phase D: optional engagement-signal tracker. */
+  adaptiveRouter?: AdaptiveRouter
   logger?: Pick<Console, 'log' | 'warn' | 'error'>
 }
 
@@ -257,6 +260,7 @@ export class LearnModeService {
   private readonly defaultTier: Tier
   private readonly maxDurationMs: number
   private readonly logger: Pick<Console, 'log' | 'warn' | 'error'>
+  private readonly adaptiveRouter: AdaptiveRouter | undefined
   private readonly sessions = new Map<string, LearnSession>()
 
   constructor(opts: LearnModeServiceOptions) {
@@ -266,6 +270,7 @@ export class LearnModeService {
     this.defaultTier = opts.defaultTier ?? 'on_pace'
     this.maxDurationMs = opts.maxDurationMs ?? 30 * 60 * 1000 // 30 min
     this.logger = opts.logger ?? console
+    this.adaptiveRouter = opts.adaptiveRouter
   }
 
   // ------------------------------------------------------------------ start
@@ -301,6 +306,12 @@ export class LearnModeService {
       framingsExhausted: false,
     }
     this.sessions.set(session.id, session)
+
+    // Phase D: record Learn engagement.
+    this.adaptiveRouter?.recordLearnEngagement({
+      studentId: args.studentId,
+      conceptId: args.conceptId,
+    })
 
     // Compose the intro turn
     const introMsg = await this.safeInfer(
@@ -437,6 +448,12 @@ export class LearnModeService {
     })
 
     if (classification.label === 'meta_explain_differently' || classification.label === 'dont_know') {
+      if (classification.label === 'dont_know') {
+        this.adaptiveRouter?.recordDontKnow({
+          studentId: session.studentId,
+          conceptId: session.conceptId,
+        })
+      }
       return await this.tryAltFraming(session, classification.label === 'dont_know' ? studentInput : '')
     }
 
@@ -671,6 +688,12 @@ export class LearnModeService {
       }
       case 'dont_know':
       case 'meta_explain_differently': {
+        if (classification.label === 'dont_know') {
+          this.adaptiveRouter?.recordDontKnow({
+            studentId: session.studentId,
+            conceptId: session.conceptId,
+          })
+        }
         return await this.tryAltFraming(session, studentInput)
       }
       case 'meta_skip_ahead': {
@@ -770,6 +793,11 @@ export class LearnModeService {
 
   private async completeSession(session: LearnSession): Promise<LearnTurnResponse> {
     session.stage = 'done'
+    // Phase D: record Learn completion.
+    this.adaptiveRouter?.recordLearnCompletion({
+      studentId: session.studentId,
+      conceptId: session.conceptId,
+    })
     const msg = await this.safeInfer(
       buildDonePrompt({ conceptName: session.conceptName }),
       `Good work on ${session.conceptName}. Want to try a practice problem to lock it in?`,

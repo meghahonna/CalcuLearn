@@ -24,6 +24,7 @@ import { bootstrapModel, type Quantisation } from './bootstrap.js'
 import { ContentRetrieval } from './components/contentRetrieval.js'
 import { ResponseClassifier } from './components/responseClassifier.js'
 import { LearnModeService } from './components/learnModeService.js'
+import { AdaptiveRouter } from './components/adaptiveRouter.js'
 
 export interface CalcuLearnConfig {
   /** Filesystem path to the SQLite database. */
@@ -61,6 +62,8 @@ export interface CalcuLearnApp {
   responseClassifier: ResponseClassifier
   /** Phase B: drives a Socratic walkthrough end-to-end. */
   learnModeService: LearnModeService
+  /** Phase D: per-(student,concept) signal tracker + routing recommendations. */
+  adaptiveRouter: AdaptiveRouter
   /** Cleanly close the SQLite connection. */
   close(): void
 }
@@ -79,6 +82,10 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
 
   // 2. Open or recover the SQLite DB; schema is initialised idempotently.
   const db = recoverOrCreate(config.dbPath)
+
+  // Phase D: AdaptiveRouter must be created early so SessionEngine and
+  // LearnModeService can write engagement signals into it.
+  const adaptiveRouter = new AdaptiveRouter({ db, logger })
 
   // 3. Wire components in dependency order.
   const ksm = new KnowledgeStateManager(db, CONCEPTS)
@@ -116,6 +123,7 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
     translationLayer,
     db,
     targetLanguage: config.targetLanguage ?? 'en',
+    adaptiveRouter,
   })
 
   // Phase B: wire the Socratic runtime on top of the authored content.
@@ -125,6 +133,7 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
     contentRetrieval,
     dialogueGenerator,
     responseClassifier,
+    adaptiveRouter,
     logger,
   })
 
@@ -152,6 +161,7 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
     contentRetrieval,
     responseClassifier,
     learnModeService,
+    adaptiveRouter,
     close(): void {
       db.close()
     },

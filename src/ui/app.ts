@@ -631,6 +631,86 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
       })
     })
 
+    // ── Phase D: confidence chip + adaptive nudge ──
+    const adaptive = await import('./adaptive.js')
+    const chipContainer = document.getElementById('confidence-chip') as HTMLElement
+    const nudgeContainer = document.getElementById('adaptive-nudge') as HTMLElement
+    let lastSubmittedConceptId: string | null = null
+
+    const chip = adaptive.mountConfidenceChip({
+      document,
+      container: chipContainer,
+      studentId,
+      getConceptId: () => lastSubmittedConceptId,
+      onRecorded: () => {
+        chip.setVisible(false)
+        if (lastSubmittedConceptId) void nudge.refresh(lastSubmittedConceptId)
+      },
+    })
+    chip.setVisible(false)
+
+    const nudge = adaptive.mountNudgeBanner({
+      document,
+      container: nudgeContainer,
+      studentId,
+      onAction: (action, conceptId) => {
+        if (action.kind === 'open_learn') {
+          void (async () => {
+            await ensureLearnMounted()
+            setMode('learn')
+            try {
+              await learnUi.startConcept(conceptId, action.tier)
+            } catch (err) {
+              console.error('[nudge open_learn]', err)
+            }
+          })()
+        } else if (action.kind === 'unlock_challenge') {
+          // Enable Challenge tab visually
+          const tab = document.querySelector('.mode-tab[data-mode=\"challenge\"]') as HTMLButtonElement | null
+          if (tab) {
+            tab.disabled = false
+            tab.title = 'Challenge mode unlocked'
+            tab.classList.add('unlocked')
+          }
+        } else if (action.kind === 'try_alt_framing') {
+          void (async () => {
+            await ensureLearnMounted()
+            setMode('learn')
+            try {
+              await learnUi.startConcept(conceptId, 'on_pace')
+            } catch (err) {
+              console.error('[nudge alt_framing]', err)
+            }
+          })()
+        }
+      },
+    })
+
+    // Poll lightly so we can show the chip + refresh the nudge after each
+    // submit — the existing controller doesn't emit events, so this matches
+    // the pattern used for the help-understand-btn above.
+    let lastFeedback: string | undefined
+    setInterval(() => {
+      const s = controller.state
+      const fb = s.feedbackText
+      const concept = s.session?.currentProblem?.conceptId ?? null
+      // Detect a fresh submission: feedback text changed
+      if (fb && fb !== lastFeedback) {
+        lastFeedback = fb
+        // The conceptId of the JUST-submitted problem might already be the
+        // current (next) problem's. Capture the prior one if we can.
+        if (concept) {
+          lastSubmittedConceptId = concept
+          chip.setVisible(true)
+          void nudge.refresh(concept)
+        }
+      }
+      // Hide chip when a new problem comes in without confirmation
+      if (!fb) {
+        chip.setVisible(false)
+      }
+    }, 600)
+
     // "I don't know — help me understand" off-ramp from Practice Mode.
     // Switches to Learn Mode and starts a session for the current problem's concept.
     const helpBtn = document.getElementById('help-understand-btn') as HTMLButtonElement
