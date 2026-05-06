@@ -1,0 +1,216 @@
+{
+  "concept_id": "integ.ftc",
+  "name": "The Fundamental Theorem of Calculus",
+  "track": "BOTH",
+  "one_liner": "The bridge between differentiation and integration: integrals can be evaluated using antiderivatives.",
+  "prerequisites": [
+    "integ.riemann",
+    "deriv.power-rule"
+  ],
+  "explanations": [
+    {
+      "tier": "novice",
+      "framing_index": 0,
+      "body_md": "You already know two big ideas: derivatives (slopes) and integrals (areas under curves). The Fundamental Theorem of Calculus says these two ideas are secretly connected \u2014 they undo each other, like addition undoes subtraction.\n\nLet's use one concrete example the whole way through. Take the function $f(x) = 2x$.\n\n**Part 1 (FTC1): Derivatives undo integrals.**\n\nDefine a new function that accumulates area under $f$ starting from $x = 0$:\n\n$$A(x) = \\int_0^x 2t\\, dt$$\n\nYou can compute this with Riemann sums or the power rule for integrals: $A(x) = x^2$. Now take the derivative of $A(x)$:\n\n$$A'(x) = \\frac{d}{dx}[x^2] = 2x$$\n\nYou got the original function back. That is FTC1 in action. In plain English: if you accumulate area under a curve and then ask \"how fast is that area growing?\", the answer is just the height of the curve at that point.\n\nSymbolically: $\\frac{d}{dx}\\!\\left[\\int_a^x f(t)\\,dt\\right] = f(x)$.\n\n**Part 2 (FTC2): How to evaluate a definite integral.**\n\nSay you want the exact area under $f(x)=2x$ from $x=1$ to $x=3$. Find any antiderivative \u2014 a function whose derivative is $2x$. You know $\\frac{d}{dx}[x^2]=2x$, so $F(x)=x^2$ works. Now just subtract:\n\n$$\\int_1^3 2x\\,dx = F(3) - F(1) = 9 - 1 = 8$$\n\nNo Riemann sums needed. In plain English: to find the area under a curve between two points, find an antiderivative, plug in the endpoints, and subtract.\n\nSymbolically: $\\int_a^b f(x)\\,dx = F(b) - F(a)$, where $F'(x) = f(x)$.\n\nIf this feels like a lot, that's normal. The single most important takeaway: differentiation and integration are reverse operations.",
+      "intuition_md": "Think of a car's odometer and speedometer. The speedometer tells you your speed right now \u2014 that is $f(x)$. The odometer accumulates total distance traveled \u2014 that is $\\int_0^x f(t)\\,dt$. FTC1 says: if you look at how fast the odometer number is climbing at any moment, you just get the speedometer reading. FTC2 says: to find the total distance traveled between 1:00 and 3:00, you don't need to add up tiny chunks of distance. Just read the odometer at 3:00, read it at 1:00, and subtract."
+    },
+    {
+      "tier": "novice",
+      "framing_index": 1,
+      "body_md": "You already know two big ideas: derivatives (slopes) and integrals (areas made from Riemann sums). The Fundamental Theorem of Calculus says these two ideas are secretly connected.\n\nHere is the setup. Pick a function, say $f(t) = 2t$. Now define a new function $A(x)$ that measures the area under the curve $f(t)$ from some fixed starting point $a$ to a movable endpoint $x$:\n\n$$A(x) = \\int_a^x f(t)\\, dt$$\n\nThink of $x$ as a slider. As you drag $x$ to the right, the shaded region gets wider, so $A(x)$ grows.\n\nThe key question is: how fast does that area grow when you nudge $x$ a tiny bit?\n\nIf you move $x$ to $x + h$ (where $h$ is very small), the extra area you add is roughly a thin rectangle. Its height is about $f(x)$ and its width is $h$. So the extra area is approximately $f(x) \\cdot h$.\n\nThe rate of change of area is therefore:\n\n$$A'(x) = \\lim_{h \\to 0} \\frac{A(x+h) - A(x)}{h} \\approx \\frac{f(x) \\cdot h}{h} = f(x)$$\n\nThat is the theorem:\n\n$$A'(x) = f(x)$$\n\nIn words: the derivative of the area function gives you back the original function.\n\nLet's check with numbers. Let $f(t) = 2t$ and $a = 0$. The area under this line from $0$ to $x$ is a triangle with base $x$ and height $2x$, so $A(x) = \\frac{1}{2}(x)(2x) = x^2$. Now take the derivative using the power rule: $A'(x) = 2x$. That is exactly $f(x)$. It works.\n\nThis might feel abstract at first, and that is completely normal. The core takeaway is just one sentence: the rate at which area accumulates equals the height of the curve at that point.",
+      "intuition_md": "Imagine filling a swimming pool with a hose. The water level in the pool represents the accumulated area $A(x)$, and the flow rate of the hose at any moment represents $f(x)$. If the hose is pushing water faster (tall curve), the pool level rises quickly. If the flow slows down (short curve), the level rises slowly. The Fundamental Theorem just says: the speed at which the pool fills up at any instant equals how fast water is flowing in at that instant. The total amount accumulated and the rate of accumulation are two sides of the same coin."
+    },
+    {
+      "tier": "on_pace",
+      "framing_index": 0,
+      "body_md": "You already know two big ideas: derivatives measure instantaneous rate of change, and Riemann sums let you approximate the area under a curve by adding up rectangles. The Fundamental Theorem of Calculus (FTC) is the bridge that says these two operations \u2014 differentiation and integration \u2014 are inverses of each other.\n\n**Part 1 (FTC1):** If $f$ is continuous on $[a, b]$ and you define a new function\n\n$$F(x) = \\int_a^x f(t)\\, dt,$$\n\nthen $F$ is differentiable and\n\n$$F'(x) = f(x).$$\n\nIn words: if you accumulate area under $f$ from $a$ to $x$, the rate at which that area grows at any point is just the height of $f$ at that point. Differentiation undoes the integral.\n\n**Part 2 (FTC2):** If $F$ is any antiderivative of $f$ (meaning $F'(x) = f(x)$), then\n\n$$\\int_a^b f(x)\\, dx = F(b) - F(a).$$\n\nThis is the part you use constantly in practice. Instead of grinding out a Riemann sum limit, you find an antiderivative and subtract endpoint values.\n\n**Common sticking points:**\n\n1. *The variable inside the integral is a dummy variable.* In $\\int_a^x f(t)\\, dt$, the $t$ disappears after integration; the result is a function of $x$.\n2. *The constant $a$ matters for the value of $F(x)$ but not for $F'(x)$.* Changing $a$ shifts $F$ by a constant, and constants vanish under differentiation.\n3. *Part 1 requires continuity of $f$.* If $f$ has a jump discontinuity at $x = c$, you cannot blindly apply FTC1 there.\n\n**Where this fits:** You built Riemann sums to define the definite integral. FTC now hands you a practical shortcut \u2014 use the power rule (and every other derivative rule you know) in reverse. Next up, you will formalize this \"reverse\" process with antiderivative techniques and $u$-substitution.",
+      "intuition_md": "Think of a car's odometer and speedometer. The speedometer reads $f(t)$, your speed at time $t$. The odometer accumulates total distance: $F(x) = \\int_0^x f(t)\\, dt$. FTC1 says if you glance at how fast the odometer is ticking up right now, you just read the speedometer \u2014 $F'(x) = f(x)$. FTC2 says that to find total distance traveled between $t = a$ and $t = b$, you don't need to add up tiny increments; just subtract odometer readings: $F(b) - F(a)$. Accumulation and rate are two sides of the same coin."
+    },
+    {
+      "tier": "advanced",
+      "framing_index": 0,
+      "body_md": "The Fundamental Theorem of Calculus (FTC) has two parts. Here they are, then we'll unpack why they're true.\n\n**Part 1.** If $f$ is continuous on $[a,b]$ and you define the accumulation function\n$$F(x) = \\int_a^x f(t)\\,dt,$$\nthen $F$ is differentiable on $(a,b)$ and $F'(x) = f(x)$.\n\n**Part 2.** If $F$ is any antiderivative of $f$ on $[a,b]$ (i.e., $F' = f$), then\n$$\\int_a^b f(x)\\,dx = F(b) - F(a).$$\n\nPart 2 follows quickly from Part 1 (any two antiderivatives differ by a constant), so the real content is Part 1.\n\n**Why Part 1 is true.** Consider the difference quotient:\n$$\\frac{F(x+h)-F(x)}{h} = \\frac{1}{h}\\int_x^{x+h} f(t)\\,dt.$$\nThat integral represents the signed area of a thin strip of width $h$. Because $f$ is continuous, on this tiny interval $f(t)$ is nearly constant \u2014 close to $f(x)$. So the integral is approximately $f(x) \\cdot h$, and dividing by $h$ gives approximately $f(x)$. More precisely, the Mean Value Theorem for Integrals guarantees some $c \\in [x, x+h]$ with\n$$\\frac{1}{h}\\int_x^{x+h} f(t)\\,dt = f(c).$$\nAs $h \\to 0$, $c \\to x$, and continuity of $f$ forces $f(c) \\to f(x)$. That's the whole proof.\n\nNotice the essential role of **continuity**: without it, the limit argument collapses. Also notice this is really a statement about **linear approximation** \u2014 the accumulated area grows locally like $f(x) \\cdot h$, so its instantaneous rate is $f(x)$.\n\n**Stretch question.** Suppose $g(x) = \\int_0^{x^2} e^{-t^2}\\,dt$. Find $g'(x)$. This requires combining FTC Part 1 with the chain rule \u2014 a pattern that appears frequently on BC free-response questions. What happens if both bounds are functions of $x$?",
+      "intuition_md": "Think of $F(x)$ as a running odometer reading total distance, and $f(t)$ as your speedometer at time $t$. The odometer accumulates speed over time \u2014 that's the integral. Asking \"how fast is the odometer climbing right now?\" is asking for $F'(x)$. But the odometer climbs at exactly the rate shown on the speedometer, so $F'(x) = f(x)$. The thin-strip argument formalizes this: in a tiny time window $h$, the distance added is roughly $f(x) \\cdot h$, so the rate of accumulation is $f(x)$. Continuity ensures no instantaneous jumps sabotage this reasoning."
+    }
+  ],
+  "examples": [
+    {
+      "tier": "novice",
+      "problem_md": "Find the exact value of the definite integral:\n$$\\int_1^4 2x \\, dx$$\nThen verify your answer using the Fundamental Theorem of Calculus.",
+      "steps": [
+        {
+          "step_md": "**Understand what the integral is asking.**\n\nThe expression $\\int_1^4 2x \\, dx$ is asking: \"What is the total area under the line $y = 2x$, from $x = 1$ to $x = 4$?\"",
+          "why_md": "Before doing any math, it helps to know what the question *means*. A definite integral (the one with the little numbers on top and bottom of $\\int$) always represents a total accumulation \u2014 think of it like adding up a bunch of tiny slices of area. Those little numbers, $1$ and $4$, are called the **limits of integration**. They just tell you *where to start* and *where to stop* on the $x$-axis."
+        },
+        {
+          "step_md": "**Find an antiderivative of $2x$.**\n\nAn antiderivative is a function whose derivative gives you back $2x$. Ask yourself: \"What function, when I take its derivative, gives me $2x$?\"\n\nYou may recall that the derivative of $x^2$ is $2x$. So:\n$$F(x) = x^2$$\nis an antiderivative of $2x$.",
+          "why_md": "This is the key idea of the Fundamental Theorem of Calculus: instead of adding up millions of tiny slices of area (which would take forever), you can find the total using an antiderivative. It is like a shortcut. Instead of measuring every drop of water flowing through a pipe, you just read the meter at the start and the end. The antiderivative is your \"meter.\" If you are not sure how to find an antiderivative, use the power rule in reverse: to antidifferentiate $x^n$, you get $\\frac{x^{n+1}}{n+1}$. For $2x = 2x^1$, that gives $2 \\cdot \\frac{x^2}{2} = x^2$."
+        },
+        {
+          "step_md": "**Apply the Fundamental Theorem of Calculus.**\n\nThe theorem says:\n$$\\int_a^b f(x)\\, dx = F(b) - F(a)$$\nwhere $F$ is any antiderivative of $f$.\n\nFor our problem, $f(x) = 2x$, $F(x) = x^2$, $a = 1$, and $b = 4$. So:\n$$\\int_1^4 2x\\, dx = F(4) - F(1)$$",
+          "why_md": "This is the theorem doing the heavy lifting. It tells you that to evaluate a definite integral, you only need to plug the top limit and the bottom limit into the antiderivative, then subtract. That is it. Bottom from top: $F(\\text{top}) - F(\\text{bottom})$. The subtraction is what isolates the accumulation between those two boundaries, just like subtracting your odometer reading at the start of a trip from the reading at the end to find the distance you drove."
+        },
+        {
+          "step_md": "**Plug in the limits.**\n\n$$F(4) = 4^2 = 16$$\n$$F(1) = 1^2 = 1$$",
+          "why_md": "You are evaluating the antiderivative at each boundary. This is plain substitution \u2014 replace $x$ with the number and compute. No tricks here; just careful arithmetic."
+        },
+        {
+          "step_md": "**Subtract to get the final answer.**\n\n$$F(4) - F(1) = 16 - 1 = 15$$\n\nSo:\n$$\\int_1^4 2x \\, dx = 15$$",
+          "why_md": "The subtraction gives you the net accumulation \u2014 the total area under $y = 2x$ from $x = 1$ to $x = 4$. You can even double-check this geometrically: the region under $y = 2x$ from $1$ to $4$ forms a trapezoid. Its two parallel sides have heights $2(1) = 2$ and $2(4) = 8$, and the base is $4 - 1 = 3$. The area of a trapezoid is $\\frac{1}{2}(\\text{side}_1 + \\text{side}_2)(\\text{base}) = \\frac{1}{2}(2 + 8)(3) = 15$. It matches. That is reassuring \u2014 the Fundamental Theorem gave you the same answer as basic geometry, but it works even when the shape is not a nice trapezoid."
+        }
+      ]
+    },
+    {
+      "tier": "on_pace",
+      "problem_md": "Let $F(x) = \\displaystyle\\int_1^{x^2} (3t - 5)\\, dt$. Find $F'(x)$.",
+      "steps": [
+        {
+          "step_md": "Recognize that $F(x) = \\displaystyle\\int_1^{x^2} (3t - 5)\\, dt$ has an upper limit that is itself a function of $x$, namely $u = x^2$.",
+          "why_md": "The \"plain\" version of the Fundamental Theorem of Calculus (FTC Part 1) says: if $G(x) = \\int_a^{x} f(t)\\,dt$, then $G'(x) = f(x)$. But that rule assumes the upper limit is just $x$, not something more complicated. Because our upper limit is $x^2$, we need to combine FTC Part 1 with the Chain Rule. Spotting this mismatch up front saves you from the most common mistake on this type of problem \u2014 forgetting the chain rule factor."
+        },
+        {
+          "step_md": "Define $G(u) = \\displaystyle\\int_1^{u} (3t - 5)\\, dt$, so that $F(x) = G(x^2)$.",
+          "why_md": "By introducing $G(u)$, you separate the two ideas: FTC Part 1 will handle the derivative of $G$ with respect to $u$, and the Chain Rule will handle the fact that $u$ depends on $x$. Writing $F(x) = G(u)$ with $u = x^2$ puts the problem in the standard chain-rule form $F'(x) = G'(u) \\cdot u'(x)$."
+        },
+        {
+          "step_md": "Apply FTC Part 1 to find $G'(u)$: $$G'(u) = 3u - 5.$$",
+          "why_md": "FTC Part 1 tells you the derivative of $\\int_a^{u} f(t)\\,dt$ with respect to $u$ is simply $f(u)$ \u2014 you plug $u$ into the integrand. No antiderivative computation needed. Here $f(t) = 3t - 5$, so $f(u) = 3u - 5$."
+        },
+        {
+          "step_md": "Compute $u'(x)$: $$u'(x) = \\frac{d}{dx}[x^2] = 2x.$$",
+          "why_md": "This is the Chain Rule piece. Whenever the upper (or lower) limit is a function of $x$ rather than $x$ itself, you must multiply by the derivative of that function. Forgetting this $2x$ is the number-one error on FTC-with-chain-rule problems."
+        },
+        {
+          "step_md": "Combine using the Chain Rule: $$F'(x) = G'(u) \\cdot u'(x) = (3u - 5) \\cdot 2x.$$ Substitute $u = x^2$: $$F'(x) = (3x^2 - 5)(2x).$$",
+          "why_md": "This is just the standard chain rule: $\\frac{dF}{dx} = \\frac{dG}{du} \\cdot \\frac{du}{dx}$. Once you substitute $u = x^2$ back in, everything is in terms of $x$ and the problem is done."
+        },
+        {
+          "step_md": "Simplify (optional): $$F'(x) = 6x^3 - 10x.$$",
+          "why_md": "Expanding is not strictly required, but on the AP exam it can make your answer easier for you (and the reader) to verify. You could also leave it in factored form \u2014 both are correct. As a quick sanity check, notice $F'(x)$ is a polynomial of degree 3, which makes sense: the integrand is degree 1 in $t$, the antiderivative would be degree 2, and composing with $x^2$ then differentiating gives degree 3."
+        }
+      ]
+    },
+    {
+      "tier": "advanced",
+      "problem_md": "Let $f(x) = \\displaystyle\\frac{d}{dx}\\!\\int_{\\ln x}^{x^2} \\frac{\\sin t}{t}\\,dt$. Find $f(x)$ in closed form, and evaluate $f(1)$.",
+      "steps": [
+        {
+          "step_md": "Define $F(u) = \\displaystyle\\int_0^u \\frac{\\sin t}{t}\\,dt$ (the sine integral). Then the original integral becomes\n$$\\int_{\\ln x}^{x^2} \\frac{\\sin t}{t}\\,dt = F(x^2) - F(\\ln x).$$",
+          "why_md": "FTC Part 1 guarantees that because $\\frac{\\sin t}{t}$ is continuous on every interval not containing $0$ (and has a removable discontinuity at $0$ with limit $1$, so it extends to a continuous function), the accumulation function $F(u)=\\int_0^u \\frac{\\sin t}{t}\\,dt$ exists and satisfies $F'(u)=\\frac{\\sin u}{u}$. Splitting the integral at a fixed basepoint converts variable-limit integrals into a difference of accumulation functions, which we can differentiate."
+        },
+        {
+          "step_md": "Differentiate using the chain rule:\n$$f(x) = F'(x^2)\\cdot\\frac{d}{dx}[x^2] - F'(\\ln x)\\cdot\\frac{d}{dx}[\\ln x].$$",
+          "why_md": "Both limits of integration depend on $x$, so this is really a composition: $G(x)=F(b(x))-F(a(x))$. The chain rule is the bridge between FTC (which gives you $F'$) and the actual derivative with respect to $x$. This is sometimes called the Leibniz integral rule \u2014 it is nothing more than FTC Part 1 composed with the chain rule."
+        },
+        {
+          "step_md": "Substitute $F'(u)=\\frac{\\sin u}{u}$:\n$$f(x) = \\frac{\\sin(x^2)}{x^2}\\cdot 2x \\;-\\; \\frac{\\sin(\\ln x)}{\\ln x}\\cdot\\frac{1}{x}.$$",
+          "why_md": "This is the payoff of FTC Part 1: you never need an antiderivative in elementary form. The theorem tells you the derivative of the accumulation function is the integrand evaluated at the upper (or lower) limit. You just plug in the inner functions $x^2$ and $\\ln x$ for $u$."
+        },
+        {
+          "step_md": "Simplify:\n$$f(x) = \\frac{2\\sin(x^2)}{x} - \\frac{\\sin(\\ln x)}{x\\ln x}.$$",
+          "why_md": "Algebraic cleanup: $\\frac{2x}{x^2}=\\frac{2}{x}$. Keeping the expression tidy makes the evaluation at $x=1$ less error-prone."
+        },
+        {
+          "step_md": "Evaluate $f(1)$. The first term gives $\\frac{2\\sin 1}{1}=2\\sin 1$. The second term is $\\frac{\\sin(\\ln 1)}{1\\cdot\\ln 1}=\\frac{\\sin 0}{0}=\\frac{0}{0}$, which is indeterminate. Take the limit as $x\\to 1^+$:\n$$\\lim_{x\\to 1}\\frac{\\sin(\\ln x)}{x\\ln x}.$$\nSet $h=\\ln x\\to 0$. Then $x\\to 1$ and\n$$\\lim_{h\\to 0}\\frac{\\sin h}{e^h\\cdot h}=\\lim_{h\\to 0}\\frac{\\sin h}{h}\\cdot\\frac{1}{e^h}=1\\cdot 1=1.$$\nTherefore $f(1)=2\\sin 1-1$.",
+          "why_md": "The $\\frac{0}{0}$ form is a signal that the original integrand's behavior near $t=0$ (i.e., $\\frac{\\sin t}{t}\\to 1$) is controlling the answer. Recognizing $\\frac{\\sin h}{h}\\to 1$ \u2014 the same limit that underlies the derivative of $\\sin$ \u2014 is the key. This is a case where the continuity requirement in FTC matters: the removable discontinuity at $t=0$ must be filled in with the value $1$ for the accumulation function to be differentiable there. The limit confirms consistency."
+        },
+        {
+          "step_md": "**Final answers:**\n$$f(x) = \\frac{2\\sin(x^2)}{x} - \\frac{\\sin(\\ln x)}{x\\ln x}, \\qquad f(1)=2\\sin 1 - 1 \\approx 0.6829.$$",
+          "why_md": "Collecting results. Note that $f$ is actually continuous at $x=1$ once you define the second term via its limit, mirroring the fact that $\\frac{\\sin t}{t}$ is continuous once you fill the hole at $t=0$."
+        }
+      ]
+    }
+  ],
+  "misconceptions": [
+    {
+      "short_name": "ftc_means_derivative_undoes_integral_always",
+      "description_md": "The student believes that $\\frac{d}{dx}\\int_a^x f(t)\\,dt = f(t)$ \u2014 they leave the variable as $t$ instead of substituting $x$. For example, they write $\\frac{d}{dx}\\int_0^x \\sin(t)\\,dt = \\sin(t)$ rather than $\\sin(x)$.",
+      "why_wrong_md": "The variable $t$ is a dummy variable of integration. Once you evaluate the derivative, the result is a function of $x$, because $x$ is the upper limit. The FTC Part 1 states $\\frac{d}{dx}\\int_a^x f(t)\\,dt = f(x)$, not $f(t)$.",
+      "socratic_response_md": "After you integrate from $0$ to $x$ and then differentiate, the result should be a function of which variable \u2014 $t$ or $x$? What happened to $t$ during the integration process?"
+    },
+    {
+      "short_name": "forgetting_chain_rule_variable_upper_limit",
+      "description_md": "When the upper limit is a function like $x^2$, the student writes $\\frac{d}{dx}\\int_0^{x^2} e^{-t^2}\\,dt = e^{-x^4}$, forgetting to multiply by the derivative of the upper limit.",
+      "why_wrong_md": "The FTC Part 1 combined with the chain rule requires $\\frac{d}{dx}\\int_0^{g(x)} f(t)\\,dt = f(g(x)) \\cdot g'(x)$. The correct answer is $e^{-x^4} \\cdot 2x$. Omitting $g'(x) = 2x$ is a chain rule error.",
+      "socratic_response_md": "If you let $u = x^2$ and think of the integral as a function $F(u) = \\int_0^u e^{-t^2}\\,dt$, then you want $\\frac{dF}{dx}$. How does the chain rule tell you to relate $\\frac{dF}{dx}$ to $\\frac{dF}{du}$?"
+    },
+    {
+      "short_name": "confusing_ftc_part1_and_part2",
+      "description_md": "The student conflates the two parts of the FTC. When asked to evaluate $\\int_1^4 2x\\,dx$, they try to use Part 1 (differentiating an integral) instead of Part 2 (evaluating a definite integral via an antiderivative). Or conversely, when asked to differentiate $\\int_0^x f(t)\\,dt$, they try to find an antiderivative and plug in limits.",
+      "why_wrong_md": "Part 1 says differentiation undoes integration: $\\frac{d}{dx}\\int_a^x f(t)\\,dt = f(x)$. Part 2 says you can evaluate a definite integral using any antiderivative: $\\int_a^b f(x)\\,dx = F(b) - F(a)$. They answer different questions \u2014 one involves a derivative, the other computes a number.",
+      "socratic_response_md": "Look at what the problem is asking you to produce: is the final answer supposed to be a function of $x$, or a single number? Which version of the FTC matches that kind of output?"
+    },
+    {
+      "short_name": "antiderivative_must_have_plus_c_in_definite_integral",
+      "description_md": "The student insists on including $+C$ when evaluating a definite integral. They write $\\int_0^3 2x\\,dx = [x^2 + C]_0^3 = (9+C) - (0+C)$ and then get confused about what to do with $C$, or worse, leave it in the final answer as $9 + C$.",
+      "why_wrong_md": "When you evaluate a definite integral using FTC Part 2, the constant $C$ cancels: $(F(b)+C)-(F(a)+C) = F(b)-F(a)$. The $+C$ is relevant only for indefinite integrals (general antiderivatives). A definite integral produces a specific number, not a family of functions.",
+      "socratic_response_md": "Try keeping the $C$ and expanding $[x^2 + C]_0^3 = (9 + C) - (0 + C)$. What happens to $C$ when you simplify? What does that tell you about whether you need it at all for a definite integral?"
+    },
+    {
+      "short_name": "ftc_requires_continuity_ignored",
+      "description_md": "The student applies the FTC across a discontinuity without checking. For instance, they evaluate $\\int_{-1}^{1} \\frac{1}{x^2}\\,dx$ as $\\left[-\\frac{1}{x}\\right]_{-1}^{1} = -1 - 1 = -2$, concluding the integral equals $-2$ even though the integrand blows up at $x=0$.",
+      "why_wrong_md": "The FTC requires that $f$ be continuous on the closed interval $[a,b]$. The function $\\frac{1}{x^2}$ has an infinite discontinuity at $x=0$, which lies inside $[-1,1]$. The integral is actually an improper integral that diverges to $+\\infty$. Blindly plugging into an antiderivative gives a nonsensical negative value for a function that is everywhere positive.",
+      "socratic_response_md": "The function $\\frac{1}{x^2}$ is always positive, yet your answer came out negative. What condition does the FTC require about $f$ on $[a, b]$, and does $\\frac{1}{x^2}$ satisfy that condition on $[-1, 1]$?"
+    }
+  ],
+  "checks": [
+    {
+      "tier": "novice",
+      "question_md": "Imagine you have a function that tells you your speed at every moment during a trip: $v(t)$. You integrate (add up) that speed from $t = 0$ to $t = 4$ hours and get 200.\n\nWhat does that 200 represent in real life?\n\n(a) Your speed at $t = 4$\n(b) The total distance you traveled in those 4 hours\n(c) Your average acceleration",
+      "expected_answer_md": "**(b)** The total distance you traveled in those 4 hours. Integrating a rate (speed) over a time interval gives you the total accumulated quantity (distance).",
+      "expected_pattern": "(?i)(b|distance|total distance)"
+    },
+    {
+      "tier": "novice",
+      "question_md": "The Fundamental Theorem of Calculus says that if $F(x)$ is an antiderivative of $f(x)$ \u2014 meaning $F'(x) = f(x)$ \u2014 then:\n\n$$\\int_a^b f(x)\\,dx = F(b) - F(\\underline{\\quad})$$\n\nFill in the blank. What goes in place of the blank?",
+      "expected_answer_md": "$F(b) - F(a)$. The blank is $a$, the lower limit of integration. You plug the top number into $F$, then subtract $F$ evaluated at the bottom number.",
+      "expected_pattern": "(?i)(a|F\\s*\\(\\s*a\\s*\\)|lower)"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Spot the mistake in this reasoning:\n\n\"By the Fundamental Theorem of Calculus, $\\frac{d}{dx}\\!\\left[\\int_0^{x^2} \\sin(t)\\,dt\\right] = \\sin(x^2)$.\"\n\nWhat did the student forget, and what is the correct result?",
+      "expected_answer_md": "The student forgot the chain rule. Because the upper limit is $x^2$ (not just $x$), you must multiply by its derivative. The correct answer is:\n$$\\frac{d}{dx}\\!\\left[\\int_0^{x^2} \\sin(t)\\,dt\\right] = \\sin(x^2) \\cdot 2x$$",
+      "expected_pattern": "(?i)(chain\\s*rule|2x|2\\s*x\\s*sin)"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Fill in the blank: The two parts of the Fundamental Theorem of Calculus connect two big ideas. Part 1 says differentiation undoes __________, and Part 2 says you can evaluate a definite integral using any __________ of the integrand.\n\n(Two words or short phrases.)",
+      "expected_answer_md": "Part 1: differentiation undoes **integration** (specifically, definite integration with a variable upper limit). Part 2: you can evaluate a definite integral using any **antiderivative** of the integrand.",
+      "expected_pattern": "(?i)integrat.*antiderivativ|antiderivativ.*integrat"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "**Spot the subtle gap.** A common textbook proof of FTC Part 1 uses the Mean Value Theorem for Integrals to write\n$$\\frac{d}{dx}\\int_a^x f(t)\\,dt = \\lim_{h\\to 0} \\frac{1}{h}\\int_x^{x+h} f(t)\\,dt = \\lim_{h\\to 0} f(c_h)$$\nwhere $c_h$ is between $x$ and $x+h$. The final step claims $\\lim_{h\\to 0} f(c_h) = f(x)$. What hypothesis on $f$ is required for that last equality, and *which theorem about limits justifies the step*?",
+      "expected_answer_md": "$f$ must be **continuous** at $x$. Because $c_h \\to x$ as $h \\to 0$ (by the Squeeze Theorem), continuity gives $\\lim_{h\\to 0} f(c_h) = f(\\lim_{h\\to 0} c_h) = f(x)$. The justification is the definition (sequential/limit characterization) of continuity \u2014 the composition limit law $\\lim f(g(h)) = f(\\lim g(h))$ when $f$ is continuous.",
+      "expected_pattern": "(?i)(continu|squeeze|composit|limit.*law|sequential)"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "**Fill in the blank.** FTC Part 2 says: if $F$ is *any* antiderivative of a continuous $f$ on $[a,b]$, then $\\int_a^b f(t)\\,dt = F(b) - F(a)$. The proof defines $G(x)=\\int_a^x f(t)\\,dt$, uses Part 1 to get $G'=f$, and then argues $F(x)-G(x)=\\underline{\\phantom{C}}$ for all $x$ in $[a,b]$. What fills the blank, and what single theorem about derivatives justifies that claim?",
+      "expected_answer_md": "$F(x)-G(x) = C$ (a constant). This follows from the **corollary of the Mean Value Theorem**: if two functions have the same derivative on an interval, they differ by a constant. Evaluating at $x=a$ gives $C = F(a)$, so $\\int_a^b f(t)\\,dt = G(b) = F(b)-F(a)$.",
+      "expected_pattern": "(?i)(constant|C|mean\\s*value|MVT|same.*derivative|differ.*constant)"
+    }
+  ],
+  "deep_dives": [
+    {
+      "title": "Why Are Differentiation and Integration Inverse Operations?",
+      "body_md": "Start with a simple scenario. You have a continuous function $f$ on $[a,b]$, and you define a new function by accumulating area:\n\n$$F(x) = \\int_a^x f(t)\\,dt$$\n\nThe claim (FTC Part 1) is that $F'(x) = f(x)$. In other words, the derivative undoes the integral. Let's see *why* this has to be true, not just assert it.\n\n**Step 1: What does $F(x+h) - F(x)$ look like?**\n\nBy the definition of the accumulation function:\n\n$$F(x+h) - F(x) = \\int_a^{x+h} f(t)\\,dt - \\int_a^x f(t)\\,dt = \\int_x^{x+h} f(t)\\,dt$$\n\nSo the change in accumulated area is just the area of the thin strip from $x$ to $x+h$.\n\n**Step 2: Approximate that thin strip.**\n\nIf $h$ is small and $f$ is continuous, then $f$ barely changes on $[x, x+h]$. The strip is nearly a rectangle with width $h$ and height $f(x)$:\n\n$$\\int_x^{x+h} f(t)\\,dt \\approx f(x) \\cdot h$$\n\nMore precisely, the Mean Value Theorem for Integrals guarantees there exists some $c \\in [x, x+h]$ such that\n\n$$\\int_x^{x+h} f(t)\\,dt = f(c) \\cdot h$$\n\n**Step 3: Form the difference quotient and take the limit.**\n\n$$F'(x) = \\lim_{h \\to 0} \\frac{F(x+h) - F(x)}{h} = \\lim_{h \\to 0} \\frac{f(c) \\cdot h}{h} = \\lim_{h \\to 0} f(c)$$\n\nAs $h \\to 0$, the point $c$ (squeezed between $x$ and $x+h$) is forced toward $x$. Because $f$ is continuous, $f(c) \\to f(x)$. Therefore:\n\n$$F'(x) = f(x)$$\n\nThat's it. Differentiation asks \"how fast is the accumulated area growing?\" and the answer is simply the current height of the curve. The integral stacks up area; the derivative peels off the latest infinitesimal layer, recovering the original function.\n\n**Why the reverse also holds (FTC Part 2):**\n\nIf $G$ is any antiderivative of $f$ (meaning $G'=f$), then $G$ and $F(x)=\\int_a^x f(t)\\,dt$ have the same derivative. Two functions with identical derivatives differ by a constant, so $G(x) = F(x) + C$. Evaluating:\n\n$$\\int_a^b f(t)\\,dt = F(b) = G(b) - G(a)$$\n\nThis is why you can evaluate a definite integral by finding *any* antiderivative and plugging in the bounds.\n\n**The deep insight:** Integration and differentiation are inverses not by coincidence or definition, but because the rate at which area accumulates under a curve *at a point* is exactly the height of the curve at that point. Continuity is the bridge \u2014 it ensures the thin strip approximation becomes exact in the limit.\n\n**Follow-up question to chew on:** What happens when $f$ is *not* continuous \u2014 say, $f$ has a jump discontinuity at $x = c$? Does $F(x) = \\int_a^x f(t)\\,dt$ still exist? Is $F$ still differentiable at $c$? If not, in what sense (if any) can integration and differentiation still be called inverses?"
+    },
+    {
+      "title": "Why dA/dx = f(x): The Rectangle Lurking Inside Every Area Function",
+      "body_md": "Define the area function $A(x) = \\int_a^x f(t)\\,dt$, where $f$ is continuous and non-negative on $[a,b]$. You want to understand, geometrically, why the derivative of this area function is just $f(x)$ itself.\n\nStart by asking: what happens to the area when you nudge $x$ to the right by a tiny amount $h$?\n\nThe new area is $A(x+h) = \\int_a^{x+h} f(t)\\,dt$. The change in area is\n\n$$\\Delta A = A(x+h) - A(x) = \\int_x^{x+h} f(t)\\,dt.$$\n\nGeometrically, $\\Delta A$ is the area of the thin strip between $x$ and $x+h$ under the curve $f$. Now look carefully at that strip. It is bounded on the left by the vertical line at $x$, on the right by the vertical line at $x+h$, below by the $t$-axis, and above by the curve $f(t)$.\n\nBecause $f$ is continuous, its values on the short interval $[x, x+h]$ cannot stray far from $f(x)$ when $h$ is small. The strip is therefore almost indistinguishable from a rectangle of width $h$ and height $f(x)$:\n\n$$\\Delta A \\approx f(x) \\cdot h.$$\n\nTo make this precise, invoke the Extreme Value Theorem: on $[x, x+h]$, $f$ attains a minimum value $m_h$ and a maximum value $M_h$. The strip's area is squeezed:\n\n$$m_h \\cdot h \\leq \\Delta A \\leq M_h \\cdot h.$$\n\nDivide through by $h > 0$:\n\n$$m_h \\leq \\frac{\\Delta A}{h} \\leq M_h.$$\n\nAs $h \\to 0^+$, continuity of $f$ forces both $m_h \\to f(x)$ and $M_h \\to f(x)$. By the Squeeze Theorem:\n\n$$\\frac{dA}{dx} = \\lim_{h \\to 0} \\frac{\\Delta A}{h} = f(x).$$\n\nThe same argument works for $h \\to 0^-$ with the inequalities reversed, so the two-sided limit exists.\n\nNotice the deep interplay: the derivative asks about a ratio of a tiny change in area to a tiny change in $x$, and that ratio is literally the height of a vanishingly thin rectangle \u2014 which is just the function value. Slopes and areas, the two central objects of calculus, are revealed as inverses of each other. Differentiation undoes integration because zooming in on the area graph turns a curved strip into a perfect rectangle whose height is the integrand.\n\nAlso notice where continuity was essential. If $f$ had a jump discontinuity at $x$, the min and max of the strip would not converge to the same value, and the squeeze would fail. The theorem genuinely requires continuity at the point where you differentiate.\n\nHere is something to chew on: if $f$ is allowed to be merely Riemann-integrable (not necessarily continuous), the area function $A(x)$ still exists and is continuous \u2014 but it might fail to be differentiable at some points. Can you construct a specific integrable function where $A(x)$ exists everywhere yet $A'(x_0)$ fails to exist at some point $x_0$? What does the thin-strip argument look like there?"
+    }
+  ],
+  "applications": [
+    {
+      "context": "physics",
+      "problem_md": "A research team launches a small sounding rocket straight up from the ground. On-board accelerometers record the rocket's vertical acceleration (in m/s\u00b2) during the first 10 seconds of flight, and the data is well-modeled by\n\n$$a(t) = 30 - 2t, \\quad 0 \\le t \\le 10$$\n\nwhere $t$ is in seconds. The rocket starts from rest on the launchpad.\n\n(a) Find the rocket's velocity function $v(t)$ for $0 \\le t \\le 10$.\n\n(b) At what time does the rocket reach its maximum velocity, and what is that velocity?\n\n(c) Using the Fundamental Theorem of Calculus, compute the rocket's altitude at $t = 10$ s. Express your answer in meters.",
+      "solution_outline_md": "**Part (a):** Because the rocket starts from rest, $v(0) = 0$. By the Fundamental Theorem of Calculus,\n\n$$v(t) = v(0) + \\int_0^t a(s)\\,ds = \\int_0^t (30 - 2s)\\,ds = 30t - t^2$$\n\n**Part (b):** Maximum velocity occurs when $a(t) = 0$, i.e., $30 - 2t = 0 \\Rightarrow t = 15$ s. But our domain is $0 \\le t \\le 10$, and $a(t) > 0$ on this entire interval, so the velocity is strictly increasing here. The maximum velocity on the given interval is at the right endpoint:\n\n$$v(10) = 30(10) - (10)^2 = 200 \\text{ m/s}$$\n\n**Part (c):** The rocket starts at ground level, so $s(0) = 0$. Apply the FTC again:\n\n$$s(10) = \\int_0^{10} v(t)\\,dt = \\int_0^{10} (30t - t^2)\\,dt$$\n\nEvaluate: $\\left[15t^2 - \\frac{t^3}{3}\\right]_0^{10} = 15(100) - \\frac{1000}{3} = 1500 - \\frac{1000}{3} = \\frac{3500}{3}$\n\n$$\\boxed{s(10) = \\frac{3500}{3} \\approx 1166.7 \\text{ m}}$$\n\nKey idea: the FTC lets you recover velocity from acceleration and position from velocity by integrating, provided you know the initial condition."
+    },
+    {
+      "context": "engineering",
+      "problem_md": "A civil engineer is designing a stormwater retention pond for a new housing development. During a rainstorm, water flows into the pond at a rate modeled by\n\n$$Q_{in}(t) = 120t \\, e^{-0.5t}$$\n\nwhere $Q_{in}$ is measured in cubic meters per hour and $t$ is measured in hours after the storm begins. A drain at the bottom of the pond removes water at a constant rate of $Q_{out} = 15$ cubic meters per hour, but the drain does not activate until $t = 1$ hour (it takes time for the water level to reach the drain opening). The pond is empty when the storm starts.\n\n**Part A.** Find the total volume of water that has entered the pond during the first 4 hours of the storm.\n\n**Part B.** Find the net volume of water in the pond at $t = 4$ hours, accounting for the drain.\n\n**Part C.** At what time during the interval $[0, 4]$ is the rate of water flowing into the pond at its maximum? What is the inflow rate at that moment? The engineer needs this to size the inlet pipe.",
+      "solution_outline_md": "**Part A.**\n\nYou need $\\displaystyle V_{in} = \\int_0^4 120t\\,e^{-0.5t}\\,dt$.\n\nUse integration by parts with $u = 120t$ and $dv = e^{-0.5t}\\,dt$:\n\n$$\\int 120t\\,e^{-0.5t}\\,dt = 120\\!\\left[-2t\\,e^{-0.5t} + \\int 2e^{-0.5t}\\,dt\\right] = 120\\!\\left[-2t\\,e^{-0.5t} - 4e^{-0.5t}\\right] + C$$\n\nSo the antiderivative is $-240e^{-0.5t}(t+2) + C$.\n\nApply the Fundamental Theorem of Calculus:\n\n$$V_{in} = \\Big[-240e^{-0.5t}(t+2)\\Big]_0^4 = -240e^{-2}(6) - \\big(-240e^{0}(2)\\big) = -1440e^{-2} + 480$$\n\nNumerically: $e^{-2} \\approx 0.13534$, so $V_{in} \\approx 480 - 194.9 \\approx 285.1$ cubic meters.\n\n**Part B.**\n\nThe drain removes water only on $[1, 4]$ at a constant $15\\;\\text{m}^3/\\text{hr}$:\n\n$$V_{out} = \\int_1^4 15\\,dt = 15(3) = 45 \\text{ m}^3$$\n\nNet volume at $t = 4$:\n\n$$V_{net} = V_{in} - V_{out} \\approx 285.1 - 45 = 240.1 \\text{ m}^3$$\n\nExact form: $V_{net} = 480 - 1440e^{-2} - 45 = 435 - 1440e^{-2}$.\n\n**Part C.**\n\nMaximize $Q_{in}(t) = 120t\\,e^{-0.5t}$. Take the derivative and set it to zero:\n\n$$Q_{in}'(t) = 120e^{-0.5t} - 60t\\,e^{-0.5t} = 60e^{-0.5t}(2 - t) = 0$$\n\nSince $e^{-0.5t} > 0$ always, you get $t = 2$ hours. Confirm it is a maximum (the factor $2 - t$ changes from positive to negative).\n\n$$Q_{in}(2) = 120(2)e^{-1} = \\frac{240}{e} \\approx 88.3 \\text{ m}^3/\\text{hr}$$\n\nThe engineer should size the inlet pipe to handle at least about $88.3\\;\\text{m}^3/\\text{hr}$ of inflow."
+    }
+  ]
+}
