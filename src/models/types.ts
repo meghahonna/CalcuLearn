@@ -370,4 +370,8 @@ export interface TurnResult {
   masteryUpdated: boolean
   /** Whether the session advanced to a new target concept after this turn. */
   conceptAdvanced: boolean
+  /** The next problem to present to the student (already selected by the engine). */
+  currentProblem: Problem | null
+  /** The current target concept after this turn. */
+  targetConcept?: ConceptNode
 }

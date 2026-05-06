@@ -147,6 +147,9 @@ export class SessionEngine {
       turnCount: active.session.turns.length,
       masteryUpdated: true,
       conceptAdvanced,
+      // Include the next problem so the UI can update without a separate API call
+      currentProblem: active.session.currentProblem,
+      targetConcept: active.session.targetConcept,
     }
   }
 

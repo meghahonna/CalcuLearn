@@ -154,6 +154,8 @@ async function handleApiRequest(app: CalcuLearnApp, request: IncomingMessage, re
     sendError(response, 404, 'Not found')
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error'
+    // Log full stack so we can diagnose crashes
+    console.error('[server] Request error:', err instanceof Error ? err.stack : err)
     sendError(response, 400, message)
   }
 }

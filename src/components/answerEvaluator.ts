@@ -263,7 +263,8 @@ function isNumericLiteral(raw: string): boolean {
 
 function patternMatches(misconception: Misconception, raw: string): boolean {
   const pattern = misconception.incorrectPattern
-  if (pattern.length === 0) return false
+  // Guard: incorrectPattern is optional — many seeded problems omit it
+  if (pattern === undefined || pattern === null || pattern.length === 0) return false
   // Substring is the default — most authored patterns contain regex
   // metacharacters that the author meant literally (e.g. 'f(3) = 7').
   // Authors who genuinely want a regex must opt in explicitly.

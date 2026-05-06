@@ -309,18 +309,20 @@ export function bindDom(options: DomBindingOptions): () => void {
         feedbackArea.appendChild(card)
       }
 
-      // Animate to next problem
+      // Animate to next problem — use result.currentProblem which the server
+      // returns directly so we never read stale client-side session state
       if (answerInput !== null) answerInput.value = ''
-      const nextStem = controller.state.session?.currentProblem?.stem ?? ''
+      const nextProblem = (result as any).currentProblem
+      const nextStem = nextProblem?.stem ?? controller.state.session?.currentProblem?.stem ?? ''
       if (nextStem) {
         await sleep(400)
         await transitionStem(nextStem)
-        updateDifficultyBadge(controller.state.session?.currentProblem?.difficulty)
+        updateDifficultyBadge(nextProblem?.difficulty ?? controller.state.session?.currentProblem?.difficulty)
       }
 
       // Update progress
       if (result.masteryUpdated) {
-        updateProgress({ [controller.state.session?.targetConcept.id ?? '']: 0.1 })
+        updateProgress({ [controller.state.session?.targetConcept?.id ?? 'concept']: 0.1 })
       }
 
       if (answerInput !== null) answerInput.focus()
