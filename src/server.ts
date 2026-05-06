@@ -151,6 +151,71 @@ async function handleApiRequest(app: CalcuLearnApp, request: IncomingMessage, re
       }
     }
 
+    // -------------------- Phase B: Learn Mode endpoints --------------------
+
+    // List concept ids that have authored content (for the topic picker)
+    if (request.method === 'GET' && pathname === '/api/learn/concepts') {
+      const ids = app.contentRetrieval.listAuthoredConceptIds()
+      const concepts = ids
+        .map((id) => app.contentRetrieval.getConcept(id))
+        .filter((c) => c !== null)
+        .map((c) => ({
+          id: c!.id,
+          name: c!.name,
+          one_liner: c!.one_liner,
+          track: c!.track,
+          prerequisites: c!.prerequisites,
+          difficulty: c!.difficulty,
+        }))
+      sendJson(response, 200, { concepts })
+      return
+    }
+
+    // Start a new Learn Mode walkthrough
+    if (request.method === 'POST' && pathname === '/api/learn/start') {
+      const body = (await readRequestBody(request)) as Record<string, unknown>
+      const studentId = requireString(body['studentId'])
+      const conceptId = requireString(body['conceptId'])
+      const tier = (body['tier'] as 'novice' | 'on_pace' | 'advanced' | undefined) ?? undefined
+      const turn = await app.learnModeService.start({ studentId, conceptId, tier })
+      sendJson(response, 200, turn)
+      return
+    }
+
+    // Continue an existing Learn Mode walkthrough
+    if (request.method === 'POST' && pathname.startsWith('/api/learn/respond/')) {
+      const sessionId = pathname.replace('/api/learn/respond/', '')
+      const body = (await readRequestBody(request)) as Record<string, unknown>
+      const studentInput = requireString(body['studentInput'])
+      const turn = await app.learnModeService.respond({ sessionId, studentInput })
+      sendJson(response, 200, turn)
+      return
+    }
+
+    // Inspect Learn session state
+    if (request.method === 'GET' && pathname.startsWith('/api/learn/session/')) {
+      const sessionId = pathname.replace('/api/learn/session/', '')
+      const sess = app.learnModeService.getSession(sessionId)
+      if (!sess) {
+        sendError(response, 404, 'Learn session not found')
+        return
+      }
+      sendJson(response, 200, {
+        id: sess.id,
+        studentId: sess.studentId,
+        conceptId: sess.conceptId,
+        conceptName: sess.conceptName,
+        tier: sess.tier,
+        stage: sess.stage,
+        currentFramingIndex: sess.currentFramingIndex,
+        checkIndex: sess.checkIndex,
+        framingsExhausted: sess.framingsExhausted,
+        turns: sess.turns,
+        startedAt: sess.startedAt,
+      })
+      return
+    }
+
     sendError(response, 404, 'Not found')
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error'

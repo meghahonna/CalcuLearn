@@ -21,6 +21,9 @@ import { DialogueGenerator } from './components/dialogueGenerator.js'
 import { TranslationLayer } from './components/translationLayer.js'
 import { SessionEngine } from './components/sessionEngine.js'
 import { bootstrapModel, type Quantisation } from './bootstrap.js'
+import { ContentRetrieval } from './components/contentRetrieval.js'
+import { ResponseClassifier } from './components/responseClassifier.js'
+import { LearnModeService } from './components/learnModeService.js'
 
 export interface CalcuLearnConfig {
   /** Filesystem path to the SQLite database. */
@@ -52,6 +55,12 @@ export interface CalcuLearnApp {
   dialogueGenerator: DialogueGenerator
   translationLayer: TranslationLayer
   sessionEngine: SessionEngine
+  /** Phase B: read-only DAO over the Phase A authored content tables. */
+  contentRetrieval: ContentRetrieval
+  /** Phase B: classifies free-form student input. */
+  responseClassifier: ResponseClassifier
+  /** Phase B: drives a Socratic walkthrough end-to-end. */
+  learnModeService: LearnModeService
   /** Cleanly close the SQLite connection. */
   close(): void
 }
@@ -109,11 +118,28 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
     targetLanguage: config.targetLanguage ?? 'en',
   })
 
+  // Phase B: wire the Socratic runtime on top of the authored content.
+  const contentRetrieval = new ContentRetrieval(db)
+  const responseClassifier = new ResponseClassifier(dialogueGenerator)
+  const learnModeService = new LearnModeService({
+    contentRetrieval,
+    dialogueGenerator,
+    responseClassifier,
+    logger,
+  })
+
   // Phase 1 fix: warm up Gemma immediately so the first student click is fast.
   // loadModel() is idempotent — subsequent calls return the cached promise.
   logger.log('[createApp] Warming up Gemma model...')
   await dialogueGenerator.loadModel()
   logger.log('[createApp] Gemma ready.')
+
+  // Phase B status: log how many concepts have authored content available.
+  const authoredIds = contentRetrieval.listAuthoredConceptIds()
+  logger.log(
+    `[createApp] Phase B: ${authoredIds.length} authored concept(s) available for Learn Mode: ` +
+    authoredIds.join(', ')
+  )
 
   return {
     db,
@@ -123,6 +149,9 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
     dialogueGenerator,
     translationLayer,
     sessionEngine,
+    contentRetrieval,
+    responseClassifier,
+    learnModeService,
     close(): void {
       db.close()
     },
