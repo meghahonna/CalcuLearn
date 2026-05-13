@@ -25,6 +25,7 @@ import { ContentRetrieval } from './components/contentRetrieval.js'
 import { ResponseClassifier } from './components/responseClassifier.js'
 import { LearnModeService } from './components/learnModeService.js'
 import { AdaptiveRouter } from './components/adaptiveRouter.js'
+import { ChallengeService } from './components/challengeService.js'
 
 export interface CalcuLearnConfig {
   /** Filesystem path to the SQLite database. */
@@ -64,6 +65,8 @@ export interface CalcuLearnApp {
   learnModeService: LearnModeService
   /** Phase D: per-(student,concept) signal tracker + routing recommendations. */
   adaptiveRouter: AdaptiveRouter
+  /** Phase E: Challenge Mode runtime — applications, deep dives, stretch problems. */
+  challengeService: ChallengeService
   /** Cleanly close the SQLite connection. */
   close(): void
 }
@@ -137,6 +140,14 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
     logger,
   })
 
+  const challengeService = new ChallengeService({
+    db,
+    contentRetrieval,
+    dialogueGenerator,
+    adaptiveRouter,
+    logger,
+  })
+
   // Phase 1 fix: warm up Gemma immediately so the first student click is fast.
   // loadModel() is idempotent — subsequent calls return the cached promise.
   logger.log('[createApp] Warming up Gemma model...')
@@ -162,6 +173,7 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
     responseClassifier,
     learnModeService,
     adaptiveRouter,
+    challengeService,
     close(): void {
       db.close()
     },

@@ -599,16 +599,27 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
   // ── Phase C: mode tabs + Learn Mode wiring ──
   void (async () => {
     const { LearnModeUi } = await import('./learnMode.js')
+    const { ChallengeUi } = await import('./challenge.js')
     const learnContainer = document.getElementById('learn-container') as HTMLElement
+    const challengeContainer = document.getElementById('challenge-container') as HTMLElement
     const practicePanel = document.getElementById('problem-panel') as HTMLElement
     const summaryPanel = document.getElementById('summary-panel') as HTMLElement
     const learnUi = new LearnModeUi({ document, studentId })
+    const challengeUi = new ChallengeUi({ document, studentId })
     let learnMounted = false
+    let challengeMounted = false
 
     async function ensureLearnMounted(): Promise<void> {
       if (!learnMounted) {
         await learnUi.mount(learnContainer)
         learnMounted = true
+      }
+    }
+
+    async function ensureChallengeMounted(): Promise<void> {
+      if (!challengeMounted) {
+        await challengeUi.mount(challengeContainer)
+        challengeMounted = true
       }
     }
 
@@ -621,7 +632,9 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
       summaryPanel.hidden = !showPractice || summaryPanel.hasAttribute('data-stay-hidden')
       if (!showPractice) summaryPanel.hidden = true
       learnContainer.hidden = mode !== 'learn'
+      challengeContainer.hidden = mode !== 'challenge'
       if (mode === 'learn') void ensureLearnMounted()
+      if (mode === 'challenge') void ensureChallengeMounted()
     }
 
     document.querySelectorAll('.mode-tab').forEach((btn) => {
@@ -665,13 +678,22 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
             }
           })()
         } else if (action.kind === 'unlock_challenge') {
-          // Enable Challenge tab visually
+          // Tab is enabled by default in Phase E; visually mark it unlocked
           const tab = document.querySelector('.mode-tab[data-mode=\"challenge\"]') as HTMLButtonElement | null
           if (tab) {
-            tab.disabled = false
             tab.title = 'Challenge mode unlocked'
             tab.classList.add('unlocked')
           }
+          // Open Challenge Mode and jump to the unlocked concept
+          void (async () => {
+            await ensureChallengeMounted()
+            setMode('challenge')
+            try {
+              await challengeUi.openConcept(conceptId)
+            } catch (err) {
+              console.error('[nudge unlock_challenge]', err)
+            }
+          })()
         } else if (action.kind === 'try_alt_framing') {
           void (async () => {
             await ensureLearnMounted()

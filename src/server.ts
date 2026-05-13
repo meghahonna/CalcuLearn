@@ -281,6 +281,69 @@ async function handleApiRequest(app: CalcuLearnApp, request: IncomingMessage, re
       return
     }
 
+    // -------------------- Phase E: Challenge Mode --------------------
+
+    // List concepts that have challenge content available
+    if (request.method === 'GET' && pathname.startsWith('/api/challenge/concepts')) {
+      const url = new URL(request.url ?? '/', `http://${request.headers.host}`)
+      const studentId = url.searchParams.get('studentId') ?? ''
+      if (!studentId) {
+        sendError(response, 400, 'studentId required')
+        return
+      }
+      const concepts = app.challengeService.listChallengeableConcepts(studentId)
+      sendJson(response, 200, { concepts })
+      return
+    }
+
+    // Get the full challenge bundle for one concept
+    if (request.method === 'GET' && pathname.startsWith('/api/challenge/bundle')) {
+      const url = new URL(request.url ?? '/', `http://${request.headers.host}`)
+      const studentId = url.searchParams.get('studentId') ?? ''
+      const conceptId = url.searchParams.get('conceptId') ?? ''
+      if (!studentId || !conceptId) {
+        sendError(response, 400, 'studentId and conceptId required')
+        return
+      }
+      const bundle = app.challengeService.getChallengeBundle(studentId, conceptId)
+      sendJson(response, 200, bundle)
+      return
+    }
+
+    // Socratic feedback on an application-problem answer
+    if (request.method === 'POST' && pathname === '/api/challenge/application/feedback') {
+      const body = (await readRequestBody(request)) as Record<string, unknown>
+      const applicationId = Number(body['applicationId'])
+      const studentAnswer = requireString(body['studentAnswer'])
+      if (!applicationId || Number.isNaN(applicationId)) {
+        sendError(response, 400, 'applicationId required')
+        return
+      }
+      const fb = await app.challengeService.feedbackOnApplication({
+        applicationId,
+        studentAnswer,
+      })
+      sendJson(response, 200, fb)
+      return
+    }
+
+    // Socratic probe after a deep-dive reflection
+    if (request.method === 'POST' && pathname === '/api/challenge/deepdive/probe') {
+      const body = (await readRequestBody(request)) as Record<string, unknown>
+      const deepDiveId = Number(body['deepDiveId'])
+      const studentReflection = (body['studentReflection'] as string) ?? ''
+      if (!deepDiveId || Number.isNaN(deepDiveId)) {
+        sendError(response, 400, 'deepDiveId required')
+        return
+      }
+      const fb = await app.challengeService.probeAfterDeepDive({
+        deepDiveId,
+        studentReflection,
+      })
+      sendJson(response, 200, fb)
+      return
+    }
+
     sendError(response, 404, 'Not found')
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error'
