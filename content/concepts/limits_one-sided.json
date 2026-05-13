@@ -1,0 +1,207 @@
+{
+  "concept_id": "limits.one-sided",
+  "name": "One-Sided Limits",
+  "track": "BOTH",
+  "one_liner": "Approaching a value from one side only — and when the two-sided limit exists.",
+  "prerequisites": [
+    "limits.definition"
+  ],
+  "explanations": [
+    {
+      "tier": "novice",
+      "framing_index": 0,
+      "body_md": "You already know what a limit is: the value a function *approaches* as $x$ gets close to some number. But here's the twist — what if the function approaches a *different* value depending on which direction you come from?\n\nLook at this piecewise function:\n\n$$f(x) = \\begin{cases} 1 & \\text{if } x < 3 \\\\ 5 & \\text{if } x \\geq 3 \\end{cases}$$\n\nIf you plug in numbers just to the left of 3 — like $x = 2.9$, $x = 2.99$, $x = 2.999$ — you get $f(x) = 1$ every time. The function is heading toward 1.\n\nNow come from the right side — $x = 3.1$, $x = 3.01$, $x = 3.001$. Every time, $f(x) = 5$. The function is heading toward 5.\n\nThose two answers don't match. That's the whole idea.\n\nThe **left-hand limit** is the value $f(x)$ approaches when $x$ sneaks up to a number from the left (smaller side). We write it with a little minus sign:\n\n$$\\lim_{x \\to 3^{-}} f(x) = 1$$\n\nThe **right-hand limit** is the value $f(x)$ approaches from the right (larger side). We write it with a little plus sign:\n\n$$\\lim_{x \\to 3^{+}} f(x) = 5$$\n\nBecause these two results are different, the ordinary (two-sided) limit $\\lim_{x \\to 3} f(x)$ **does not exist**.\n\nHere's the key rule: the regular limit only exists when the left-hand limit and the right-hand limit are equal. In symbols:\n\n$$\\lim_{x \\to a} f(x) = L \\quad \\text{only if} \\quad \\lim_{x \\to a^{-}} f(x) = L \\quad \\text{and} \\quad \\lim_{x \\to a^{+}} f(x) = L$$\n\nIf this feels tricky, that's normal. You're asking a subtler question now — not just *where is the function going?* but *does the answer depend on which direction I look?* Take your time with it.",
+      "intuition_md": "Imagine you're walking along a trail toward a bridge at mile marker 3. If you approach from the west, the trail sits at an elevation of 1 foot. But if you approach from the east, the trail sits at 5 feet. There's a sudden cliff right at the bridge — a jump. Someone asking \"what elevation is the trail near mile 3?\" can't get a single answer because it depends on which side you're coming from. That's exactly what happens with a piecewise function that has a jump: the left-hand limit and right-hand limit give you two different elevations, so no single overall limit exists."
+    },
+    {
+      "tier": "novice",
+      "framing_index": 1,
+      "body_md": "You already know what a limit is: the value $f(x)$ gets closer and closer to as $x$ approaches some number $a$. But what if $f(x)$ approaches *different* values depending on *which direction* you come from? That is exactly what one-sided limits handle.\n\n**Coming from the left:** When you approach $a$ using values smaller than $a$ (like $1.9, 1.99, 1.999$ approaching $2$), you write:\n$$\\lim_{x \\to a^-} f(x)$$\nThat little minus sign means \"from the left side\" — from values less than $a$.\n\n**Coming from the right:** When you approach $a$ using values bigger than $a$ (like $2.1, 2.01, 2.001$ approaching $2$), you write:\n$$\\lim_{x \\to a^+} f(x)$$\nThe plus sign means \"from the right side\" — from values greater than $a$.\n\nHere is a concrete example. Suppose a function gives $f(x) = 5$ for every $x$ less than $3$, and $f(x) = 8$ for every $x$ greater than $3$. Then:\n$$\\lim_{x \\to 3^-} f(x) = 5 \\qquad \\text{and} \\qquad \\lim_{x \\to 3^+} f(x) = 8$$\n\nSince $5 \\neq 8$, the left-side answer and the right-side answer disagree. When that happens, the ordinary (two-sided) limit **does not exist**.\n\nThe key rule is simple:\n$$\\lim_{x \\to a} f(x) \\text{ exists } \\quad \\Longleftrightarrow \\quad \\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x)$$\nBoth one-sided limits must (1) exist and (2) equal the same number. Only then can you say the two-sided limit exists, and its value is that shared number.\n\nIf this feels tricky, that is normal. The idea is just: direction matters. Check both sides, compare, and you are done.",
+      "intuition_md": "Picture yourself walking along a mountain trail toward a bridge. If you approach the bridge from the west, the trail sits at 100 feet elevation. If you approach from the east, the trail sits at 120 feet. There is a gap — the two sides of the trail do not line up. You cannot walk smoothly across. That mismatch is exactly what happens when $\\lim_{x \\to a^-} f(x) \\neq \\lim_{x \\to a^+} f(x)$: the graph has a \"jump,\" and the two-sided limit does not exist. If both sides meet at the same height, the bridge connects and the limit exists."
+    },
+    {
+      "tier": "on_pace",
+      "framing_index": 0,
+      "body_md": "You already know that $\\lim_{x \\to c} f(x) = L$ means $f(x)$ gets arbitrarily close to $L$ as $x$ approaches $c$ from **both** sides. A one-sided limit relaxes that: you only care about one direction of approach.\n\n**Left-hand limit:** $\\lim_{x \\to c^-} f(x) = L$ means $f(x) \\to L$ as $x$ approaches $c$ from values **less than** $c$.\n\n**Right-hand limit:** $\\lim_{x \\to c^+} f(x) = L$ means $f(x) \\to L$ as $x$ approaches $c$ from values **greater than** $c$.\n\nThe superscript $-$ or $+$ on the $c$ tells you the direction. That's the entire notational difference.\n\n**The key connection back to ordinary limits:**\n\n$$\\lim_{x \\to c} f(x) = L \\quad \\Longleftrightarrow \\quad \\lim_{x \\to c^-} f(x) = L \\;\\text{ and }\\; \\lim_{x \\to c^+} f(x) = L$$\n\nBoth one-sided limits must exist **and** equal each other for the two-sided limit to exist. This is the single most testable fact about one-sided limits.\n\n**Where this matters most:** piecewise functions. Consider\n\n$$f(x) = \\begin{cases} x + 1 & x < 2 \\\\ 5 & x \\ge 2 \\end{cases}$$\n\nHere $\\lim_{x \\to 2^-} f(x) = 2 + 1 = 3$ and $\\lim_{x \\to 2^+} f(x) = 5$. Since $3 \\neq 5$, the two-sided limit $\\lim_{x \\to 2} f(x)$ does not exist.\n\n**Common sticking points:**\n\n1. Don't confuse $f(c)$ with the one-sided limits. The function's actual value at $c$ is irrelevant to what the limits equal.\n2. A limit can fail to exist from one side on its own (e.g., $\\lim_{x \\to 0^+} \\sin(1/x)$ oscillates), not just because the two sides disagree.\n3. When you read a graph, trace your finger along the curve toward $c$ from the left, then separately from the right. Read the $y$-values you approach, not the dot (or hole) at $x = c$.\n\nUp next, one-sided limits feed directly into the formal definition of continuity at a point — specifically, continuity from the left or right.",
+      "intuition_md": "Picture yourself walking along a road toward a bridge at mile marker $c$. If you walk from the west (left), you might see the bridge at elevation 10 feet. If your friend walks from the east (right), they might see it at elevation 10 feet too — great, the two-sided limit exists and equals 10. But if the bridge is broken in the middle, you see elevation 10 from your side and your friend sees elevation 7 from theirs. Each of you has a perfectly valid one-sided observation, but there is no single answer you agree on, so the two-sided limit does not exist."
+    },
+    {
+      "tier": "advanced",
+      "framing_index": 0,
+      "body_md": "You already know that $\\lim_{x \\to c} f(x) = L$ means $f(x)$ can be made arbitrarily close to $L$ by taking $x$ sufficiently close to $c$ from **either** side. One-sided limits refine this by restricting the direction of approach.\n\n**Formal definitions.** Let $f$ be defined on some open interval containing $c$ (except possibly at $c$ itself).\n\n$$\\lim_{x \\to c^-} f(x) = L \\iff \\forall\\,\\varepsilon > 0,\\; \\exists\\,\\delta > 0 \\text{ such that } c - \\delta < x < c \\implies |f(x) - L| < \\varepsilon$$\n\n$$\\lim_{x \\to c^+} f(x) = L \\iff \\forall\\,\\varepsilon > 0,\\; \\exists\\,\\delta > 0 \\text{ such that } c < x < c + \\delta \\implies |f(x) - L| < \\varepsilon$$\n\nThe only change from the two-sided definition is the domain of $x$: you restrict to a **half-neighborhood** of $c$.\n\n**Key theorem.** The two-sided limit exists and equals $L$ if and only if both one-sided limits exist and equal $L$:\n\n$$\\lim_{x \\to c} f(x) = L \\iff \\lim_{x \\to c^-} f(x) = L \\;\\text{ and }\\; \\lim_{x \\to c^+} f(x) = L$$\n\nThis is almost immediate from the definitions: the full punctured neighborhood $(c-\\delta, c) \\cup (c, c+\\delta)$ is just the union of the left and right half-neighborhoods. So controlling $|f(x)-L|$ on the whole punctured neighborhood is equivalent to controlling it on each half separately.\n\n**Why this matters beyond limit evaluation.** Continuity at an endpoint of a closed interval $[a, b]$ is defined via a one-sided limit: $f$ is continuous at $a$ iff $\\lim_{x \\to a^+} f(x) = f(a)$. Derivatives at endpoints work the same way — the derivative at $a$ is the one-sided limit of the difference quotient from the right. This is also why piecewise functions demand separate one-sided checks at each boundary.\n\n**Stretch question.** Construct a function $f$ on $\\mathbb{R}$ such that $\\lim_{x \\to 0^+} f(x)$ exists, $\\lim_{x \\to 0^-} f(x)$ exists, neither equals $f(0)$, and both one-sided limits are irrational. Then determine what kind of discontinuity $f$ has at $0$ and whether it's removable.",
+      "intuition_md": "Think of walking along a number line toward a doorway at $x = c$. The two-sided limit asks: do you approach the same height regardless of which direction you come from? One-sided limits let you answer each direction independently. If you walk in from the left and the floor is at height 3, but from the right it's at height 5, there's no single \"height at the door\" — the two-sided limit fails to exist. The doorway itself ($f(c)$) might be at any height or might not even have a floor tile; that's a separate question (continuity), not a limit question."
+    }
+  ],
+  "examples": [
+    {
+      "tier": "novice",
+      "problem_md": "Consider the piecewise function:\n\n$$f(x) = \\begin{cases} x + 1 & \\text{if } x < 2 \\\\ 5 & \\text{if } x = 2 \\\\ 3x - 3 & \\text{if } x > 2 \\end{cases}$$\n\nFind $\\displaystyle\\lim_{x \\to 2^-} f(x)$ and $\\displaystyle\\lim_{x \\to 2^+} f(x)$. Then determine whether $\\displaystyle\\lim_{x \\to 2} f(x)$ exists.",
+      "steps": [
+        {
+          "step_md": "First, let's decode the notation. The symbol $\\displaystyle\\lim_{x \\to 2^-}$ means: what value does $f(x)$ approach as $x$ sneaks up to $2$ **from the left** (from numbers smaller than $2$, like $1.9$, $1.99$, $1.999$)? The little minus sign in $2^-$ means \"from the left side of the number line.\"",
+          "why_md": "One-sided limits ask you to look at only **one direction** of approach. Think of it like walking down a road toward a bridge. \"From the left\" means you're approaching the bridge from the west side. You haven't crossed it — you're just getting closer and closer. The question is: what height does the road seem to be heading toward as you get near the bridge?"
+        },
+        {
+          "step_md": "For $\\displaystyle\\lim_{x \\to 2^-} f(x)$, we only care about $x$-values **less than** $2$. Looking at the piecewise definition, when $x < 2$ the rule is $f(x) = x + 1$. Let's test a few values:\n\n| $x$ | $f(x) = x + 1$ |\n|---|---|\n| $1.5$ | $2.5$ |\n| $1.9$ | $2.9$ |\n| $1.99$ | $2.99$ |\n| $1.999$ | $2.999$ |\n\nThe outputs are clearly heading toward $3$.\n\nSo $\\displaystyle\\lim_{x \\to 2^-} f(x) = 3$.",
+          "why_md": "We pick the piece of the function that matches the side we're approaching from. Since we're coming from the left ($x < 2$), we use the rule $f(x) = x + 1$. Plugging in numbers that creep closer and closer to $2$ lets you **see** the trend with your own eyes. You could also just substitute $x = 2$ into $x + 1$ to get $3$ — but the table makes the idea concrete and gives you confidence the answer is right."
+        },
+        {
+          "step_md": "For $\\displaystyle\\lim_{x \\to 2^+} f(x)$, we only care about $x$-values **greater than** $2$. When $x > 2$, the rule is $f(x) = 3x - 3$. Testing values:\n\n| $x$ | $f(x) = 3x - 3$ |\n|---|---|\n| $2.5$ | $4.5$ |\n| $2.1$ | $3.3$ |\n| $2.01$ | $3.03$ |\n| $2.001$ | $3.003$ |\n\nThe outputs are heading toward $3$.\n\nSo $\\displaystyle\\lim_{x \\to 2^+} f(x) = 3$.",
+          "why_md": "Same idea, opposite direction. The plus sign in $2^+$ means \"from the right\" — values just a little bigger than $2$. You pick the matching piece ($3x - 3$) and watch where the outputs go. Again the outputs zero in on $3$."
+        },
+        {
+          "step_md": "Now we check: does the **overall** (two-sided) limit $\\displaystyle\\lim_{x \\to 2} f(x)$ exist?\n\nThe rule is: a two-sided limit exists **only if** both one-sided limits exist **and** are **equal**.\n\n$$\\lim_{x \\to 2^-} f(x) = 3 \\quad \\text{and} \\quad \\lim_{x \\to 2^+} f(x) = 3$$\n\nBoth sides agree, so:\n\n$$\\lim_{x \\to 2} f(x) = 3$$",
+          "why_md": "Think of it this way: if someone walking toward the bridge from the west would arrive at a height of $3$, and someone walking from the east would also arrive at a height of $3$, then both travelers agree — the road is heading to height $3$ at that point. That agreement is exactly what a two-sided limit requires."
+        },
+        {
+          "step_md": "One important detail: notice that $f(2) = 5$, but the limit as $x \\to 2$ is $3$. The limit and the actual function value **do not have to match**.\n\n$$\\lim_{x \\to 2} f(x) = 3 \\neq 5 = f(2)$$\n\nThis means $f$ has a \"hole\" at $x = 2$ — the graph is heading to $y = 3$, but the single plotted point sits up at $y = 5$.",
+          "why_md": "This is one of the most important ideas in all of calculus: a limit describes where the function **is heading**, not where it actually **is**. It's like your GPS predicting you'll arrive at a coffee shop, but at the last second you swerve into the parking lot next door. The prediction (limit) and the actual destination (function value) can differ. When they do differ, the function is **not continuous** at that point — a concept you'll see very soon. As a stretch exercise, try changing the value of $f(2)$ to $3$ and convince yourself that doing so would make the function continuous at $x = 2$."
+        }
+      ]
+    },
+    {
+      "tier": "on_pace",
+      "problem_md": "Let $f(x) = \\begin{cases} x^2 + 1 & \\text{if } x < 2 \\\\ 3x - 2 & \\text{if } x > 2 \\end{cases}$\n\nFind $\\displaystyle\\lim_{x \\to 2^-} f(x)$, $\\displaystyle\\lim_{x \\to 2^+} f(x)$, and determine whether $\\displaystyle\\lim_{x \\to 2} f(x)$ exists.",
+      "steps": [
+        {
+          "step_md": "**Identify which rule applies from the left.** As $x \\to 2^-$, we have $x < 2$, so we use the top piece: $f(x) = x^2 + 1$.",
+          "why_md": "The superscript $^-$ means we approach $2$ from values *less than* $2$. A piecewise function can behave completely differently on each side of a boundary, so the very first job is to pick the correct piece. This is the step most people rush past and then get the wrong answer."
+        },
+        {
+          "step_md": "**Compute the left-hand limit.** $$\\lim_{x \\to 2^-} f(x) = \\lim_{x \\to 2^-} (x^2 + 1) = (2)^2 + 1 = 5.$$",
+          "why_md": "Because $x^2 + 1$ is a polynomial, it's continuous everywhere, so you can evaluate it by direct substitution. The limit as $x \\to 2^-$ of a polynomial is the same as just plugging in $x = 2$. Nothing exotic here — but notice we're substituting into the *left-side rule*, not the right-side one."
+        },
+        {
+          "step_md": "**Identify which rule applies from the right.** As $x \\to 2^+$, we have $x > 2$, so we use the bottom piece: $f(x) = 3x - 2$.",
+          "why_md": "Same logic as Step 1, just the other direction. The superscript $^+$ means values *greater than* $2$, which lands us in the domain of the second piece."
+        },
+        {
+          "step_md": "**Compute the right-hand limit.** $$\\lim_{x \\to 2^+} f(x) = \\lim_{x \\to 2^+} (3x - 2) = 3(2) - 2 = 4.$$",
+          "why_md": "Again, $3x - 2$ is a polynomial, so direct substitution works. We get $4$, which is a different number from $5$. Already you should sense what's coming."
+        },
+        {
+          "step_md": "**Compare the two one-sided limits.** We found $$\\lim_{x \\to 2^-} f(x) = 5 \\qquad \\text{and} \\qquad \\lim_{x \\to 2^+} f(x) = 4.$$ Since $5 \\neq 4$, the two-sided limit $\\displaystyle\\lim_{x \\to 2} f(x)$ **does not exist (DNE)**.",
+          "why_md": "This is the key theorem connecting one-sided limits to the ordinary (two-sided) limit: $\\displaystyle\\lim_{x \\to a} f(x)$ exists *if and only if* both one-sided limits exist and are **equal**. When they disagree, the function is approaching two different heights, so there is no single number $L$ the function is heading toward. This exact idea will come back soon when you study **continuity** — one of the conditions for $f$ to be continuous at $x = a$ is that $\\displaystyle\\lim_{x \\to a} f(x)$ must exist, which requires precisely this left = right check. So every continuity problem on piecewise functions starts with the skill you just practiced here."
+        }
+      ]
+    },
+    {
+      "tier": "advanced",
+      "problem_md": "Let $f(x) = \\begin{cases} \\dfrac{\\sin(x^2 - 1)}{x - 1} & \\text{if } x \\neq 1 \\\\[6pt] k & \\text{if } x = 1 \\end{cases}$.\n\nEvaluate $\\displaystyle\\lim_{x \\to 1^-} f(x)$ and $\\displaystyle\\lim_{x \\to 1^+} f(x)$. Then determine whether a value of $k$ exists that makes $f$ continuous at $x = 1$.",
+      "steps": [
+        {
+          "step_md": "Factor the argument of sine: $x^2 - 1 = (x-1)(x+1)$, so for $x \\neq 1$,\n$$f(x) = \\frac{\\sin\\!\\big((x-1)(x+1)\\big)}{x-1}.$$",
+          "why_md": "The expression is $\\frac{0}{0}$ at $x=1$. Factoring reveals the $(x-1)$ that causes the cancellation and sets up the classic $\\frac{\\sin u}{u} \\to 1$ maneuver. Without this algebraic step, you're stuck."
+        },
+        {
+          "step_md": "Set $u = (x-1)(x+1)$. As $x \\to 1$ (from either side), $u \\to 0$. Rewrite:\n$$f(x) = \\frac{\\sin(u)}{u} \\cdot \\frac{u}{x - 1} = \\frac{\\sin(u)}{u} \\cdot (x+1).$$",
+          "why_md": "Multiplying and dividing by $u$ isolates the standard limit $\\frac{\\sin u}{u} \\to 1$ as $u \\to 0$. The leftover factor $(x+1)$ is continuous everywhere, so it can be evaluated by direct substitution. This decomposition is the core technique whenever $\\sin(\\text{something})$ sits over a related linear factor."
+        },
+        {
+          "step_md": "Evaluate the left-hand limit:\n$$\\lim_{x \\to 1^-} f(x) = \\lim_{x \\to 1^-} \\frac{\\sin(u)}{u} \\cdot (x+1) = 1 \\cdot 2 = 2.$$",
+          "why_md": "As $x \\to 1^-$, we have $x < 1$, so $x - 1 < 0$ and $u = (x-1)(x+1) < 0$ (since $x+1 > 0$). The quantity $u$ approaches $0$ through negative values. The limit $\\frac{\\sin u}{u} \\to 1$ holds regardless of the sign of $u$ (it is an even function of $u$), so the one-sided direction does not alter the computation here. Still, you must verify this rather than assume it."
+        },
+        {
+          "step_md": "Evaluate the right-hand limit:\n$$\\lim_{x \\to 1^+} f(x) = \\lim_{x \\to 1^+} \\frac{\\sin(u)}{u} \\cdot (x+1) = 1 \\cdot 2 = 2.$$",
+          "why_md": "Now $x > 1$, so $u > 0$ and $u \\to 0^+$. The same limit $\\frac{\\sin u}{u} \\to 1$ applies. Because both one-sided limits equal $2$, the two-sided limit exists: $\\displaystyle\\lim_{x \\to 1} f(x) = 2$. The point is that one-sided limits are the fundamental objects; the two-sided limit is merely the assertion that they agree."
+        },
+        {
+          "step_md": "For continuity at $x = 1$ we need $f(1) = \\displaystyle\\lim_{x \\to 1} f(x)$, i.e., $k = 2$.",
+          "why_md": "Continuity at a point is the conjunction of three conditions: (i) $f(a)$ is defined, (ii) $\\lim_{x \\to a} f(x)$ exists, and (iii) they are equal. Conditions (i) and (ii) are already satisfied for any $k$ and by the work above, respectively. So the only constraint is $k = 2$. Notice that if the two one-sided limits had disagreed, no choice of $k$ could rescue continuity — a jump discontinuity is non-removable.\n\n**Stretch question.** Suppose you replace $\\sin(x^2-1)$ with $\\sin(x^3 - 1)$. Now $x^3 - 1 = (x-1)(x^2+x+1)$. Can you show both one-sided limits equal $3$? More generally, for $\\sin(x^n - 1)/(x-1)$, predict the limit as $x \\to 1$ and connect your answer to the derivative of $x^n$ at $x = 1$ via the linear-approximation identity $\\sin(h) \\approx h$ for small $h$."
+        }
+      ]
+    }
+  ],
+  "misconceptions": [
+    {
+      "short_name": "one_sided_equal_means_limit_exists",
+      "description_md": "The student assumes that if $\\lim_{x \\to a^-} f(x)$ exists and $\\lim_{x \\to a^+} f(x)$ exists, then $\\lim_{x \\to a} f(x)$ must exist. For example, they see that $\\lim_{x \\to 2^-} f(x) = 3$ and $\\lim_{x \\to 2^+} f(x) = 5$ and conclude that $\\lim_{x \\to 2} f(x)$ exists (perhaps averaging them or picking one).",
+      "why_wrong_md": "The two-sided limit $\\lim_{x \\to a} f(x)$ exists only when both one-sided limits exist **and are equal**. Since $3 \\neq 5$, the two-sided limit does not exist at $x = 2$.",
+      "socratic_response_md": "You found that the left-hand limit is $3$ and the right-hand limit is $5$. For the two-sided limit to exist, what relationship do those two values need to have with each other?"
+    },
+    {
+      "short_name": "confusing_limit_with_function_value",
+      "description_md": "The student evaluates $\\lim_{x \\to a^-} f(x)$ by plugging in $x = a$ and reporting $f(a)$. For instance, given a piecewise function where $f(3) = 1$ but the piece defined for $x < 3$ approaches $4$, the student writes $\\lim_{x \\to 3^-} f(x) = 1$.",
+      "why_wrong_md": "A one-sided limit asks what value $f(x)$ *approaches* as $x$ gets close to $a$ from one side — it does not ask what $f(a)$ equals. The function value at $a$ is irrelevant to the limit; only the behavior of $f$ near $a$ matters.",
+      "socratic_response_md": "When you computed $\\lim_{x \\to 3^-} f(x)$, you used the value $f(3) = 1$. But the limit from the left only cares about $x$-values that are *less than* $3$. Which piece of the piecewise function governs those $x$-values, and what does it approach?"
+    },
+    {
+      "short_name": "wrong_direction_of_approach",
+      "description_md": "The student confuses which side is which — they think $\\lim_{x \\to a^-}$ means approaching from the right (values greater than $a$) and $\\lim_{x \\to a^+}$ means approaching from the left. For example, when asked for $\\lim_{x \\to 1^+} f(x)$, they use $x$-values like $0.9, 0.99, 0.999$.",
+      "why_wrong_md": "The superscript $+$ in $\\lim_{x \\to a^+}$ means $x$ approaches $a$ from values *greater* than $a$ (from the right on the number line). The superscript $-$ means from values *less* than $a$ (from the left). The student has the notation backwards.",
+      "socratic_response_md": "Look at the notation $\\lim_{x \\to 1^+}$. That little $+$ sign tells you that $x$ is slightly *more* than $1$. If $x$ is slightly more than $1$, would you be using values like $0.99$ or values like $1.01$?"
+    },
+    {
+      "short_name": "vertical_asymptote_limit_is_infinity",
+      "description_md": "The student writes $\\lim_{x \\to 0^+} \\frac{1}{x} = \\infty$ and then says \"the one-sided limit exists and equals infinity.\" They treat $\\infty$ as a real number that the limit equals.",
+      "why_wrong_md": "When we write $\\lim_{x \\to 0^+} \\frac{1}{x} = \\infty$, this is shorthand for saying the function grows without bound. The limit *does not exist* in the usual sense because $\\infty$ is not a real number. The notation describes *behavior*, not an actual limit value.",
+      "socratic_response_md": "You wrote that the limit equals $\\infty$. Can you actually arrive at $\\infty$ on the real number line, or is the notation $= \\infty$ just describing what the function *does* as $x$ gets closer to $0$? In that case, does the limit truly \"exist\"?"
+    },
+    {
+      "short_name": "graph_reading_ignores_open_circles",
+      "description_md": "When reading one-sided limits from a graph, the student sees an open circle at $(2, 5)$ and a filled circle at $(2, 3)$ and concludes $\\lim_{x \\to 2^-} f(x) = 3$ because the filled dot is the \"real\" value. They ignore where the curve actually leads as $x \\to 2^-$.",
+      "why_wrong_md": "Open and filled circles indicate whether a point is included in the function's domain, affecting $f(a)$. But one-sided limits depend on where the curve is heading, not which dot is filled. If the curve from the left leads to the open circle at $(2, 5)$, then $\\lim_{x \\to 2^-} f(x) = 5$, regardless of the filled dot.",
+      "socratic_response_md": "Imagine tracing the curve with your finger from the left toward $x = 2$. Where does your finger end up — at the open circle or the filled circle? Remember, the limit cares about where the curve is *heading*, so which $y$-value does the curve approach?"
+    }
+  ],
+  "checks": [
+    {
+      "tier": "novice",
+      "question_md": "Imagine you are walking along a number line toward $x = 3$, but you are coming **from the left side** (so you pass through 2.5, then 2.9, then 2.99, etc.). As you get closer and closer, the function's output gets closer and closer to 7.\n\nFill in the blank using a number:\n\n$$\\lim_{x \\to 3^{-}} f(x) = \\text{___}$$\n\nHint: the little minus sign in $3^{-}$ just means \"approaching 3 from the left.\" What value are the outputs heading toward?",
+      "expected_answer_md": "$\\lim_{x \\to 3^{-}} f(x) = 7$",
+      "expected_pattern": "7"
+    },
+    {
+      "tier": "novice",
+      "question_md": "A student says:\n\n> \"If $\\lim_{x \\to 5^{-}} f(x) = 2$ and $\\lim_{x \\to 5^{+}} f(x) = 4$, then the regular (two-sided) limit $\\lim_{x \\to 5} f(x)$ is the average, so it equals 3.\"\n\nIs this correct? Pick one:\n\n**(A)** Yes, you average the two one-sided limits.\n\n**(B)** No. The two-sided limit only exists when both one-sided limits are **equal**. Since 2 and 4 are different, the two-sided limit does not exist.\n\n**(C)** No. The two-sided limit equals the larger of the two, so it is 4.",
+      "expected_answer_md": "**(B)** — For the regular two-sided limit to exist, the left-hand limit and the right-hand limit must match (be the same number). Here they are 2 and 4, which are different, so $\\lim_{x \\to 5} f(x)$ does not exist.",
+      "expected_pattern": "[Bb]|does\\s*not\\s*exist|DNE|not\\s*exist|equal"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Consider the piecewise function\n\n$$f(x) = \\begin{cases} x + 3 & x < 1 \\\\ 5 & x = 1 \\\\ 2x & x > 1 \\end{cases}$$\n\nFind $\\displaystyle\\lim_{x \\to 1^-} f(x)$ and $\\displaystyle\\lim_{x \\to 1^+} f(x)$. Based on these, does the two-sided limit $\\displaystyle\\lim_{x \\to 1} f(x)$ exist?",
+      "expected_answer_md": "$\\displaystyle\\lim_{x \\to 1^-} f(x) = 4$ (using the rule $x+3$) and $\\displaystyle\\lim_{x \\to 1^+} f(x) = 2$ (using the rule $2x$). Since $4 \\neq 2$, the two-sided limit does **not** exist. Notice that the value $f(1)=5$ is irrelevant to whether the limit exists — limits care about what happens *near* the point, not *at* the point.",
+      "expected_pattern": "4.*2.*(not|does not|doesn't|DNE|no)"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "**Spot the mistake.** A classmate writes:\n\n> \"$\\displaystyle\\lim_{x \\to 3^+} \\frac{1}{x-3} = +\\infty$, so the right-hand limit exists and equals infinity.\"\n\nWhat is wrong with this reasoning?",
+      "expected_answer_md": "When a limit equals $+\\infty$ or $-\\infty$, it technically **does not exist** as a finite number. Writing $\\lim = +\\infty$ is a convenient description of *how* it fails to exist — the values grow without bound. A limit only \"exists\" in the standard sense when it equals a finite real number. This distinction matters because later, when you check continuity or apply the Squeeze Theorem, you need actual finite limits.",
+      "expected_pattern": "(does not exist|doesn't exist|DNE|not (a )?finite|infinite|not exist|no finite)"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "**Spot the mistake.** A student argues: \"Since $\\lim_{x \\to 3^-} f(x) = 5$ and $\\lim_{x \\to 3^+} f(x) = 5$, the function is continuous at $x = 3$.\" What additional condition is missing, and give a concrete counterexample where both one-sided limits agree yet continuity fails.",
+      "expected_answer_md": "The student forgot to check that $f(3)$ exists and equals $5$. Counterexample: define $f(x) = 5$ for $x \\neq 3$ and $f(3) = 7$ (or leave $f(3)$ undefined). Then $\\lim_{x \\to 3^-} f(x) = \\lim_{x \\to 3^+} f(x) = 5$, but $f$ is not continuous at $x = 3$ because $f(3) \\neq \\lim_{x \\to 3} f(x)$ (or $f(3)$ does not exist).",
+      "expected_pattern": "f\\(3\\)|f\\s*\\(\\s*3\\s*\\)|value.*(equal|defined|exist)|f\\(a\\)|must equal|removable"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "**Fill in the blank.** Using the $\\epsilon$-$\\delta$ formalism, $\\lim_{x \\to c^-} f(x) = L$ means: for every $\\epsilon > 0$ there exists $\\delta > 0$ such that $|f(x) - L| < \\epsilon$ whenever $\\underline{\\qquad\\qquad}$. Write the precise inequality constraint on $x$ that distinguishes the left-hand limit from the two-sided limit.",
+      "expected_answer_md": "$c - \\delta < x < c$, i.e., $0 < c - x < \\delta$ (equivalently $x \\in (c-\\delta,\\, c)$). The key distinction from the two-sided definition is that $x$ is restricted to lie strictly to the left of $c$, replacing $0 < |x - c| < \\delta$ with $0 < c - x < \\delta$.",
+      "expected_pattern": "c\\s*-\\s*\\\\?delta\\s*<\\s*x\\s*<\\s*c|0\\s*<\\s*c\\s*-\\s*x\\s*<\\s*\\\\?delta|\\(c\\s*-\\s*\\\\?delta\\s*,\\s*c\\)|x\\s*<\\s*c|left"
+    }
+  ],
+  "deep_dives": [
+    {
+      "title": "Why Must Both One-Sided Limits Agree for a Two-Sided Limit to Exist?",
+      "body_md": "Start with the formal definition. We say $\\lim_{x \\to c} f(x) = L$ if and only if for every $\\epsilon > 0$ there exists a $\\delta > 0$ such that\n\n$$0 < |x - c| < \\delta \\implies |f(x) - L| < \\epsilon.$$\n\nNotice the absolute value $|x - c| < \\delta$. That inequality is satisfied by values on *both* sides of $c$: it captures every $x$ in the punctured interval $(c - \\delta,\\, c) \\cup (c,\\, c + \\delta)$. The definition doesn't get to cherry-pick a direction — it demands control over all nearby $x$ simultaneously.\n\nNow split that punctured neighborhood into its two halves.\n\n- **Left:** $c - \\delta < x < c$, i.e., $x \\to c^-$.\n- **Right:** $c < x < c + \\delta$, i.e., $x \\to c^+$.\n\nIf the two-sided limit equals $L$, then the $\\epsilon$-$\\delta$ guarantee works, in particular, for every $x$ in the left half and for every $x$ in the right half. So both one-sided limits exist and equal $L$. That direction is straightforward.\n\nThe converse is where the real insight lives. Suppose $\\lim_{x \\to c^-} f(x) = L$ and $\\lim_{x \\to c^+} f(x) = L$. Then for a given $\\epsilon > 0$:\n\n- There exists $\\delta_1 > 0$ such that $c - \\delta_1 < x < c \\implies |f(x) - L| < \\epsilon$.\n- There exists $\\delta_2 > 0$ such that $c < x < c + \\delta_2 \\implies |f(x) - L| < \\epsilon$.\n\nChoose $\\delta = \\min(\\delta_1, \\delta_2)$. Then for any $x$ with $0 < |x - c| < \\delta$, that $x$ falls into one of the two cases above, so $|f(x) - L| < \\epsilon$. You have recovered exactly the two-sided definition.\n\nBut what if the one-sided limits disagree — say $\\lim_{x \\to c^-} f(x) = L_1$ and $\\lim_{x \\to c^+} f(x) = L_2$ with $L_1 \\neq L_2$? Then no single number $L$ can satisfy the two-sided definition. Pick $\\epsilon < \\frac{|L_1 - L_2|}{2}$. No matter what $\\delta$ you propose, the left half of the punctured neighborhood forces $f(x)$ near $L_1$ while the right half forces $f(x)$ near $L_2$. A single $\\epsilon$-ball of radius less than $\\frac{|L_1 - L_2|}{2}$ cannot contain both clusters. The definition breaks.\n\nSo the requirement isn't an arbitrary convention. It falls directly out of the topology of a punctured neighborhood: that neighborhood is the *union* of a left piece and a right piece, and controlling $f$ on the whole union is logically equivalent to controlling it on each piece with the same target value $L$.\n\n**Follow-up to chew on:** In $\\mathbb{R}^2$, a point can be approached from infinitely many directions, not just two. How would you even *define* a limit at a point $(a, b)$ so that it captures all possible paths of approach — and why does checking just a few paths never suffice to *prove* the limit exists?"
+    },
+    {
+      "title": "Why One-Sided Limits Are the Only Game in Town at Endpoints",
+      "body_md": "Consider a function $f$ defined on the closed interval $[a, b]$. At an interior point $c \\in (a, b)$, you can approach $c$ from both sides — from values less than $c$ and from values greater than $c$. The two-sided limit $\\lim_{x \\to c} f(x)$ asks whether both approaches agree. Nothing unusual there.\n\nBut what happens at $x = a$, the left endpoint?\n\nThe standard definition of $\\lim_{x \\to a} f(x) = L$ requires that for every $\\epsilon > 0$ there exists $\\delta > 0$ such that\n$$0 < |x - a| < \\delta \\implies |f(x) - L| < \\epsilon.$$\n\nThis demands control over $f(x)$ for all $x$ within a full open neighborhood $(a - \\delta,\\, a + \\delta)$, excluding $a$ itself. But $f$ is only defined on $[a, b]$. Values of $x$ to the left of $a$ — in the interval $(a - \\delta, a)$ — simply do not exist in the domain. The two-sided limit is not merely difficult to compute; it is **not well-defined** for $f$ at $a$, because you cannot test the condition on points outside the domain.\n\nThe right-hand limit $\\lim_{x \\to a^+} f(x) = L$ restricts attention to $x > a$:\n$$0 < x - a < \\delta \\implies |f(x) - L| < \\epsilon.$$\n\nEvery $x$ satisfying $0 < x - a < \\delta$ lies in $(a, a + \\delta)$, which — for small enough $\\delta$ — sits inside $[a, b]$. So the definition only references points where $f$ actually has values. That is why continuity on a closed interval is defined the way it is: $f$ is continuous on $[a,b]$ means\n\n- $\\lim_{x \\to c} f(x) = f(c)$ for every interior point $c \\in (a,b)$ (two-sided),\n- $\\lim_{x \\to a^+} f(x) = f(a)$ (right-hand only at the left endpoint),\n- $\\lim_{x \\to b^-} f(x) = f(b)$ (left-hand only at the right endpoint).\n\nThis is not a cosmetic relaxation of the rules to be nice; it is forced by the logic of the $\\epsilon$-$\\delta$ definition. Requiring a two-sided limit at an endpoint would make *every* function on a closed interval discontinuous at the boundary — and theorems like the Extreme Value Theorem and the Intermediate Value Theorem, which guarantee their conclusions precisely on closed intervals, would collapse.\n\nNotice the deeper pattern: the topology of the domain dictates what \"approaching a point\" means. On $[a, b]$, the point $a$ has no left neighborhood inside the domain, so the only meaningful notion of limit uses sequences or neighborhoods that stay within the domain.\n\n**Follow-up question:** If you extended $f$ to all of $\\mathbb{R}$ by defining $f(x) = 0$ for $x < a$ and $x > b$, the two-sided limit at $a$ would now exist in principle — but would it equal $\\lim_{x \\to a^+} f(x)$? Under what conditions on $f(a)$ would this extension be continuous at $a$, and what does that tell you about the arbitrariness of boundary behavior?"
+    }
+  ],
+  "applications": [
+    {
+      "context": "physics",
+      "problem_md": "A small charged particle moves along the $x$-axis toward a fixed point charge located at $x = 0$. The electric potential energy of the moving particle (in joules) is modeled by\n\n$$U(x) = \\frac{k}{x}$$\n\nwhere $k = 3.0 \\text{ J·m}$ is a positive constant that bundles the charge and Coulomb-constant information, and $x$ is the particle's position in meters.\n\nBecause the particle approaches the origin from the **right** (positive $x$ side), only values $x > 0$ are physically meaningful here.\n\n**(a)** Evaluate\n$$\\lim_{x \\to 0^{+}} U(x)$$\nand explain, in one or two sentences, what this tells you physically about a charged particle trying to reach $x = 0$.\n\n**(b)** Now consider the electric force on the particle. Force is related to potential energy by $F(x) = -\\frac{dU}{dx}$. Find $F(x)$, then evaluate\n$$\\lim_{x \\to 0^{+}} F(x)$$\nand state whether the force is attractive or repulsive as $x \\to 0^{+}$.\n\n**(c)** Suppose a second scenario uses a different potential energy function\n$$V(x) = \\begin{cases} \\frac{3}{x} & x > 0 \\\\[6pt] -\\frac{3}{x} & x < 0 \\end{cases}$$\nDoes $\\displaystyle\\lim_{x \\to 0} V(x)$ exist? Justify your answer using one-sided limits.",
+      "solution_outline_md": "**(a)**\n\nSince $U(x) = \\frac{3}{x}$ and $x \\to 0^{+}$ means $x$ is a small positive number, the ratio $\\frac{3}{x} \\to +\\infty$.\n\n$$\\lim_{x \\to 0^{+}} U(x) = +\\infty$$\n\nPhysical meaning: the potential energy grows without bound as the particle nears the origin, so an infinite amount of work would be needed to push the particle all the way to $x = 0$. In practice, the particle can never actually reach the fixed charge — it encounters an **energy barrier** that it cannot overcome with finite kinetic energy.\n\n---\n\n**(b)**\n\nDifferentiate: $U(x) = 3x^{-1}$, so $\\frac{dU}{dx} = -3x^{-2}$.\n\n$$F(x) = -\\frac{dU}{dx} = \\frac{3}{x^2}$$\n\nThen\n\n$$\\lim_{x \\to 0^{+}} F(x) = \\lim_{x \\to 0^{+}} \\frac{3}{x^2} = +\\infty$$\n\nBecause $F(x) > 0$ for $x > 0$, the force points in the $+x$ direction — **away** from the origin. The force is therefore **repulsive**, and it grows without bound as the particle gets closer.\n\n---\n\n**(c)**\n\nCompute each one-sided limit:\n\n$$\\lim_{x \\to 0^{+}} V(x) = \\lim_{x \\to 0^{+}} \\frac{3}{x} = +\\infty$$\n\n$$\\lim_{x \\to 0^{-}} V(x) = \\lim_{x \\to 0^{-}} \\left(-\\frac{3}{x}\\right)$$\n\nWhen $x \\to 0^{-}$, $x$ is a small negative number, so $\\frac{3}{x} \\to -\\infty$ and $-\\frac{3}{x} \\to +\\infty$.\n\nAlthough both one-sided limits tend to $+\\infty$, neither is a finite number. The two-sided limit $\\displaystyle\\lim_{x \\to 0} V(x)$ **does not exist** in the usual (finite) sense; you can say the function diverges to $+\\infty$ from both sides, but the limit is not a real number. (Some texts accept writing $\\lim_{x\\to 0}V(x)=+\\infty$ to describe the behavior, while still noting the limit does not exist as a finite value.)"
+    },
+    {
+      "context": "everyday",
+      "problem_md": "A parking garage downtown charges by the hour, but the rate changes at exactly the 2-hour mark. For the first 2 hours (up to but not including the 2-hour mark), the total cost in dollars is modeled by\n\n$$C(t) = 5t + 1$$\n\nwhere $t$ is time in hours. Starting at exactly 2 hours and beyond, the garage switches to a flat-rate structure:\n\n$$C(t) = 8 + 3(t - 2)$$\n\nYou pull into the garage and realize you might stay close to 2 hours. You want to understand what happens to your bill right around that boundary.\n\n**(a)** Find $\\lim_{t \\to 2^-} C(t)$, the cost you approach if you leave just *before* the 2-hour mark.\n\n**(b)** Find $\\lim_{t \\to 2^+} C(t)$, the cost you approach if you stay just *past* the 2-hour mark.\n\n**(c)** Does $\\lim_{t \\to 2} C(t)$ exist? Is $C$ continuous at $t = 2$? Explain what this means for your wallet — is there a sudden jump in price at the 2-hour mark, or does the transition happen smoothly?",
+      "solution_outline_md": "**Approach:** Evaluate each piece of the piecewise function as $t$ approaches 2 from the appropriate side.\n\n**(a)** Use the first-piece formula since you are approaching from below:\n$$\\lim_{t \\to 2^-} C(t) = \\lim_{t \\to 2^-} (5t + 1) = 5(2) + 1 = 11$$\n\n**(b)** Use the second-piece formula since you are approaching from above:\n$$\\lim_{t \\to 2^+} C(t) = \\lim_{t \\to 2^+} [8 + 3(t-2)] = 8 + 3(0) = 8$$\n\n**(c)** Since $\\lim_{t \\to 2^-} C(t) = 11$ and $\\lim_{t \\to 2^+} C(t) = 8$, the left-hand and right-hand limits are *not* equal. Therefore $\\lim_{t \\to 2} C(t)$ does not exist, and $C$ is **not continuous** at $t = 2$.\n\n**Real-world meaning:** There is a sudden $\\$3$ drop in your bill at exactly the 2-hour mark. The garage's flat-rate plan actually *resets* the pricing, so ironically, staying a tiny bit longer past 2 hours costs you *less* than leaving a moment before 2 hours. This is a jump discontinuity — and a good reason to check the fine print on parking rates before you rush to your car."
+    }
+  ]
+}

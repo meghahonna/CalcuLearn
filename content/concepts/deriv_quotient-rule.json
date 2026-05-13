@@ -1,0 +1,207 @@
+{
+  "concept_id": "deriv.quotient-rule",
+  "name": "Quotient Rule",
+  "track": "BOTH",
+  "one_liner": "How to differentiate a ratio of two functions, with a sign and denominator-squared you cannot skip.",
+  "prerequisites": [
+    "deriv.product-rule"
+  ],
+  "explanations": [
+    {
+      "tier": "novice",
+      "framing_index": 0,
+      "body_md": "You already know the product rule for when two functions are multiplied. Now picture one function **divided** by another — like $\\frac{f(x)}{g(x)}$. That needs its own rule: the **quotient rule**.\n\nHere is the mnemonic that will save you:\n\n> **LO d-HI minus HI d-LO, all over LO squared.**\n\n\"HI\" means the top (numerator). \"LO\" means the bottom (denominator). \"d-HI\" means the derivative of the top, and \"d-LO\" means the derivative of the bottom.\n\nIn symbols:\n\n$$\\frac{d}{dx}\\!\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{g(x)\\cdot f'(x) \\;-\\; f(x)\\cdot g'(x)}{\\left[g(x)\\right]^2}$$\n\nLet's see it in action with real numbers.\n\n**Example:** Find the derivative of $h(x) = \\frac{x^2}{x+3}$.\n\n1. Label the pieces. HI $= x^2$, so d-HI $= 2x$. LO $= x + 3$, so d-LO $= 1$.\n2. Plug into the chant:\n\n$$h'(x) = \\frac{(x+3)(2x) \\;-\\; (x^2)(1)}{(x+3)^2}$$\n\n3. Expand the numerator: $(x+3)(2x) = 2x^2 + 6x$. Then subtract $x^2$:\n\n$$h'(x) = \\frac{2x^2 + 6x - x^2}{(x+3)^2} = \\frac{x^2 + 6x}{(x+3)^2}$$\n\nThat's your answer. You can factor the top as $x(x+6)$ if you like, but it isn't required.\n\n**Common mistakes to watch for:**\n- Mixing up the order. It is LO d-HI **minus** HI d-LO, not the other way around. The order matters because subtraction isn't commutative.\n- Forgetting to square the bottom.\n\nSay the chant out loud a few times. Seriously — it sticks. If the algebra feels heavy, that's normal. The calculus part is just the chant; the rest is simplifying, and that gets easier with practice.",
+      "intuition_md": "Think of the quotient as a fraction on a balance scale. The bottom (LO) is the base holding everything up. When you ask \"how fast is this fraction changing?\", you have to account for the top changing (d-HI) while the bottom stays put, AND the bottom changing (d-LO) while the top stays put — and those two effects fight each other, which is why there's a minus sign. Then you divide by LO squared because the bottom's influence on the fraction grows stronger the bigger it is. The chant keeps the tug-of-war in the right order so you never mix up which effect gets subtracted."
+    },
+    {
+      "tier": "novice",
+      "framing_index": 1,
+      "body_md": "You already know the product rule. The quotient rule is just the product rule in disguise. Let's see why.\n\nSay you want the derivative of $\\frac{f(x)}{g(x)}$. Instead of memorizing a new formula, rewrite the fraction as a product:\n\n$$\\frac{f(x)}{g(x)} = f(x) \\cdot \\frac{1}{g(x)}$$\n\nNow you can use the product rule. But first you need the derivative of $\\frac{1}{g(x)}$. Using the chain rule on $[g(x)]^{-1}$:\n\n$$\\frac{d}{dx}\\left[\\frac{1}{g(x)}\\right] = -\\frac{g'(x)}{[g(x)]^2}$$\n\nNotice the **minus sign**. It shows up because the exponent is $-1$, and when you bring it down you get $-1 \\cdot [g(x)]^{-2}$.\n\nNow apply the product rule ($u' v + u v'$) with $u = f(x)$ and $v = \\frac{1}{g(x)}$:\n\n$$\\frac{d}{dx}\\left[\\frac{f(x)}{g(x)}\\right] = f'(x) \\cdot \\frac{1}{g(x)} + f(x) \\cdot \\left(-\\frac{g'(x)}{[g(x)]^2}\\right)$$\n\nSimplify by putting both pieces over a common denominator of $[g(x)]^2$:\n\n$$= \\frac{f'(x)\\, g(x)}{[g(x)]^2} - \\frac{f(x)\\, g'(x)}{[g(x)]^2}$$\n\n$$= \\frac{f'(x)\\, g(x) - f(x)\\, g'(x)}{[g(x)]^2}$$\n\nThat's the quotient rule. The minus sign isn't arbitrary — it came from taking the derivative of $\\frac{1}{g(x)}$.\n\nLet's test it with numbers. Take $\\frac{x^2}{x+1}$. Here $f(x)=x^2$, $g(x)=x+1$, so $f'(x)=2x$ and $g'(x)=1$. Plug in:\n\n$$\\frac{2x(x+1) - x^2(1)}{(x+1)^2} = \\frac{2x^2+2x - x^2}{(x+1)^2} = \\frac{x^2+2x}{(x+1)^2}$$\n\nIf this feels like a lot of moving parts, that's normal. The key takeaway: you're not memorizing something new. You're just combining the product rule with the derivative of $\\frac{1}{g}$.",
+      "intuition_md": "Think of a fraction as a partnership between a numerator and a denominator. When the top grows, the fraction gets bigger — that's the $f'(x)\\,g(x)$ piece pulling the value up. When the bottom grows, the fraction gets smaller — that's the $f(x)\\,g'(x)$ piece pulling the value down. The minus sign is just a tug-of-war: top growth helps, bottom growth hurts. That's why the formula subtracts. The $[g(x)]^2$ on the bottom is the price you pay for rewriting division as multiplication by $\\frac{1}{g}$ — it's the square that naturally appears when you differentiate a reciprocal."
+    },
+    {
+      "tier": "on_pace",
+      "framing_index": 0,
+      "body_md": "You already know the Product Rule for differentiating $f(x)\\cdot g(x)$. The Quotient Rule handles the other case: $\\dfrac{f(x)}{g(x)}$.\n\nIf $Q(x) = \\dfrac{f(x)}{g(x)}$, then\n\n$$Q'(x) = \\frac{f'(x)\\,g(x) - f(x)\\,g'(x)}{\\bigl[g(x)\\bigr]^2}$$\n\nThe classic mnemonic is **\"low d-high minus high d-low, over low-squared\"**: $g$ times the derivative of $f$, minus $f$ times the derivative of $g$, all over $g^2$. (Here \"high\" = numerator $f$, \"low\" = denominator $g$.)\n\n**Where this comes from.** You can actually derive it from the Product Rule. Rewrite $f = Q \\cdot g$, differentiate both sides with the Product Rule, and solve for $Q'$. That's why the two rules look like cousins — the Quotient Rule is really the Product Rule in disguise.\n\n**Example.** Differentiate $h(x) = \\dfrac{x^2}{\\sin x}$.\n\nSet $f(x)=x^2$ and $g(x)=\\sin x$. Then $f'(x)=2x$ and $g'(x)=\\cos x$.\n\n$$h'(x) = \\frac{2x\\,\\sin x - x^2\\,\\cos x}{\\sin^2 x}$$\n\n**Common sticking points:**\n\n1. **Sign error.** The subtraction order matters. It is $f'g - fg'$, not $fg' - f'g$. Swapping them flips the sign of the entire numerator — the single most frequent mistake on exams.\n2. **Forgetting to square the denominator.** The bottom is $[g(x)]^2$, not just $g(x)$.\n3. **Over-using the rule.** If the denominator is just a constant — say $\\dfrac{x^3}{5}$ — you don't need the Quotient Rule. Factor out $\\dfrac{1}{5}$ and use the Power Rule. Save yourself the algebra.\n\n**What's next.** Once you combine the Quotient Rule with the Chain Rule, you can differentiate virtually any algebraic or trigonometric expression you'll meet in AP Calculus.",
+      "intuition_md": "Think of a fraction as a race between the numerator growing and the denominator growing. If the top grows fast while the bottom stays put, the fraction increases — positive derivative. If the bottom grows fast while the top stays put, the fraction shrinks — negative derivative. The Quotient Rule quantifies exactly that tug-of-war: $f'g$ measures how the top's growth pushes the fraction up, $fg'$ measures how the bottom's growth pulls the fraction down, and dividing by $g^2$ rescales everything relative to the denominator's size."
+    },
+    {
+      "tier": "advanced",
+      "framing_index": 0,
+      "body_md": "You already know the product rule. The quotient rule is a direct consequence of it.\n\nGiven differentiable functions $f$ and $g$ with $g(x) \\neq 0$, define $Q(x) = \\frac{f(x)}{g(x)}$. The derivative is:\n\n$$Q'(x) = \\frac{f'(x)\\,g(x) - f(x)\\,g'(x)}{[g(x)]^2}$$\n\n**Derivation from the product rule.** Rewrite $Q(x) = f(x) \\cdot [g(x)]^{-1}$. Apply the product rule together with the chain rule on $[g(x)]^{-1}$:\n\n$$Q'(x) = f'(x)\\cdot [g(x)]^{-1} + f(x) \\cdot \\bigl(-[g(x)]^{-2}\\bigr)\\cdot g'(x)$$\n\nCombine over the common denominator $[g(x)]^2$ and you recover the formula above. No new machinery is needed — the quotient rule is the product rule in disguise.\n\n**Why the structure looks the way it does.** Think in terms of linear approximations. Near a point $a$:\n- $f(a+h) \\approx f(a) + f'(a)\\,h$\n- $g(a+h) \\approx g(a) + g'(a)\\,h$\n\nForm the ratio and expand to first order in $h$:\n\n$$\\frac{f(a) + f'(a)h}{g(a) + g'(a)h} \\approx \\frac{f(a)}{g(a)} + \\frac{f'(a)g(a) - f(a)g'(a)}{[g(a)]^2}\\,h$$\n\nThe coefficient of $h$ is exactly $Q'(a)$. The subtraction $f'g - fg'$ arises because increasing $g$ (the denominator) *decreases* the ratio — hence the negative sign on the $fg'$ term. This is why the numerator is antisymmetric in swapping the roles of $f$ and $g$, unlike the product rule's symmetric sum.\n\n**Continuity requirement.** The formula demands $g(x) \\neq 0$, which is guaranteed in a neighborhood of $a$ whenever $g$ is continuous and $g(a) \\neq 0$ — a fact that follows directly from the sign-preserving property of limits.\n\n**Stretch question.** Derive the quotient rule purely from the limit definition of the derivative by writing $\\frac{f(x+h)/g(x+h) - f(x)/g(x)}{h}$ and manipulating the numerator with the classic \"add-and-subtract\" trick. What role does $\\lim_{h\\to 0} g(x+h) = g(x)$ play in the final step?",
+      "intuition_md": "Picture two quantities changing in time: a numerator $f$ growing and a denominator $g$ growing. The ratio $f/g$ increases when $f$ grows (rate $f'$) relative to the current denominator — that gives the $+f'g$ piece. But it decreases when $g$ grows (rate $g'$), because a larger denominator dilutes the existing numerator $f$ — that gives the $-fg'$ piece. You divide by $g^2$ because this dilution effect scales quadratically: one factor of $g$ from the original denominator and another from the perturbation. The quotient rule is really a competition between numerator growth and denominator growth, normalized by the square of the denominator."
+    }
+  ],
+  "examples": [
+    {
+      "tier": "novice",
+      "problem_md": "Find the derivative of $h(x) = \\dfrac{3x + 1}{x + 4}$.",
+      "steps": [
+        {
+          "step_md": "Identify the top and bottom of the fraction as two separate functions.\n\n- Top (numerator): $f(x) = 3x + 1$\n- Bottom (denominator): $g(x) = x + 4$",
+          "why_md": "The Quotient Rule is a formula for taking the derivative of a fraction where **both** the top and the bottom contain $x$. Before you can use the formula, you need to clearly know which piece is the top and which is the bottom. Labeling them now saves confusion later."
+        },
+        {
+          "step_md": "Find the derivative of the top and the derivative of the bottom separately.\n\n$$f'(x) = 3 \\qquad g'(x) = 1$$",
+          "why_md": "The Quotient Rule will ask you to plug in these derivatives. Both of these are derivatives of simple linear functions — just the slope of each line. $3x + 1$ has slope $3$, and $x + 4$ has slope $1$. If finding these individual derivatives already feels solid, the rest is just plugging into a pattern."
+        },
+        {
+          "step_md": "Write down the Quotient Rule formula:\n\n$$h'(x) = \\frac{g(x) \\cdot f'(x) \\;-\\; f(x) \\cdot g'(x)}{\\big[g(x)\\big]^2}$$\n\nA handy mnemonic: **\"Low d-High minus High d-Low, over Low squared.\"**\n- \"Low\" = bottom = $g(x)$\n- \"High\" = top = $f(x)$\n- \"d-\" means \"derivative of\"",
+          "why_md": "You might wonder: why can't I just take the derivative of the top and divide by the derivative of the bottom? Unfortunately, derivatives don't split over division that neatly. (Try it sometime — you'll get the wrong answer.) The Quotient Rule is the correct way to handle a fraction of two functions. The mnemonic helps you remember the order, because the subtraction means **order matters**: swapping the two terms gives a sign error."
+        },
+        {
+          "step_md": "Plug everything in:\n\n$$h'(x) = \\frac{(x+4)(3) \\;-\\; (3x+1)(1)}{(x+4)^2}$$",
+          "why_md": "This is the core mechanical step — just substitution. Put each piece where the formula tells you. Double-check: the bottom function $g(x) = x+4$ goes in front of $f'(x) = 3$ in the first term, and the top function $f(x) = 3x+1$ goes in front of $g'(x) = 1$ in the second term. The denominator is just the bottom function squared."
+        },
+        {
+          "step_md": "Expand the numerator and simplify:\n\n$$\\text{Numerator} = 3(x+4) - 1(3x+1)$$\n$$= 3x + 12 - 3x - 1$$\n$$= 11$$\n\nSo the final answer is:\n\n$$h'(x) = \\frac{11}{(x+4)^2}$$",
+          "why_md": "Always simplify after plugging in — teachers (and AP graders) expect a clean answer. Notice something nice here: the $3x$ terms canceled, leaving just a constant on top. That means the slope of $h(x)$ is always positive (since $11 > 0$ and $(x+4)^2 > 0$), so the original function is always increasing wherever it's defined. Connecting the derivative back to the shape of the graph is a habit worth building.\n\nAs a next challenge, try $\\dfrac{x^2}{x+1}$ — the numerator won't be a simple constant anymore, and that's a good way to check that you've really got the pattern down."
+        }
+      ]
+    },
+    {
+      "tier": "on_pace",
+      "problem_md": "Find $\\dfrac{d}{dx}\\left[\\dfrac{3x^2 - 5}{x^3 + 2}\\right]$.",
+      "steps": [
+        {
+          "step_md": "Identify the top and bottom functions and their derivatives:\n$$f(x) = 3x^2 - 5 \\quad \\Rightarrow \\quad f'(x) = 6x$$\n$$g(x) = x^3 + 2 \\quad \\Rightarrow \\quad g'(x) = 3x^2$$",
+          "why_md": "The Quotient Rule requires you to differentiate the numerator and denominator separately before assembling them into the formula. Getting these pieces ready first keeps the main calculation cleaner and reduces sign errors. You already know how to differentiate polynomials (Power Rule), so this step is just setup."
+        },
+        {
+          "step_md": "Write down the Quotient Rule template:\n$$\\frac{d}{dx}\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{f'(x)\\,g(x) - f(x)\\,g'(x)}{\\bigl[g(x)\\bigr]^2}$$",
+          "why_md": "The Quotient Rule is often remembered as \"low d-high minus high d-low, over the square of what's below.\" The subtraction makes order matter — swapping the two terms in the numerator flips the sign of the entire derivative. This is the single most common mistake, so it is worth pausing here: the derivative of the top ($f'$) gets multiplied by the *bottom* ($g$) first."
+        },
+        {
+          "step_md": "Substitute everything in:\n$$\\frac{(6x)(x^3 + 2) - (3x^2 - 5)(3x^2)}{(x^3 + 2)^2}$$",
+          "why_md": "You are plugging the four pieces from Step 1 into the template from Step 2. Double-check that $f'(x)\\,g(x)$ comes first (the minus sign sits between the two products). Parentheses around each factor protect you from distributing a sign incorrectly."
+        },
+        {
+          "step_md": "Expand each product in the numerator:\n$$(6x)(x^3+2) = 6x^4 + 12x$$\n$$(3x^2-5)(3x^2) = 9x^4 - 15x^2$$\nSo the numerator becomes:\n$$6x^4 + 12x - 9x^4 + 15x^2$$",
+          "why_md": "You need to distribute so you can combine like terms. Watch that second product carefully: you are *subtracting* the entire quantity $9x^4 - 15x^2$, which turns $-15x^2$ into $+15x^2$. Losing that sign flip is the other classic Quotient Rule error."
+        },
+        {
+          "step_md": "Combine like terms in the numerator:\n$$6x^4 - 9x^4 + 15x^2 + 12x = -3x^4 + 15x^2 + 12x$$\nSo the final answer is:\n$$\\frac{d}{dx}\\left[\\frac{3x^2-5}{x^3+2}\\right] = \\frac{-3x^4 + 15x^2 + 12x}{(x^3+2)^2}$$",
+          "why_md": "Simplifying the numerator is the last step. You could also factor out $3x$ to write $\\dfrac{3x(-x^3 + 5x + 4)}{(x^3+2)^2}$, but on the AP exam either form is accepted — don't waste time factoring unless the problem specifically asks you to.\n\nBig-picture connection: the Quotient Rule is really just a consequence of the Product Rule applied to $f(x)\\cdot[g(x)]^{-1}$ combined with the Chain Rule on $[g(x)]^{-1}$. If you are comfortable rewriting a fraction as a product with a negative exponent, you can bypass the Quotient Rule entirely — a trick that becomes handy when you start differentiating more complex rational expressions."
+        }
+      ]
+    },
+    {
+      "tier": "advanced",
+      "problem_md": "Differentiate $h(x) = \\dfrac{e^{x^2}}{\\ln(x^2 + 1)}$ and state the domain on which the derivative is valid.",
+      "steps": [
+        {
+          "step_md": "**Quotient Rule statement.** If $h(x) = \\dfrac{u(x)}{v(x)}$ with $v(x) \\neq 0$, then $$h'(x) = \\frac{u'(x)\\,v(x) - u(x)\\,v'(x)}{[v(x)]^2}.$$",
+          "why_md": "The quotient rule follows from the product rule applied to $u \\cdot v^{-1}$. The intuition: near a point $a$, the linear approximations are $u(a) + u'(a)\\Delta x$ and $v(a) + v'(a)\\Delta x$. The ratio of these, expanded to first order, gives $$\\frac{u}{v} + \\frac{u'v - uv'}{v^2}\\Delta x + O(\\Delta x^2),$$ so the coefficient of $\\Delta x$ — the derivative — is $\\frac{u'v - uv'}{v^2}$. This is really a consequence of the algebra of linear approximations (i.e., the product rule plus the chain rule on $v^{-1}$)."
+        },
+        {
+          "step_md": "**Identify the pieces.** Set $u(x) = e^{x^2}$ and $v(x) = \\ln(x^2 + 1)$. Both require the chain rule internally:\n$$u'(x) = e^{x^2} \\cdot 2x, \\qquad v'(x) = \\frac{2x}{x^2 + 1}.$$",
+          "why_md": "Before assembling the quotient rule, you need each derivative fully simplified. $u$ is a composition $e^{\\square}$ with $\\square = x^2$, so the chain rule gives the extra factor $2x$. Similarly $v = \\ln(\\square)$ with $\\square = x^2+1$. Getting these right first prevents sign and algebra errors when you combine them."
+        },
+        {
+          "step_md": "**Assemble the quotient rule.** $$h'(x) = \\frac{2x\\,e^{x^2}\\cdot \\ln(x^2+1) \\;-\\; e^{x^2}\\cdot \\dfrac{2x}{x^2+1}}{\\left[\\ln(x^2+1)\\right]^2}.$$",
+          "why_md": "This is a direct substitution into $\\frac{u'v - uv'}{v^2}$. The numerator encodes how the ratio changes: the first term $u'v$ captures growth of the numerator while the denominator stays fixed; the second term $uv'$ corrects for the denominator's own motion. Their difference, scaled by $v^{-2}$, gives the net rate."
+        },
+        {
+          "step_md": "**Factor and simplify.** Pull $2x\\,e^{x^2}$ from the numerator: $$h'(x) = \\frac{2x\\,e^{x^2}}{\\left[\\ln(x^2+1)\\right]^2} \\left[\\ln(x^2+1) - \\frac{1}{x^2+1}\\right].$$",
+          "why_md": "Factoring common pieces is not cosmetic — it reveals structure. Here you see immediately that $h'(0) = 0$ (the factor $2x$ vanishes), and the sign of $h'$ for $x>0$ depends on whether $\\ln(x^2+1)$ exceeds $\\frac{1}{x^2+1}$, which connects the derivative to the behavior of $\\ln$ versus a reciprocal — useful if you later sketch $h$."
+        },
+        {
+          "step_md": "**Determine the domain of $h'$.** We need $v(x) = \\ln(x^2+1) \\neq 0$, i.e., $x^2+1 \\neq 1$, so $x \\neq 0$. Additionally, $x^2+1 > 0$ for all $x$, so the $\\ln$ and the original function are defined everywhere. Therefore $$\\text{dom}(h') = \\mathbb{R} \\setminus \\{0\\} = (-\\infty,0)\\cup(0,\\infty).$$",
+          "why_md": "The quotient rule formula has $v^2$ in the denominator, so differentiability requires $v \\neq 0$, not just $v$ existing. Note that $h$ itself is also undefined at $x=0$ (division by $\\ln 1 = 0$), so $h'$ can't exist there either. This is a good place to remember: differentiability implies continuity, and $h$ isn't even continuous at $0$ (it blows up). A nice stretch question: investigate $\\lim_{x\\to 0} h(x)$ using L'Hôpital's Rule — you'll find it's an $\\frac{\\infty}{0^+}$ form, confirming the vertical asymptote. Further, try re-deriving the quotient rule purely from the limit definition $\\lim_{\\Delta x \\to 0}\\frac{h(x+\\Delta x)-h(x)}{\\Delta x}$ by adding and subtracting the cross term $\\frac{u(x+\\Delta x)}{v(x)}$ — it clarifies exactly where continuity of $v$ is used."
+        }
+      ]
+    }
+  ],
+  "misconceptions": [
+    {
+      "short_name": "numerator_order_reversed",
+      "description_md": "The student writes the quotient rule with the terms in the numerator swapped: $$\\frac{d}{dx}\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{f(x)\\cdot g'(x) - g(x)\\cdot f'(x)}{[g(x)]^2}$$ For example, for $\\frac{x^2}{\\sin x}$, they write $\\frac{x^2 \\cos x - \\sin x \\cdot 2x}{\\sin^2 x}$ instead of $\\frac{\\sin x \\cdot 2x - x^2 \\cos x}{\\sin^2 x}$.",
+      "why_wrong_md": "The quotient rule is $\\frac{g(x)\\cdot f'(x) - f(x)\\cdot g'(x)}{[g(x)]^2}$. The derivative of the top ($f'$) must be in the first term, multiplied by the undifferentiated bottom ($g$). Reversing the subtraction flips the sign of the entire derivative.",
+      "socratic_response_md": "Try checking your formula with something simple you already know. You know $\\frac{d}{dx}\\left[\\frac{x}{1}\\right]$ should equal $1$. If you plug $f(x)=x$ and $g(x)=1$ into your version of the quotient rule, do you get $1$ or $-1$?"
+    },
+    {
+      "short_name": "denominator_not_squared",
+      "description_md": "The student forgets to square the denominator, writing: $$\\frac{d}{dx}\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{g(x)\\cdot f'(x) - f(x)\\cdot g'(x)}{g(x)}$$ For instance, for $\\frac{e^x}{x}$, they write $\\frac{x \\cdot e^x - e^x \\cdot 1}{x}$ instead of $\\frac{x \\cdot e^x - e^x}{x^2}$.",
+      "why_wrong_md": "The quotient rule requires $[g(x)]^2$ in the denominator, not $g(x)$. This comes directly from the derivation (rewrite as a product and apply the product rule, then combine over a common denominator). Omitting the square gives an answer with incorrect magnitude and units.",
+      "socratic_response_md": "You can derive the quotient rule by writing $\\frac{f}{g} = f \\cdot g^{-1}$ and using the product rule. When you do that and combine everything over a common denominator, what power of $g(x)$ do you end up with on the bottom?"
+    },
+    {
+      "short_name": "product_rule_in_numerator",
+      "description_md": "The student simply differentiates the top and bottom separately, as if $\\frac{d}{dx}\\left[\\frac{f}{g}\\right] = \\frac{f'(x)}{g'(x)}$. For example, for $\\frac{x^3}{\\cos x}$ they write $\\frac{3x^2}{-\\sin x}$.",
+      "why_wrong_md": "The derivative of a quotient is not the quotient of the derivatives. This error comes from incorrectly generalizing the constant multiple rule or confusing differentiation with algebraic simplification. A quick dimensional or limit check shows the result is wrong.",
+      "socratic_response_md": "Let's test that idea on a case you can verify. You know $\\frac{x}{x} = 1$, so its derivative should be $0$. Using your method, you'd get $\\frac{1}{1} = 1$. Since that doesn't match, what does that tell you about differentiating the numerator and denominator separately?"
+    },
+    {
+      "short_name": "missing_chain_rule_inside_quotient",
+      "description_md": "When the numerator or denominator involves a composite function, the student applies the quotient rule structure correctly but forgets the chain rule on the inner function. For example, for $\\frac{\\sin(3x)}{x^2}$ they write $f'(x) = \\cos(3x)$ instead of $3\\cos(3x)$, giving $$\\frac{x^2\\cos(3x) - \\sin(3x)\\cdot 2x}{x^4}$$ instead of $$\\frac{x^2\\cdot 3\\cos(3x) - \\sin(3x)\\cdot 2x}{x^4}.$$",
+      "why_wrong_md": "The quotient rule tells you the overall structure, but each individual derivative ($f'$ or $g'$) still requires the chain rule if the function is a composition. The chain rule doesn't disappear just because you're inside another differentiation rule.",
+      "socratic_response_md": "You correctly identified the quotient rule structure — nice. Now look specifically at how you differentiated $\\sin(3x)$. If I asked you to find $\\frac{d}{dx}[\\sin(3x)]$ by itself, with no quotient involved, what would you get and why?"
+    },
+    {
+      "short_name": "always_using_quotient_rule",
+      "description_md": "The student applies the full quotient rule to expressions like $\\frac{x^3 + 1}{5}$ or $\\frac{3}{x^4}$, where the constant in the numerator or denominator means a simpler approach works. This leads to needlessly complex algebra and frequent arithmetic errors.",
+      "why_wrong_md": "While the quotient rule technically gives the correct answer, using it when one of $f$ or $g$ is a constant is inefficient and error-prone. $\\frac{x^3+1}{5}$ is just $\\frac{1}{5}(x^3+1)$, and $\\frac{3}{x^4}$ is $3x^{-4}$. Recognizing these simplifications avoids unnecessary work and mistakes.",
+      "socratic_response_md": "Before you start the quotient rule, look at $\\frac{3}{x^4}$. Could you rewrite this expression using a negative exponent so that it's a simple power rule problem instead? What would that look like?"
+    }
+  ],
+  "checks": [
+    {
+      "tier": "novice",
+      "question_md": "Suppose you want to find the derivative of $\\frac{x^2}{x+1}$. The Quotient Rule says: to differentiate a fraction, you do\n\n$$\\frac{(\\text{bottom})(\\text{derivative of top}) - (\\text{top})(\\text{derivative of bottom})}{(\\text{bottom})^2}$$\n\nHere the \"top\" is $x^2$ and the \"bottom\" is $x+1$.\n\n**Fill in the blank:** The derivative of the top, $x^2$, is ______ , and the derivative of the bottom, $x+1$, is ______.",
+      "expected_answer_md": "The derivative of $x^2$ is $2x$, and the derivative of $x+1$ is $1$.",
+      "expected_pattern": "2x.*1|2x.*one"
+    },
+    {
+      "tier": "novice",
+      "question_md": "A student tried to use the Quotient Rule on $\\frac{x^3}{x+2}$ and wrote:\n\n$$\\frac{(x^3)(1) - (x+2)(3x^2)}{(x+2)^2}$$\n\n**Spot the mistake.** Which of the following describes what went wrong?\n\n- **(A)** The student swapped the top and bottom in the numerator — it should be (bottom)(derivative of top) *minus* (top)(derivative of bottom), not the other way around.\n- **(B)** The student forgot to square the bottom.\n- **(C)** The student took the derivative of $x^3$ incorrectly.",
+      "expected_answer_md": "**(A)** — The numerator is in the wrong order. It should be $(x+2)(3x^2) - (x^3)(1)$, not the other way around. A handy memory trick: the bottom function and the derivative of the top always come first.",
+      "expected_pattern": "[Aa]|swap|wrong order|backwards|reversed"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Spot the mistake in this student's work:\n\nFind $\\frac{d}{dx}\\left[\\frac{x^2}{\\sin x}\\right]$.\n\nStudent writes:\n$$\\frac{\\sin x \\cdot 2x - x^2 \\cdot \\cos x}{\\sin x}$$\n\nWhat did they get wrong?",
+      "expected_answer_md": "The denominator should be $(\\sin x)^2$, not $\\sin x$. The quotient rule gives $\\frac{(\\text{lo})(d\\text{hi}) - (\\text{hi})(d\\text{lo})}{(\\text{lo})^2}$, so the bottom must be squared.",
+      "expected_pattern": "(?i)(squared|sin.*2|denominator|\\(sin\\s*x\\)\\^2|lo\\)\\^2|bottom.*square|missing.*square)"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Fill in the blank. The quotient rule says:\n$$\\frac{d}{dx}\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{g(x)\\cdot f'(x) \\;-\\; \\underline{\\quad?\\quad}}{[g(x)]^2}$$\n\nWhat expression fills the blank? (And quick side question: does the order of the two terms in the numerator matter?)",
+      "expected_answer_md": "The blank is $f(x) \\cdot g'(x)$. Yes, the order matters — swapping the two terms flips the sign, giving you the wrong derivative. Unlike the product rule, the quotient rule is **not** symmetric.",
+      "expected_pattern": "(?i)(f\\(x\\)\\s*\\*?\\s*g'\\(x\\)|f\\s*g'|yes|order matters|not (commutative|symmetric)|sign|flip)"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "**Spot the mistake.** A student \"derives\" the quotient rule by writing $\\frac{d}{dx}\\!\\left[\\frac{f}{g}\\right] = \\frac{f'}{g'}$, arguing that differentiation is a linear operator so it distributes over fractions. In one sentence, explain the core flaw in this reasoning.",
+      "expected_answer_md": "Linearity of differentiation means $\\frac{d}{dx}[af+bg]=af'+bg'$ for constants $a,b$. It does **not** extend to quotients because $g(x)$ is a *function*, not a constant — the denominator itself varies with $x$. Formally, $\\frac{f}{g}=f\\cdot g^{-1}$, so the product rule (and chain rule) must be applied, yielding $$\\frac{d}{dx}\\!\\left[\\frac{f}{g}\\right]=\\frac{f'g - fg'}{g^2}.$$",
+      "expected_pattern": "(?i)(g.*not.*constant|denominator.*varies|product\\s*rule|g\\(x\\).*function|not\\s+linear.*over.*quotient)"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "**Fill in the blank (linear-approximation link).** Near a point $a$ where $g(a)\\neq 0$, replace $f$ and $g$ by their linearizations: $f(a)+f'(a)\\,\\Delta x$ and $g(a)+g'(a)\\,\\Delta x$. The ratio is\n$$\\frac{f(a)+f'(a)\\,\\Delta x}{g(a)+g'(a)\\,\\Delta x}.$$\nExpand to first order in $\\Delta x$ (use $\\frac{1}{1+u}\\approx 1-u$). The coefficient of $\\Delta x$ should be $\\rule{3cm}{0.4pt}$. Verify it matches the quotient rule evaluated at $a$.",
+      "expected_answer_md": "$$\\frac{f'(a)\\,g(a) - f(a)\\,g'(a)}{[g(a)]^2}$$",
+      "expected_pattern": "(?i)(f'.*g\\s*-\\s*f.*g')\\s*/\\s*g\\s*\\^?\\s*2|f'g\\s*-\\s*fg'|\\(f'g - fg'\\)"
+    }
+  ],
+  "deep_dives": [
+    {
+      "title": "Why the Quotient Rule Has a Minus Sign and a Squared Denominator",
+      "body_md": "Start with the simplest possible setup. You want the derivative of $Q(x) = \\frac{f(x)}{g(x)}$. Rather than treating this as a brand-new rule, rewrite it as a product:\n\n$$Q(x) = f(x) \\cdot [g(x)]^{-1}$$\n\nNow apply the product rule:\n\n$$Q'(x) = f'(x)\\cdot [g(x)]^{-1} + f(x) \\cdot \\frac{d}{dx}[g(x)]^{-1}$$\n\nThe chain rule gives $\\frac{d}{dx}[g(x)]^{-1} = -[g(x)]^{-2}\\cdot g'(x)$. That negative exponent is the origin of **both** the minus sign and the squared denominator. Substituting:\n\n$$Q'(x) = \\frac{f'(x)}{g(x)} - \\frac{f(x)\\,g'(x)}{[g(x)]^2}$$\n\nCombine the fractions over a common denominator of $[g(x)]^2$:\n\n$$Q'(x) = \\frac{f'(x)\\,g(x) - f(x)\\,g'(x)}{[g(x)]^2}$$\n\nThat's the quotient rule. No magic — just the product rule and the chain rule conspiring together.\n\n### Where the minus sign really comes from\n\nWhen you differentiate $[g(x)]^{-1}$, the power rule pulls down the exponent $-1$. A negative exponent means \"the function is in the denominator,\" and differentiating something in the denominator naturally opposes an increase in that function's value. Think about it: if the denominator grows while the numerator stays fixed, the fraction *shrinks*. That opposition is encoded as a minus sign.\n\nContrast this with the product rule $[f\\cdot g]' = f'g + fg'$, where both terms are added. In a product, both factors growing makes the result grow *more* — their contributions reinforce. In a quotient, the numerator growing helps but the denominator growing hurts, so the two contributions compete. The subtraction captures that competition.\n\n### Why the denominator is squared\n\nThe $[g(x)]^2$ comes from the same chain-rule step: $\\frac{d}{dx}[g(x)]^{-1} = -[g(x)]^{-2}\\cdot g'(x)$. Mechanically it's the power rule ($-1$ becomes $-2$ in the exponent). But there's a dimensional intuition too. The quotient $f/g$ has \"units\" of $f$ per $g$. Its rate of change should have units of $f$ per $g$ per $x$. Each term in the numerator — $f'g$ and $fg'$ — carries units of $f\\cdot g$ per $x$. To get back to \"$f$ per $g$ per $x$,\" you must divide by $g^2$. The square isn't an accident; it's required by dimensional consistency.\n\n### A limit-definition check\n\nYou can also verify this directly from the difference quotient. Write\n\n$$Q'(x) = \\lim_{h\\to 0}\\frac{\\frac{f(x+h)}{g(x+h)}-\\frac{f(x)}{g(x)}}{h}$$\n\nCombine the fractions in the numerator and use the classic trick of adding and subtracting $f(x)g(x)$ in the numerator. You'll see the same structure emerge: $f'g - fg'$ on top, $g^2$ on the bottom. Every path leads to the same place.\n\n**Follow-up question to chew on:** If you extend this reasoning to $\\frac{d}{dx}\\left[\\frac{f(x)}{[g(x)]^n}\\right]$, you get a generalized quotient rule with $[g(x)]^{n+1}$ in the denominator and a coefficient of $n$ in front of the subtracting term. Can you derive that formula, and does the standard quotient rule fall out when $n=1$?"
+    },
+    {
+      "title": "Quotient Rule or Rewrite First? Knowing When to Skip the Heavy Machinery",
+      "body_md": "The quotient rule works every time you have $\\frac{f(x)}{g(x)}$. But \"works\" and \"wise\" are different things. Let's dig into when rewriting a quotient as a product is genuinely faster and less error-prone — and why that's mathematically legal.\n\n## The core idea\n\nEvery quotient $\\frac{f(x)}{g(x)}$ is secretly the product $f(x) \\cdot [g(x)]^{-1}$. The quotient rule\n\n$$\\frac{d}{dx}\\!\\left[\\frac{f}{g}\\right] = \\frac{f'g - fg'}{g^2}$$\n\nis itself derived from the product rule applied to $f \\cdot g^{-1}$ together with the chain rule on $g^{-1}$. So the two approaches are not different theorems; they are the same theorem wearing different clothes.\n\n## When rewriting wins\n\n**Case 1 — The denominator is a single term (monomial).** Consider $\\frac{3x^5 - x^2 + 7}{x^3}$. You could quotient-rule this, but dividing term-by-term gives $3x^2 - x^{-1} + 7x^{-3}$, and now you just use the power rule three times. The quotient rule would force you to expand a product in the numerator for no benefit.\n\n**Case 2 — The denominator is a clean power or root.** For $\\frac{\\sin x}{\\sqrt{x}}$, rewriting as $\\sin x \\cdot x^{-1/2}$ and applying the product rule avoids the $g^2 = x$ denominator and the subtraction in the numerator that usually spawns sign errors.\n\n**Case 3 — You already see cancellation.** If $\\frac{x^2 - 1}{x - 1}$ simplifies to $x + 1$ (for $x \\neq 1$), differentiating $x+1$ is trivially $1$. Using the quotient rule raw would give you $\\frac{2x(x-1)-(x^2-1)(1)}{(x-1)^2}$; it still simplifies to $1$, but you did a lot of algebra to get there.\n\n## When the quotient rule is the right call\n\nIf the denominator is a sum or composite expression — think $\\frac{e^x}{x^2 + 1}$ — splitting it into a product means writing $(x^2+1)^{-1}$, which requires the chain rule on top of the product rule. You end up doing exactly as much work as the quotient rule, sometimes more. The quotient rule packages that chain-rule step for you.\n\n## A useful heuristic\n\nAsk yourself: *\"Can I rewrite the denominator so that it disappears or becomes a simple power?\"* If yes, rewrite. If the denominator is a sum, difference, or complicated composition, just use the quotient rule directly.\n\n## Why this matters beyond efficiency\n\nSimplifying first often reveals the structure of the derivative — its zeros, its sign, its behavior near singularities — in a way that the raw quotient-rule output buries under a messy fraction. Clean input yields clean output.\n\n---\n\n**Follow-up to chew on:** Suppose you have $\\frac{f(x)}{[g(x)]^n}$ for large $n$. Is it cheaper to use the quotient rule once, or to rewrite as $f(x)\\cdot[g(x)]^{-n}$ and use the product and chain rules? Work out both for $\\frac{x}{(1+x^2)^4}$ and compare — does one form make it easier to find where the derivative equals zero?"
+    }
+  ],
+  "applications": [
+    {
+      "context": "physics",
+      "problem_md": "A particle moves along a straight track. Its position is measured in meters and time in seconds. Experimental sensors give you the following information about two time-dependent quantities:\n\n- The momentum of the particle is $p(t) = 6t^2 + 4t$ (in kg·m/s).\n- The velocity of the particle is $v(t) = 3t + 2$ (in m/s).\n\nRecall that mass can be expressed as\n$$m(t) = \\frac{p(t)}{v(t)}$$\n\nIn a system where fuel is being ejected (think of a small rocket car on a rail), the mass of the vehicle actually changes with time.\n\n**(a)** Write $m(t)$ explicitly as a function of $t$ and simplify.\n\n**(b)** Even though part (a) simplifies nicely, pretend you could **not** simplify first. Use the **Quotient Rule** directly on $m(t) = \\dfrac{p(t)}{v(t)}$ to find $\\dfrac{dm}{dt}$.\n\n**(c)** Interpret your result physically. Is the rocket car gaining or losing mass? At what rate (in kg/s)?",
+      "solution_outline_md": "**Part (a):** Factor the numerator: $p(t) = 6t^2 + 4t = 2t(3t + 2)$. Then\n$$m(t) = \\frac{2t(3t+2)}{3t+2} = 2t \\quad (\\text{for } v(t) \\neq 0).$$\nSo $m(t) = 2t$ kg.\n\n**Part (b):** Apply the Quotient Rule $\\dfrac{d}{dt}\\!\\left[\\dfrac{p}{v}\\right] = \\dfrac{p'\\,v - p\\,v'}{v^2}$.\n\n- $p'(t) = 12t + 4$\n- $v'(t) = 3$\n\n$$\\frac{dm}{dt} = \\frac{(12t+4)(3t+2) - (6t^2+4t)(3)}{(3t+2)^2}$$\n\nExpand the numerator:\n- $(12t+4)(3t+2) = 36t^2 + 24t + 12t + 8 = 36t^2 + 36t + 8$\n- $(6t^2+4t)(3) = 18t^2 + 12t$\n\nNumerator: $36t^2 + 36t + 8 - 18t^2 - 12t = 18t^2 + 24t + 8$.\n\nFactor: $18t^2 + 24t + 8 = 2(9t^2 + 12t + 4) = 2(3t+2)^2$.\n\n$$\\frac{dm}{dt} = \\frac{2(3t+2)^2}{(3t+2)^2} = 2 \\text{ kg/s}.$$\n\nThis agrees with differentiating $m(t)=2t$ directly: $\\dfrac{dm}{dt}=2$.\n\n**Part (c):** $\\dfrac{dm}{dt} = +2$ kg/s, which is positive and constant. Physically this means the rocket car is **gaining** mass at a steady rate of $2$ kg/s — for example, it could be collecting fuel or debris from the track rather than expelling it. The rate does not depend on time."
+    },
+    {
+      "context": "economics",
+      "problem_md": "A small coffee roastery tracks its weekly production. After $t$ weeks of operation, the total cost of producing coffee (in dollars) is modeled by\n\n$$C(t) = 500t + 2000$$\n\nand the total number of pounds of coffee produced is modeled by\n\n$$Q(t) = t^2 + 10t$$\n\nThe **average cost per pound** at week $t$ is therefore\n\n$$A(t) = \\frac{C(t)}{Q(t)} = \\frac{500t + 2000}{t^2 + 10t}.$$\n\n(a) Use the quotient rule to find $A'(t)$.\n\n(b) Evaluate $A'(5)$ and interpret its meaning in plain economic terms. Is the average cost per pound increasing or decreasing at $t = 5$ weeks? By roughly how much per additional week?\n\n(c) The roastery owner says, \"Eventually our average cost per pound will keep dropping toward zero.\" Use $A'(t)$ (or the behavior of $A(t)$) to decide whether the owner is right, and briefly explain why.",
+      "solution_outline_md": "**Part (a):** Apply the quotient rule $\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$ with $u = 500t + 2000$ and $v = t^2 + 10t$.\n\n- $u' = 500$, $v' = 2t + 10$.\n\n$$A'(t) = \\frac{500(t^2 + 10t) - (500t + 2000)(2t + 10)}{(t^2 + 10t)^2}.$$\n\nExpand the numerator:\n- $500(t^2 + 10t) = 500t^2 + 5000t$\n- $(500t + 2000)(2t + 10) = 1000t^2 + 5000t + 4000t + 20000 = 1000t^2 + 9000t + 20000$\n\nNumerator: $500t^2 + 5000t - 1000t^2 - 9000t - 20000 = -500t^2 - 4000t - 20000$.\n\nFactor: $-500(t^2 + 8t + 40)$.\n\n$$A'(t) = \\frac{-500(t^2 + 8t + 40)}{(t^2 + 10t)^2}$$\n\n**Part (b):** Plug in $t = 5$:\n- Numerator: $-500(25 + 40 + 40) = -500(105) = -52{,}500$.\n- Denominator: $(25 + 50)^2 = 75^2 = 5625$.\n\n$$A'(5) = \\frac{-52{,}500}{5625} \\approx -9.33$$\n\nInterpretation: At 5 weeks in, the average cost per pound is **decreasing** at a rate of about $\\$9.33$ per pound per week. The roastery is becoming more cost-efficient as it scales up production.\n\nAs a sanity check, $A(5) = \\frac{4500}{75} = 60$ dollars per pound, so a drop of roughly $\\$9$ per pound in the next week is plausible for a young business still gaining efficiency.\n\n**Part (c):** Notice the discriminant of $t^2 + 8t + 40$ is $64 - 160 = -96 < 0$, so the quadratic has no real roots and is always positive. That means $A'(t) < 0$ for all $t > 0$ — the average cost per pound is always decreasing.\n\nAlso, $A(t) = \\frac{500t + 2000}{t^2 + 10t}$. For large $t$ the dominant terms give $A(t) \\approx \\frac{500t}{t^2} = \\frac{500}{t} \\to 0$.\n\nSo the owner is correct: the average cost per pound decreases toward $\\$0$ in the long run. Economically this happens because total cost grows linearly while total output grows quadratically, so the cost is spread over an ever-larger quantity."
+    }
+  ]
+}
