@@ -3,7 +3,7 @@
 > Personalized on-device AP Calculus AB/BC copilot — frontier-authored content
 > + on-device SLM for Socratic dialogue.
 >
-> **Live URL:** https://f3c58c7d-7345-441a-9b01-33ee7f904dcb--3000.app.athenaintel.com
+> **Live URL:** 
 > **v1 spec:** see `docs/spec.md` (or the Athena document linked in commit history)
 
 ---
