@@ -44,7 +44,7 @@ thousand words.
   Challenge deep dives. Author the visual specs as JSON in the existing
   content pipeline.
 
-### A2. "Teach it back" mode (Feynman technique) — **NEXT**
+### A2. "Teach it back" mode (Feynman technique) — **DONE** (`453ce87`)
 Student explains a concept in their own words; SLM probes their explanation
 with Socratic questions to detect gaps. The deepest learning technique we
 haven't built yet.
@@ -252,10 +252,14 @@ Three reasonable orderings, depending on priority:
 
 ## Currently in flight
 
-**A2 — "Teach it back" mode** is the next item being built.
+_(nothing in flight — pick the next item from the lists above)_
 
 ---
 
 ## Done since v1 merge
 
-_Nothing yet — this is the baseline._
+| Date | Item | Commit |
+|---|---|---|
+| 2026 | **A2 — Teach it back (Feynman) mode** | `453ce87` |
+| 2026 | docs: ROADMAP.md | `c6abcb6` |
+
