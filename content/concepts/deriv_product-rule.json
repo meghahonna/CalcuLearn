@@ -1,0 +1,207 @@
+{
+  "concept_id": "deriv.product-rule",
+  "name": "Product Rule",
+  "track": "BOTH",
+  "one_liner": "How to differentiate a product of two functions — not just the product of their derivatives.",
+  "prerequisites": [
+    "deriv.power-rule"
+  ],
+  "explanations": [
+    {
+      "tier": "novice",
+      "framing_index": 0,
+      "body_md": "Let's start with a tempting mistake. Suppose you want the derivative of $f(x) = x^2 \\cdot x^3$. You might guess: just take the derivative of each piece and multiply them.\n\nThat would give you $2x \\cdot 3x^2 = 6x^3$.\n\nBut wait — you can check this. Combine first: $x^2 \\cdot x^3 = x^5$. The derivative of $x^5$ is $5x^4$, not $6x^3$. So the \"just multiply the derivatives\" approach is **wrong**.\n\nHere is the correct rule. If you have two functions multiplied together, call them $u$ and $v$:\n\n$$\\frac{d}{dx}[u \\cdot v] = u' \\cdot v + u \\cdot v'$$\n\nIn words: take the derivative of the first piece and multiply it by the second piece *left alone*, then add the first piece *left alone* times the derivative of the second piece.\n\nLet's redo our example with the correct rule. Let $u = x^2$ and $v = x^3$.\n\n- $u' = 2x$\n- $v' = 3x^2$\n\nPlug into the formula:\n\n$$u' \\cdot v + u \\cdot v' = 2x \\cdot x^3 + x^2 \\cdot 3x^2 = 2x^4 + 3x^4 = 5x^4$$\n\nThat matches the answer we got by combining first. The product rule works.\n\nA quick second example: find the derivative of $f(x) = x^4 \\cdot x$.\n\n- $u = x^4$, so $u' = 4x^3$\n- $v = x$, so $v' = 1$\n\n$$4x^3 \\cdot x + x^4 \\cdot 1 = 4x^4 + x^4 = 5x^4$$\n\nCheck: $x^4 \\cdot x = x^5$, derivative is $5x^4$. It checks out.\n\nIf this feels like a lot to remember, that is normal. The key pattern is: **one piece gets differentiated while the other stays the same, then you switch roles and add**. Practice it a few times and it will start to feel natural.",
+      "intuition_md": "Think of two people painting a wall together. Person $u$ gets a little faster each minute, and person $v$ does too. The total area they cover per minute is not just \"how much faster $u$ got\" times \"how much faster $v$ got.\" Instead, you have to account for both contributions separately: $u$ speeding up while $v$ keeps working at their current pace, plus $v$ speeding up while $u$ keeps working at their current pace. You add those two contributions together. That is exactly what $u'v + uv'$ captures — each function takes a turn being the one that changes, while the other holds steady."
+    },
+    {
+      "tier": "novice",
+      "framing_index": 1,
+      "body_md": "Imagine you have a rectangle. Its area is width times height, right?\n\n$$A = w \\cdot h$$\n\nNow picture this: both the width and the height are changing (maybe the rectangle is being stretched in both directions at once). How fast is the area changing?\n\nLet's use actual numbers. Say the width is $w = 3$ and it's growing at a rate of $2$ units per second. The height is $h = 5$ and it's growing at $4$ units per second.\n\nThe area changes for two reasons:\n\n1. The width is stretching. That adds a thin vertical strip on the right side. Its area is roughly: (how fast the width grows) $\\times$ (current height) $= 2 \\times 5 = 10$.\n\n2. The height is stretching. That adds a thin horizontal strip on top. Its area is roughly: (current width) $\\times$ (how fast the height grows) $= 3 \\times 4 = 12$.\n\nSo the total rate of area change is $10 + 12 = 22$.\n\nThere's also a tiny corner piece where both strips overlap, but it's so small it vanishes — calculus lets us ignore it.\n\nNow let's translate this into a formula. If you have two functions multiplied together, $f(x) \\cdot g(x)$, and you want the derivative of that product, you do the same thing:\n\n$$\\frac{d}{dx}\\big[f(x) \\cdot g(x)\\big] = f'(x) \\cdot g(x) + f(x) \\cdot g'(x)$$\n\nIn words: take the derivative of the first times the second, then add the first times the derivative of the second.\n\nLet's try one. Find the derivative of $x^2 \\cdot x^3$.\n\n- $f(x) = x^2$, so $f'(x) = 2x$ (power rule).\n- $g(x) = x^3$, so $g'(x) = 3x^2$ (power rule).\n\nPlug in:\n\n$$f'(x)\\cdot g(x) + f(x)\\cdot g'(x) = 2x \\cdot x^3 + x^2 \\cdot 3x^2 = 2x^4 + 3x^4 = 5x^4$$\n\nYou can check: $x^2 \\cdot x^3 = x^5$, and the derivative of $x^5$ is $5x^4$. It matches. The product rule works.",
+      "intuition_md": "Think of a rectangle on a screen that's being stretched wider and taller at the same time. The area doesn't just grow because of the width change — it also grows because of the height change. Each side's growth contributes its own strip of new area. The product rule simply adds those two strips together: (rate the first thing changes) times (the second thing) plus (the first thing) times (rate the second thing changes). Whenever you see two functions multiplied and need a derivative, picture that stretching rectangle."
+    },
+    {
+      "tier": "on_pace",
+      "framing_index": 0,
+      "body_md": "You already know how to differentiate $x^5$ or $3x^2$ using the power rule. But what happens when you need the derivative of something like $x^2 \\sin x$— a product of two functions? You can't just differentiate each factor separately and multiply. That's the most common mistake, so burn it in now: $(fg)' \\neq f' \\cdot g'$.\n\nThe **product rule** says: if $f(x)$ and $g(x)$ are both differentiable, then\n\n$$\\frac{d}{dx}[f(x)\\,g(x)] = f'(x)\\,g(x) + f(x)\\,g'(x).$$\n\nIn words: differentiate the first and leave the second alone, then leave the first alone and differentiate the second. Add the two pieces.\n\nLet's see it in action. Take $h(x) = x^2 \\sin x$. Set $f(x)=x^2$ and $g(x)=\\sin x$. Then $f'(x)=2x$ (power rule) and $g'(x)=\\cos x$. Applying the product rule:\n\n$$h'(x) = 2x\\,\\sin x + x^2\\,\\cos x.$$\n\nThat's it. Two terms, each with one differentiated factor and one untouched factor.\n\n**Common sticking points:**\n\n1. *Forgetting a term.* The result always has two summands. If you only wrote $2x\\sin x$, you dropped the second half.\n2. *Sign errors when negatives appear.* If $g(x)=\\cos x$, then $g'(x)=-\\sin x$. Track that minus sign carefully through the formula.\n3. *When to use it.* Any time two variable expressions are multiplied — even things like $e^x \\ln x$ or $(3x+1)(x^2-4)$. If one factor is just a constant, the product rule still works but the constant-multiple rule is faster.\n\n**Where this fits:** The power rule handles single terms; the product rule handles multiplication of functions. Up next you'll meet the **quotient rule**, which handles division, and then the **chain rule** for compositions. The product rule will keep showing up inside those later rules, so getting comfortable with it now pays off immediately.",
+      "intuition_md": "Picture two rectangles side by side forming a bigger rectangle whose area is $f(x) \\cdot g(x)$. When $x$ changes by a tiny amount, both $f$ and $g$ change. The new area gains a thin horizontal strip (height $f$, extra width $dg$) and a thin vertical strip (width $g$, extra height $df$). The total change in area is roughly $f\\,dg + g\\,df$, which is exactly what the product rule computes. There's also a tiny corner piece $df\\,dg$, but it's negligibly small — that's why only two terms survive in the formula."
+    },
+    {
+      "tier": "advanced",
+      "framing_index": 0,
+      "body_md": "Given two differentiable functions $u(x)$ and $v(x)$, the derivative of their product is\n\n$$(uv)' = u'v + uv'.$$\n\n**Proof from the limit definition.** Start with\n\n$$\\frac{d}{dx}[u(x)v(x)] = \\lim_{h \\to 0} \\frac{u(x+h)v(x+h) - u(x)v(x)}{h}.$$\n\nThe classic trick: add and subtract $u(x+h)v(x)$ in the numerator.\n\n$$= \\lim_{h \\to 0} \\left[ u(x+h)\\frac{v(x+h)-v(x)}{h} + v(x)\\frac{u(x+h)-u(x)}{h} \\right].$$\n\nBecause $u$ is differentiable it is continuous, so $\\lim_{h\\to 0} u(x+h) = u(x)$. The two difference quotients become $v'(x)$ and $u'(x)$, giving $u(x)v'(x) + v(x)u'(x)$. That's it — the proof rests entirely on continuity of $u$ and the algebra of limits (sum and product of limits).\n\n**Linear-approximation perspective.** Near $x$, replace each factor by its linearization:\n\n$$u(x+h) \\approx u + u'h, \\qquad v(x+h) \\approx v + v'h.$$\n\nMultiply:\n\n$$(u + u'h)(v + v'h) = uv + (u'v + uv')h + u'v'h^2.$$\n\nThe $h^2$ term vanishes in the limit, so the first-order change in the product is $(u'v + uv')h$, confirming the rule. This is really the same idea as the proof above, just phrased in the language of differentials: $d(uv) = v\\,du + u\\,dv$.\n\n**Quick example.** Let $f(x) = x^3 \\sin x$. With $u = x^3$, $v = \\sin x$:\n\n$$f'(x) = 3x^2 \\sin x + x^3 \\cos x.$$\n\n**Stretch question.** Generalize to three factors: derive the formula for $(uvw)'$. Then see if you can state the pattern for $n$ factors (it mirrors the combinatorial identity behind the Leibniz rule for higher-order derivatives).",
+      "intuition_md": "Think of the product $u \\cdot v$ as the area of a rectangle with sides $u$ and $v$. When $x$ shifts by a tiny $h$, $u$ grows by $du$ and $v$ by $dv$. The new area is $(u+du)(v+dv) = uv + v\\,du + u\\,dv + du\\,dv$. The change in area consists of two thin strips — one with area $v\\,du$ (along the bottom) and one with area $u\\,dv$ (along the side) — plus a tiny corner square $du\\,dv$ that is second-order small and drops out. So the instantaneous rate of area change is $u'v + uv'$."
+    }
+  ],
+  "examples": [
+    {
+      "tier": "novice",
+      "problem_md": "Find the derivative of $f(x) = x^2 \\cdot x^3$.",
+      "steps": [
+        {
+          "step_md": "**Identify the two parts being multiplied.**\n\nWe have two functions multiplied together:\n- First piece: $u(x) = x^2$\n- Second piece: $v(x) = x^3$",
+          "why_md": "The Product Rule is specifically designed for situations where two functions are multiplied. Before you can use it, you need to clearly see what the two pieces are. Think of it like a recipe: before you start cooking, you lay out your ingredients."
+        },
+        {
+          "step_md": "**Find the derivative of each piece separately.**\n\nUsing the Power Rule ($\\frac{d}{dx}[x^n] = n \\cdot x^{n-1}$):\n- $u'(x) = 2x$\n- $v'(x) = 3x^2$",
+          "why_md": "The Product Rule will ask you for these individual derivatives in a moment. You already know how to differentiate $x^2$ and $x^3$ on their own — the Power Rule handles that. We're breaking a hard problem into smaller, familiar pieces."
+        },
+        {
+          "step_md": "**Write down the Product Rule formula.**\n\n$$\\frac{d}{dx}[u \\cdot v] = u' \\cdot v + u \\cdot v'$$\n\nIn words: *\"derivative of the first times the second, plus the first times the derivative of the second.\"*",
+          "why_md": "Why can't you just multiply the two derivatives together? Because that gives the wrong answer. When two changing quantities are multiplied, the way the product changes is more subtle. Imagine you're computing the area of a rectangle whose length and width are both growing. The area doesn't just grow because the length grows — it also grows because the width grows. The Product Rule captures both contributions."
+        },
+        {
+          "step_md": "**Plug everything in.**\n\n$$f'(x) = (2x)(x^3) + (x^2)(3x^2)$$",
+          "why_md": "This is the mechanical step — just substitute $u$, $u'$, $v$, and $v'$ into the formula. Take it slow and double-check that each piece lands in the right spot. A common mistake is mixing up which function gets differentiated in which term."
+        },
+        {
+          "step_md": "**Simplify.**\n\n$$f'(x) = 2x^4 + 3x^4 = 5x^4$$",
+          "why_md": "Always simplify at the end so your answer is clean. Here, $2x \\cdot x^3 = 2x^4$ and $x^2 \\cdot 3x^2 = 3x^4$. Since they're like terms, they combine to $5x^4$.\n\n**Quick sanity check:** You could have simplified *before* differentiating: $x^2 \\cdot x^3 = x^5$, and $\\frac{d}{dx}[x^5] = 5x^4$. Same answer. This confirms the Product Rule works. Of course, most real Product Rule problems can't be simplified first — that's why the rule is so important. Try applying it next to something like $f(x) = x^2 \\sin(x)$, where you truly can't combine the factors."
+        }
+      ]
+    },
+    {
+      "tier": "on_pace",
+      "problem_md": "Find the derivative of $f(x) = (3x^2 + 2x)(\\sin x)$.",
+      "steps": [
+        {
+          "step_md": "Identify the two factors: $u(x) = 3x^2 + 2x$ and $v(x) = \\sin x$.",
+          "why_md": "The product rule applies whenever you're differentiating two functions that are *multiplied* together. Before doing any calculus, you need to clearly name the two pieces. This is the same instinct you used with the chain rule — pause, identify structure, then differentiate. Getting the labeling right prevents you from accidentally treating the whole expression as a single power or trig function."
+        },
+        {
+          "step_md": "Recall the product rule: $$\\frac{d}{dx}[u \\cdot v] = u' \\cdot v + u \\cdot v'$$",
+          "why_md": "A common mistake is to think the derivative of a product is just the product of the derivatives ($u' \\cdot v'$). That's *wrong*. The product rule tells you that each factor gets a turn being differentiated while the other factor stays untouched, and then you *add* the two results. Keep this template in front of you until it's automatic."
+        },
+        {
+          "step_md": "Differentiate each factor separately: $$u'(x) = 6x + 2 \\qquad v'(x) = \\cos x$$",
+          "why_md": "You already know how to do these individual derivatives — $u'$ is just the power rule applied term-by-term, and $v'$ is a basic trig derivative. Computing them on the side, before you substitute into the product rule formula, keeps your work organized and reduces sign/arithmetic errors."
+        },
+        {
+          "step_md": "Substitute into the product rule: $$f'(x) = (6x + 2)(\\sin x) + (3x^2 + 2x)(\\cos x)$$",
+          "why_md": "This is the payoff step — you're just plugging $u$, $u'$, $v$, and $v'$ into the formula $u'v + uv'$. Notice the structure: the first term has $u'$ paired with the *original* $v$, and the second term has the *original* $u$ paired with $v'$. Each factor takes its turn being differentiated."
+        },
+        {
+          "step_md": "Simplify (optional cleanup): $$f'(x) = (6x + 2)\\sin x + (3x^2 + 2x)\\cos x$$",
+          "why_md": "In this case there isn't a dramatic simplification — you can't neatly combine a $\\sin x$ term with a $\\cos x$ term. That's completely fine; many product rule answers stay in this two-term form. Resist the urge to force further algebra when there's nothing to combine. On an AP exam, this form earns full credit.\n\nLooking ahead: when one of your factors is itself a composition — say $(3x^2 + 2x)(\\sin(5x))$ — you'll need the chain rule *inside* the product rule to handle $v'(x)$. That combination shows up constantly on the AP exam, so getting comfortable with the product rule now sets you up for those layered problems."
+        }
+      ]
+    },
+    {
+      "tier": "advanced",
+      "problem_md": "Let $f(x) = x^2 \\ln(x) \\cdot e^{3x}$. Find $f'(x)$. Simplify enough to identify common factors.",
+      "steps": [
+        {
+          "step_md": "**Recall the Product Rule and its origin.** For two differentiable functions $u$ and $v$, $$\\frac{d}{dx}[u \\cdot v] = u'v + uv'.$$ This extends to three factors $u \\cdot v \\cdot w$ as $$\\frac{d}{dx}[u \\cdot v \\cdot w] = u'vw + uv'w + uvw'.$$",
+          "why_md": "The product rule comes directly from the limit definition. Write $\\Delta(uv) = (u + \\Delta u)(v + \\Delta v) - uv = u\\,\\Delta v + v\\,\\Delta u + \\Delta u\\,\\Delta v$. Divide by $\\Delta x$ and let $\\Delta x \\to 0$. The cross term $\\Delta u \\cdot \\Delta v / \\Delta x \\to 0$ because $\\Delta u \\to 0$ (continuity of differentiable functions) while $\\Delta v/\\Delta x \\to v'$, a finite limit. This is why differentiability (hence continuity) is a prerequisite — without it the cross term need not vanish. The three-factor version follows by applying the two-factor rule twice, or by the same $\\Delta$-argument with a triple product. Think of it as: each factor gets its turn to be differentiated while the others stay put — a combinatorial structure identical to the Leibniz rule."
+        },
+        {
+          "step_md": "Identify the three factors and their derivatives: $$u = x^2,\\quad v = \\ln(x),\\quad w = e^{3x}.$$ $$u' = 2x,\\quad v' = \\frac{1}{x},\\quad w' = 3e^{3x}.$$",
+          "why_md": "Separating the product into named pieces keeps the bookkeeping clean and lets you apply the triple product rule mechanically. Note that $w' = 3e^{3x}$ uses the chain rule — the exponential's derivative brings down the inner derivative $3$. This is a spot where chain rule and product rule interact."
+        },
+        {
+          "step_md": "Apply the triple product rule: $$f'(x) = u'vw + uv'w + uvw'$$ $$= 2x \\cdot \\ln(x) \\cdot e^{3x} \\;+\\; x^2 \\cdot \\frac{1}{x} \\cdot e^{3x} \\;+\\; x^2 \\cdot \\ln(x) \\cdot 3e^{3x}.$$",
+          "why_md": "Each term represents the contribution to the total rate of change from one factor changing while the other two are momentarily frozen. This is the same idea behind linear approximation: near a point $a$, $f(a+h) \\approx f(a) + f'(a)h$, and the product rule tells you $f'(a)$ is a sum of partial contributions — formally analogous to the multivariable total differential $d(uvw) = vw\\,du + uw\\,dv + uv\\,dw$."
+        },
+        {
+          "step_md": "Simplify each term: $$= 2x\\,\\ln(x)\\,e^{3x} \\;+\\; x\\,e^{3x} \\;+\\; 3x^2\\,\\ln(x)\\,e^{3x}.$$",
+          "why_md": "In the second term, $x^2 \\cdot \\frac{1}{x} = x$. Keeping things tidy before factoring prevents sign and algebra errors."
+        },
+        {
+          "step_md": "Factor out $x\\,e^{3x}$: $$f'(x) = x\\,e^{3x}\\!\\left[\\,2\\ln(x) + 1 + 3x\\ln(x)\\,\\right].$$ Optionally, group the $\\ln(x)$ terms: $$f'(x) = x\\,e^{3x}\\!\\left[\\,(2 + 3x)\\ln(x) + 1\\,\\right].$$",
+          "why_md": "Factoring reveals structure: $x\\,e^{3x}$ is always positive for $x > 0$, so the sign of $f'(x)$ depends entirely on the bracket. That is useful if you later need critical points or monotonicity. Also notice: because $\\ln(x)$ is only defined for $x > 0$ (and continuous there), $f$ is differentiable on $(0,\\infty)$ — the domain question is settled by the weakest link among the factors.\n\n**Stretch question.** Try proving the general Leibniz rule: if $h = uv$, show that the $n$-th derivative satisfies $h^{(n)} = \\sum_{k=0}^{n} \\binom{n}{k}\\, u^{(k)}\\, v^{(n-k)}$, mirroring the binomial theorem. Induct on $n$ using the ordinary product rule as the base case. Why does the binomial coefficient appear? Think about how many times each \"choose which factor to differentiate\" decision arises across $n$ successive applications of the product rule."
+        }
+      ]
+    }
+  ],
+  "misconceptions": [
+    {
+      "short_name": "just_multiply_derivatives",
+      "description_md": "The student believes that the derivative of a product is simply the product of the derivatives: $\\frac{d}{dx}[f(x) \\cdot g(x)] = f'(x) \\cdot g'(x)$. For example, they compute $\\frac{d}{dx}[x^2 \\sin x] = 2x \\cos x$.",
+      "why_wrong_md": "The product rule states $\\frac{d}{dx}[f(x)g(x)] = f'(x)g(x) + f(x)g'(x)$. You must keep each original function paired with the other's derivative and add the two terms. The correct answer is $2x \\sin x + x^2 \\cos x$.",
+      "socratic_response_md": "Try testing your rule on something simple: let $f(x) = x$ and $g(x) = x$, so $f(x)g(x) = x^2$. Your method gives $\\frac{d}{dx}[x^2] = 1 \\cdot 1 = 1$, but what does the power rule tell you $\\frac{d}{dx}[x^2]$ actually equals?"
+    },
+    {
+      "short_name": "forget_second_term",
+      "description_md": "The student remembers part of the product rule but only writes one term instead of two. For instance, for $\\frac{d}{dx}[x^3 e^x]$, they write $3x^2 e^x$ and stop, forgetting the $+ x^3 e^x$ term.",
+      "why_wrong_md": "The product rule produces a sum of two terms: $f'(x)g(x) + f(x)g'(x)$. Dropping either term gives an incomplete (and incorrect) derivative. Both functions take a turn being differentiated while the other is held fixed.",
+      "socratic_response_md": "You differentiated $x^3$ and kept $e^x$ alone — that's a great start and gives you the first term. But the product rule has two terms added together. What happens when you keep $x^3$ alone and differentiate $e^x$ instead?"
+    },
+    {
+      "short_name": "minus_instead_of_plus",
+      "description_md": "The student confuses the product rule with the quotient rule and writes a minus sign: $\\frac{d}{dx}[f(x)g(x)] = f'(x)g(x) - f(x)g'(x)$. For example, they compute $\\frac{d}{dx}[x \\ln x] = \\ln x - 1$.",
+      "why_wrong_md": "The product rule uses addition, not subtraction. The subtraction appears in the numerator of the quotient rule, $\\frac{f'g - fg'}{g^2}$. Mixing them up changes the sign of the second term, which gives an entirely different (and wrong) result. The correct derivative here is $\\ln x + 1$.",
+      "socratic_response_md": "Take a look at the formula you used — does subtraction show up in the product rule, or is that from a different rule? Try checking: if $f(x) = x$ and $g(x) = x$, your formula gives $x - x = 0$. Does $\\frac{d}{dx}[x^2] = 0$?"
+    },
+    {
+      "short_name": "apply_to_composition_not_product",
+      "description_md": "The student applies the product rule to a composite function that isn't actually a product. For example, they see $\\sin(x^2)$ and write $\\cos(x^2) \\cdot 2x$ but label it as a \"product rule\" application, or worse, they try $\\frac{d}{dx}[\\sin(x^2)] = \\cos(x^2) \\cdot \\frac{d}{dx}[\\sin(x^2)]$ by treating $\\sin$ and $x^2$ as two separate factors.",
+      "why_wrong_md": "In $\\sin(x^2)$, the function $x^2$ is the input to $\\sin$, not a separate factor multiplied by $\\sin$. This is a composition $f(g(x))$ where $f(u) = \\sin u$ and $g(x) = x^2$, which requires the chain rule, not the product rule. A genuine product would look like $\\sin(x) \\cdot x^2$, where both pieces are multiplied together at the same level.",
+      "socratic_response_md": "Ask yourself: are $\\sin$ and $x^2$ being multiplied together, or is $x^2$ being fed as an input into $\\sin$? What's the difference between $\\sin(x) \\cdot x^2$ and $\\sin(x^2)$, and which differentiation rule fits each one?"
+    },
+    {
+      "short_name": "product_rule_then_simplification_error",
+      "description_md": "The student applies the product rule correctly but then incorrectly simplifies by factoring or combining unlike terms. For example, with $\\frac{d}{dx}[(2x+1)(x^2-3)]$, they correctly get $2(x^2-3) + (2x+1)(2x)$ but then simplify to $2x^2 - 6 + 2x^2 + 2x = 4x^2 + 2x - 6$, missing that $(2x+1)(2x) = 4x^2 + 2x$, not $2x^2 + 2x$.",
+      "why_wrong_md": "The product rule was applied correctly, but a distribution or algebra error in the cleanup step corrupted the final answer. The second term $(2x+1)(2x)$ expands to $4x^2 + 2x$, giving a final result of $6x^2 + 2x - 6$. These algebra mistakes are especially common when students rush through simplification.",
+      "socratic_response_md": "Your product rule setup looks right — nice work there. Now slow down on the algebra: when you expand $(2x+1)(2x)$, what do you get when you distribute $2x$ to each term inside the parentheses?"
+    }
+  ],
+  "checks": [
+    {
+      "tier": "novice",
+      "question_md": "Suppose you want to take the derivative of $f(x) = x^2 \\cdot x^3$ using the Product Rule.\n\nThe Product Rule says: to differentiate two things multiplied together, you do\n\n$$\\text{(derivative of the first)} \\cdot \\text{(second)} \\;+\\; \\text{(first)} \\cdot \\text{(derivative of the second)}$$\n\nHere, the \"first\" piece is $x^2$ and the \"second\" piece is $x^3$.\n\nFill in the blank: Using the Product Rule, the derivative is\n\n$$f'(x) = \\underbrace{2x}_{\\text{derivative of } x^2} \\cdot x^3 \\;+\\; x^2 \\cdot \\underbrace{\\rule{2cm}{0.15mm}}_{\\text{derivative of } x^3}$$\n\nWhat goes in the blank — what is the derivative of $x^3$?",
+      "expected_answer_md": "$3x^2$",
+      "expected_pattern": "3\\s*x\\s*\\^?\\s*2|3x²"
+    },
+    {
+      "tier": "novice",
+      "question_md": "A student tries the Product Rule on $h(x) = 5x \\cdot x^4$ and writes:\n\n$$h'(x) = 5 \\cdot 4x^3$$\n\n**Spot the mistake.** Which of the following best describes what went wrong?\n\n**(A)** The student only multiplied the two derivatives together instead of using the Product Rule (which has a **plus** sign and two terms).\n\n**(B)** The student took the derivative of $x^4$ incorrectly.\n\n**(C)** The student forgot to subtract the two pieces.",
+      "expected_answer_md": "**(A)** — The student multiplied the derivatives ($5$ and $4x^3$) instead of applying the full Product Rule, which gives two separate terms added together: $(5)(x^4) + (5x)(4x^3)$.",
+      "expected_pattern": "[Aa]|multiplied.*derivatives|only.*multiplied|forgot.*plus|two.*terms|product\\s*rule"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Spot the mistake in this differentiation.\n\nA student writes: if $h(x) = x^3 \\sin x$, then\n$$h'(x) = 3x^2 \\cos x.$$\nWhat did they do wrong, and what is the correct $h'(x)$?",
+      "expected_answer_md": "The student multiplied the derivatives of each factor instead of applying the product rule. The correct derivative is\n$$h'(x) = 3x^2 \\sin x + x^3 \\cos x.$$\nRemember: the product rule says $(fg)' = f'g + fg'$, not $f'g'$.",
+      "expected_pattern": "3x\\^?2\\s*sin\\s*x\\s*\\+\\s*x\\^?3\\s*cos\\s*x|f'g\\s*\\+\\s*fg'|didn.t (use|apply).*(product rule)|multiplied.*derivatives"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Fill in the blank. If $f(x) = e^x \\cdot \\ln x$, the product rule gives\n$$f'(x) = \\underline{\\phantom{\\text{first term}}} + e^x \\cdot \\frac{1}{x}.$$\nWhat expression goes in the blank?",
+      "expected_answer_md": "$e^x \\ln x$\n\nHere $f = e^x$ and $g = \\ln x$, so the first term of the product rule is $f'g = e^x \\ln x$.",
+      "expected_pattern": "e\\^?x\\s*ln\\s*x|e\\^x\\s*\\\\ln\\s*x|\\\\ln\\(x\\)\\s*e\\^x"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "The product rule can be motivated by thinking about the area of a rectangle with sides $u(x)$ and $v(x)$. When $x$ increases by $\\Delta x$, the change in area is\n$$\\Delta(uv) = (u + \\Delta u)(v + \\Delta v) - uv = u\\,\\Delta v + v\\,\\Delta u + \\Delta u\\,\\Delta v.$$\nAfter dividing by $\\Delta x$ and taking $\\lim_{\\Delta x \\to 0}$, which term drops out and **why**?",
+      "expected_answer_md": "The term $\\Delta u \\cdot \\Delta v / \\Delta x$ drops out. After rewriting it as $\\frac{\\Delta u}{\\Delta x} \\cdot \\Delta v$, note that $\\frac{\\Delta u}{\\Delta x} \\to u'(x)$ (finite) while $\\Delta v \\to 0$ (by continuity of $v$, which is guaranteed by differentiability). The product therefore tends to $0$.",
+      "expected_pattern": "(?i)(delta\\s*u\\s*[·*]?\\s*delta\\s*v|\\\\Delta\\s*u.*\\\\Delta\\s*v|third\\s*term|last\\s*term).*(continuity|differentiab|->\\s*0|tends.*0|goes.*0|vanish)"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "Spot the mistake in this \"proof\":\n\n> \"By linear approximation, $u(x+h) \\approx u + u'h$ and $v(x+h) \\approx v + v'h$. So\n> $$(uv)' = \\lim_{h\\to 0}\\frac{(u+u'h)(v+v'h)-uv}{h} = \\lim_{h\\to 0}\\frac{u'hv + uv'h + u'v'h^2}{h} = u'v + uv'.$$\n> Done.\"\n\nIs this argument valid? If not, identify the precise logical gap.",
+      "expected_answer_md": "It is **not** valid as written. Replacing $u(x+h)$ with its linear approximation $u + u'h$ discards an error term $o(h)$. You must show that those error terms, after dividing by $h$, still vanish in the limit. Concretely, $u(x+h) = u + u'h + \\epsilon_1(h)h$ where $\\epsilon_1 \\to 0$, and the cross-terms involving $\\epsilon_1, \\epsilon_2$ must be tracked. The displayed computation silently assumes the approximation is exact, which conflates \"approximation\" with \"equality.\"",
+      "expected_pattern": "(?i)(error|remainder|o\\(h\\)|epsilon|approximation.*not.*exact|not.*equal|higher.order|conflat|missing.*term|neglect)"
+    }
+  ],
+  "deep_dives": [
+    {
+      "title": "Why Does the Product Rule Give Two Terms? A Geometric Area-Change Derivation",
+      "body_md": "Suppose $u(x)$ and $v(x)$ are two positive, differentiable functions. Picture their product $A = u \\cdot v$ as the area of a rectangle whose width is $u(x)$ and whose height is $v(x)$.\n\nNow nudge $x$ by a tiny amount $\\Delta x$. The width changes by $\\Delta u = u(x+\\Delta x) - u(x)$ and the height changes by $\\Delta v = v(x+\\Delta x) - v(x)$. The new area is\n\n$$(u + \\Delta u)(v + \\Delta v) = uv + u\\,\\Delta v + v\\,\\Delta u + \\Delta u\\,\\Delta v.$$\n\nSo the total change in area is\n\n$$\\Delta A = u\\,\\Delta v + v\\,\\Delta u + \\Delta u\\,\\Delta v.$$\n\nStare at the rectangle diagram. You see three new regions:\n\n1. A tall, thin strip on the right with area $v\\,\\Delta u$ — the old height times the width increase.\n2. A wide, thin strip on top with area $u\\,\\Delta v$ — the old width times the height increase.\n3. A tiny corner rectangle with area $\\Delta u\\,\\Delta v$.\n\nDivide through by $\\Delta x$:\n\n$$\\frac{\\Delta A}{\\Delta x} = u\\,\\frac{\\Delta v}{\\Delta x} + v\\,\\frac{\\Delta u}{\\Delta x} + \\Delta u\\,\\frac{\\Delta v}{\\Delta x}.$$\n\nAs $\\Delta x \\to 0$, $\\frac{\\Delta u}{\\Delta x} \\to u'$ and $\\frac{\\Delta v}{\\Delta x} \\to v'$, while $\\Delta u \\to 0$ (because differentiable functions are continuous). That last term therefore vanishes: it is $\\Delta u \\cdot v'$, and $\\Delta u \\to 0$ kills it. You are left with exactly\n\n$$\\frac{dA}{dx} = u\\,v' + v\\,u'.$$\n\nThat is the product rule, and now you can see geometrically *why* there are two terms: one term accounts for stretching the rectangle vertically (holding width fixed), and the other accounts for stretching it horizontally (holding height fixed). Each function gets a turn to change while the other stays put. The cross term $\\Delta u\\,\\Delta v$ — both changing simultaneously — is second-order small and dies in the limit.\n\nThis is worth internalizing: the product rule is really a statement about *linear approximation*. To first order, the change in a product is the sum of each factor's individual contribution to the change, with the other factor held constant. This is the same principle behind the multivariable total differential $dA = \\frac{\\partial A}{\\partial u}du + \\frac{\\partial A}{\\partial v}dv$, and it generalizes: a product of three functions gives three terms, each with one derivative factor, for exactly the same reason (the rectangle becomes a box, and you get three slab-shaped regions).\n\n**Follow-up question:** If you extend this geometric argument to three dimensions — $\\frac{d}{dx}[u \\cdot v \\cdot w]$ as the rate of change of a box's volume — you get three terms. But how many \"negligible\" higher-order pieces do you have to discard, and why does each one vanish?"
+    },
+    {
+      "title": "Why the Product Rule Generalizes to Three (or More) Factors",
+      "body_md": "Start with what you already know. For two differentiable functions $u$ and $v$,\n\n$$\\frac{d}{dx}[u\\,v] = u'v + uv'.$$\n\nNow suppose you have three factors: $y = u\\,v\\,w$. The question is whether there's a clean pattern, and *why* it emerges.\n\n## The two-factor trick applied recursively\n\nGroup the product as $y = (uv)\\cdot w$. This is just two factors — the first factor happens to be a product itself. Apply the ordinary product rule:\n\n$$y' = \\frac{d}{dx}[uv]\\cdot w + (uv)\\cdot w'.$$\n\nYou already know $\\frac{d}{dx}[uv] = u'v + uv'$, so substitute:\n\n$$y' = (u'v + uv')w + uvw' = u'vw + uv'w + uvw'.$$\n\nLook at the structure: each term is the full product $uvw$, except *exactly one* factor has been replaced by its derivative. That's the pattern.\n\n## Why does this pattern persist for $n$ factors?\n\nClaim: if $y = f_1 f_2 \\cdots f_n$, then\n\n$$y' = \\sum_{k=1}^{n} \\left(\\prod_{j \\neq k} f_j\\right) f_k'.$$\n\nYou can prove this by induction. You just did the base case ($n=2$) and verified $n=3$. For the inductive step, write $y = \\underbrace{(f_1 \\cdots f_n)}_{P}\\cdot f_{n+1}$ and apply the two-factor rule:\n\n$$y' = P'\\,f_{n+1} + P\\,f_{n+1}'.$$\n\nBy the inductive hypothesis, $P' = \\sum_{k=1}^{n}\\left(\\prod_{j\\neq k,\\, j\\leq n} f_j\\right)f_k'$. Multiplying that sum by $f_{n+1}$ gives $n$ terms, each with one derivative among $f_1',\\dots,f_n'$. The second piece $P\\,f_{n+1}' = f_1\\cdots f_n\\,f_{n+1}'$ is the $(n+1)$-th term. Together you get exactly $n+1$ terms of the claimed form.\n\n## A slick logarithmic viewpoint\n\nThere is a more elegant way to see *why* the pattern is so symmetric. Take the logarithm of both sides:\n\n$$\\ln y = \\ln f_1 + \\ln f_2 + \\cdots + \\ln f_n.$$\n\nDifferentiate (implicit differentiation on the left, using the chain rule):\n\n$$\\frac{y'}{y} = \\frac{f_1'}{f_1} + \\frac{f_2'}{f_2} + \\cdots + \\frac{f_n'}{f_n}.$$\n\nMultiply both sides by $y = f_1 f_2 \\cdots f_n$:\n\n$$y' = \\sum_{k=1}^{n} \\frac{f_k'}{f_k}\\,\\prod_{j=1}^{n} f_j = \\sum_{k=1}^{n} f_k' \\prod_{j \\neq k} f_j.$$\n\nThis is the same formula, derived in two lines. The logarithm converts multiplication into addition, which is why differentiation distributes so neatly — each factor contributes its own *relative* rate of change $f_k'/f_k$, and you just add them up.\n\nThis logarithmic technique, called **logarithmic differentiation**, is not merely a trick — it reveals that the generalized product rule is really about *summing relative rates of change*.\n\n## Follow-up question\n\nLogarithmic differentiation required dividing by $y$, which assumes $y \\neq 0$. What happens at a point where one of the factors, say $f_1(x_0) = 0$? Does the generalized product rule still hold there, and if so, can you prove it without logarithms?"
+    }
+  ],
+  "applications": [
+    {
+      "context": "physics",
+      "problem_md": "A rail cart moves along a straight track. Its mass decreases over time because it is dropping sand from a hopper. At time $t$ (in seconds), the cart's mass and velocity are modeled by:\n\n$$m(t) = 200 - 4t \\quad \\text{kg}$$\n$$v(t) = 3t^2 \\quad \\text{m/s}$$\n\nIn classical mechanics, the momentum of an object is $p(t) = m(t) \\cdot v(t)$.\n\nThe net external force on the cart equals the rate of change of momentum:\n\n$$F(t) = \\frac{dp}{dt}$$\n\nFind the net external force acting on the cart at $t = 5$ seconds.",
+      "solution_outline_md": "**Modeling step.** Write the momentum function as a product:\n\n$$p(t) = m(t) \\cdot v(t) = (200 - 4t)(3t^2)$$\n\n**Differentiation step.** Apply the product rule $\\frac{d}{dt}[m(t)\\,v(t)] = m'(t)\\,v(t) + m(t)\\,v'(t)$.\n\n- $m'(t) = -4$\n- $v'(t) = 6t$\n\nSo:\n\n$$F(t) = (-4)(3t^2) + (200 - 4t)(6t) = -12t^2 + 1200t - 24t^2 = -36t^2 + 1200t$$\n\n**Evaluation step.** Substitute $t = 5$:\n\n$$F(5) = -36(25) + 1200(5) = -900 + 6000 = 5100$$\n\n**Final answer:** The net external force on the cart at $t = 5$ s is $F(5) = 5100$ N."
+    },
+    {
+      "context": "biology",
+      "problem_md": "A bacterial colony is growing in a nutrient broth where the concentration of a toxin is also increasing over time. The number of bacteria at time $t$ (in hours) is modeled by $N(t) = 1000 \\cdot e^{0.4t}$ (cells), and the amount of toxin each individual bacterium produces is $T(t) = 0.05t^2 + 0.1t$ (nanograms per cell). The total toxin output of the colony is therefore\n\n$$Q(t) = N(t) \\cdot T(t)$$\n\nFind $Q'(3)$, the rate at which the colony's total toxin output is changing at $t = 3$ hours. Include units, and briefly explain which factor — population growth or per-cell toxin increase — contributes more to the rate of change at that moment.",
+      "solution_outline_md": "**Setup.** You need $Q'(t)$ where $Q(t) = N(t)\\,T(t)$. Apply the product rule:\n\n$$Q'(t) = N'(t)\\,T(t) + N(t)\\,T'(t)$$\n\n**Derivatives.**\n- $N(t) = 1000e^{0.4t} \\Longrightarrow N'(t) = 400e^{0.4t}$\n- $T(t) = 0.05t^2 + 0.1t \\Longrightarrow T'(t) = 0.1t + 0.1$\n\n**Evaluate at $t = 3$.**\n- $e^{1.2} \\approx 3.3201$\n- $N(3) = 1000(3.3201) \\approx 3320.1$\n- $N'(3) = 400(3.3201) \\approx 1328.0$\n- $T(3) = 0.05(9) + 0.1(3) = 0.45 + 0.3 = 0.75$\n- $T'(3) = 0.1(3) + 0.1 = 0.4$\n\n**Combine.**\n$$Q'(3) = N'(3)\\,T(3) + N(3)\\,T'(3)$$\n$$= (1328.0)(0.75) + (3320.1)(0.4)$$\n$$= 996.0 + 1328.0 \\approx 2324.0 \\text{ ng/hr}$$\n\n**Final answer:** $Q'(3) \\approx 2324$ nanograms per hour.\n\n**Interpretation.** The term $N'(3)\\,T(3) \\approx 996$ ng/hr represents the contribution from population growth (more cells, each producing at the current per-cell rate). The term $N(3)\\,T'(3) \\approx 1328$ ng/hr represents the contribution from each existing cell ramping up its toxin output. At $t = 3$ hours, the per-cell toxin increase contributes more to the overall rate of change than population growth does — roughly 57% versus 43%."
+    }
+  ]
+}

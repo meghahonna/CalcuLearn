@@ -21,6 +21,11 @@ import { DialogueGenerator } from './components/dialogueGenerator.js'
 import { TranslationLayer } from './components/translationLayer.js'
 import { SessionEngine } from './components/sessionEngine.js'
 import { bootstrapModel, type Quantisation } from './bootstrap.js'
+import { ContentRetrieval } from './components/contentRetrieval.js'
+import { ResponseClassifier } from './components/responseClassifier.js'
+import { LearnModeService } from './components/learnModeService.js'
+import { AdaptiveRouter } from './components/adaptiveRouter.js'
+import { ChallengeService } from './components/challengeService.js'
 
 export interface CalcuLearnConfig {
   /** Filesystem path to the SQLite database. */
@@ -52,6 +57,16 @@ export interface CalcuLearnApp {
   dialogueGenerator: DialogueGenerator
   translationLayer: TranslationLayer
   sessionEngine: SessionEngine
+  /** Phase B: read-only DAO over the Phase A authored content tables. */
+  contentRetrieval: ContentRetrieval
+  /** Phase B: classifies free-form student input. */
+  responseClassifier: ResponseClassifier
+  /** Phase B: drives a Socratic walkthrough end-to-end. */
+  learnModeService: LearnModeService
+  /** Phase D: per-(student,concept) signal tracker + routing recommendations. */
+  adaptiveRouter: AdaptiveRouter
+  /** Phase E: Challenge Mode runtime — applications, deep dives, stretch problems. */
+  challengeService: ChallengeService
   /** Cleanly close the SQLite connection. */
   close(): void
 }
@@ -70,6 +85,10 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
 
   // 2. Open or recover the SQLite DB; schema is initialised idempotently.
   const db = recoverOrCreate(config.dbPath)
+
+  // Phase D: AdaptiveRouter must be created early so SessionEngine and
+  // LearnModeService can write engagement signals into it.
+  const adaptiveRouter = new AdaptiveRouter({ db, logger })
 
   // 3. Wire components in dependency order.
   const ksm = new KnowledgeStateManager(db, CONCEPTS)
@@ -107,6 +126,26 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
     translationLayer,
     db,
     targetLanguage: config.targetLanguage ?? 'en',
+    adaptiveRouter,
+  })
+
+  // Phase B: wire the Socratic runtime on top of the authored content.
+  const contentRetrieval = new ContentRetrieval(db)
+  const responseClassifier = new ResponseClassifier(dialogueGenerator)
+  const learnModeService = new LearnModeService({
+    contentRetrieval,
+    dialogueGenerator,
+    responseClassifier,
+    adaptiveRouter,
+    logger,
+  })
+
+  const challengeService = new ChallengeService({
+    db,
+    contentRetrieval,
+    dialogueGenerator,
+    adaptiveRouter,
+    logger,
   })
 
   // Phase 1 fix: warm up Gemma immediately so the first student click is fast.
@@ -114,6 +153,13 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
   logger.log('[createApp] Warming up Gemma model...')
   await dialogueGenerator.loadModel()
   logger.log('[createApp] Gemma ready.')
+
+  // Phase B status: log how many concepts have authored content available.
+  const authoredIds = contentRetrieval.listAuthoredConceptIds()
+  logger.log(
+    `[createApp] Phase B: ${authoredIds.length} authored concept(s) available for Learn Mode: ` +
+    authoredIds.join(', ')
+  )
 
   return {
     db,
@@ -123,6 +169,11 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
     dialogueGenerator,
     translationLayer,
     sessionEngine,
+    contentRetrieval,
+    responseClassifier,
+    learnModeService,
+    adaptiveRouter,
+    challengeService,
     close(): void {
       db.close()
     },

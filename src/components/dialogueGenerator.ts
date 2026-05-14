@@ -278,6 +278,33 @@ export class DialogueGenerator {
     return capApproxContext(parts.join('\n'), this.contextTokens)
   }
 
+
+  /**
+   * Phase B (Learn Mode): public, untemplated inference for the Socratic shell.
+   * Used by LearnModeService and ResponseClassifier to wrap pre-authored
+   * content blocks in a Socratic conversational shell. The caller fully
+   * owns the prompt; no buildPrompt(), no word cap.
+   *
+   * @param prompt   The full prompt (system + user already concatenated).
+   * @param maxTokens Generation cap.
+   * @returns Trimmed model output, or empty string on timeout/error.
+   */
+  async inferRaw(prompt: string, maxTokens = 512): Promise<string> {
+    await this.loadModel()
+    try {
+      const output = await withTimeout(
+        this.backend.infer(prompt, { contextTokens: this.contextTokens, maxTokens }),
+        this.timeoutMs
+      )
+      return (output ?? '').trim()
+    } catch (err: unknown) {
+      this.logger.error(
+        `[DialogueGenerator] inferRaw timeout/failure: ${err instanceof Error ? err.message : String(err)}`
+      )
+      return ''
+    }
+  }
+
   private async inferText(prompt: string, fallback: string, maxTokens = 256): Promise<string> {
     await this.loadModel()
     try {

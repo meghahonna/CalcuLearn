@@ -151,6 +151,199 @@ async function handleApiRequest(app: CalcuLearnApp, request: IncomingMessage, re
       }
     }
 
+    // -------------------- Phase B: Learn Mode endpoints --------------------
+
+    // List concept ids that have authored content (for the topic picker)
+    if (request.method === 'GET' && pathname === '/api/learn/concepts') {
+      const ids = app.contentRetrieval.listAuthoredConceptIds()
+      const concepts = ids
+        .map((id) => app.contentRetrieval.getConcept(id))
+        .filter((c) => c !== null)
+        .map((c) => ({
+          id: c!.id,
+          name: c!.name,
+          one_liner: c!.one_liner,
+          track: c!.track,
+          prerequisites: c!.prerequisites,
+          difficulty: c!.difficulty,
+        }))
+      sendJson(response, 200, { concepts })
+      return
+    }
+
+    // Start a new Learn Mode walkthrough
+    if (request.method === 'POST' && pathname === '/api/learn/start') {
+      const body = (await readRequestBody(request)) as Record<string, unknown>
+      const studentId = requireString(body['studentId'])
+      const conceptId = requireString(body['conceptId'])
+      const tier = (body['tier'] as 'novice' | 'on_pace' | 'advanced' | undefined) ?? undefined
+      const turn = await app.learnModeService.start({ studentId, conceptId, tier })
+      sendJson(response, 200, turn)
+      return
+    }
+
+    // Continue an existing Learn Mode walkthrough
+    if (request.method === 'POST' && pathname.startsWith('/api/learn/respond/')) {
+      const sessionId = pathname.replace('/api/learn/respond/', '')
+      const body = (await readRequestBody(request)) as Record<string, unknown>
+      const studentInput = requireString(body['studentInput'])
+      const turn = await app.learnModeService.respond({ sessionId, studentInput })
+      sendJson(response, 200, turn)
+      return
+    }
+
+    // Inspect Learn session state
+    if (request.method === 'GET' && pathname.startsWith('/api/learn/session/')) {
+      const sessionId = pathname.replace('/api/learn/session/', '')
+      const sess = app.learnModeService.getSession(sessionId)
+      if (!sess) {
+        sendError(response, 404, 'Learn session not found')
+        return
+      }
+      sendJson(response, 200, {
+        id: sess.id,
+        studentId: sess.studentId,
+        conceptId: sess.conceptId,
+        conceptName: sess.conceptName,
+        tier: sess.tier,
+        stage: sess.stage,
+        currentFramingIndex: sess.currentFramingIndex,
+        checkIndex: sess.checkIndex,
+        framingsExhausted: sess.framingsExhausted,
+        turns: sess.turns,
+        startedAt: sess.startedAt,
+      })
+      return
+    }
+
+    // -------------------- Phase D: Adaptive Routing --------------------
+
+    // Record a self-reported confidence chip after a Practice problem
+    if (request.method === 'POST' && pathname === '/api/practice/confidence') {
+      const body = (await readRequestBody(request)) as Record<string, unknown>
+      const studentId = requireString(body['studentId'])
+      const conceptId = requireString(body['conceptId'])
+      const confidence = requireString(body['confidence']) as 'got_it' | 'guessed' | 'shaky'
+      if (!['got_it', 'guessed', 'shaky'].includes(confidence)) {
+        sendError(response, 400, `Invalid confidence: \${confidence}`)
+        return
+      }
+      const sig = app.adaptiveRouter.recordConfidence({ studentId, conceptId, confidence })
+      sendJson(response, 200, {
+        archetype: sig.archetype,
+        challengeUnlocked: sig.challengeUnlocked,
+      })
+      return
+    }
+
+    // Get a routing suggestion (e.g., open Learn Mode? unlock Challenge?)
+    if (request.method === 'GET' && pathname.startsWith('/api/adaptive/suggestion')) {
+      const url = new URL(request.url ?? '/', `http://\${request.headers.host}`)
+      const studentId = url.searchParams.get('studentId') ?? ''
+      const conceptId = url.searchParams.get('conceptId') ?? ''
+      if (!studentId || !conceptId) {
+        sendError(response, 400, 'studentId and conceptId required')
+        return
+      }
+      const suggestion = app.adaptiveRouter.suggest(studentId, conceptId)
+      sendJson(response, 200, suggestion)
+      return
+    }
+
+    // Get the full per-concept signal profile for a student (UI dashboard)
+    if (request.method === 'GET' && pathname.startsWith('/api/adaptive/profile')) {
+      const url = new URL(request.url ?? '/', `http://\${request.headers.host}`)
+      const studentId = url.searchParams.get('studentId') ?? ''
+      if (!studentId) {
+        sendError(response, 400, 'studentId required')
+        return
+      }
+      const signals = app.adaptiveRouter.listSignalsForStudent(studentId)
+      sendJson(response, 200, {
+        signals: signals.map((s) => ({
+          conceptId: s.conceptId,
+          archetype: s.archetype,
+          challengeUnlocked: s.challengeUnlocked,
+          practiceAttempts: s.practiceAttempts,
+          practiceCorrect: s.practiceCorrect,
+          accuracy: s.practiceAttempts > 0
+            ? s.practiceCorrect / s.practiceAttempts
+            : null,
+          consecutiveAces: s.consecutiveAces,
+          consecutiveFailures: s.consecutiveFailures,
+          dontKnowCount: s.dontKnowCount,
+          learnEngagements: s.learnEngagements,
+          learnCompletions: s.learnCompletions,
+          lastConfidence: s.lastConfidence,
+          updatedAt: s.updatedAt,
+        })),
+      })
+      return
+    }
+
+    // -------------------- Phase E: Challenge Mode --------------------
+
+    // List concepts that have challenge content available
+    if (request.method === 'GET' && pathname.startsWith('/api/challenge/concepts')) {
+      const url = new URL(request.url ?? '/', `http://${request.headers.host}`)
+      const studentId = url.searchParams.get('studentId') ?? ''
+      if (!studentId) {
+        sendError(response, 400, 'studentId required')
+        return
+      }
+      const concepts = app.challengeService.listChallengeableConcepts(studentId)
+      sendJson(response, 200, { concepts })
+      return
+    }
+
+    // Get the full challenge bundle for one concept
+    if (request.method === 'GET' && pathname.startsWith('/api/challenge/bundle')) {
+      const url = new URL(request.url ?? '/', `http://${request.headers.host}`)
+      const studentId = url.searchParams.get('studentId') ?? ''
+      const conceptId = url.searchParams.get('conceptId') ?? ''
+      if (!studentId || !conceptId) {
+        sendError(response, 400, 'studentId and conceptId required')
+        return
+      }
+      const bundle = app.challengeService.getChallengeBundle(studentId, conceptId)
+      sendJson(response, 200, bundle)
+      return
+    }
+
+    // Socratic feedback on an application-problem answer
+    if (request.method === 'POST' && pathname === '/api/challenge/application/feedback') {
+      const body = (await readRequestBody(request)) as Record<string, unknown>
+      const applicationId = Number(body['applicationId'])
+      const studentAnswer = requireString(body['studentAnswer'])
+      if (!applicationId || Number.isNaN(applicationId)) {
+        sendError(response, 400, 'applicationId required')
+        return
+      }
+      const fb = await app.challengeService.feedbackOnApplication({
+        applicationId,
+        studentAnswer,
+      })
+      sendJson(response, 200, fb)
+      return
+    }
+
+    // Socratic probe after a deep-dive reflection
+    if (request.method === 'POST' && pathname === '/api/challenge/deepdive/probe') {
+      const body = (await readRequestBody(request)) as Record<string, unknown>
+      const deepDiveId = Number(body['deepDiveId'])
+      const studentReflection = (body['studentReflection'] as string) ?? ''
+      if (!deepDiveId || Number.isNaN(deepDiveId)) {
+        sendError(response, 400, 'deepDiveId required')
+        return
+      }
+      const fb = await app.challengeService.probeAfterDeepDive({
+        deepDiveId,
+        studentReflection,
+      })
+      sendJson(response, 200, fb)
+      return
+    }
+
     sendError(response, 404, 'Not found')
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error'

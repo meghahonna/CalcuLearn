@@ -385,6 +385,573 @@
       font-size: 0.7rem;
     }
 
+
+    /* ── Mode tabs (Phase C) ───────────────────────────────────────── */
+    .mode-tabs {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .mode-tab {
+      background: transparent;
+      color: var(--muted);
+      border: none;
+      padding: 0.7rem 1.2rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: var(--transition);
+    }
+    .mode-tab:hover { color: var(--fg); }
+    .mode-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ── Learn Mode panel (Phase C) ────────────────────────────────── */
+    .learn-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .learn-header h2 { font-size: 1.1rem; font-weight: 700; }
+    .learn-header-info {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: ui-monospace, monospace;
+    }
+    .learn-intro {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 1rem;
+    }
+    .learn-empty {
+      padding: 2rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .learn-concept-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.8rem;
+    }
+    .learn-concept-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      transition: var(--transition);
+    }
+    .learn-concept-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow);
+    }
+    .learn-concept-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--fg);
+      margin-bottom: 0.25rem;
+    }
+    .learn-concept-oneliner {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.4;
+      margin-bottom: 0.6rem;
+    }
+    .learn-concept-row {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+    .learn-concept-meta {
+      font-size: 0.72rem;
+      color: var(--muted);
+      background: var(--surface);
+      padding: 2px 8px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+    }
+    .learn-tier-row {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .learn-tier-row button {
+      flex: 1;
+      font-size: 0.78rem;
+      padding: 0.4rem 0.6rem;
+    }
+
+    .learn-chat {
+      max-height: 60vh;
+      overflow-y: auto;
+      padding: 0.5rem;
+      background: var(--bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 0.8rem;
+    }
+    .learn-msg {
+      margin-bottom: 0.8rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .learn-msg-agent { align-items: flex-start; }
+    .learn-msg-student { align-items: flex-end; }
+    .learn-bubble {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.7rem 0.95rem;
+      max-width: 85%;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .learn-msg-student .learn-bubble {
+      background: var(--accent-light);
+      border-color: var(--accent);
+      color: var(--accent-dark);
+    }
+    .learn-bubble p { margin: 0 0 0.5rem 0; }
+    .learn-bubble p:last-child { margin-bottom: 0; }
+    .learn-bubble h3, .learn-bubble h4 { font-size: 1rem; font-weight: 700; margin: 0.5rem 0; }
+    .learn-bubble ul, .learn-bubble ol { margin: 0.5rem 0 0.5rem 1.4rem; }
+    .learn-bubble li { margin-bottom: 0.25rem; }
+    .learn-bubble code {
+      background: var(--bg);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-family: ui-monospace, monospace;
+      font-size: 0.88em;
+    }
+
+    .learn-content-block {
+      margin-top: 0.6rem;
+      padding: 0.95rem 1.1rem;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      max-width: 100%;
+    }
+    .learn-block-explanation { border-left: 3px solid var(--accent); }
+    .learn-block-example     { border-left: 3px solid var(--success); background: var(--success-bg); }
+    .learn-block-check       { border-left: 3px solid var(--warning); background: var(--warning-bg); }
+    .learn-block-misconception { border-left: 3px solid var(--error); background: var(--error-bg); }
+    .learn-block-title {
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .learn-block-body { font-size: 0.92rem; line-height: 1.55; }
+    .learn-block-body p { margin: 0 0 0.5rem 0; }
+    .learn-block-body p:last-child { margin-bottom: 0; }
+    .learn-block-body ul, .learn-block-body ol { margin: 0.4rem 0 0.4rem 1.4rem; }
+
+    .learn-actions {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.6rem;
+    }
+    .learn-chip {
+      background: var(--surface);
+      color: var(--fg);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 0.4rem 0.95rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .learn-chip:hover {
+      background: var(--accent-light);
+      border-color: var(--accent);
+    }
+
+    .learn-input-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .learn-input-row input {
+      flex: 1;
+      padding: 0.6rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+    .learn-input-row input:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px var(--accent-light);
+    }
+
+    .learn-status {
+      margin-top: 0.6rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      min-height: 1.2em;
+    }
+    .learn-status-error { color: var(--error); }
+
+    /* "I don't know" Practice-mode off-ramp */
+    .practice-help-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 0.6rem;
+    }
+    .help-btn {
+      background: var(--warning-bg);
+      color: var(--warning);
+      border: 1px solid var(--warning);
+      border-radius: var(--radius-sm);
+      padding: 0.45rem 0.85rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .help-btn:hover {
+      background: var(--warning);
+      color: white;
+    }
+
+
+    /* ── Phase D: confidence chip + adaptive nudge ─────────────────── */
+    .confidence-chip-row {
+      display: none;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 0.6rem;
+      padding: 0.55rem 0.75rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .confidence-chip-row[style*="display: ;"] { display: flex !important; }
+    .confidence-chip-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-right: 0.4rem;
+    }
+    .confidence-chip {
+      background: var(--surface);
+      color: var(--fg);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .confidence-chip:hover {
+      background: var(--accent-light);
+      border-color: var(--accent);
+    }
+    .confidence-chip.selected {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .confidence-chip:disabled {
+      opacity: 0.55;
+      cursor: default;
+    }
+
+    .adaptive-nudge {
+      margin-top: 0.7rem;
+      padding: 0.85rem 1rem;
+      background: var(--accent-light);
+      border: 1px solid var(--accent);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .nudge-message {
+      color: var(--accent-dark);
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+    .nudge-actions {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: flex-end;
+    }
+    .nudge-actions button { font-size: 0.82rem; padding: 0.4rem 0.85rem; }
+
+    .archetype-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-left: 0.4rem;
+    }
+    .archetype-badge.struggling { background: var(--error-bg);   color: var(--error); }
+    .archetype-badge.on_pace    { background: var(--accent-light); color: var(--accent-dark); }
+    .archetype-badge.advanced   { background: var(--success-bg); color: var(--success); }
+    .archetype-badge.unknown    { background: var(--bg); color: var(--muted); }
+
+
+    /* ── Phase E: Challenge Mode ───────────────────────────────────── */
+    .challenge-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .challenge-header h2 { font-size: 1.1rem; font-weight: 700; }
+    .challenge-header-info {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: ui-monospace, monospace;
+    }
+    .challenge-intro {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 1rem;
+    }
+    .challenge-empty {
+      padding: 2rem;
+      color: var(--muted);
+      text-align: center;
+    }
+    .challenge-status { margin-top: 0.6rem; font-size: 0.8rem; color: var(--muted); min-height: 1.2em; }
+    .challenge-status-error { color: var(--error); }
+
+    .challenge-concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.8rem;
+    }
+    .challenge-concept-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      text-align: left;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .challenge-concept-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow);
+    }
+    .challenge-concept-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--fg);
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .challenge-concept-oneliner {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.4;
+      margin-bottom: 0.6rem;
+    }
+    .challenge-concept-counts {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .challenge-concept-counts .dot { margin: 0 0.35rem; opacity: 0.5; }
+
+    .challenge-badge {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 7px;
+      border-radius: 99px;
+    }
+    .challenge-badge.unlocked { background: var(--success-bg); color: var(--success); }
+    .challenge-badge.locked   { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+
+    .challenge-back-row { margin-bottom: 0.8rem; }
+    .challenge-bundle-header { margin-bottom: 1rem; }
+    .challenge-bundle-header h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .challenge-bundle-oneliner {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 0.25rem;
+    }
+    .challenge-section { margin-top: 1.4rem; }
+    .challenge-section-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .challenge-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+    .challenge-card-application { border-left: 3px solid var(--accent); }
+    .challenge-card-deepdive    { border-left: 3px solid var(--warning); }
+    .challenge-card-stretch     { border-left: 3px solid var(--success); }
+
+    .challenge-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.55rem;
+    }
+    .challenge-card-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    .challenge-card-idx {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .challenge-card-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    .challenge-card-problem {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      margin-bottom: 0.7rem;
+    }
+    .challenge-card-body {
+      font-size: 0.92rem;
+      line-height: 1.55;
+      margin-bottom: 0.7rem;
+    }
+    .challenge-card-body p,
+    .challenge-card-problem p { margin: 0 0 0.5rem 0; }
+    .challenge-card-body p:last-child,
+    .challenge-card-problem p:last-child { margin-bottom: 0; }
+    .challenge-card-body ul, .challenge-card-body ol,
+    .challenge-card-problem ul, .challenge-card-problem ol { margin: 0.4rem 0 0.4rem 1.4rem; }
+
+    .challenge-reflect-label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+    .challenge-card-input { margin-top: 0.5rem; }
+    .challenge-answer {
+      width: 100%;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      font-family: inherit;
+      resize: vertical;
+      transition: var(--transition);
+    }
+    .challenge-answer:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px var(--accent-light);
+    }
+    .challenge-card-buttons {
+      margin-top: 0.55rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .challenge-card-buttons button { font-size: 0.82rem; padding: 0.4rem 0.85rem; }
+
+    .challenge-feedback {
+      margin-top: 0.7rem;
+      padding: 0.75rem 0.95rem;
+      background: var(--accent-light);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+    .challenge-feedback p { margin: 0 0 0.4rem 0; }
+    .challenge-feedback p:last-child { margin-bottom: 0; }
+
+    .challenge-outline {
+      margin-top: 0.7rem;
+      padding: 0.75rem 0.95rem;
+      background: var(--bg);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+    .challenge-outline-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .challenge-step {
+      display: flex;
+      gap: 0.7rem;
+      align-items: flex-start;
+      margin-bottom: 0.6rem;
+    }
+    .challenge-step-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      min-width: 50px;
+    }
+    .challenge-step-body { flex: 1; font-size: 0.9rem; line-height: 1.5; }
+    .challenge-step-why {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+      font-style: italic;
+    }
+
+    .mode-tab.unlocked {
+      color: var(--success);
+      position: relative;
+    }
+    .mode-tab.unlocked::after {
+      content: '';
+      position: absolute;
+      top: 8px;
+      right: 6px;
+      width: 6px; height: 6px;
+      background: var(--success);
+      border-radius: 99px;
+    }
+
     /* ── Responsive ────────────────────────────────────────────────── */
     @media (max-width: 520px) {
       body { padding: 0.75rem; }
@@ -416,6 +983,19 @@
 
   <main id="app">
 
+    <!-- Mode tabs (Phase C) -->
+    <div class="mode-tabs" role="tablist">
+      <button class="mode-tab active" data-mode="practice" role="tab">Practice</button>
+      <button class="mode-tab" data-mode="learn" role="tab">Learn</button>
+      <button class="mode-tab" data-mode="challenge" role="tab" title="Real-world applications, deep dives, and stretch problems">Challenge</button>
+    </div>
+
+    <!-- Learn Mode container (mounted dynamically by learnMode.ts) -->
+    <div id="learn-container" hidden></div>
+
+    <!-- Challenge Mode container (mounted dynamically by challenge.ts) -->
+    <div id="challenge-container" hidden></div>
+
     <!-- Problem panel -->
     <section id="problem-panel" class="panel">
       <div class="problem-meta">
@@ -444,6 +1024,15 @@
         <button id="hint-btn" class="ghost" disabled>Hint</button>
         <button id="end-btn" class="ghost-danger" disabled>End session</button>
       </div>
+
+      <div class="practice-help-row">
+        <button id="help-understand-btn" class="help-btn" disabled>
+          I don't know — help me understand
+        </button>
+      </div>
+
+      <div id="confidence-chip" class="confidence-chip-row" style="display:none;"></div>
+      <div id="adaptive-nudge" class="adaptive-nudge" style="display:none;"></div>
 
       <div class="kbd-hint" id="kbd-hint">
         <kbd>Enter</kbd> to submit &nbsp;·&nbsp; <kbd>Ctrl H</kbd> for hint

@@ -1,0 +1,222 @@
+{
+  "concept_id": "deriv.chain-rule",
+  "name": "The Chain Rule",
+  "track": "BOTH",
+  "one_liner": "How to differentiate a function nested inside another function.",
+  "prerequisites": [
+    "deriv.power-rule",
+    "deriv.product-rule"
+  ],
+  "explanations": [
+    {
+      "tier": "novice",
+      "framing_index": 0,
+      "body_md": "Sometimes you need to take the derivative of a function that has another function tucked inside it. Something like $f(x) = (3x + 1)^5$. Notice that $3x + 1$ is sitting *inside* the fifth power. You can't just use the power rule directly and call it a day — you have to account for that inner piece too.\n\nHere is the recipe:\n\n1. **Spot the outside function and the inside function.** In $(3x+1)^5$, the outside function is \"raise something to the 5th power\" and the inside function is $3x+1$.\n2. **Differentiate the outside, but leave the inside alone.** The power rule on the outside gives you $5(3x+1)^4$. See how $3x+1$ is still sitting there, untouched?\n3. **Multiply by the derivative of the inside.** The derivative of $3x+1$ is just $3$. So you tack that on:\n\n$$\\frac{d}{dx}(3x+1)^5 = 5(3x+1)^4 \\cdot 3 = 15(3x+1)^4$$\n\nThat's the Chain Rule. In more general notation, if you have $f(g(x))$ — an outside function $f$ wrapped around an inside function $g$ — then:\n\n$$\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)$$\n\nLet's do one more. Take $y = (x^2 - 4)^3$.\n\n- Outside: \"cube something\" → derivative is $3(\\text{something})^2$, so $3(x^2-4)^2$.\n- Inside: $x^2 - 4$ → derivative is $2x$.\n- Multiply them: $3(x^2-4)^2 \\cdot 2x = 6x(x^2-4)^2$.\n\nIf this feels like a lot, that's normal. The key habit is pausing to ask: \"Is there a function inside another function?\" If yes, use this three-step recipe. With a little practice, it becomes automatic.",
+      "intuition_md": "Think of a gear system on a bicycle. The pedal turns a big gear (the outside function), and that big gear is connected to a smaller gear (the inside function). How fast the wheel spins depends on two things: how the big gear responds to a turn *and* how fast the small gear is turning. The Chain Rule says the same thing: the total rate of change is the derivative of the outside times the derivative of the inside. Two gears, two pieces multiplied together."
+    },
+    {
+      "tier": "novice",
+      "framing_index": 1,
+      "body_md": "Imagine two machines connected by a belt, like gears in a bicycle. Machine 1 takes in $x$ and spits out a number $u$. Machine 2 takes that $u$ and spits out a final number $y$. So $y$ depends on $u$, and $u$ depends on $x$.\n\nHere is the key question: if you nudge $x$ a tiny bit, how fast does $y$ change?\n\nThink about it in two steps:\n\n1. Nudging $x$ makes $u$ change at some rate — that rate is $\\frac{du}{dx}$.\n2. That change in $u$ then makes $y$ change at some rate — that rate is $\\frac{dy}{du}$.\n\nThe Chain Rule says: **multiply those two rates together**.\n\n$$\\frac{dy}{dx} = \\frac{dy}{du} \\cdot \\frac{du}{dx}$$\n\nThat's the whole idea. Rates of change multiply when machines are chained together.\n\nLet's try a concrete example. Suppose $y = (3x + 1)^4$.\n\nCall the inside piece $u = 3x + 1$. Then $y = u^4$.\n\n- **Outer rate:** Using the power rule on $y = u^4$, you get $\\frac{dy}{du} = 4u^3$.\n- **Inner rate:** The derivative of $u = 3x + 1$ is $\\frac{du}{dx} = 3$.\n\nMultiply them:\n\n$$\\frac{dy}{dx} = 4u^3 \\cdot 3 = 12u^3$$\n\nFinally, substitute $u$ back in:\n\n$$\\frac{dy}{dx} = 12(3x+1)^3$$\n\nThat's it. Every Chain Rule problem follows this same pattern:\n\n1. Identify the outer function and the inner function.\n2. Differentiate each one separately.\n3. Multiply the two derivatives.\n4. Replace $u$ with the original inner expression.\n\nIf this feels like a lot, that is completely normal. The tricky part is spotting that a function has an \"inside\" and an \"outside.\" With practice, you will start to see the two machines automatically. Start with simple examples like the one above, and the pattern will click.",
+      "intuition_md": "Picture a bicycle with two gears. You pedal, turning the first gear (that is $x$ changing $u$). The first gear is connected by a chain to a second gear, which turns the wheel (that is $u$ changing $y$). If gear 1 triples the rotation speed and gear 2 quadruples it, the wheel spins $3 \\times 4 = 12$ times as fast as your pedaling. The Chain Rule works the same way: the total rate of change is the product of each individual rate. One gear alone does not tell you the whole story — you need to multiply them together."
+    },
+    {
+      "tier": "on_pace",
+      "framing_index": 0,
+      "body_md": "You already know how to differentiate \"single-layer\" functions — things like $x^5$ or $x^{-2}$ with the power rule. The chain rule handles **compositions**, functions nested inside other functions, like $(3x+1)^5$ or $(x^2-7)^4$.\n\nThe rule itself:\n\n$$\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)$$\n\nIn words: differentiate the outer function, leaving the inner function untouched, then multiply by the derivative of the inner function.\n\nLet's walk through $\\frac{d}{dx}(x^2+1)^3$.\n\n1. **Identify layers.** Outer: $(\\square)^3$. Inner: $g(x)=x^2+1$.\n2. **Differentiate the outer, leave the inner alone.** The derivative of $(\\square)^3$ is $3(\\square)^2$, so you get $3(x^2+1)^2$.\n3. **Multiply by the derivative of the inner.** $g'(x)=2x$.\n4. **Result:** $3(x^2+1)^2 \\cdot 2x = 6x(x^2+1)^2$.\n\nNotice how the power rule and the chain rule work together here — the power rule handles the outer layer, and the chain rule reminds you not to forget the inner derivative.\n\n**Common sticking points:**\n\n- **Forgetting $g'(x)$ entirely.** This is the number-one chain rule mistake. If the inner function isn't just $x$, you must multiply by its derivative. Always.\n- **Confusing the chain rule with the product rule.** The product rule applies when two functions are *multiplied*: $f(x)\\cdot g(x)$. The chain rule applies when one function is *inside* another: $f(g(x))$. Different structures, different rules.\n- **Nested chains.** Sometimes you have three or more layers, like $(\\sin(x^2))^4$. Just peel one layer at a time, outermost first, multiplying each inner derivative as you go.\n\n**Where this leads:** The chain rule is essential for implicit differentiation (next topic in most courses) and for every integration technique involving substitution, which is essentially the chain rule run in reverse.",
+      "intuition_md": "Think of a composition as a set of gears. The outer gear turns because the inner gear drives it. If you want to know how fast the outer gear spins, you need two pieces of information: how the outer gear responds to the inner gear's position (that's $f'(g(x))$), and how fast the inner gear itself is spinning (that's $g'(x)$). The total rate is those two factors multiplied together. Forgetting $g'(x)$ is like ignoring the speed of the engine — you'll get the wrong answer every time."
+    },
+    {
+      "tier": "advanced",
+      "framing_index": 0,
+      "body_md": "## The Chain Rule\n\nLet $f$ and $g$ be functions such that $g$ is differentiable at $x$ and $f$ is differentiable at $g(x)$. Then the composite $f \\circ g$ is differentiable at $x$ and\n\n$$\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x).$$\n\nIn Leibniz notation, if $y = f(u)$ and $u = g(x)$:\n\n$$\\frac{dy}{dx} = \\frac{dy}{du} \\cdot \\frac{du}{dx}.$$\n\n### Why it's true\n\nStart from the definition. The derivative of the composite is\n\n$$\\lim_{h \\to 0} \\frac{f(g(x+h)) - f(g(x))}{h}.$$\n\nThe key move: factor through the intermediate change $\\Delta u = g(x+h) - g(x)$. When $\\Delta u \\neq 0$,\n\n$$\\frac{f(g(x+h)) - f(g(x))}{h} = \\frac{f(g(x) + \\Delta u) - f(g(x))}{\\Delta u} \\cdot \\frac{\\Delta u}{h}.$$\n\nAs $h \\to 0$, continuity of $g$ (guaranteed by differentiability) gives $\\Delta u \\to 0$. The first factor $\\to f'(g(x))$; the second $\\to g'(x)$. The product of limits gives the result.\n\n(The subtle issue: $\\Delta u$ might equal $0$ for values of $h$ arbitrarily close to $0$, which makes the factoring illegal. The standard fix is to rewrite $f$'s difference quotient using the function $\\phi(u) = \\frac{f(u) - f(g(x))}{u - g(x)}$ for $u \\neq g(x)$ and $\\phi(g(x)) = f'(g(x))$. Because $f$ is differentiable at $g(x)$, $\\phi$ is continuous there, and the proof goes through without dividing by zero.)\n\n### Linear approximation viewpoint\n\nDifferentiability means a function is locally linear. Near $x = a$,\n\n$$g(x) \\approx g(a) + g'(a)(x - a), \\qquad f(u) \\approx f(g(a)) + f'(g(a))(u - g(a)).$$\n\nSubstitute the first into the second: the composite's local linear approximation has slope $f'(g(a)) \\cdot g'(a)$. The chain rule is just the statement that composing linear maps multiplies their slopes.\n\n### Stretch question\n\nProve that if $f$ and $g$ are both twice differentiable, then\n\n$$\\frac{d^2}{dx^2}[f(g(x))] = f''(g(x))\\,[g'(x)]^2 + f'(g(x))\\,g''(x).$$\n\nDerive this by applying the product rule and chain rule to $f'(g(x)) \\cdot g'(x)$. Then generalize: what pattern emerges for the third derivative?",
+      "intuition_md": "Think of two gears meshed together. Gear $g$ converts $x$-turns into $u$-turns at rate $g'(x)$. Gear $f$ converts $u$-turns into $y$-turns at rate $f'(u)$. The overall rate from $x$-turns to $y$-turns is the product of the two rates — you just multiply the gear ratios. This is exactly why composition of differentiable functions multiplies derivatives: each function is locally a linear scaling, and composing two linear scalings multiplies their scale factors."
+    }
+  ],
+  "examples": [
+    {
+      "tier": "novice",
+      "problem_md": "Find the derivative of $y = (3x + 1)^2$.",
+      "steps": [
+        {
+          "step_md": "First, notice that $y = (3x + 1)^2$ is a function **inside** another function. The \"inside\" function is $u = 3x + 1$. The \"outside\" function is the squaring: $u^2$.",
+          "why_md": "The chain rule only kicks in when you have a function wrapped inside another function — like a gift inside a box. Before you can use the rule, you need to identify the inner layer and the outer layer. Here, $3x + 1$ is the inner layer, and squaring is the outer layer."
+        },
+        {
+          "step_md": "Take the derivative of the **outside** function first, leaving the inside untouched. The outside is $u^2$, and its derivative is $2u$. Since $u = 3x + 1$, this gives us: $$2(3x + 1)$$",
+          "why_md": "Think of it like peeling an onion from the outside in. You always start with the outer layer. The power rule says the derivative of $u^2$ is $2u$. We don't touch the inside yet — we just bring down the exponent and reduce it by one, exactly as you would for $x^2 \\to 2x$, except now $(3x+1)$ sits where $x$ used to be."
+        },
+        {
+          "step_md": "Now take the derivative of the **inside** function. The inside is $3x + 1$, and its derivative is: $$\\frac{d}{dx}[3x + 1] = 3$$",
+          "why_md": "The chain rule says you must also account for how fast the inside part is changing. It's like a speedometer on a car inside a moving train — you need the car's speed *and* the train's speed to get the full picture. The derivative of $3x + 1$ is simply $3$ (the slope of that line)."
+        },
+        {
+          "step_md": "**Multiply** the results from Step 2 and Step 3 together: $$\\frac{dy}{dx} = 2(3x + 1) \\cdot 3 = 6(3x + 1)$$",
+          "why_md": "This is the chain rule in action. In words: (derivative of the outside, with the inside left alone) $\\times$ (derivative of the inside). Multiplying is what \"chains\" the two rates of change together. The formula is: $$\\frac{dy}{dx} = f'(g(x)) \\cdot g'(x)$$ Here $f'(g(x)) = 2(3x+1)$ and $g'(x) = 3$."
+        },
+        {
+          "step_md": "**Optional check:** Expand $y = (3x+1)^2 = 9x^2 + 6x + 1$ first, then take the derivative the \"normal\" way: $$\\frac{dy}{dx} = 18x + 6 = 6(3x + 1)$$ Same answer.",
+          "why_md": "When a problem is simple enough to expand, you can use that as a sanity check. It's reassuring to see both methods land on the same result. For harder problems — like $(3x+1)^{50}$ — expanding would be a nightmare, so the chain rule becomes essential. That's why learning it now, on an easy example, pays off later."
+        }
+      ]
+    },
+    {
+      "tier": "on_pace",
+      "problem_md": "Find $\\dfrac{d}{dx}\\left[\\sin(x^3 + 2x)\\right]$.",
+      "steps": [
+        {
+          "step_md": "Identify the outer function and the inner function. Here, the outer function is $f(u) = \\sin(u)$ and the inner function is $u = g(x) = x^3 + 2x$.",
+          "why_md": "The chain rule applies whenever one function is plugged into another — a composition $f(g(x))$. Before you can use the rule, you need to clearly see which function is on the \"outside\" and which is on the \"inside.\" If you skip this step, it's easy to forget to differentiate the inner piece entirely (the single most common chain-rule mistake)."
+        },
+        {
+          "step_md": "Write down the chain rule formula for this situation: $$\\frac{d}{dx}[\\sin(g(x))] = \\cos(g(x)) \\cdot g'(x).$$",
+          "why_md": "The chain rule says: differentiate the outer function, leaving the inner function untouched inside it, then multiply by the derivative of the inner function. Writing the formula out with your specific $g(x)$ before substituting numbers keeps you organized and less likely to drop a factor."
+        },
+        {
+          "step_md": "Differentiate the outer function. The derivative of $\\sin(u)$ with respect to $u$ is $\\cos(u)$. Keeping the inner function in place gives $\\cos(x^3 + 2x)$.",
+          "why_md": "You treat the inner function as if it were just a single variable $u$. This is the \"outside-in\" part of the chain rule. Notice that you do NOT simplify or touch $x^3 + 2x$ yet — it stays exactly as it is inside the cosine."
+        },
+        {
+          "step_md": "Differentiate the inner function: $$g'(x) = \\frac{d}{dx}[x^3 + 2x] = 3x^2 + 2.$$",
+          "why_md": "This is the step people forget. The chain rule demands you multiply by the derivative of whatever was inside the original function. Here it's just a straightforward power-rule-plus-constant derivative — nothing exotic, but leaving it off would give you a wrong answer."
+        },
+        {
+          "step_md": "Multiply the two results together: $$\\frac{d}{dx}\\left[\\sin(x^3 + 2x)\\right] = \\cos(x^3 + 2x) \\cdot (3x^2 + 2).$$",
+          "why_md": "Assembling the pieces completes the chain rule: (derivative of outside, with inside untouched) $\\times$ (derivative of inside). This is your final answer. There's nothing to simplify further, though in some problems you might factor or rewrite — always check whether the next step in your larger problem needs a cleaner form."
+        },
+        {
+          "step_md": "Quick sanity check: the derivative should have the same \"shape\" as the chain rule template $f'(g(x)) \\cdot g'(x)$. We have $\\cos(\\text{something}) \\cdot (\\text{polynomial})$, which matches $\\cos(g(x)) \\cdot g'(x)$. Looks good.",
+          "why_md": "Building a habit of checking structure catches sign errors, missing factors, or accidentally differentiating the wrong layer. This connects forward: when you soon hit chains nested two or three layers deep (like $\\sin(\\cos(x^2))$), this structural check becomes even more valuable because you'll need to apply the chain rule more than once."
+        }
+      ]
+    },
+    {
+      "tier": "advanced",
+      "problem_md": "Differentiate $f(x) = \\ln\\!\\bigl(\\cos(e^{x^2})\\bigr)$.",
+      "steps": [
+        {
+          "step_md": "Identify the composition structure. Write $f = h_3 \\circ h_2 \\circ h_1$ where $h_1(x)=x^2$, $h_2(u)=e^{u}$, $h_3(v)=\\cos v$, and the outermost function is $\\ln(\\cdot)$. So really four layers: $\\ln(\\cos(e^{x^2}))$.",
+          "why_md": "The chain rule is fundamentally about linearization of compositions. Near a point $a$, $f(x)\\approx f(a)+f'(a)(x-a)$. If $f=g\\circ h$, the linear approximation of $g$ at $h(a)$ is composed with the linear approximation of $h$ at $a$; composing two linear maps just multiplies their slopes, giving $f'(a)=g'(h(a))\\cdot h'(a)$. For $n$ nested functions, slopes multiply: this is why the chain rule generalizes to a product of $n$ derivatives evaluated at the appropriate intermediate values. Explicitly mapping the layers prevents sign or ordering errors."
+        },
+        {
+          "step_md": "Differentiate the outermost layer. Let $u=\\cos(e^{x^2})$. Then $\\frac{d}{du}[\\ln u]=\\frac{1}{u}=\\frac{1}{\\cos(e^{x^2})}$.",
+          "why_md": "You always peel the outermost function first. The chain rule says $\\frac{df}{dx}=\\frac{df}{du}\\cdot\\frac{du}{dx}$. The Leibniz notation makes the 'cancellation' suggestive, though rigorously these are not fractions — the limit definition confirms the product structure. Starting outside-in keeps each factor in the right evaluation context."
+        },
+        {
+          "step_md": "Differentiate the next layer. Let $v=e^{x^2}$. Then $\\frac{d}{dv}[\\cos v]=-\\sin v=-\\sin(e^{x^2})$.",
+          "why_md": "This is the second link in the chain. Note that $\\cos$ must be continuous and differentiable at $v=e^{x^2}$ for the chain rule to apply — it is, since $\\cos$ is smooth everywhere. Continuity of the inner function at the point of interest is the hypothesis people most often forget when stating the chain rule precisely."
+        },
+        {
+          "step_md": "Differentiate the next layer. Let $w=x^2$. Then $\\frac{d}{dw}[e^{w}]=e^{w}=e^{x^2}$.",
+          "why_md": "Same peeling process. The exponential is its own derivative, so no extra coefficient appears here — but it still contributes a multiplicative factor to the full derivative."
+        },
+        {
+          "step_md": "Differentiate the innermost layer: $\\frac{d}{dx}[x^2]=2x$.",
+          "why_md": "This is the terminal factor. Once you reach a function of $x$ alone, the chain ends."
+        },
+        {
+          "step_md": "Multiply all factors together: $$f'(x)=\\frac{1}{\\cos(e^{x^2})}\\cdot\\bigl(-\\sin(e^{x^2})\\bigr)\\cdot e^{x^2}\\cdot 2x = -2x\\,e^{x^2}\\tan(e^{x^2}).$$",
+          "why_md": "The four-layer chain rule gives the product of four derivatives: $$\\frac{df}{dx}=\\frac{df}{du}\\cdot\\frac{du}{dv}\\cdot\\frac{dv}{dw}\\cdot\\frac{dw}{dx}.$$ Simplifying $\\frac{-\\sin}{\\cos}$ to $-\\tan$ is routine but worth doing: a cleaner answer reduces the chance of error in subsequent work (e.g., finding critical points). Notice the result is undefined wherever $\\cos(e^{x^2})=0$, i.e., $e^{x^2}=\\frac{\\pi}{2}+n\\pi$, $n\\in\\mathbb{Z}$. Since $e^{x^2}>0$, only non-negative odd multiples of $\\frac{\\pi}{2}$ matter — and $\\ln$ requires its argument to be positive, so the natural domain already excludes those points and more."
+        }
+      ]
+    }
+  ],
+  "misconceptions": [
+    {
+      "short_name": "forget_inner_derivative",
+      "description_md": "The student differentiates the outer function but forgets to multiply by the derivative of the inner function. For example, they write $\\frac{d}{dx}[\\sin(3x)] = \\cos(3x)$ instead of $\\cos(3x) \\cdot 3$.",
+      "why_wrong_md": "The chain rule states $\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)$. Omitting $g'(x)$ treats the inner function as if it were just $x$, which it isn't. The derivative of $\\sin(u)$ is $\\cos(u) \\cdot \\frac{du}{dx}$, and $\\frac{du}{dx} = 3$ when $u = 3x$.",
+      "socratic_response_md": "Let $u = 3x$, so you're finding $\\frac{d}{dx}[\\sin(u)]$. By the chain rule, you need $\\frac{d}{du}[\\sin(u)]$ times $\\frac{du}{dx}$. What is $\\frac{du}{dx}$ when $u = 3x$, and where does that factor appear in your answer?"
+    },
+    {
+      "short_name": "derivative_of_inner_replaces_inner",
+      "description_md": "The student replaces the inner function with its derivative instead of multiplying by it. For example, they write $\\frac{d}{dx}[\\sin(x^2)] = \\cos(2x)$ instead of $\\cos(x^2) \\cdot 2x$.",
+      "why_wrong_md": "The chain rule says to keep the inner function inside the outer function and then multiply by the inner derivative. The argument of $\\cos$ should remain $x^2$; the $2x$ is a separate multiplicative factor, not a replacement for the argument.",
+      "socratic_response_md": "Look at the chain rule formula: $f'(g(x)) \\cdot g'(x)$. The $g(x)$ stays inside $f'$, and $g'(x)$ is multiplied on the outside. In your answer, what happened to the $x^2$ that was inside the cosine?"
+    },
+    {
+      "short_name": "apply_power_rule_without_chain",
+      "description_md": "The student uses the power rule on a composite function without the chain rule. For example, they write $\\frac{d}{dx}[(2x+1)^5] = 5(2x+1)^4$ instead of $5(2x+1)^4 \\cdot 2$.",
+      "why_wrong_md": "The power rule $\\frac{d}{dx}[x^n] = nx^{n-1}$ applies when the base is simply $x$. When the base is an expression like $2x+1$, the chain rule requires an additional factor of the derivative of that expression, which is $2$.",
+      "socratic_response_md": "Try expanding $(2x+1)^2$ and differentiating the expanded form directly. Do you get $2(2x+1)^1$, or do you get $2(2x+1)^1 \\cdot 2$? What does that tell you about your result for the fifth power?"
+    },
+    {
+      "short_name": "chain_rule_as_product_rule",
+      "description_md": "The student confuses the chain rule with the product rule and writes something like $\\frac{d}{dx}[\\sin(x^2)] = \\cos(x^2) \\cdot x^2 + \\sin(x^2) \\cdot 2x$, treating $\\sin$ and $x^2$ as two functions being multiplied.",
+      "why_wrong_md": "$\\sin(x^2)$ is a composition (one function inside another), not a product of two separate functions. The product rule applies to $f(x) \\cdot g(x)$; the chain rule applies to $f(g(x))$. Here $\\sin$ acts on $x^2$, so the chain rule gives $\\cos(x^2) \\cdot 2x$.",
+      "socratic_response_md": "Ask yourself: is $\\sin(x^2)$ two functions being multiplied together, or is it one function plugged into another? How would you describe the relationship between $\\sin$ and $x^2$ here — are they side by side or nested?"
+    },
+    {
+      "short_name": "stop_chain_too_early",
+      "description_md": "When there are multiple layers of composition, the student applies the chain rule only once instead of continuing through all layers. For example, $\\frac{d}{dx}[\\sin^2(3x)] = 2\\sin(3x) \\cdot \\cos(3x)$, missing the final factor of $3$.",
+      "why_wrong_md": "This function has three layers: squaring, then $\\sin$, then $3x$. Each layer requires its own chain rule factor. The student peeled off the square and the $\\sin$ but forgot that $\\frac{d}{dx}[3x] = 3$ contributes one more factor.",
+      "socratic_response_md": "You correctly identified the outer layer (squaring) and the middle layer ($\\sin$), but $3x$ is itself a function of $x$, not just $x$. If you set $u = 3x$, what is $\\frac{du}{dx}$, and where should that appear in your final answer?"
+    },
+    {
+      "short_name": "wrong_order_of_operations",
+      "description_md": "The student differentiates the inner function first and then applies the outer derivative to the result. For example, for $\\frac{d}{dx}[e^{x^2}]$, they compute $\\frac{d}{dx}[x^2] = 2x$ first, then write $e^{2x}$ as the final answer.",
+      "why_wrong_md": "The chain rule requires you to differentiate the outer function while leaving the inner function unchanged, then multiply by the derivative of the inner function. The correct result is $e^{x^2} \\cdot 2x$. Differentiating the inside first and substituting it into the outer function scrambles the structure of the composition.",
+      "socratic_response_md": "Write $f(u) = e^u$ and $u = x^2$. The chain rule says the answer is $f'(u) \\cdot u'$. What is $f'(u)$ — and does the $u$ inside $f'$ change to $2x$, or does it stay as $x^2$?"
+    }
+  ],
+  "checks": [
+    {
+      "tier": "novice",
+      "question_md": "Suppose you have the function $y = (3x + 1)^2$. Think of it as two steps:\n\n- **Inner step:** you compute $u = 3x + 1$\n- **Outer step:** you square the result, so $y = u^2$\n\nThe Chain Rule says: take the derivative of the outer step, then multiply by the derivative of the inner step.\n\nThe derivative of the outer step $u^2$ is $2u$.\n\nWhat is the derivative of the inner step $u = 3x + 1$? Fill in the blank:\n\n$$\\frac{du}{dx} = \\text{______}$$",
+      "expected_answer_md": "$\\frac{du}{dx} = 3$",
+      "expected_pattern": "^\\s*3\\s*$"
+    },
+    {
+      "tier": "novice",
+      "question_md": "A student tries to differentiate $y = (5x)^3$ using the Chain Rule and writes:\n\n$$\\frac{dy}{dx} = 3(5x)^2$$\n\nSpot the mistake. Which of the following describes what went wrong?\n\n**(A)** They used the wrong exponent; it should be $(5x)^4$.\n\n**(B)** They forgot to multiply by the derivative of the inside part, $5x$. They need an extra factor of $5$.\n\n**(C)** They should have written $3(5)^2$ instead.\n\n**(D)** There is no mistake.",
+      "expected_answer_md": "**(B)** — They forgot to multiply by the derivative of the inside, which is $5$. The correct answer is $3(5x)^2 \\cdot 5 = 75x^2$.",
+      "expected_pattern": "(?i)\\b[bB]\\b"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Spot the mistake in this differentiation:\n\n$$\\frac{d}{dx}\\left[\\sin(x^3)\\right] = \\cos(3x^2)$$\n\nWhat went wrong, and what is the correct derivative?",
+      "expected_answer_md": "The student forgot to keep the inner function inside $\\cos$ and instead multiplied the arguments together. The chain rule says to first differentiate the outer function **evaluated at the inner function**, then multiply by the derivative of the inner function:\n\n$$\\frac{d}{dx}\\left[\\sin(x^3)\\right] = \\cos(x^3) \\cdot 3x^2$$",
+      "expected_pattern": "cos\\s*\\(\\s*x\\s*\\^\\s*3\\s*\\)\\s*[·*]\\s*3\\s*x\\s*\\^?\\s*2|3x\\^?2.*cos.*x\\^3"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Fill in the blank: To differentiate $y = e^{5x+1}$, you treat $e^{(\\cdot)}$ as the outer function and $5x+1$ as the inner function. The derivative is:\n\n$$\\frac{dy}{dx} = e^{5x+1} \\cdot \\underline{\\phantom{XXX}}$$",
+      "expected_answer_md": "$5$\n\nBecause the derivative of the inner function $5x+1$ is just $5$. So $\\dfrac{dy}{dx} = 5e^{5x+1}$.",
+      "expected_pattern": "^\\s*5\\s*$|five|5x\\+1.*derivative.*5"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "The chain rule can be motivated by linear approximation: near $x = a$, we have $g(x) \\approx g(a) + g'(a)(x - a)$ and $f(u) \\approx f(g(a)) + f'(g(a))(u - g(a))$. Substitute the first approximation into the second and read off the coefficient of $(x - a)$. Fill in the blank:\n\nThe local linear approximation of $f \\circ g$ near $a$ is\n$$f(g(a)) + \\rule{3cm}{0.15mm} \\cdot (x - a)$$\n\nWhat expression fills the blank, and why does this argument depend on $g$ being continuous at $a$?",
+      "expected_answer_md": "The blank is $f'(g(a)) \\cdot g'(a)$. Continuity of $g$ at $a$ is needed so that as $x \\to a$, we also have $g(x) \\to g(a)$, which ensures the linear approximation of $f$ around $u = g(a)$ remains valid — i.e., the inner function's output stays in the region where the outer function's linearization applies.",
+      "expected_pattern": "f'\\(g\\(a\\)\\)\\s*[\\*·⋅]?\\s*g'\\(a\\)|continuity|g\\(x\\)\\s*→\\s*g\\(a\\)|continuous"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "Spot the mistake in the following \"proof\" of the chain rule:\n\n$$\\frac{d}{dx}f(g(x)) = \\lim_{h \\to 0} \\frac{f(g(x+h)) - f(g(x))}{h} = \\lim_{h \\to 0} \\frac{f(g(x+h)) - f(g(x))}{g(x+h) - g(x)} \\cdot \\frac{g(x+h) - g(x)}{h}$$\n\n\"Now take the limit of each factor separately to get $f'(g(x)) \\cdot g'(x)$. $\\square$\"\n\nWhat specific technical issue makes this argument invalid as stated?",
+      "expected_answer_md": "The denominator $g(x+h) - g(x)$ can be zero for values of $h$ arbitrarily close to $0$ (even if $g'(x)$ exists and is nonzero), so the fraction $\\frac{f(g(x+h)) - f(g(x))}{g(x+h) - g(x)}$ may be undefined. The standard fix is to define an auxiliary function that equals the difference quotient when $g(x+h) \\neq g(x)$ and equals $f'(g(x))$ when $g(x+h) = g(x)$, then show this function is continuous.",
+      "expected_pattern": "g\\(x\\+h\\)\\s*[-−]\\s*g\\(x\\)\\s*=\\s*0|denom.*zero|division by zero|undefined|\\bΔg\\s*=\\s*0|auxiliary"
+    }
+  ],
+  "deep_dives": [
+    {
+      "title": "Why Does the Chain Rule Produce a Product of Two Derivatives?",
+      "body_md": "Suppose you have a composite function $y = f(g(x))$. You want $\\frac{dy}{dx}$. The chain rule says the answer is a *product*: $f'(g(x)) \\cdot g'(x)$. Why a product, specifically? Let's build this from the ground up.\n\n## The core idea: rates of change multiply\n\nImagine three quantities linked in a chain: $x$ drives $u$, and $u$ drives $y$. Concretely, let $u = g(x)$ and $y = f(u)$.\n\nGive $x$ a tiny nudge $\\Delta x$. That nudge causes a change in $u$:\n$$\\Delta u \\approx g'(x) \\cdot \\Delta x$$\n\nNow $u$ has shifted by $\\Delta u$, so $y$ responds:\n$$\\Delta y \\approx f'(u) \\cdot \\Delta u$$\n\nSubstitute the first expression into the second:\n$$\\Delta y \\approx f'(u) \\cdot g'(x) \\cdot \\Delta x$$\n\nDivide both sides by $\\Delta x$:\n$$\\frac{\\Delta y}{\\Delta x} \\approx f'(u) \\cdot g'(x)$$\n\nAs $\\Delta x \\to 0$, this becomes exact:\n$$\\frac{dy}{dx} = f'(g(x)) \\cdot g'(x)$$\n\nThe product appears because the process has two stages — the outer function amplifies the change that the inner function already created. Multiplying is how you *compound* two scaling factors acting in sequence.\n\n## A concrete analogy\n\nYou're converting miles to kilometers to meters. If 1 mile $\\approx$ 1.609 km and 1 km $= 1000$ m, then 1 mile $= 1.609 \\times 1000$ m. You multiply the conversion factors because each one scales the previous unit. Derivatives are instantaneous conversion factors between infinitesimally close quantities, so the same logic applies.\n\n## Making it rigorous\n\nThe approximation argument above has a subtle gap: what if $\\Delta u = 0$ for some values of $\\Delta x$? You can't always safely divide by $\\Delta u$. The standard rigorous fix introduces an error function $\\epsilon(\\Delta u)$ defined by:\n$$f(u + \\Delta u) - f(u) = f'(u)\\,\\Delta u + \\epsilon(\\Delta u)\\,\\Delta u$$\nwhere $\\epsilon(\\Delta u) \\to 0$ as $\\Delta u \\to 0$, and we set $\\epsilon(0) = 0$. Now divide by $\\Delta x$:\n$$\\frac{\\Delta y}{\\Delta x} = f'(u)\\,\\frac{\\Delta u}{\\Delta x} + \\epsilon(\\Delta u)\\,\\frac{\\Delta u}{\\Delta x}$$\nAs $\\Delta x \\to 0$, $\\Delta u \\to 0$ (because $g$ is continuous), so $\\epsilon \\to 0$ and $\\frac{\\Delta u}{\\Delta x} \\to g'(x)$. The second term vanishes, leaving exactly $f'(g(x)) \\cdot g'(x)$. No division by $\\Delta u$ was ever needed.\n\n## The deeper pattern\n\nThe chain rule is really a statement about *linearization*. Near any point, a differentiable function behaves like a linear map (scaling by its derivative). Composing two linear maps means multiplying their scaling factors. That is why — and *must* be why — the chain rule is a product.\n\n---\n\n**Follow-up to chew on:** When you move to functions of several variables, the \"derivative\" becomes a matrix (the Jacobian). The multivariable chain rule replaces the product of two numbers with a product of two matrices. Why does matrix multiplication — rather than element-wise multiplication — emerge, and what does that tell you about what the single-variable product was really doing all along?"
+    },
+    {
+      "title": "Chain Rule with Three or More Nested Functions — What Changes?",
+      "body_md": "You already know the two-function chain rule: if $y = f(g(x))$, then\n$$\\frac{dy}{dx} = f'(g(x)) \\cdot g'(x).$$\nNow suppose you have three nested functions: $y = f(g(h(x)))$. What changes? Surprisingly little — but understanding *why* nothing fundamentally changes is the real insight.\n\n## The key idea: chains of local linear approximations\n\nRecall what a derivative really captures. Near $x = a$, the function $h$ acts approximately like a linear map:\n$$h(x) \\approx h(a) + h'(a)(x - a).$$\nA small nudge $\\Delta x$ in $x$ produces a nudge $\\Delta u \\approx h'(a)\\,\\Delta x$ in the intermediate variable $u = h(x)$.\n\nNow $g$ receives that nudge $\\Delta u$ and amplifies it by its own local scaling factor:\n$$\\Delta v \\approx g'(u)\\,\\Delta u = g'(h(a))\\cdot h'(a)\\,\\Delta x,$$\nwhere $v = g(u)$. Finally, $f$ receives $\\Delta v$ and scales it again:\n$$\\Delta y \\approx f'(v)\\,\\Delta v = f'(g(h(a)))\\cdot g'(h(a))\\cdot h'(a)\\,\\Delta x.$$\n\nDividing both sides by $\\Delta x$ and taking the limit:\n$$\\frac{dy}{dx} = f'(g(h(x)))\\cdot g'(h(x))\\cdot h'(x).$$\n\n## Why it generalizes so cleanly\n\nEach function in the chain is a \"gear\" with its own ratio. Composing $n$ functions just means multiplying $n$ gear ratios together. Formally, if $y = f_1(f_2(\\cdots f_n(x)\\cdots))$, then\n$$\\frac{dy}{dx} = f_1'(f_2(\\cdots f_n(x)\\cdots))\\;\\cdot\\; f_2'(f_3(\\cdots f_n(x)\\cdots))\\;\\cdot\\;\\cdots\\;\\cdot\\; f_n'(x).$$\nNotice the pattern: in each factor $f_k'(\\cdot)$, the argument is the remaining inner composition $f_{k+1}(\\cdots f_n(x)\\cdots)$. Nothing structurally new appears — you just accumulate one more multiplicative factor per layer.\n\nThis is why the Leibniz notation is so suggestive. If you set $u = h(x)$ and $v = g(u)$, then\n$$\\frac{dy}{dx} = \\frac{dy}{dv}\\cdot\\frac{dv}{du}\\cdot\\frac{du}{dx}.$$\nThe intermediate differentials \"cancel\" as if they were fractions. They aren't literally fractions, but the limit process validates the cancellation rigorously: each ratio converges, and the product of the limits equals the limit of the product (provided all the inner derivatives exist and are finite).\n\n## A concrete example\n\nLet $y = \\sin(e^{x^2})$. Identify three layers: $f(t) = \\sin t$, $g(u) = e^u$, $h(x) = x^2$. Then:\n$$\\frac{dy}{dx} = \\cos(e^{x^2})\\;\\cdot\\; e^{x^2}\\;\\cdot\\; 2x.$$\nThree derivatives, each evaluated at its correct inner composition, multiplied together.\n\n## What actually *does* change\n\nThe only practical difficulty is bookkeeping: you must evaluate each outer derivative at the correct inner composition. Missing one layer — say, writing $\\cos(x^2)$ instead of $\\cos(e^{x^2})$ — is the most common error. The theory doesn't get harder; the notation management does.\n\n---\n\n**Follow-up question to chew on:** The chain rule multiplies local scaling factors. What happens when one of those intermediate derivatives is zero at a point — does the entire composite derivative necessarily vanish there, and can you construct a case where the composite function has a corner (non-differentiable point) even though every individual layer is smooth?"
+    }
+  ],
+  "applications": [
+    {
+      "context": "physics",
+      "problem_md": "A weather balloon rises vertically from a launch site. Its altitude (in meters) at time $t$ (in seconds) is given by\n$$h(t) = 200\\sqrt{t+1}$$\nfor $t \\geq 0$.\n\nThe air temperature $T$ (in degrees Celsius) depends on altitude $h$ according to the standard tropospheric lapse model:\n$$T(h) = 15 - 0.0065\\,h$$\n\nA sensor on the balloon records temperature as a function of time.\n\n(a) Write an expression for the temperature recorded by the sensor as a function of time, $T(t)$.\n\n(b) Find $\\dfrac{dT}{dt}$ using the chain rule.\n\n(c) At $t = 24$ seconds, how fast is the recorded temperature changing? Include units and interpret the sign of your answer physically.",
+      "solution_outline_md": "**Part (a):** Compose the two functions. Substitute $h(t)$ into $T(h)$:\n$$T(t) = 15 - 0.0065 \\cdot 200\\sqrt{t+1} = 15 - 1.3\\sqrt{t+1}$$\n\n**Part (b):** Apply the chain rule: $\\dfrac{dT}{dt} = \\dfrac{dT}{dh} \\cdot \\dfrac{dh}{dt}$.\n\n- $\\dfrac{dT}{dh} = -0.0065$\n- $\\dfrac{dh}{dt} = \\dfrac{200}{2\\sqrt{t+1}} = \\dfrac{100}{\\sqrt{t+1}}$\n\nSo\n$$\\frac{dT}{dt} = (-0.0065)\\!\\left(\\frac{100}{\\sqrt{t+1}}\\right) = \\frac{-0.65}{\\sqrt{t+1}}$$\n\n**Part (c):** Evaluate at $t = 24$:\n$$\\frac{dT}{dt}\\bigg|_{t=24} = \\frac{-0.65}{\\sqrt{25}} = \\frac{-0.65}{5} = -0.13 \\;\\text{°C/s}$$\n\nThe negative sign makes physical sense: as the balloon ascends, it moves into thinner, cooler air, so the sensor records a decreasing temperature at a rate of $0.13$ degrees Celsius per second."
+    },
+    {
+      "context": "biology",
+      "problem_md": "A population of bacteria in a nutrient broth is modeled by\n$$P(t) = 8000 \\cdot e^{0.03\\,t^2}$$\nwhere $P$ is the number of bacteria and $t$ is measured in hours after inoculation. The exponent $0.03\\,t^2$ reflects the fact that, early on, nutrients are plentiful and the per-capita growth rate itself increases with time (a phenomenon called accelerating growth, observed in some bacterial cultures before resource limitation kicks in).\n\n(a) Find an expression for the instantaneous rate of population change, $\\dfrac{dP}{dt}$.\n\n(b) At what rate (bacteria per hour) is the population growing at $t = 5$ hours?\n\n(c) A lab technician needs to add a second nutrient when the population is growing faster than $10{,}000$ bacteria per hour. At what time does this first occur? Round to two decimal places.",
+      "solution_outline_md": "**Identify the composition.** Write $P(t) = 8000\\,e^{u}$ where $u(t) = 0.03\\,t^2$. The chain rule gives\n$$\\frac{dP}{dt} = 8000\\,e^{u} \\cdot \\frac{du}{dt} = 8000\\,e^{0.03\\,t^2} \\cdot 0.06\\,t$$\nso\n$$\\frac{dP}{dt} = 480\\,t\\,e^{0.03\\,t^2}.$$\n\n**(a)** The answer is the expression above.\n\n**(b)** Substitute $t = 5$:\n$$\\frac{dP}{dt}\\bigg|_{t=5} = 480(5)\\,e^{0.03(25)} = 2400\\,e^{0.75} \\approx 2400(2.1170) \\approx 5081 \\text{ bacteria/hr}.$$\n\n**(c)** Set $\\dfrac{dP}{dt} = 10{,}000$ and solve for $t$:\n$$480\\,t\\,e^{0.03\\,t^2} = 10{,}000.$$\nThis equation is transcendental (no closed-form solution), so solve numerically. You can use a graphing calculator or Newton's method. Testing values:\n- $t = 6$: $480(6)e^{1.08} \\approx 2880(2.9447) \\approx 8481$ (too small)\n- $t = 7$: $480(7)e^{1.47} \\approx 3360(4.3492) \\approx 14{,}613$ (too large)\n- $t = 6.4$: $480(6.4)e^{1.2288} \\approx 3072(3.4170) \\approx 10{,}497$ (a bit high)\n- $t = 6.35$: $\\approx 10{,}255$ (still slightly high)\n- $t = 6.28$: $\\approx 9{,}988$ (just under)\n\nThe threshold is first crossed at approximately $t \\approx 6.29$ hours."
+    }
+  ]
+}

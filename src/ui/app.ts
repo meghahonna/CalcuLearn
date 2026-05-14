@@ -595,4 +595,169 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
 
   const controller = new StudentUiController(createRemoteSessionEngine('/api'))
   bindDom({ document, controller, studentId })
+
+  // ── Phase C: mode tabs + Learn Mode wiring ──
+  void (async () => {
+    const { LearnModeUi } = await import('./learnMode.js')
+    const { ChallengeUi } = await import('./challenge.js')
+    const learnContainer = document.getElementById('learn-container') as HTMLElement
+    const challengeContainer = document.getElementById('challenge-container') as HTMLElement
+    const practicePanel = document.getElementById('problem-panel') as HTMLElement
+    const summaryPanel = document.getElementById('summary-panel') as HTMLElement
+    const learnUi = new LearnModeUi({ document, studentId })
+    const challengeUi = new ChallengeUi({ document, studentId })
+    let learnMounted = false
+    let challengeMounted = false
+
+    async function ensureLearnMounted(): Promise<void> {
+      if (!learnMounted) {
+        await learnUi.mount(learnContainer)
+        learnMounted = true
+      }
+    }
+
+    async function ensureChallengeMounted(): Promise<void> {
+      if (!challengeMounted) {
+        await challengeUi.mount(challengeContainer)
+        challengeMounted = true
+      }
+    }
+
+    function setMode(mode: 'practice' | 'learn' | 'challenge'): void {
+      document.querySelectorAll('.mode-tab').forEach((b) => {
+        b.classList.toggle('active', (b as HTMLElement).dataset['mode'] === mode)
+      })
+      const showPractice = mode === 'practice'
+      practicePanel.hidden = !showPractice
+      summaryPanel.hidden = !showPractice || summaryPanel.hasAttribute('data-stay-hidden')
+      if (!showPractice) summaryPanel.hidden = true
+      learnContainer.hidden = mode !== 'learn'
+      challengeContainer.hidden = mode !== 'challenge'
+      if (mode === 'learn') void ensureLearnMounted()
+      if (mode === 'challenge') void ensureChallengeMounted()
+    }
+
+    document.querySelectorAll('.mode-tab').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const mode = (btn as HTMLElement).dataset['mode'] as 'practice' | 'learn' | 'challenge'
+        if (mode && !(btn as HTMLButtonElement).disabled) setMode(mode)
+      })
+    })
+
+    // ── Phase D: confidence chip + adaptive nudge ──
+    const adaptive = await import('./adaptive.js')
+    const chipContainer = document.getElementById('confidence-chip') as HTMLElement
+    const nudgeContainer = document.getElementById('adaptive-nudge') as HTMLElement
+    let lastSubmittedConceptId: string | null = null
+
+    const chip = adaptive.mountConfidenceChip({
+      document,
+      container: chipContainer,
+      studentId,
+      getConceptId: () => lastSubmittedConceptId,
+      onRecorded: () => {
+        chip.setVisible(false)
+        if (lastSubmittedConceptId) void nudge.refresh(lastSubmittedConceptId)
+      },
+    })
+    chip.setVisible(false)
+
+    const nudge = adaptive.mountNudgeBanner({
+      document,
+      container: nudgeContainer,
+      studentId,
+      onAction: (action, conceptId) => {
+        if (action.kind === 'open_learn') {
+          void (async () => {
+            await ensureLearnMounted()
+            setMode('learn')
+            try {
+              await learnUi.startConcept(conceptId, action.tier)
+            } catch (err) {
+              console.error('[nudge open_learn]', err)
+            }
+          })()
+        } else if (action.kind === 'unlock_challenge') {
+          // Tab is enabled by default in Phase E; visually mark it unlocked
+          const tab = document.querySelector('.mode-tab[data-mode=\"challenge\"]') as HTMLButtonElement | null
+          if (tab) {
+            tab.title = 'Challenge mode unlocked'
+            tab.classList.add('unlocked')
+          }
+          // Open Challenge Mode and jump to the unlocked concept
+          void (async () => {
+            await ensureChallengeMounted()
+            setMode('challenge')
+            try {
+              await challengeUi.openConcept(conceptId)
+            } catch (err) {
+              console.error('[nudge unlock_challenge]', err)
+            }
+          })()
+        } else if (action.kind === 'try_alt_framing') {
+          void (async () => {
+            await ensureLearnMounted()
+            setMode('learn')
+            try {
+              await learnUi.startConcept(conceptId, 'on_pace')
+            } catch (err) {
+              console.error('[nudge alt_framing]', err)
+            }
+          })()
+        }
+      },
+    })
+
+    // Poll lightly so we can show the chip + refresh the nudge after each
+    // submit — the existing controller doesn't emit events, so this matches
+    // the pattern used for the help-understand-btn above.
+    let lastFeedback: string | undefined
+    setInterval(() => {
+      const s = controller.state
+      const fb = s.feedbackText
+      const concept = s.session?.currentProblem?.conceptId ?? null
+      // Detect a fresh submission: feedback text changed
+      if (fb && fb !== lastFeedback) {
+        lastFeedback = fb
+        // The conceptId of the JUST-submitted problem might already be the
+        // current (next) problem's. Capture the prior one if we can.
+        if (concept) {
+          lastSubmittedConceptId = concept
+          chip.setVisible(true)
+          void nudge.refresh(concept)
+        }
+      }
+      // Hide chip when a new problem comes in without confirmation
+      if (!fb) {
+        chip.setVisible(false)
+      }
+    }, 600)
+
+    // "I don't know — help me understand" off-ramp from Practice Mode.
+    // Switches to Learn Mode and starts a session for the current problem's concept.
+    const helpBtn = document.getElementById('help-understand-btn') as HTMLButtonElement
+    if (helpBtn) {
+      helpBtn.addEventListener('click', async () => {
+        const conceptId = controller.state.session?.currentProblem?.conceptId
+        if (!conceptId) return
+        helpBtn.disabled = true
+        await ensureLearnMounted()
+        setMode('learn')
+        // Default to novice tier for the off-ramp — student is asking for help
+        try {
+          await learnUi.startConcept(conceptId, 'novice')
+        } catch (err) {
+          console.error('[learn off-ramp]', err)
+        }
+        helpBtn.disabled = false
+      })
+
+      // Enable/disable the help button based on whether a problem is active.
+      // We poll because controller doesn't emit events.
+      setInterval(() => {
+        const hasProblem = !!controller.state.session?.currentProblem
+        helpBtn.disabled = !hasProblem
+      }, 500)
+    }
+  })()
 }

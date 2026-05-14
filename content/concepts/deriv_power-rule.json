@@ -1,0 +1,221 @@
+{
+  "concept_id": "deriv.power-rule",
+  "name": "The Power Rule",
+  "track": "BOTH",
+  "one_liner": "A shortcut for differentiating any term of the form x^n without using the limit definition every time.",
+  "prerequisites": [
+    "limits.definition"
+  ],
+  "explanations": [
+    {
+      "tier": "novice",
+      "framing_index": 0,
+      "body_md": "Taking a derivative means finding how fast something changes. You already know that a derivative comes from a limit — zooming in on two points until they're infinitely close. The power rule is a shortcut so you don't have to grind through that limit every single time.\n\nHere's the recipe. It has two steps:\n\n1. **Bring the exponent down** in front as a multiplier.\n2. **Subtract 1** from the exponent.\n\nThat's it. Let's see it in action.\n\n**Start with** $f(x) = x^2$.\n- Bring the 2 down: $2 \\cdot x^{\\text{something}}$.\n- Subtract 1 from the exponent: $2 - 1 = 1$.\n- Result: $f'(x) = 2x^1 = 2x$.\n\n**Now try** $f(x) = x^3$.\n- Bring the 3 down: $3 \\cdot x^{\\text{something}}$.\n- New exponent: $3 - 1 = 2$.\n- Result: $f'(x) = 3x^2$.\n\n**One more:** $f(x) = x^5$.\n- Bring the 5 down.\n- New exponent: $5 - 1 = 4$.\n- Result: $f'(x) = 5x^4$.\n\nSee the pattern? In general, for any power $n$:\n\n$$\\frac{d}{dx}\\left[x^n\\right] = n \\, x^{\\,n-1}$$\n\nA few things worth noting:\n\n- If $f(x) = x^1$, the derivative is $1 \\cdot x^0 = 1$. That makes sense — the graph of $y = x$ is a straight line with slope 1.\n- If $f(x) = x^0 = 1$ (a constant), the derivative is $0 \\cdot x^{-1} = 0$. Also makes sense — a flat horizontal line has zero slope.\n\nIf this still feels mechanical, that's completely fine. Use the recipe, practice it on a handful of problems, and the \"why\" will start clicking as you go. You can always revisit the limit definition later to see the proof — but for now, the recipe is your friend.",
+      "intuition_md": "Think of the exponent as a dial that controls how steeply a curve rises. When you \"bring the exponent down,\" you're measuring how much that steepness matters at each point. When you \"subtract 1,\" you're stepping down to a simpler curve — one degree less curvy. It's like peeling off one layer of a hill to reveal the slope underneath. A $x^3$ curve is built on top of $x^2$ behavior, so its rate of change naturally looks like $x^2$, just scaled by that factor of 3 you brought down."
+    },
+    {
+      "tier": "novice",
+      "framing_index": 1,
+      "body_md": "You already know how to find the slope of a curve at a point using the limit definition. Let's use that tool on a couple of simple functions and see if a pattern shows up.\n\n**Case 1: $f(x) = x^2$**\n\nThe limit definition says:\n$$f'(x) = \\lim_{h \\to 0} \\frac{(x+h)^2 - x^2}{h}$$\n\nExpand $(x+h)^2$ to get $x^2 + 2xh + h^2$. Subtract $x^2$:\n$$\\frac{2xh + h^2}{h} = 2x + h$$\n\nLet $h \\to 0$, and you get $f'(x) = 2x$. So the derivative of $x^2$ is $2x^1$. Notice: the 2 came down in front, and the exponent dropped by one.\n\n**Case 2: $f(x) = x^3$**\n\nSame process:\n$$f'(x) = \\lim_{h \\to 0} \\frac{(x+h)^3 - x^3}{h}$$\n\nExpand $(x+h)^3 = x^3 + 3x^2h + 3xh^2 + h^3$. Subtract $x^3$, divide by $h$:\n$$3x^2 + 3xh + h^2$$\n\nLet $h \\to 0$: $f'(x) = 3x^2$. The 3 came down, the exponent dropped by one.\n\nSee the pattern? If you did this for $x^4$, you'd get $4x^3$. For $x^5$, you'd get $5x^4$. Every time, the old exponent slides down to become a multiplier, and the new exponent is one less.\n\nThat pattern is the **Power Rule**:\n$$\\frac{d}{dx}\\left[x^n\\right] = n\\,x^{n-1}$$\n\nHere $n$ is just whatever exponent you started with — it can be 2, 7, even a fraction or a negative number. The recipe is always the same: bring the exponent down, then subtract one from it.\n\nIf the algebra in the limit definition felt heavy, that's normal. The whole point of the Power Rule is that you never have to grind through that expansion again for basic powers. The limit definition proves *why* it works; the rule is the shortcut you actually carry with you.",
+      "intuition_md": "Think of the exponent as a label on a box sitting on a shelf. The Power Rule says: take the label off the box and stick it out front as a multiplier, then replace the label with a number that's one less. So a box labeled 5 becomes a \"5 times\" sign next to a box now labeled 4. That's it — one move, every time. You saw it happen honestly with $x^2$ and $x^3$ through the limit definition, so you know it isn't magic. It's just a pattern baked into how polynomials expand."
+    },
+    {
+      "tier": "on_pace",
+      "framing_index": 0,
+      "body_md": "You already know that the derivative of a function at a point is defined as a limit:\n\n$$f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$$\n\nThe Power Rule gives you a shortcut so you don't have to grind through that limit every single time for power functions.\n\n**The rule:** If $f(x) = x^n$, where $n$ is any real number, then\n\n$$f'(x) = n \\, x^{n-1}$$\n\nThat's it. Bring the exponent down as a coefficient, then reduce the exponent by one.\n\n**Quick examples:**\n\n- $f(x) = x^5 \\implies f'(x) = 5x^4$\n- $f(x) = x^{-2} \\implies f'(x) = -2x^{-3}$\n- $f(x) = x^{1/3} \\implies f'(x) = \\tfrac{1}{3}x^{-2/3}$\n\nNotice it works for negative and fractional exponents, not just positive integers. This means you can differentiate things like $\\frac{1}{x^2}$ and $\\sqrt[3]{x}$ — just rewrite them as $x^{-2}$ and $x^{1/3}$ first.\n\n**Common sticking points:**\n\n1. **Constants.** If $f(x) = x^0 = 1$ (a constant), the rule gives $f'(x) = 0 \\cdot x^{-1} = 0$. That's consistent: the slope of a horizontal line is zero. More generally, the derivative of any constant is $0$.\n2. **Coefficients.** For $f(x) = c \\, x^n$, the constant $c$ just comes along for the ride: $f'(x) = c \\, n \\, x^{n-1}$. So the derivative of $7x^3$ is $21x^2$.\n3. **Rewriting first.** The rule applies to $x^n$, not to expressions like $\\frac{1}{x^4}$ or $\\sqrt{x}$ in their original form. Always convert to a single power of $x$ before differentiating.\n\n**Where this fits:** You just learned the limit definition of the derivative. The Power Rule is the first of several shortcut rules (product rule, quotient rule, chain rule) that will let you differentiate increasingly complex functions without returning to the limit definition each time.",
+      "intuition_md": "Think of the exponent as a label on a box telling you how many times $x$ is multiplied by itself. When you differentiate, you peel one copy of $x$ off the product — that's why the exponent drops by one. The old exponent lands out front as a coefficient because there were $n$ identical \"copies\" contributing to the rate of change, each producing its own term when you expand $\\lim_{h \\to 0} \\frac{(x+h)^n - x^n}{h}$. So $n$ comes down, the power shrinks by one, and you move on."
+    },
+    {
+      "tier": "advanced",
+      "framing_index": 0,
+      "body_md": "**The Power Rule.** For any real number $n$, if $f(x) = x^n$, then\n\n$$f'(x) = n\\,x^{n-1}.$$\n\n**Proof from the limit definition.** Start with the difference quotient for integer $n \\geq 1$:\n\n$$f'(x) = \\lim_{h \\to 0} \\frac{(x+h)^n - x^n}{h}.$$\n\nExpand $(x+h)^n$ via the binomial theorem:\n\n$$(x+h)^n = x^n + n\\,x^{n-1}h + \\binom{n}{2}x^{n-2}h^2 + \\cdots + h^n.$$\n\nSubtract $x^n$ and divide by $h$:\n\n$$\\frac{(x+h)^n - x^n}{h} = n\\,x^{n-1} + \\binom{n}{2}x^{n-2}h + \\cdots + h^{n-1}.$$\n\nEvery term after the first contains a positive power of $h$, so as $h \\to 0$ they vanish. You're left with $n\\,x^{n-1}$. That's it — the proof is just the binomial theorem plus the limit definition you already know.\n\n**Extending beyond positive integers.** The binomial-theorem argument handles $n \\in \\mathbb{Z}^+$. For $n = 0$, $f(x) = 1$ and $f'(x) = 0 = 0 \\cdot x^{-1}$, consistent with the rule. For negative integers, write $x^{-k} = 1/x^k$ and apply the quotient rule (once you have it) or redo the limit directly. For rational $n = p/q$, you can use implicit differentiation on $y^q = x^p$. For arbitrary real $n$, define $x^n = e^{n \\ln x}$ and differentiate with the chain rule: $\\frac{d}{dx}e^{n\\ln x} = e^{n\\ln x}\\cdot \\frac{n}{x} = n\\,x^{n-1}$.\n\n**Connection to linear approximation.** The power rule tells you the best local linear model of $x^n$ near a point $a$ is $L(x) = a^n + n\\,a^{n-1}(x - a)$. The derivative literally selects the coefficient of the linear term in the binomial expansion — the rest is higher-order noise.\n\n**Stretch question.** Can you prove the power rule for $n = 1/2$ directly from the limit definition, without implicit differentiation? Hint: rationalize the numerator of $\\frac{\\sqrt{x+h} - \\sqrt{x}}{h}$.",
+      "intuition_md": "Think of $(x+h)^n$ as a polynomial in $h$ where $x$ is a fixed parameter. The binomial expansion stratifies the expression by powers of $h$: the constant term is $x^n$ (the function value), the coefficient of $h^1$ is $n\\,x^{n-1}$ (the derivative), and everything beyond is $O(h^2)$ — invisible at infinitesimal scale. The derivative is literally the machine that reads off the first-order coefficient. Higher powers of $h$ are noise that the limit kills. This is exactly why differentiation and linear approximation are the same operation."
+    }
+  ],
+  "examples": [
+    {
+      "tier": "novice",
+      "problem_md": "Find the derivative of $f(x) = x^3$.",
+      "steps": [
+        {
+          "step_md": "Start by identifying the exponent. In $f(x) = x^3$, the exponent is $3$.",
+          "why_md": "The Power Rule needs you to know what exponent (the little number up top) you're working with. Think of it as reading the instructions before you start building something. Here, the exponent $n = 3$."
+        },
+        {
+          "step_md": "The Power Rule says: if $f(x) = x^n$, then the derivative is $$f'(x) = n \\cdot x^{n-1}.$$ In plain English: bring the exponent down in front as a multiplier, then reduce the exponent by one.",
+          "why_md": "Why does this rule exist? The derivative tells you the slope — how steep the curve is at any point, like the reading on a speedometer tells you how fast you're going right now. The Power Rule is a shortcut so you don't have to compute that slope from scratch every time using limits. It's one of the most-used tools in all of calculus, so it's worth getting comfortable with."
+        },
+        {
+          "step_md": "Bring the exponent down: $$3 \\cdot x^{\\text{?}}$$ We've pulled the $3$ from the exponent and placed it in front of $x$.",
+          "why_md": "This is the first half of the Power Rule — \"bring the exponent down.\" You're turning the exponent into a coefficient (a coefficient is just the number multiplied in front of a variable). This step is purely mechanical: copy the exponent, write it in front."
+        },
+        {
+          "step_md": "Reduce the exponent by one: $$3 \\cdot x^{3-1} = 3x^2.$$",
+          "why_md": "This is the second half of the Power Rule — \"subtract one from the exponent.\" The old exponent was $3$; the new exponent is $3 - 1 = 2$. Together with the previous step, you've completed the entire rule."
+        },
+        {
+          "step_md": "So the derivative is $$f'(x) = 3x^2.$$",
+          "why_md": "Let's make sure this makes sense. The original function $x^3$ is a curve that gets steeper and steeper as $x$ moves away from zero. The derivative $3x^2$ is always zero or positive, which matches: $x^3$ is always rising (or flat at the origin). If you plugged in, say, $x = 2$, you'd get $f'(2) = 3(2)^2 = 12$. That means at the point $(2, 8)$ on the curve, the slope is $12$ — it's rising pretty steeply. Checking your answer against common sense like this is a good habit."
+        }
+      ]
+    },
+    {
+      "tier": "on_pace",
+      "problem_md": "Differentiate $f(x) = 7x^4 - 3x^{-2} + 5\\sqrt{x}$.",
+      "steps": [
+        {
+          "step_md": "Rewrite the function so every term is in the form $ax^n$:\n$$f(x) = 7x^4 - 3x^{-2} + 5x^{1/2}$$",
+          "why_md": "The Power Rule only applies directly to terms of the form $x^n$. The square root $\\sqrt{x}$ is the same as $x^{1/2}$; converting it now means you can handle every term the same way. This rewriting step is where most errors start — if you skip it, you'll be tempted to invent a separate rule for radicals. There isn't one; it's all the Power Rule."
+        },
+        {
+          "step_md": "Recall the Power Rule: if $g(x) = x^n$, then $g'(x) = nx^{n-1}$. Combined with the Constant Multiple Rule, for $ax^n$ we get $\\frac{d}{dx}[ax^n] = a \\cdot n \\cdot x^{n-1}$.",
+          "why_md": "You already know that the derivative of a constant times a function is the constant times the derivative (Constant Multiple Rule, from the previous section). Pairing that with the Power Rule gives you one clean formula for every term in this problem. Keeping these two rules linked in your head saves time."
+        },
+        {
+          "step_md": "Differentiate the first term:\n$$\\frac{d}{dx}[7x^4] = 7 \\cdot 4 \\cdot x^{4-1} = 28x^3$$",
+          "why_md": "Straightforward application: bring the exponent $4$ down as a multiplier, then reduce the exponent by $1$. This is the most routine case of the Power Rule, and it's a good sanity check — if you can't get this term quickly, something is off."
+        },
+        {
+          "step_md": "Differentiate the second term:\n$$\\frac{d}{dx}[-3x^{-2}] = -3 \\cdot (-2) \\cdot x^{-2-1} = 6x^{-3}$$",
+          "why_md": "Negative exponents follow exactly the same rule — the exponent $-2$ comes down as a multiplier, and you subtract $1$ to get $-3$. A common sticking point: the two negatives ($-3$ and $-2$) multiply to give a positive $6$. Don't lose a sign here. Also note that $6x^{-3}$ is the same as $\\frac{6}{x^3}$; either form is correct."
+        },
+        {
+          "step_md": "Differentiate the third term:\n$$\\frac{d}{dx}[5x^{1/2}] = 5 \\cdot \\tfrac{1}{2} \\cdot x^{1/2 - 1} = \\frac{5}{2}x^{-1/2}$$",
+          "why_md": "Fractional exponents work exactly the same way. Bring down $\\frac{1}{2}$, subtract $1$ from the exponent to get $-\\frac{1}{2}$. You can also write the result as $\\frac{5}{2\\sqrt{x}}$, which is sometimes preferred on the AP exam for a 'simplified' answer. Either form earns full credit."
+        },
+        {
+          "step_md": "Combine using the Sum/Difference Rule:\n$$f'(x) = 28x^3 + 6x^{-3} + \\frac{5}{2}x^{-1/2}$$\nOr equivalently:\n$$f'(x) = 28x^3 + \\frac{6}{x^3} + \\frac{5}{2\\sqrt{x}}$$",
+          "why_md": "The derivative of a sum (or difference) is just the sum (or difference) of the individual derivatives — that's the Sum/Difference Rule you met right before the Power Rule. This final step is just assembly; the real work happened term by term. Looking ahead, once you learn the Product and Chain Rules, you'll still fall back on the Power Rule constantly — it's the workhorse underneath almost every derivative you'll compute."
+        }
+      ]
+    },
+    {
+      "tier": "advanced",
+      "problem_md": "Differentiate $f(x) = x^{7/3} - 4x^{-2} + \\sqrt[5]{x^3}$ and express the result with negative/fractional exponents simplified. Then justify why the Power Rule works by sketching a proof from the limit definition for general $n \\in \\mathbb{R}$.",
+      "steps": [
+        {
+          "step_md": "Rewrite every term as a pure power of $x$:\n$$f(x) = x^{7/3} - 4x^{-2} + x^{3/5}$$",
+          "why_md": "The Power Rule $\\frac{d}{dx}[x^n] = nx^{n-1}$ applies to any real exponent $n$, but the exponent must be explicit. Radical and reciprocal notation hides the exponent; rewriting makes it mechanical to apply the rule and reduces errors."
+        },
+        {
+          "step_md": "Apply the Power Rule term-by-term:\n$$f'(x) = \\frac{7}{3}x^{7/3 - 1} - 4 \\cdot (-2)x^{-2-1} + \\frac{3}{5}x^{3/5-1}$$\n$$= \\frac{7}{3}x^{4/3} + 8x^{-3} + \\frac{3}{5}x^{-2/5}$$",
+          "why_md": "Differentiation is linear: $\\frac{d}{dx}[af + bg] = a f' + b g'$. This follows directly from the limit definition (the limit of a sum is the sum of the limits, provided each exists). So you can treat each monomial independently, bring constants out, and apply the Power Rule to each $x^n$ factor."
+        },
+        {
+          "step_md": "**Why does the Power Rule work? (Positive integer case via the limit definition.)**\n\nStart from the definition:\n$$\\frac{d}{dx}[x^n] = \\lim_{h \\to 0} \\frac{(x+h)^n - x^n}{h}$$\nFactor using the algebraic identity $a^n - b^n = (a-b)(a^{n-1} + a^{n-2}b + \\cdots + b^{n-1})$ with $a = x+h$, $b = x$:\n$$= \\lim_{h \\to 0} \\frac{h\\bigl[(x+h)^{n-1} + (x+h)^{n-2}x + \\cdots + x^{n-1}\\bigr]}{h}$$\nCancel $h$:\n$$= \\lim_{h \\to 0} \\bigl[(x+h)^{n-1} + (x+h)^{n-2}x + \\cdots + x^{n-1}\\bigr]$$\nAs $h \\to 0$, every term $\\to x^{n-1}$, and there are exactly $n$ terms:\n$$= n\\,x^{n-1}.$$",
+          "why_md": "This is the foundational reason the Power Rule is true for $n \\in \\mathbb{Z}^+$. It's not an arbitrary pattern — it's a consequence of the difference-of-powers factorization and the limit process. Understanding this proof means you could re-derive the rule on demand if you ever forgot it, and it shows exactly where the coefficient $n$ comes from: it counts the number of identical terms in the sum after cancellation."
+        },
+        {
+          "step_md": "**Extension to rational and real exponents.**\n\nFor $n = p/q \\in \\mathbb{Q}$, write $y = x^{p/q}$, so $y^q = x^p$. Implicitly differentiate:\n$$q\\,y^{q-1}\\frac{dy}{dx} = p\\,x^{p-1}$$\n$$\\frac{dy}{dx} = \\frac{p}{q}\\cdot \\frac{x^{p-1}}{y^{q-1}} = \\frac{p}{q}\\cdot \\frac{x^{p-1}}{x^{p(q-1)/q}} = \\frac{p}{q}\\,x^{p/q - 1}.$$\nFor irrational $n$, define $x^n = e^{n \\ln x}$ and use the chain rule:\n$$\\frac{d}{dx}[e^{n \\ln x}] = e^{n \\ln x} \\cdot \\frac{n}{x} = n\\,x^{n}\\cdot x^{-1} = n\\,x^{n-1}.$$",
+          "why_md": "The integer proof doesn't cover the cases you actually used in the problem ($n = 7/3$, $n = -2$, $n = 3/5$). The implicit-differentiation argument extends the rule to all rationals, relying on the integer case already proved. The exponential/log argument covers every real exponent, but it depends on knowing the derivatives of $e^x$ and $\\ln x$ — so there is a careful logical order in building up calculus. Recognizing these dependencies is what separates rote use of the Power Rule from genuine understanding."
+        },
+        {
+          "step_md": "**Linear-approximation check.** Near $x = 1$:\n$$f(1) = 1 - 4 + 1 = -2, \\qquad f'(1) = \\frac{7}{3} + 8 + \\frac{3}{5} = \\frac{35 + 120 + 9}{15} = \\frac{164}{15}$$\nSo the linearization is $L(x) = -2 + \\frac{164}{15}(x - 1)$.\nQuick sanity check: $f(1.01) \\approx -2 + \\frac{164}{15}(0.01) \\approx -1.8907$. You can verify numerically that this matches $f(1.01)$ to several decimal places.",
+          "why_md": "Computing $f'$ at a concrete point and comparing the linearization to the actual function value is the single best way to catch algebraic mistakes. If $L(x)$ doesn't approximate $f(x)$ well for small perturbations, something is wrong. This ties the derivative back to its definition as the slope of the best local linear approximation, reinforcing that the derivative isn't just a formal symbol manipulation — it has geometric and numerical meaning."
+        },
+        {
+          "step_md": "**Stretch question.** Prove that if $f(x) = x^n$ and $g(x) = x^m$, then $\\frac{d}{dx}[f(g(x))] = nm\\,x^{nm - 1}$ using (a) the Chain Rule and (b) by first simplifying $f(g(x)) = x^{nm}$ and applying the Power Rule directly. Why must the two methods agree? Under what continuity/differentiability conditions does the Chain Rule guarantee this?",
+          "why_md": "This pushes you to think about the Chain Rule as a composition of linear approximations: if $g$ is locally linear near $a$ and $f$ is locally linear near $g(a)$, composing those linear maps multiplies the slopes. The agreement of the two methods isn't a coincidence — it's a consequence of the fact that $f \\circ g$ is differentiable whenever $g$ is differentiable at $a$ and $f$ is differentiable at $g(a)$. Exploring this builds the bridge to the next major differentiation technique."
+        }
+      ]
+    }
+  ],
+  "misconceptions": [
+    {
+      "short_name": "multiply_but_dont_subtract",
+      "description_md": "The student brings down the exponent as a coefficient but forgets to reduce the exponent by one. For example, they write $\\frac{d}{dx}[x^5] = 5x^5$ instead of $5x^4$.",
+      "why_wrong_md": "The power rule says $\\frac{d}{dx}[x^n] = n x^{n-1}$. Both steps matter: multiply by the old exponent **and** subtract one from it. Writing $5x^5$ omits the second step entirely.",
+      "socratic_response_md": "You got the coefficient of 5 — nice. Now look at your exponent: is $x^5$ really what the rule gives you, or did you skip a step? What does the $n-1$ part of $nx^{n-1}$ tell you to do?"
+    },
+    {
+      "short_name": "derivative_of_constant_is_one",
+      "description_md": "The student thinks the derivative of a plain constant like $7$ is $1$ (or $7$) instead of $0$. They might write $\\frac{d}{dx}[7] = 1$.",
+      "why_wrong_md": "A constant $c$ can be written as $c \\cdot x^0$. Applying the power rule: $c \\cdot 0 \\cdot x^{-1} = 0$. More intuitively, a constant never changes, so its rate of change is zero.",
+      "socratic_response_md": "Think about what $y = 7$ looks like on a graph — it is a horizontal line. What is the slope of a horizontal line, and what does that tell you about its derivative?"
+    },
+    {
+      "short_name": "power_rule_on_exponentials",
+      "description_md": "The student applies the power rule to exponential functions like $2^x$, writing $\\frac{d}{dx}[2^x] = x \\cdot 2^{x-1}$.",
+      "why_wrong_md": "The power rule applies when the **base** is the variable and the exponent is a constant ($x^n$). In $2^x$, the base is constant and the **exponent** is the variable — that is an exponential function, not a power function, and requires a completely different rule: $\\frac{d}{dx}[a^x] = a^x \\ln a$.",
+      "socratic_response_md": "Look carefully at $2^x$ versus $x^2$. In which one is the variable in the exponent, and in which one is it in the base? The power rule is built for $x^n$ — does $2^x$ fit that pattern?"
+    },
+    {
+      "short_name": "forget_to_differentiate_coefficient",
+      "description_md": "The student drops or ignores the existing coefficient when differentiating. For example, they write $\\frac{d}{dx}[3x^4] = 4x^3$ instead of $12x^3$.",
+      "why_wrong_md": "The constant multiple rule says $\\frac{d}{dx}[c \\cdot f(x)] = c \\cdot f'(x)$. The original coefficient of $3$ must be multiplied by the new coefficient from the power rule, giving $3 \\cdot 4x^3 = 12x^3$.",
+      "socratic_response_md": "You correctly found that $\\frac{d}{dx}[x^4] = 4x^3$. But the original term was $3x^4$, not just $x^4$. What does the constant multiple rule say you should do with that $3$?"
+    },
+    {
+      "short_name": "negative_exponent_sign_error",
+      "description_md": "When differentiating something like $x^{-3}$, the student writes $-3x^{-2}$ instead of $-3x^{-4}$. They subtract $1$ in the wrong direction, adding instead of subtracting.",
+      "why_wrong_md": "The new exponent should be $-3 - 1 = -4$, not $-3 + 1 = -2$. Subtracting $1$ from a negative number makes it more negative, not less.",
+      "socratic_response_md": "You wrote the new exponent as $-2$. Try the arithmetic again carefully: what is $-3 - 1$? Is that the same as $-3 + 1$?"
+    },
+    {
+      "short_name": "power_rule_inside_chain",
+      "description_md": "The student applies the power rule to a composite function but ignores the chain rule. For example, they write $\\frac{d}{dx}[(2x+1)^3] = 3(2x+1)^2$ and stop there.",
+      "why_wrong_md": "When the base is not simply $x$ but an expression like $2x+1$, the chain rule requires you to also multiply by the derivative of the inner function. The correct result is $3(2x+1)^2 \\cdot 2 = 6(2x+1)^2$.",
+      "socratic_response_md": "You handled the outer exponent correctly. But the base here is $2x+1$, not just $x$. If you think of this as $u^3$ where $u = 2x+1$, what does the chain rule say you still need to multiply by?"
+    }
+  ],
+  "checks": [
+    {
+      "tier": "novice",
+      "question_md": "Let's try a quick one. The Power Rule says: to find the derivative of $x^n$, you bring the exponent down in front and then subtract 1 from the exponent.\n\nSo if $f(x) = x^5$, what is $f'(x)$?\n\nFill in the blank: $f'(x) = \\_ \\cdot x^{\\_}$",
+      "expected_answer_md": "$f'(x) = 5x^4$\n\nYou bring the 5 down in front, then subtract 1 from the exponent: $5 - 1 = 4$. That's it.",
+      "expected_pattern": "5\\s*x\\s*\\^?\\s*4"
+    },
+    {
+      "tier": "novice",
+      "question_md": "A student tried to use the Power Rule on $x^3$ and wrote this:\n\n$$\\frac{d}{dx}[x^3] = 3x^3$$\n\nCan you spot the mistake? Pick one:\n\n**(A)** They forgot to bring the 3 down in front.\n\n**(B)** They brought the 3 down but forgot to subtract 1 from the exponent.\n\n**(C)** They should have multiplied the exponent by 2 instead of subtracting 1.",
+      "expected_answer_md": "**(B)** — They did bring the 3 down in front (good), but the exponent should have gone from 3 to $3 - 1 = 2$. The correct answer is $3x^2$.",
+      "expected_pattern": "[Bb]"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Spot the mistake in the following work and state the correct derivative.\n\nA student writes: \"If $f(x) = x^5$, then $f'(x) = 5x^5$.\" What did they get wrong, and what should $f'(x)$ be?",
+      "expected_answer_md": "They forgot to subtract 1 from the exponent. The correct derivative is $f'(x) = 5x^4$.",
+      "expected_pattern": "5\\s*x\\s*\\^?\\s*4|forgot.*(subtract|reduce|lower|decrease).*exponent|exponent.*should.*(4|one less|n\\s*-\\s*1)"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Fill in the blank: Using the Power Rule on $g(x) = x^{-3}$, we get\n\n$$g'(x) = \\rule{2cm}{0.4pt}$$\n\nHint: the Power Rule works for negative exponents too — bring the exponent down and subtract one from it, just like you would for positive exponents.",
+      "expected_answer_md": "$g'(x) = -3x^{-4}$",
+      "expected_pattern": "-\\s*3\\s*x\\s*\\^?\\s*\\(?\\s*-\\s*4\\s*\\)?"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "**Spot the gap.** Here is a sketch of the power rule proof for $n \\in \\mathbb{Z}^+$ using the limit definition:\n\n$$\\frac{d}{dx}x^n = \\lim_{h\\to 0}\\frac{(x+h)^n - x^n}{h}$$\n\nExpanding $(x+h)^n$ via the binomial theorem gives $x^n + nx^{n-1}h + \\binom{n}{2}x^{n-2}h^2 + \\cdots + h^n$.\n\nAfter subtracting $x^n$ and dividing by $h$, every surviving term except one still contains a factor of $h$. As $h \\to 0$, those terms vanish.\n\n**Fill in the blank:** The single surviving term that does *not* vanish is $\\underline{\\phantom{nx^{n-1}}}$. Why does this term alone survive?",
+      "expected_answer_md": "The surviving term is $nx^{n-1}$. It is the only term in $\\frac{(x+h)^n - x^n}{h}$ that has $h$ to the zeroth power after the division by $h$; all other terms retain at least one factor of $h$ and therefore vanish in the limit.",
+      "expected_pattern": "n\\s*x\\s*\\^?\\s*\\{?\\s*(n-1|n\\s*-\\s*1)\\s*\\}?"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "**What comes next?** The proof above assumes $n$ is a positive integer. To extend the power rule to $n = -1$ (i.e., $\\frac{d}{dx}x^{-1}$), a common strategy is to start from $x \\cdot x^{-1} = 1$ and apply a differentiation rule you already know.\n\nWhich rule do you apply, and what result does it give for $\\frac{d}{dx}x^{-1}$?",
+      "expected_answer_md": "Apply the **product rule** to $x \\cdot x^{-1} = 1$. Differentiating both sides:\n\n$$1 \\cdot x^{-1} + x \\cdot \\frac{d}{dx}x^{-1} = 0$$\n\nSolving: $\\frac{d}{dx}x^{-1} = -x^{-2}$, which matches $(-1)x^{-1-1}$.",
+      "expected_pattern": "product\\s*rule|(-1)?\\s*x\\s*\\^?\\s*\\{?\\s*-\\s*2\\s*\\}?|implicit"
+    }
+  ],
+  "deep_dives": [
+    {
+      "title": "Why Does the Power Rule Work for Any Real Exponent?",
+      "body_md": "Start with what you already trust: for positive integers, the power rule $\\frac{d}{dx}[x^n] = nx^{n-1}$ follows directly from the binomial theorem applied to the limit definition. Expand $(x+h)^n$, subtract $x^n$, divide by $h$, let $h \\to 0$, and every term except $nx^{n-1}$ vanishes. Clean and done.\n\nBut what about $x^{1/2}$, or $x^{-3}$, or $x^{\\pi}$? The binomial theorem (in its elementary form) doesn't apply to non-integer exponents. So you need a different engine.\n\n**Step 1: Rewrite every power in terms of $e$.**\n\nFor any real $\\alpha$ and $x > 0$, define\n$$x^\\alpha = e^{\\alpha \\ln x}.$$\nThis isn't a trick — it's the *definition* of a real exponent. The expression $x^\\pi$ has no meaning as repeated multiplication; it only makes sense through this exponential-log bridge.\n\n**Step 2: Differentiate with the chain rule.**\n\nLet $f(x) = e^{\\alpha \\ln x}$. The outer function is $e^u$ and the inner function is $u = \\alpha \\ln x$. Applying the chain rule:\n$$f'(x) = e^{\\alpha \\ln x} \\cdot \\frac{\\alpha}{x}.$$\n\n**Step 3: Simplify.**\n\nRecognize that $e^{\\alpha \\ln x} = x^\\alpha$, so\n$$f'(x) = x^\\alpha \\cdot \\frac{\\alpha}{x} = \\alpha\\, x^{\\alpha - 1}.$$\n\nThat's it. The power rule falls out for *every* real $\\alpha$ — positive, negative, rational, irrational — as long as $x > 0$ (so that $\\ln x$ exists).\n\n**Why this matters conceptually.**\n\nNotice that the heavy lifting is done by two facts you've already established independently:\n1. $\\frac{d}{dx}[e^u] = e^u \\cdot u'$ (the exponential rule), and\n2. $\\frac{d}{dx}[\\ln x] = \\frac{1}{x}$ (the logarithmic derivative).\n\nThe power rule for general exponents is not a separate theorem at all — it's a *corollary* of the exponential and logarithmic derivatives combined via the chain rule. The integer-exponent proof using the binomial theorem is a special case that happens to be self-contained, but the real architecture of calculus doesn't need it.\n\n**A subtlety worth noting:** when $\\alpha$ is a positive integer, $x^\\alpha$ is defined for all real $x$, including negative values. The formula $\\alpha x^{\\alpha-1}$ still works there, but the $e^{\\alpha \\ln x}$ derivation above doesn't cover $x < 0$ directly (since $\\ln x$ is undefined). For negative $x$ with integer exponents, you fall back on the binomial-theorem proof or extend via $|x|^\\alpha \\cdot \\text{sgn}(x)^\\alpha$ arguments. So the two proofs aren't redundant — they cover complementary domains.\n\n**Follow-up question to chew on:** You used $\\frac{d}{dx}[\\ln x] = \\frac{1}{x}$ in this derivation. But how do you prove *that* without already assuming the power rule for $\\alpha = -1$? Trace the logical dependency — is there a circular argument hiding here, or can you establish the derivative of $\\ln x$ independently?"
+    },
+    {
+      "title": "Where Does the Power Rule Come From? A Binomial-Expansion Proof for Integer n",
+      "body_md": "You already know the result: if $f(x)=x^n$ for a positive integer $n$, then $f'(x)=nx^{n-1}$. But why? Let's derive it from scratch using nothing but the limit definition of the derivative and the binomial theorem.\n\n## Setting up the limit\n\nStart with the definition:\n\n$$f'(x)=\\lim_{h\\to 0}\\frac{(x+h)^n - x^n}{h}$$\n\nEverything hinges on expanding $(x+h)^n$.\n\n## Applying the Binomial Theorem\n\nFor any positive integer $n$, the binomial theorem says:\n\n$$(x+h)^n = \\sum_{k=0}^{n}\\binom{n}{k}x^{n-k}h^k = x^n + nx^{n-1}h + \\binom{n}{2}x^{n-2}h^2 + \\cdots + h^n$$\n\nNotice the first term is just $x^n$. When you subtract $x^n$ in the numerator, it cancels perfectly:\n\n$$(x+h)^n - x^n = nx^{n-1}h + \\binom{n}{2}x^{n-2}h^2 + \\cdots + h^n$$\n\nEvery surviving term on the right contains at least one factor of $h$.\n\n## Dividing by $h$\n\nFactor out that common $h$:\n\n$$\\frac{(x+h)^n - x^n}{h} = nx^{n-1} + \\binom{n}{2}x^{n-2}h + \\binom{n}{3}x^{n-3}h^2 + \\cdots + h^{n-1}$$\n\nThe first term, $nx^{n-1}$, is a constant with respect to $h$. Every other term still carries at least one factor of $h$.\n\n## Taking the limit\n\nAs $h\\to 0$, every term with an $h$ in it vanishes:\n\n$$f'(x)=\\lim_{h\\to 0}\\left[nx^{n-1} + \\underbrace{\\binom{n}{2}x^{n-2}h + \\cdots + h^{n-1}}_{\\text{all }\\to\\; 0}\\right] = nx^{n-1}$$\n\nThat's it. The proof is clean precisely because the binomial theorem gives you an exact, finite expansion — no approximation, no hand-waving.\n\n## Why it really works — the intuition\n\nThink about what $(x+h)^n$ means combinatorially. You're choosing, from each of $n$ factors of $(x+h)$, either $x$ or $h$. The term $x^n$ comes from choosing $x$ every time. The term $nx^{n-1}h$ comes from choosing $h$ exactly once — and there are $n$ factors you could choose it from. That coefficient $n$ is literally counting the number of ways a single infinitesimal perturbation $h$ can appear. Higher-order terms involve picking $h$ two or more times; those contributions are negligible compared to $h$ itself as $h\\to 0$.\n\nSo the power rule coefficient $n$ is, at its core, a counting argument.\n\n## A key limitation\n\nThis proof assumes $n$ is a positive integer, because the binomial theorem in this form requires one. The power rule also holds for $n=-3$, $n=\\tfrac{1}{2}$, even $n=\\pi$. Those cases need different machinery — logarithmic differentiation, the generalized binomial series, or the inverse-function theorem.\n\n---\n\n**Follow-up question to chew on:** The binomial expansion of $(x+h)^n$ is infinite when $n$ is not a positive integer (Newton's generalized binomial series). Can you still run the same style of proof — divide by $h$, let $h\\to 0$ — and recover $nx^{n-1}$? What additional convergence conditions would you need to justify swapping the limit and the infinite sum?"
+    }
+  ],
+  "applications": [
+    {
+      "context": "physics",
+      "problem_md": "A small steel ball is dropped from rest off the edge of a tall building. Ignoring air resistance, the distance (in meters) the ball has fallen after $t$ seconds is modeled by\n\n$$s(t) = 4.9\\,t^{2}$$\n\nThis comes straight from the kinematic equation $s = \\tfrac{1}{2}g t^{2}$ with $g \\approx 9.8\\;\\text{m/s}^{2}$.\n\n(a) Use the power rule to find the ball's velocity function $v(t) = s'(t)$.\n\n(b) Use the power rule again to find the ball's acceleration function $a(t) = v'(t)$.\n\n(c) A sensor at the base of the building records that the ball strikes the ground at $t = 3.2$ seconds. How fast (in m/s) is the ball traveling at the instant of impact?\n\n(d) Does your acceleration function depend on time? Explain what that tells you physically about free fall near Earth's surface.",
+      "solution_outline_md": "**Approach:** Apply the power rule $\\frac{d}{dx}[x^n] = n\\,x^{n-1}$ to each term.\n\n**(a)** Differentiate $s(t) = 4.9\\,t^{2}$:\n$$v(t) = s'(t) = 4.9 \\cdot 2\\,t^{2-1} = 9.8\\,t$$\n\n**(b)** Differentiate $v(t) = 9.8\\,t = 9.8\\,t^{1}$:\n$$a(t) = v'(t) = 9.8 \\cdot 1\\,t^{0} = 9.8$$\nSo $a(t) = 9.8\\;\\text{m/s}^{2}$, a constant.\n\n**(c)** Evaluate $v(3.2)$:\n$$v(3.2) = 9.8(3.2) = 31.36\\;\\text{m/s}$$\nThe ball is traveling at $31.36\\;\\text{m/s}$ (about $70\\;\\text{mph}$) at impact.\n\n**(d)** The acceleration $a(t) = 9.8$ has no $t$ in it — it is constant. Physically this confirms that, near Earth's surface (and ignoring air resistance), every object in free fall accelerates at the same constant rate $g \\approx 9.8\\;\\text{m/s}^{2}$, regardless of how long it has been falling."
+    },
+    {
+      "context": "economics",
+      "problem_md": "A small clothing brand has found that when it prices its signature hoodie at $p$ dollars, the monthly revenue (in dollars) is well-modeled by\n\n$$R(p) = -0.4\\,p^{3} + 30\\,p^{2}$$\n\nfor prices in the range $10 \\le p \\le 60$. This cubic comes from fitting actual sales data: as the price rises, demand eventually drops fast enough to drag total revenue down.\n\n**(a)** Find the marginal-revenue-with-respect-to-price function $R'(p)$. (This tells you how sensitive revenue is to a small change in price.)\n\n**(b)** Evaluate $R'(25)$ and interpret its meaning in plain economic language.\n\n**(c)** At what price does $R'(p) = 0$? Use the second-derivative test (or any method you like) to confirm that this price maximizes revenue, and state the maximum monthly revenue.",
+      "solution_outline_md": "**Part (a):** Apply the power rule term-by-term.\n\n$$R'(p) = -1.2\\,p^{2} + 60\\,p$$\n\n**Part (b):**\n\n$$R'(25) = -1.2(625) + 60(25) = -750 + 1500 = 750$$\n\nInterpretation: At a price of \\$25, increasing the price by \\$1 would increase monthly revenue by approximately \\$750. Revenue is still climbing at this price point, so the hoodie is currently under-priced relative to the revenue peak.\n\n**Part (c):** Set $R'(p) = 0$:\n\n$$-1.2\\,p^{2} + 60\\,p = 0 \\implies p(-1.2\\,p + 60) = 0$$\n\nSo $p = 0$ (outside the domain) or $p = 50$.\n\nSecond-derivative check: $R''(p) = -2.4\\,p + 60$, so $R''(50) = -2.4(50) + 60 = -60 < 0$, confirming a local maximum.\n\nMaximum revenue:\n\n$$R(50) = -0.4(125{,}000) + 30(2{,}500) = -50{,}000 + 75{,}000 = \\$25{,}000 \\text{ per month}$$\n\nThe brand maximizes monthly revenue at a price of \\$50 per hoodie, earning \\$25,000."
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "concept_id": "integ.by-parts",
+  "name": "Integration by Parts",
+  "track": "BOTH",
+  "one_liner": "Reversing the product rule: $\\int u \\, dv = uv - \\int v \\, du$.",
+  "prerequisites": [
+    "integ.ftc",
+    "deriv.product-rule"
+  ],
+  "explanations": [
+    {
+      "tier": "novice",
+      "framing_index": 0,
+      "body_md": "You already know the product rule for derivatives: if you have two functions multiplied together, the derivative of $u \\cdot v$ is $u'v + uv'$. Integration by parts is just the product rule running in reverse.\n\nHere is the formula:\n\n$$\\int u \\, dv = u \\cdot v - \\int v \\, du$$\n\nThat looks abstract, so let's make it concrete with an example: $\\int x \\, e^x \\, dx$.\n\nThe big question is: which piece do you call $u$ and which do you call $dv$? This is where the **LIATE** trick helps. LIATE is just a priority list for choosing $u$:\n\n- **L** — Logarithmic (like $\\ln x$)\n- **I** — Inverse trig (like $\\arctan x$)\n- **A** — Algebraic (like $x$, $x^2$)\n- **T** — Trig (like $\\sin x$, $\\cos x$)\n- **E** — Exponential (like $e^x$)\n\nWhatever appears earliest in that list becomes $u$. In $\\int x \\, e^x \\, dx$, the piece $x$ is algebraic (A) and $e^x$ is exponential (E). A comes before E in LIATE, so pick $u = x$.\n\nNow set up the parts:\n\n- $u = x \\implies du = dx$\n- $dv = e^x \\, dx \\implies v = e^x$\n\nPlug into the formula:\n\n$$\\int x \\, e^x \\, dx = x \\cdot e^x - \\int e^x \\, dx$$\n\nThat remaining integral is one you already know: $\\int e^x \\, dx = e^x + C$. So:\n\n$$\\int x \\, e^x \\, dx = x \\, e^x - e^x + C$$\n\nNotice what happened: the original integral was hard because $x$ and $e^x$ were tangled together. By choosing $u = x$, taking its derivative turned it into just $1$, which simplified everything. That is the whole point — pick the $u$ whose derivative gets simpler. LIATE guides you toward that choice almost every time.\n\nIf your first choice of $u$ makes the new integral harder, just swap and try again. Nothing breaks.",
+      "intuition_md": "Think of integration by parts like unpacking a box that holds two items taped together. You can't deal with them as one lump, so you separate them: you hold one item steady ($u$) and integrate the other ($dv$). The LIATE list is like a label that tells you which item to hold — pick the one that gets lighter (simpler) when you differentiate it. The trade-off is you still have a smaller box to unpack (the remaining integral), but it should be easier than the original. Each round of integration by parts peels away one layer of complexity."
+    },
+    {
+      "tier": "novice",
+      "framing_index": 1,
+      "body_md": "You already know the product rule for derivatives. Integration by parts is just what happens when you integrate both sides of that rule. That's it. Let's walk through it slowly.\n\nRecall the product rule: if you have two functions $u$ and $v$, then\n\n$$\\frac{d}{dx}[u \\cdot v] = u \\cdot v' + v \\cdot u'$$\n\nNow integrate every term with respect to $x$:\n\n$$\\int \\frac{d}{dx}[u \\cdot v]\\, dx = \\int u \\cdot v'\\, dx + \\int v \\cdot u'\\, dx$$\n\nThe left side simplifies — integrating a derivative just gives you back the original thing (that's the Fundamental Theorem of Calculus at work):\n\n$$u \\cdot v = \\int u \\cdot v'\\, dx + \\int v \\cdot u'\\, dx$$\n\nRearrange by subtracting $\\int v \\cdot u'\\, dx$ from both sides:\n\n$$\\int u \\cdot v'\\, dx = u \\cdot v - \\int v \\cdot u'\\, dx$$\n\nThat's the integration by parts formula. Nothing new was invented — you just ran the product rule in reverse.\n\nLet's try a concrete example: $\\int x \\cos x\\, dx$.\n\nPick $u = x$ and $v' = \\cos x$. Then $u' = 1$ and $v = \\sin x$ (since the antiderivative of $\\cos x$ is $\\sin x$). Plug into the formula:\n\n$$\\int x \\cos x\\, dx = x \\sin x - \\int \\sin x \\cdot 1\\, dx$$\n\nThat remaining integral is straightforward: $\\int \\sin x\\, dx = -\\cos x + C$. So:\n\n$$\\int x \\cos x\\, dx = x \\sin x + \\cos x + C$$\n\nThe whole strategy is: you start with one integral that looks hard, and you trade it for a simpler one. The art is choosing $u$ and $v'$ wisely so the new integral is actually easier. If the new integral looks worse, try swapping your choices.",
+      "intuition_md": "Think of it like unpacking a box that was taped shut by the product rule. The product rule combined two functions into a single derivative expression. Integration by parts is you carefully pulling that tape off — reversing the process — to recover the pieces. You choose which piece to call $u$ (the part you want to differentiate and simplify) and which to call $v'$ (the part you can comfortably integrate). A good split makes the remaining integral simpler, like choosing the right edge of tape to peel first so the whole box opens cleanly instead of tearing."
+    },
+    {
+      "tier": "on_pace",
+      "framing_index": 0,
+      "body_md": "You already know the product rule: $\\frac{d}{dx}[u\\,v] = u'v + uv'$. Integration by parts is what happens when you integrate both sides of that identity.\n\nStart from the product rule and integrate:\n\n$$\\int u\\,v'\\,dx = u\\,v - \\int u'\\,v\\,dx$$\n\nOr, in differential shorthand:\n\n$$\\int u\\,dv = u\\,v - \\int v\\,du$$\n\nThe whole point: you trade one integral ($\\int u\\,dv$) for a hopefully easier integral ($\\int v\\,du$).\n\n**How to choose $u$ and $dv$**\n\nUse the LIATE mnemonic to pick $u$ (the part you differentiate). Prefer, in order: **L**ogarithmic, **I**nverse trig, **A**lgebraic, **T**rigonometric, **E**xponential. Whatever is left becomes $dv$.\n\nFor example, consider $\\int x\\,e^x\\,dx$. Here $x$ is algebraic and $e^x$ is exponential, so LIATE says let $u = x$.\n\n| | choice | result |\n|---|---|---|\n| $u$ | $x$ | $du = dx$ |\n| $dv$ | $e^x\\,dx$ | $v = e^x$ |\n\nPlug in:\n\n$$\\int x\\,e^x\\,dx = x\\,e^x - \\int e^x\\,dx = x\\,e^x - e^x + C$$\n\nNotice the new integral $\\int e^x\\,dx$ is simpler than the original — that is the sign you chose well.\n\n**Common sticking points**\n\n1. *Forgetting the minus sign.* The formula has a subtraction. Double-check it every time.\n2. *Choosing $u$ and $dv$ backwards.* If the new integral is harder than the original, swap your choices.\n3. *Needing to apply parts more than once.* For $\\int x^2 e^x\\,dx$, you will use integration by parts twice, reducing the power of $x$ each time.\n4. *Cyclic integrals.* Sometimes (e.g., $\\int e^x \\sin x\\,dx$) applying parts twice brings back the original integral. Set $I = \\int e^x \\sin x\\,dx$, solve the resulting equation for $I$.\n\nThis technique bridges basic antidifferentiation and more advanced methods like partial fractions and trig substitution that you will see soon.",
+      "intuition_md": "Think of integration by parts as a see-saw. You have a product of two functions under the integral sign, and you cannot antidifferentiate the product directly. The formula lets you shift the derivative burden from one factor to the other. You differentiate $u$ (making it simpler) while integrating $dv$ (absorbing one antiderivative). If you pick $u$ wisely — something that gets simpler when differentiated, like $x^n$ or $\\ln x$ — the new integral on the right side of the see-saw is lighter than the one you started with. A bad choice tips the see-saw the wrong way: the new integral is harder. When that happens, just reverse your choices."
+    },
+    {
+      "tier": "advanced",
+      "framing_index": 0,
+      "body_md": "Integration by parts is the product rule in reverse. Start from the product rule for two differentiable functions $u(x)$ and $v(x)$:\n\n$$\\frac{d}{dx}[u(x)\\,v(x)] = u'(x)\\,v(x) + u(x)\\,v'(x)$$\n\nIntegrate both sides over $[a,b]$ and apply the Fundamental Theorem of Calculus on the left:\n\n$$u(x)\\,v(x)\\Big|_a^b = \\int_a^b u'(x)\\,v(x)\\,dx + \\int_a^b u(x)\\,v'(x)\\,dx$$\n\nRearrange:\n\n$$\\int_a^b u(x)\\,v'(x)\\,dx = u(x)\\,v(x)\\Big|_a^b - \\int_a^b v(x)\\,u'(x)\\,dx$$\n\nOr in indefinite form with the shorthand $dv = v'(x)\\,dx$ and $du = u'(x)\\,dx$:\n\n$$\\int u\\,dv = uv - \\int v\\,du$$\n\nThat's the entire derivation — no hidden steps. The rule is *true* because the product rule is true and the FTC lets you move between derivatives and integrals.\n\nThe strategic point: you choose $u$ and $dv$ so that $\\int v\\,du$ is simpler than $\\int u\\,dv$. Differentiating $u$ should reduce complexity; antidifferentiating $dv$ should not increase it.\n\nA quick example. Evaluate $\\int x\\,e^x\\,dx$. Let $u = x$, $dv = e^x\\,dx$. Then $du = dx$, $v = e^x$. So:\n\n$$\\int x\\,e^x\\,dx = x\\,e^x - \\int e^x\\,dx = x\\,e^x - e^x + C$$\n\nNote that continuity of $u'$ and $v$ on the interval is required to legitimately apply the FTC in the derivation; without it the boundary term $uv\\big|_a^b$ may not equal the integral of its derivative.\n\nAlso worth noting: integration by parts generalizes to the tabular (repeated) method and connects to reduction formulas for $\\int \\sin^n x\\,dx$, $\\int (\\ln x)^n\\,dx$, etc. In multivariable calculus, the same idea yields Green's first identity and, eventually, the divergence theorem.\n\n**Stretch question:** Prove that $\\int_0^1 (\\ln x)^n\\,dx = (-1)^n\\,n!$ for positive integers $n$ using repeated integration by parts and identify exactly where continuity considerations force you to treat the integral as an improper integral.",
+      "intuition_md": "Think of the product $u(x)\\,v(x)$ as the area of a rectangle whose sides change with $x$. The total rate of area change is $u\\,dv + v\\,du$ (the product rule, geometrically: a horizontal strip plus a vertical strip). Integration by parts says: if you know the total area change $uv\\big|_a^b$ and you can compute one of those strip-integrals ($\\int v\\,du$), you get the other ($\\int u\\,dv$) for free by subtraction. You are trading one integral for another, hoping the new one is easier."
+    }
+  ],
+  "examples": [
+    {
+      "tier": "novice",
+      "problem_md": "Evaluate $\\int x \\, e^x \\, dx$.",
+      "steps": [
+        {
+          "step_md": "We need to split the integrand $x \\cdot e^x$ into two pieces: one piece we will call $u$ and the other $dv$. Choose:\n\n$$u = x \\qquad dv = e^x \\, dx$$",
+          "why_md": "Integration by parts is a technique for integrals where two different kinds of functions are multiplied together and you can't just use a basic rule. Think of it like this: you can't eat a sandwich in one bite, so you take it apart and eat the pieces. The formula is:\n\n$$\\int u \\, dv = u \\cdot v - \\int v \\, du$$\n\nThe whole game is picking $u$ and $dv$ wisely. You want to choose $u$ as the part that gets **simpler** when you take its derivative. The derivative of $x$ is just $1$ — that's simpler. The derivative of $e^x$ is still $e^x$, so it doesn't simplify. That's why $u = x$ is the smart choice here."
+        },
+        {
+          "step_md": "Compute $du$ and $v$ from our choices:\n\n$$du = 1 \\cdot dx = dx$$\n\n$$v = \\int e^x \\, dx = e^x$$",
+          "why_md": "The formula $\\int u \\, dv = u \\cdot v - \\int v \\, du$ needs four ingredients: $u$, $v$, $du$, and $dv$. We already picked $u$ and $dv$. Now we fill in the other two. To get $du$, you take the derivative of $u = x$. To get $v$, you take the antiderivative (the reverse of the derivative) of $dv = e^x\\,dx$. The antiderivative of $e^x$ is just $e^x$ — that's one of those facts worth memorizing because it comes up constantly."
+        },
+        {
+          "step_md": "Plug everything into the integration-by-parts formula:\n\n$$\\int x \\, e^x \\, dx = u \\cdot v - \\int v \\, du = x \\cdot e^x - \\int e^x \\, dx$$",
+          "why_md": "This is the payoff of all that setup. Notice what happened: the original integral $\\int x \\, e^x\\,dx$ was hard. But after substituting into the formula, the remaining integral $\\int e^x\\,dx$ is easy — there's no more $x$ multiplied in. That's exactly what integration by parts is designed to do: trade a hard integral for an easier one."
+        },
+        {
+          "step_md": "Evaluate the remaining integral:\n\n$$\\int e^x \\, dx = e^x$$\n\nSo we have:\n\n$$x \\cdot e^x - e^x$$",
+          "why_md": "This is just a straightforward antiderivative. The antiderivative of $e^x$ is $e^x$. Nothing tricky here — you're just finishing what the formula started."
+        },
+        {
+          "step_md": "Add the constant of integration to get the final answer:\n\n$$\\boxed{\\int x \\, e^x \\, dx = x\\,e^x - e^x + C}$$\n\nYou can also factor this as $e^x(x - 1) + C$ if you like.",
+          "why_md": "Whenever you compute an indefinite integral (one without limits of integration), you must include $+ C$. This is because many different functions can have the same derivative — for example, $e^x + 5$ and $e^x + 100$ both have derivative $e^x$. The $C$ accounts for all those possibilities.\n\nQuick sanity check: take the derivative of $x\\,e^x - e^x + C$. Using the product rule on the first term: $\\frac{d}{dx}[x\\,e^x] = 1 \\cdot e^x + x \\cdot e^x = e^x + x\\,e^x$. Then subtract the derivative of $e^x$, which is $e^x$. You get $e^x + x\\,e^x - e^x = x\\,e^x$. That matches the original integrand, so the answer checks out.\n\nIf this felt like a lot of steps, that's normal. Integration by parts is one of those techniques that clicks after you do a handful of practice problems. Try $\\int x\\,e^{2x}\\,dx$ next — same idea, just one small twist with the chain rule when you find $v$."
+        }
+      ]
+    },
+    {
+      "tier": "on_pace",
+      "problem_md": "Evaluate $$\\int x\\, e^{2x}\\, dx.$$",
+      "steps": [
+        {
+          "step_md": "Identify the parts for Integration by Parts. Recall the formula: $$\\int u\\, dv = uv - \\int v\\, du.$$ Choose $u = x$ and $dv = e^{2x}\\, dx$.",
+          "why_md": "Integration by Parts is the integral analog of the Product Rule — you already know how to differentiate a product; this lets you integrate one. The strategy is to pick $u$ as the piece that gets simpler when you differentiate it. Here $x$ differentiates down to $1$, which is simpler, while $e^{2x}$ is easy to integrate. This is the classic LIATE guideline at work: Logarithmic → Inverse trig → Algebraic → Trig → Exponential. Since $x$ is algebraic and $e^{2x}$ is exponential, $x$ wins the $u$ slot."
+        },
+        {
+          "step_md": "Compute $du$ and $v$: $$du = dx, \\qquad v = \\int e^{2x}\\, dx = \\frac{1}{2}e^{2x}.$$",
+          "why_md": "You need all four pieces ($u$, $dv$, $du$, $v$) before you can apply the formula. A common sticking point: don't forget the $\\frac{1}{2}$ when integrating $e^{2x}$. That factor comes from the chain rule in reverse (a basic $u$-substitution inside the parts process). You don't need a $+C$ here because we'll add one at the very end."
+        },
+        {
+          "step_md": "Substitute into the Integration by Parts formula: $$\\int x\\, e^{2x}\\, dx = x \\cdot \\frac{1}{2}e^{2x} - \\int \\frac{1}{2}e^{2x}\\, dx = \\frac{x}{2}e^{2x} - \\frac{1}{2}\\int e^{2x}\\, dx.$$",
+          "why_md": "This is the payoff step. The whole point of the method is to trade the original integral for a new, easier one. Notice the new integral $\\int e^{2x}\\, dx$ no longer has the troublesome $x$ factor — that's exactly what choosing $u = x$ was designed to accomplish."
+        },
+        {
+          "step_md": "Evaluate the remaining integral: $$\\frac{1}{2}\\int e^{2x}\\, dx = \\frac{1}{2} \\cdot \\frac{1}{2}e^{2x} = \\frac{1}{4}e^{2x}.$$",
+          "why_md": "This is a straightforward exponential integral, the same mini $u$-sub you did in Step 2. Keeping the $\\frac{1}{2}$ out front and handling it carefully avoids the most frequent arithmetic mistake in this problem."
+        },
+        {
+          "step_md": "Combine and attach the constant of integration: $$\\int x\\, e^{2x}\\, dx = \\frac{x}{2}e^{2x} - \\frac{1}{4}e^{2x} + C.$$ You can factor if you like: $$= \\frac{e^{2x}}{4}(2x - 1) + C.$$",
+          "why_md": "Always add $+C$ for an indefinite integral — easy to lose points on an exam for forgetting it. Factoring is optional, but it makes the answer cleaner and easier to check. Speaking of checking: you can verify by differentiating the answer using the Product Rule. You should get $x\\, e^{2x}$, which closes the loop nicely. This connection matters — Integration by Parts and the Product Rule are two sides of the same coin. Looking ahead, problems like $\\int x^2 e^{2x}\\, dx$ require applying parts twice (or using a tabular/DI method), so once you're comfortable with this single-round version, that's a natural next step."
+        }
+      ]
+    },
+    {
+      "tier": "advanced",
+      "problem_md": "Evaluate $$\\int e^x \\cos x \\, dx.$$",
+      "steps": [
+        {
+          "step_md": "**Recall the rule and where it comes from.** Integration by parts states: $$\\int u \\, dv = uv - \\int v \\, du.$$ This is just the product rule for derivatives, $\\frac{d}{dx}[uv] = u'v + uv'$, integrated on both sides and rearranged. In differential form: $d(uv) = v\\,du + u\\,dv$, so $u\\,dv = d(uv) - v\\,du$. Integrate both sides and you get the formula. Nothing is being \"introduced\" — you are merely redistributing the derivative between two factors.",
+          "why_md": "Understanding the origin matters because it tells you the strategy: you are trading $\\int u\\,dv$ for $\\int v\\,du$, and the trade is only useful if the new integral is simpler (or, as in this problem, cyclically recoverable). The formula is exact — no approximation, no continuity subtlety beyond requiring that $u$ and $v$ are differentiable and the integrals exist."
+        },
+        {
+          "step_md": "**First application of IBP.** Let $u = e^x$, $dv = \\cos x \\, dx$, so $du = e^x \\, dx$, $v = \\sin x$. Then $$\\int e^x \\cos x \\, dx = e^x \\sin x - \\int e^x \\sin x \\, dx.$$",
+          "why_md": "Neither factor simplifies upon differentiation — $e^x$ stays $e^x$, and trig functions cycle. That means the usual heuristic (LIATE) doesn't clearly favor a choice. Pick $u = e^x$ anyway; the key observation is that after two applications, the trig function will cycle back to $\\cos x$, and the $e^x$ factor persists. This will let you solve for the original integral algebraically."
+        },
+        {
+          "step_md": "**Second application of IBP on the remaining integral.** For $\\int e^x \\sin x \\, dx$, let $u = e^x$, $dv = \\sin x \\, dx$, giving $du = e^x \\, dx$, $v = -\\cos x$. $$\\int e^x \\sin x \\, dx = -e^x \\cos x + \\int e^x \\cos x \\, dx.$$ Substituting back: $$\\int e^x \\cos x \\, dx = e^x \\sin x - \\left[-e^x \\cos x + \\int e^x \\cos x \\, dx\\right].$$",
+          "why_md": "You must make the same type of choice (keep $u = e^x$) in the second round. If you switch roles (e.g., let $u = \\sin x$), you will undo the first integration by parts and arrive at $0 = 0$ — a true but useless identity. Consistency in assignment is what generates the cycle."
+        },
+        {
+          "step_md": "**Simplify and solve for the integral.** Let $I = \\int e^x \\cos x \\, dx$. The equation becomes $$I = e^x \\sin x + e^x \\cos x - I.$$ Add $I$ to both sides: $$2I = e^x (\\sin x + \\cos x),$$ so $$I = \\frac{e^x (\\sin x + \\cos x)}{2} + C.$$",
+          "why_md": "This \"solve-for-the-integral\" move is possible precisely because two applications of IBP cycle the integrand back to its original form, producing a linear equation in $I$. The technique generalizes: any integral $\\int e^{ax}\\cos(bx)\\,dx$ or $\\int e^{ax}\\sin(bx)\\,dx$ can be handled identically, and it also underlies the Laplace-transform derivation of $\\mathcal{L}\\{\\cos(bt)\\}$."
+        },
+        {
+          "step_md": "**Verify by differentiation.** Differentiate $\\frac{1}{2}e^x(\\sin x + \\cos x)$: $$\\frac{1}{2}\\left[e^x(\\sin x + \\cos x) + e^x(\\cos x - \\sin x)\\right] = \\frac{1}{2}\\cdot 2e^x \\cos x = e^x \\cos x. \\checkmark$$",
+          "why_md": "Always verify an antiderivative by differentiating. This closes the loop: integration by parts came from the product rule, and the product rule confirms the answer. **Stretch question:** Can you derive a general closed form for $\\int e^{ax}\\cos(bx)\\,dx$ using the same cyclic IBP technique, and then re-derive it by writing $\\cos(bx) = \\operatorname{Re}(e^{ibx})$ so the integral becomes $\\operatorname{Re}\\!\\int e^{(a+ib)x}dx$? Compare the two approaches — the complex-exponential method is one line and illuminates why the answer always involves $a^2 + b^2$ in the denominator."
+        }
+      ]
+    }
+  ],
+  "misconceptions": [
+    {
+      "short_name": "wrong_choice_of_u_and_dv",
+      "description_md": "The student picks $u$ and $dv$ in a way that makes the integral harder instead of simpler. For example, when integrating $\\int x e^x \\, dx$, they choose $u = e^x$ and $dv = x \\, dx$, which forces them to integrate $\\int \\frac{x^2}{2} e^x \\, dx$ — a more complicated problem than the one they started with.",
+      "why_wrong_md": "Integration by parts is supposed to simplify the integral on each application. Choosing $u = e^x$ means $du = e^x \\, dx$ (no simpler), while $v = \\frac{x^2}{2}$ is more complex than the original $x$. The LIATE guideline (Logarithmic, Inverse trig, Algebraic, Trigonometric, Exponential) exists precisely to help you pick $u$ so that $du$ is simpler and $v$ is manageable.",
+      "socratic_response_md": "After you applied integration by parts with your choice, did the new integral $\\int v \\, du$ get simpler or harder than the original? What would happen if you swapped your choices so that the algebraic part $x$ is $u$ instead?"
+    },
+    {
+      "short_name": "forgetting_the_minus_sign",
+      "description_md": "The student writes the integration by parts formula as $\\int u \\, dv = uv + \\int v \\, du$ instead of $\\int u \\, dv = uv - \\int v \\, du$. For instance, for $\\int x \\cos x \\, dx$, they get $x \\sin x + \\int \\sin x \\, dx = x \\sin x - \\cos x + C$ instead of the correct $x \\sin x - \\int \\sin x \\, dx = x \\sin x + \\cos x + C$.",
+      "why_wrong_md": "The formula $\\int u \\, dv = uv - \\int v \\, du$ has a subtraction sign because it comes from integrating the product rule $d(uv) = u \\, dv + v \\, du$. Rearranging gives $u \\, dv = d(uv) - v \\, du$, and integrating both sides produces the minus sign. Dropping it changes the entire answer.",
+      "socratic_response_md": "Try differentiating your final answer and see if you recover $x \\cos x$. If you get a sign error, can you trace it back to the formula you used and compare it with the product rule $d(uv) = u\\,dv + v\\,du$ rearranged for $u\\,dv$?"
+    },
+    {
+      "short_name": "dropping_the_remaining_integral",
+      "description_md": "The student treats integration by parts as though $\\int u \\, dv = uv$ and simply stops, forgetting the $- \\int v \\, du$ term entirely. For example, they write $\\int x e^x \\, dx = x e^x + C$ and move on.",
+      "why_wrong_md": "The formula $\\int u \\, dv = uv - \\int v \\, du$ always produces a new integral that still needs to be evaluated. The $uv$ term alone is not the antiderivative — it is only one piece of the answer. You can verify by differentiating: $\\frac{d}{dx}[xe^x] = e^x + xe^x \\neq xe^x$.",
+      "socratic_response_md": "If your answer is $x e^x + C$, what do you get when you differentiate it? Does that match the original integrand $x e^x$, and if not, what part of the integration by parts formula might you have left out?"
+    },
+    {
+      "short_name": "not_recognizing_tabular_cycling",
+      "description_md": "When integrating something like $\\int e^x \\sin x \\, dx$, the student applies integration by parts once or twice, sees that a similar integral reappears, and concludes they are going in circles with no solution. They give up or keep applying the formula indefinitely.",
+      "why_wrong_md": "When the original integral $I = \\int e^x \\sin x \\, dx$ reappears after two applications of integration by parts, this is not a dead end — it is an equation you can solve. You get something like $I = e^x \\sin x - e^x \\cos x - I$, which gives $2I = e^x(\\sin x - \\cos x)$, so $I = \\frac{e^x(\\sin x - \\cos x)}{2} + C$. The reappearance of $I$ is a feature, not a bug.",
+      "socratic_response_md": "You noticed the original integral showed up again on the right side — what if you called that integral $I$ and treated the whole equation algebraically? Could you isolate $I$ the same way you would solve $I = \\text{stuff} - I$ for $I$?"
+    },
+    {
+      "short_name": "forgetting_constant_of_integration_in_v",
+      "description_md": "The student worries about (or actually includes) a constant of integration when computing $v$ from $dv$. For example, with $dv = \\cos x \\, dx$, they write $v = \\sin x + C_1$ and then carry that $C_1$ through the entire formula, creating a confusing mess — or worse, they think different choices of $C_1$ give different final answers.",
+      "why_wrong_md": "When you compute $v$ from $dv$, you are free to choose any particular antiderivative because the constant cancels out. If you use $v = \\sin x + C_1$, then $uv - \\int v\\,du$ becomes $(u)(\\sin x + C_1) - \\int (\\sin x + C_1)\\,du$. The $C_1 \\cdot u$ terms cancel exactly. So you can (and should) just set $C_1 = 0$ for simplicity. The only constant of integration that matters is the one at the very end.",
+      "socratic_response_md": "Suppose you use $v = \\sin x + C_1$ and carry it through the full formula $uv - \\int v \\, du$. What happens to the $C_1$ terms when you expand everything — do they survive, or do they cancel? What does that tell you about which value of $C_1$ is most convenient to use?"
+    }
+  ],
+  "checks": [
+    {
+      "tier": "novice",
+      "question_md": "Integration by parts is built on a simple idea: you split your integral into two pieces — one piece you call $u$ (which you will take the derivative of) and another you call $dv$ (which you will integrate).\n\nSuppose you want to find $\\int x \\cos(x)\\, dx$. You have two factors here: $x$ and $\\cos(x)$.\n\nWhich one would be smarter to pick as $u$ — the part you'll take the derivative of?\n\n(a) $u = x$, because its derivative is just $1$, which simplifies things\n\n(b) $u = \\cos(x)$, because cosine is a familiar trig function",
+      "expected_answer_md": "(a) $u = x$, because when you take its derivative you get $1$, which makes the remaining integral simpler.",
+      "expected_pattern": "(?i)(a|u\\s*=\\s*x)"
+    },
+    {
+      "tier": "novice",
+      "question_md": "The integration-by-parts formula says:\n\n$$\\int u\\, dv = u \\cdot v - \\int v\\, du$$\n\nThink of it like a trade: you swap the original integral for a (hopefully easier) new integral on the right side.\n\nLet's say you chose $u = x$ and $dv = \\cos(x)\\, dx$.\n\nYou already know $du = 1\\, dx$ (the derivative of $x$). Now you need $v$, which means you integrate $dv = \\cos(x)\\, dx$.\n\nFill in the blank: $v = $ ______",
+      "expected_answer_md": "$v = \\sin(x)$",
+      "expected_pattern": "(?i)sin\\s*\\(?x\\)?"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "You want to evaluate $\\int x\\,e^{2x}\\,dx$ using integration by parts. You need to choose $u$ and $dv$.\n\nFill in the blanks:\n\n$u = $ ______ ,  $dv = $ ______\n\nThen state what $du$ and $v$ are after differentiating/integrating your choices.",
+      "expected_answer_md": "$u = x$, so $du = dx$.\n\n$dv = e^{2x}\\,dx$, so $v = \\dfrac{1}{2}e^{2x}$.\n\nThe key reasoning: picking $u = x$ is smart because differentiating it makes things simpler ($du = dx$), while $e^{2x}$ is easy to integrate.",
+      "expected_pattern": "u\\s*=\\s*x|du\\s*=\\s*dx|v\\s*=\\s*(1/2|\\\\frac\\{1\\}\\{2\\})\\s*e"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Spot the mistake in the following work.\n\nA student writes:\n\n$$\\int \\ln(x)\\,dx$$\n\nLet $u = \\ln(x)$, $dv = dx$, so $du = \\dfrac{1}{x}\\,dx$, $v = x$.\n\nApplying the formula $\\int u\\,dv = uv - \\int v\\,du$:\n\n$$\\int \\ln(x)\\,dx = x\\ln(x) + \\int x \\cdot \\frac{1}{x}\\,dx = x\\ln(x) + x + C$$\n\nWhat went wrong?",
+      "expected_answer_md": "The student used a **plus** sign instead of a **minus** sign after $x\\ln(x)$. The integration by parts formula gives $uv \\;-\\; \\int v\\,du$, so the correct result is:\n\n$$x\\ln(x) - \\int 1\\,dx = x\\ln(x) - x + C$$",
+      "expected_pattern": "minus|sign|subtract|\\-\\s*x|negative|plus.*wrong|wrong.*sign"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "Integration by parts is derived by integrating both sides of the product rule for differentiation. Starting from $\\frac{d}{dx}[u\\,v] = u\\,v' + u'\\,v$, rearrange and integrate to obtain the IBP formula. Fill in the blank:\n\n$$\\int u\\,dv = uv - \\text{\\_\\_\\_\\_\\_\\_}$$\n\nNow, briefly: why does the formula require that $u$ and $v$ are *continuous* on the interval of integration? What would go wrong at a discontinuity?",
+      "expected_answer_md": "The blank is $\\int v\\,du$. The derivation relies on the Fundamental Theorem of Calculus (evaluating $\\int \\frac{d}{dx}[uv]\\,dx = uv$), which requires $uv$ to be continuous (and $u'v + uv'$ to be integrable). At a discontinuity of $u$ or $v$, the antiderivative $uv$ has a jump, so the FTC equality fails and the boundary term $uv\\Big|_a^b$ no longer accounts for the full integral.",
+      "expected_pattern": "(?i)(\\\\int\\s*v\\s*d\\s*u|v\\s*du|fundamental\\s*theorem|FTC|continuous|antiderivative|jump)"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "Spot the mistake in the following evaluation:\n\n$$\\int_0^\\infty x\\,e^{-x}\\,dx$$\n\nA student writes: Let $u = x$, $dv = e^{-x}\\,dx$, so $du = dx$, $v = -e^{-x}$.\n\n$$= \\Big[-x\\,e^{-x}\\Big]_0^\\infty + \\int_0^\\infty e^{-x}\\,dx = 0 + \\Big[-e^{-x}\\Big]_0^\\infty = 0 - (-1) = 1$$\n\nThe final answer $1$ is correct. So where exactly is the reasoning sloppy, and what justification is missing?",
+      "expected_answer_md": "The student writes $\\Big[-x\\,e^{-x}\\Big]_0^\\infty = 0$ without justification. This is a limit: $\\lim_{b\\to\\infty}(-b\\,e^{-b}) = 0$, which requires showing the exponential decay dominates the linear growth (e.g., via L'Hôpital: $\\lim_{b\\to\\infty}\\frac{b}{e^b} = \\lim_{b\\to\\infty}\\frac{1}{e^b} = 0$). Similarly, the upper limit of $\\Big[-e^{-x}\\Big]_0^\\infty$ needs an explicit limit. Replacing $\\infty$ with a finite bound $b$ and taking $b\\to\\infty$ is required for a rigorous argument with improper integrals.",
+      "expected_pattern": "(?i)(limit|l.h.pital|l'hopital|lhopital|improper|\\blim\\b|dominat|exponential.*decay|b\\s*\\\\to\\s*\\\\infty|indeterminate)"
+    }
+  ],
+  "deep_dives": [
+    {
+      "title": "Why Does Picking u Wrong Make Integration by Parts Harder, Not Impossible?",
+      "body_md": "Start from the product rule:\n$$\\frac{d}{dx}[u \\cdot v] = u\\,v' + u'\\,v$$\nIntegrate both sides:\n$$u\\,v = \\int u\\,v'\\,dx + \\int u'\\,v\\,dx$$\nRearrange:\n$$\\int u\\,v'\\,dx = u\\,v - \\int u'\\,v\\,dx$$\n\nNotice something critical: this identity is always true, for *any* splitting of your integrand into $u$ and $v'$. There is no condition that says \"$u$ must be the right choice.\" The equation holds regardless. That is why a bad choice cannot make the method *fail* — it can only make the resulting integral $\\int u'\\,v\\,dx$ more complicated than the one you started with.\n\nLet's see this concretely. Consider $\\int x\\,e^x\\,dx$.\n\n**Good choice:** $u = x$, $dv = e^x\\,dx$. Then $du = dx$, $v = e^x$, and\n$$\\int x\\,e^x\\,dx = x\\,e^x - \\int e^x\\,dx = x\\,e^x - e^x + C.$$\nThe new integral $\\int e^x\\,dx$ is simpler. You moved downhill.\n\n**Bad choice:** $u = e^x$, $dv = x\\,dx$. Then $du = e^x\\,dx$, $v = \\frac{x^2}{2}$, and\n$$\\int x\\,e^x\\,dx = \\frac{x^2}{2}\\,e^x - \\int \\frac{x^2}{2}\\,e^x\\,dx.$$\nThe new integral $\\int \\frac{x^2}{2}\\,e^x\\,dx$ is *harder* — the polynomial factor went from degree 1 to degree 2. You moved uphill. But the equation is still perfectly valid. If you were stubborn enough, you could apply integration by parts again (going further uphill each time), eventually land in a pattern, and use algebraic tricks to solve the resulting system. It would be ugly, but never *wrong*.\n\nSo what does \"good\" versus \"bad\" really mean here? Every application of the formula trades your current integral for a new one:\n$$\\text{original integral} \\;\\longleftrightarrow\\; \\text{boundary term} + \\text{new integral}$$\nA good $u$ is one whose derivative $u'$ is simpler than $u$, while $v$ (the antiderivative of $dv$) doesn't get much worse. That way the new integral on the right is easier. A bad $u$ does the opposite: $u'$ is no simpler (or worse), and $v$ grows in complexity, so the new integral is harder.\n\nThe LIATE heuristic (Logarithmic, Inverse trig, Algebraic, Trigonometric, Exponential) ranks functions by how much simpler they become when differentiated. Logs and inverse trig functions become algebraic when you differentiate — a big simplification — so they make good candidates for $u$. Exponentials barely change under differentiation, so choosing them as $u$ gains you nothing.\n\nBut LIATE is a heuristic, not a theorem. The actual theorem is the product rule identity above, and it doesn't care about your choice. Every splitting is algebraically legitimate. The choice only controls whether you spiral toward a simpler integral or a harder one.\n\n**Follow-up question to chew on:** When you pick $u$ \"wrong\" for $\\int x\\,e^x\\,dx$ and get $\\int \\frac{x^2}{2}\\,e^x\\,dx$, then do it wrong again and get $\\int \\frac{x^3}{6}\\,e^x\\,dx$, and so on — you generate an infinite sequence of related integrals. Could you write a general formula for $\\int \\frac{x^n}{n!}\\,e^x\\,dx$, sum the resulting series, and recover the correct answer from the \"wrong\" direction? What does that tell you about the relationship between integration by parts and Taylor series?"
+    },
+    {
+      "title": "When Integration by Parts Calls Itself: The Recursive Pattern and the Tabular Trick",
+      "body_md": "Start with the standard formula:\n$$\\int u\\,dv = uv - \\int v\\,du.$$\nNotice that the right-hand side contains a *new* integral, $\\int v\\,du$. Usually that new integral is simpler than the original. But what happens when $u$ is a function whose derivatives never vanish — or at least not for several rounds?\n\nTake $\\int x^3 e^x\\,dx$. You pick $u = x^3$, $dv = e^x\\,dx$. After one round you face $\\int 3x^2 e^x\\,dx$. That still has a polynomial times $e^x$, so you apply parts *again*. Then again. Each round peels off one power of $x$ until the polynomial reaches $x^0 = 1$ and the remaining integral is trivial. Integration by parts is literally calling itself, each time on a smaller sub-problem — this is recursion.\n\nThe **tabular method** (sometimes called the \"tic-tac-toe\" method) simply bookkeeps this recursion. You build two columns:\n\n| Derivatives of $u$ | Integrals of $dv$ |\n|---|---|\n| $x^3$ | $e^x$ |\n| $3x^2$ | $e^x$ |\n| $6x$ | $e^x$ |\n| $6$ | $e^x$ |\n| $0$ | $e^x$ |\n\nThen you multiply along diagonals with alternating signs: $+x^3 e^x - 3x^2 e^x + 6x e^x - 6e^x + C$. Why does this work? Expand the recursion explicitly:\n$$\\int x^3 e^x\\,dx = x^3 e^x - \\int 3x^2 e^x\\,dx,$$\n$$\\int 3x^2 e^x\\,dx = 3x^2 e^x - \\int 6x e^x\\,dx,$$\n$$\\int 6x e^x\\,dx = 6x e^x - \\int 6 e^x\\,dx.$$\nSubstitute each equation into the one above it and watch the signs alternate: $+,-,+,-,\\dots$ Each diagonal product in the table is exactly one term in that nested substitution. The table is not a separate technique; it *is* repeated integration by parts with the algebra pre-collapsed.\n\n**When does this recursive pattern terminate neatly?** When one of two things happens:\n1. **The $u$-column hits zero.** This occurs when $u$ is a polynomial — after finitely many derivatives, you reach $0$. This is the classic tabular scenario.\n2. **The new integral is a scalar multiple of the original.** For example, $\\int e^x \\sin x\\,dx$ after two rounds of parts produces $-\\int e^x \\sin x\\,dx$. You don't reach zero, but you can solve algebraically for the original integral. The recursion \"closes\" like a loop rather than a base case.\n\nSo the tabular trick works best when $u$'s derivatives eventually annihilate (polynomials) or when the integral cycles back to itself (products of exponentials with sines or cosines). In every other situation — say $\\int \\ln(x)\\,dx$ — one round suffices and no table is needed.\n\n**Follow-up question:** If the tabular method encodes a finite recursion, could you write a *general closed-form* for $\\int x^n e^{ax}\\,dx$ as a summation involving $n!/(n-k)!$ terms — and does the result connect to the formula for the incomplete gamma function?"
+    }
+  ],
+  "applications": [
+    {
+      "context": "physics",
+      "problem_md": "A small rocket of initial mass $m_0 = 4.0\\text{ kg}$ (including fuel) sits on a frictionless horizontal track. Its engine burns fuel at a constant rate, producing a thrust force that varies with time as\n$$F(t) = (6 - t)\\, e^{-t/3} \\text{ N}, \\qquad 0 \\le t \\le 6 \\text{ s.}$$\nFor simplicity, assume the mass stays approximately constant at $m_0$ over this interval (the fuel is a small fraction of the total mass).\n\nUsing the impulse-momentum theorem, the change in the rocket's velocity over the burn is\n$$\\Delta v = \\frac{1}{m_0} \\int_0^6 F(t)\\, dt.$$\n\nFind $\\Delta v$, the speed gained by the rocket during the 6-second burn. You will need integration by parts to evaluate the integral.",
+      "solution_outline_md": "**Setup.** You need to compute\n$$I = \\int_0^6 (6 - t)\\, e^{-t/3}\\, dt.$$\n\n**Integration by parts.** Let\n$$u = 6 - t, \\qquad dv = e^{-t/3}\\, dt,$$\nso $du = -dt$ and $v = -3e^{-t/3}$.\n\nApplying the formula $\\int u\\, dv = uv - \\int v\\, du$:\n$$I = \\Big[(6-t)(-3e^{-t/3})\\Big]_0^6 - \\int_0^6 (-3e^{-t/3})(-1)\\, dt$$\n$$= \\Big[(6-t)(-3e^{-t/3})\\Big]_0^6 - 3\\int_0^6 e^{-t/3}\\, dt.$$\n\n**Boundary term:**\nAt $t=6$: $(6-6)(-3e^{-2}) = 0$.\nAt $t=0$: $(6)(-3e^{0}) = -18$.\nSo the boundary term is $0 - (-18) = 18$.\n\n**Remaining integral:**\n$$3\\int_0^6 e^{-t/3}\\, dt = 3\\Big[-3e^{-t/3}\\Big]_0^6 = -9\\big(e^{-2} - 1\\big) = 9(1 - e^{-2}).$$\n\n**Combine:**\n$$I = 18 - 9(1 - e^{-2}) = 18 - 9 + 9e^{-2} = 9 + 9e^{-2} = 9(1 + e^{-2}).$$\n\n**Final answer:**\n$$\\Delta v = \\frac{I}{m_0} = \\frac{9(1 + e^{-2})}{4}.$$\nNumerically, $e^{-2} \\approx 0.1353$, so\n$$\\Delta v \\approx \\frac{9(1.1353)}{4} \\approx 2.55 \\text{ m/s}.$$\n\nIf your answer is $\\dfrac{9(1+e^{-2})}{4} \\approx 2.55\\text{ m/s}$, you are correct."
+    },
+    {
+      "context": "engineering",
+      "problem_md": "A structural engineer is analyzing vibrations in a steel beam after an impact. Sensors show that the velocity of a point on the beam is modeled by\n\n$$v(t) = 3t\\,e^{-0.5t} \\quad \\text{(m/s)}$$\n\nwhere $t$ is time in seconds after impact.\n\nThe engineer needs to know the **total displacement** of that point during the first 6 seconds, because if it exceeds a safety threshold the beam must be reinforced.\n\nSet up and evaluate the integral\n\n$$s = \\int_0^6 3t\\,e^{-0.5t}\\,dt$$\n\nusing integration by parts. Give an exact answer, then compute a decimal approximation to three decimal places. Based on your result, would the beam exceed a 10-meter displacement threshold?",
+      "solution_outline_md": "**Approach.** You need to evaluate $\\displaystyle\\int_0^6 3t\\,e^{-0.5t}\\,dt$. Factor the constant 3 out front and apply integration by parts on $\\displaystyle\\int t\\,e^{-0.5t}\\,dt$.\n\nChoose $u = t$ and $dv = e^{-0.5t}\\,dt$, so $du = dt$ and $v = -2e^{-0.5t}$.\n\nThe antiderivative becomes\n\n$$\\int t\\,e^{-0.5t}\\,dt = -2t\\,e^{-0.5t} - \\int (-2)e^{-0.5t}\\,dt = -2t\\,e^{-0.5t} + 2\\int e^{-0.5t}\\,dt$$\n\n$$= -2t\\,e^{-0.5t} - 4e^{-0.5t} + C = -2e^{-0.5t}(t + 2) + C$$\n\nMultiply by 3 and evaluate from 0 to 6:\n\n$$s = 3\\Big[-2e^{-0.5t}(t+2)\\Big]_0^6 = 3\\Big[\\big(-2e^{-3}(8)\\big) - \\big(-2e^{0}(2)\\big)\\Big]$$\n\n$$= 3\\Big[-16e^{-3} + 4\\Big] = 12 - 48e^{-3}$$\n\n**Exact answer:** $s = 12 - 48e^{-3}$\n\n**Decimal:** $e^{-3} \\approx 0.049787$, so $s \\approx 12 - 48(0.049787) \\approx 12 - 2.390 \\approx 9.610$ m.\n\n**Conclusion:** The displacement is approximately $9.610$ m, which is below the 10-meter threshold. The beam does not need reinforcement based on this criterion alone."
+    }
+  ]
+}

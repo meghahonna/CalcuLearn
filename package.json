@@ -16,10 +16,16 @@
     "bundle": "tsx scripts/bundle.ts",
     "hash": "tsx scripts/computeModelHashes.ts",
     "install-model": "tsx scripts/installModel.ts",
-    "serve:ui": "npx --yes serve dist/ui"
+    "serve:ui": "npx --yes serve dist/ui",
+    "migrate:phase-a": "tsx scripts/authoring/runMigration.ts",
+    "author": "tsx scripts/authoring/authorConcept.ts",
+    "author:all-starter": "for c in limits.definition deriv.power-rule deriv.chain-rule integ.riemann integ.ftc; do npm run author -- $c || exit 1; done",
+    "seed:content": "tsx scripts/authoring/seedContent.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
     "@xenova/transformers": "^2.17.2",
+    "ajv": "^8.20.0",
     "better-sqlite3": "^12.9.0",
     "lru-cache": "^10.2.0",
     "mathjs": "^12.4.1",

@@ -1,0 +1,203 @@
+{
+  "concept_id": "limits.infinity",
+  "name": "Limits at Infinity",
+  "track": "BOTH",
+  "one_liner": "What a function approaches as the input grows without bound — and the horizontal asymptotes that result.",
+  "prerequisites": [
+    "limits.definition"
+  ],
+  "explanations": [
+    {
+      "tier": "novice",
+      "framing_index": 0,
+      "body_md": "You already know what a limit is: the value a function gets closer and closer to. Up until now, you've been asking \"what happens as $x$ gets close to some number?\" Now we ask a different question: **what happens as $x$ gets really, really big?**\n\nLet's look at a concrete example. Take $f(x) = \\frac{1}{x}$. Start plugging in bigger and bigger values of $x$:\n\n| $x$ | $f(x) = \\frac{1}{x}$ |\n|---|---|\n| 10 | 0.1 |\n| 100 | 0.01 |\n| 1{,}000 | 0.001 |\n| 1{,}000{,}000 | 0.000001 |\n\nSee the pattern? As $x$ grows, $f(x)$ keeps shrinking toward $0$. It never actually equals $0$, but it gets as close as you want. That's what we mean by a **limit at infinity**. In notation:\n\n$$\\lim_{x \\to \\infty} \\frac{1}{x} = 0$$\n\nThe symbol $\\infty$ isn't a number — it just means \"$x$ keeps growing without bound.\"\n\nNow try a slightly harder one: $g(x) = \\frac{3x + 5}{x}$. Plug in the same values:\n\n| $x$ | $g(x) = \\frac{3x+5}{x}$ |\n|---|---|\n| 10 | 3.5 |\n| 100 | 3.05 |\n| 1{,}000 | 3.005 |\n| 1{,}000{,}000 | 3.000005 |\n\nThe outputs are settling toward $3$. That $+5$ in the numerator matters less and less as $x$ gets huge. So:\n\n$$\\lim_{x \\to \\infty} \\frac{3x + 5}{x} = 3$$\n\nHere's the key idea: when $x$ is enormous, only the fastest-growing terms in the numerator and denominator matter. Everything else becomes noise. You can often find a limit at infinity just by asking \"which terms dominate?\"\n\nIf this feels tricky, that's normal. The best thing you can do right now is build a table, plug in big numbers, and watch where the outputs settle. That settling place — if it exists — is your limit at infinity.",
+      "intuition_md": "Think of driving on a long, straight highway toward the horizon. At first, you're swerving a little — those are the small terms like $+5$ pushing the function around. But the farther you drive, the less those little swerves matter, and your path straightens out toward a single lane. That lane is the limit at infinity. The function may never perfectly reach it, but it hugs closer and closer the farther out you go. Building a table of big $x$-values is like checking your GPS at mile 10, mile 100, and mile 1,000 — you can see which lane you're settling into."
+    },
+    {
+      "tier": "novice",
+      "framing_index": 1,
+      "body_md": "You already know what a limit is: it describes what value a function *approaches*. Now imagine letting $x$ grow absolutely huge — like $x = 1{,}000$ or $x = 1{,}000{,}000$. A **limit at infinity** asks: what value does the function settle toward as $x$ keeps growing without bound?\n\nLet's focus on rational functions — fractions where the top and bottom are both polynomials. For example:\n\n$$f(x) = \\frac{3x^2 + 5x - 1}{2x^2 + 7}$$\n\nWhen $x$ is enormous, the highest-power term in each part completely dominates the smaller terms. Think of it this way: if $x = 1{,}000{,}000$, then $3x^2 = 3{,}000{,}000{,}000{,}000$ while $5x = 5{,}000{,}000$. That $5x$ is pocket change by comparison. Same idea on the bottom: $2x^2$ dwarfs $7$.\n\nSo for very large $x$, the function *behaves like*:\n\n$$f(x) \\approx \\frac{3x^2}{2x^2} = \\frac{3}{2}$$\n\nThat gives us:\n\n$$\\lim_{x \\to \\infty} \\frac{3x^2 + 5x - 1}{2x^2 + 7} = \\frac{3}{2}$$\n\nHere is the simple rule — just compare the **degree** (the highest power of $x$) on top and bottom:\n\n1. **Same degree on top and bottom:** The limit is the ratio of the leading coefficients (the numbers in front of the highest powers). That is what happened above: $\\frac{3}{2}$.\n\n2. **Higher degree on top:** The function grows without bound, so the limit does not settle on a finite number. Example: $\\lim_{x \\to \\infty} \\frac{x^3}{x^2 + 1} = \\infty$.\n\n3. **Higher degree on bottom:** The bottom grows faster, squashing the fraction toward zero. Example: $\\lim_{x \\to \\infty} \\frac{4x}{x^2 + 1} = 0$.\n\nThat is genuinely the whole method. Find the biggest power on top, find the biggest power on bottom, ignore everything else.",
+      "intuition_md": "Imagine you are in a helicopter rising higher and higher above a mountain range. When you are close to the ground, you notice every bump, every tree, every rock — those are the smaller terms like $5x$ and $-1$. But as you zoom way out, all those details vanish and only the tallest peak matters. The tallest peak is the highest-power term. At extreme altitude (huge $x$), the shape of the landscape is determined entirely by those dominant peaks on the top and bottom of your fraction. Everything else is too small to see."
+    },
+    {
+      "tier": "on_pace",
+      "framing_index": 0,
+      "body_md": "You already know how to evaluate $\\lim_{x \\to c} f(x)$ — what $f$ approaches as $x$ approaches some finite number $c$. Now the question changes: what happens to $f(x)$ as $x$ itself grows without bound?\n\nWhen you write $\\lim_{x \\to \\infty} f(x) = L$, you're saying that as $x$ gets larger and larger, the output $f(x)$ settles closer and closer to the finite value $L$. The same idea applies for $x \\to -\\infty$. If such a limit $L$ exists, the line $y = L$ is a **horizontal asymptote** of the graph.\n\nThe workhorse technique is dividing by the highest power of $x$ in the denominator. For a rational function $\\frac{P(x)}{Q(x)}$:\n\n- If degree of $P$ < degree of $Q$: $\\lim_{x \\to \\infty} \\frac{P(x)}{Q(x)} = 0$.\n- If degree of $P$ = degree of $Q$: the limit equals the ratio of the leading coefficients.\n- If degree of $P$ > degree of $Q$: the limit is $\\pm\\infty$ (no horizontal asymptote).\n\nFor example:\n$$\\lim_{x \\to \\infty} \\frac{3x^2 + 5}{7x^2 - x} = \\frac{3}{7}$$\nbecause both numerator and denominator are degree 2, and the leading coefficients are 3 and 7.\n\n**Common sticking point:** students sometimes forget that $\\frac{1}{x} \\to 0$ and $\\frac{1}{x^2} \\to 0$ as $x \\to \\infty$. That fact is the engine behind the divide-by-highest-power strategy — every leftover $\\frac{k}{x^n}$ term vanishes, leaving only the leading-coefficient ratio (or zero, or divergence).\n\nAnother trap: $\\lim_{x \\to -\\infty}$ can differ from $\\lim_{x \\to \\infty}$, especially for odd-degree numerators. Always check both directions if the problem asks for all horizontal asymptotes.\n\nThis concept connects directly to what's coming next: once you can describe end behavior precisely, you'll use it alongside vertical asymptotes and derivatives to sketch complete, accurate graphs of functions.",
+      "intuition_md": "Picture yourself driving on a long, straight highway toward a mountain range on the horizon. The mountains look like they sit at a certain height — that's the horizontal asymptote. No matter how far you drive (no matter how large $x$ gets), the road keeps aiming toward that height but never truly arrives. The value $L$ in $\\lim_{x \\to \\infty} f(x) = L$ is that horizon line: the output of the function gets arbitrarily close to $L$, hugging it tighter and tighter, even if it never lands exactly on it."
+    },
+    {
+      "tier": "advanced",
+      "framing_index": 0,
+      "body_md": "You already know the $\\epsilon$-$\\delta$ definition of a limit at a finite point. Limits at infinity are the natural extension: instead of controlling proximity to a point $c$, you control how far out you go on the $x$-axis.\n\n**Formal definition.** We say $\\lim_{x \\to \\infty} f(x) = L$ if for every $\\epsilon > 0$, there exists an $M > 0$ such that\n$$x > M \\implies |f(x) - L| < \\epsilon.$$\nThe analogous statement for $x \\to -\\infty$ replaces $x > M$ with $x < -M$. No mystery here — $M$ plays the role that $\\delta$ played before, but it bounds magnitude rather than proximity.\n\n**Why the familiar rules hold.** Take the canonical example $\\lim_{x \\to \\infty} \\frac{1}{x} = 0$. Given $\\epsilon > 0$, choose $M = \\frac{1}{\\epsilon}$. Then $x > M$ gives $\\left|\\frac{1}{x}\\right| < \\epsilon$. This generalizes: for $\\frac{1}{x^n}$ with $n > 0$, choose $M = \\epsilon^{-1/n}$.\n\nFor rational functions $\\frac{P(x)}{Q(x)}$ where $\\deg P = p$ and $\\deg Q = q$:\n- If $p < q$, the limit is $0$ (the denominator's growth dominates).\n- If $p = q$, the limit is the ratio of leading coefficients.\n- If $p > q$, the limit is $\\pm\\infty$ (unbounded, so the limit in $\\mathbb{R}$ does not exist).\n\nYou can prove each case rigorously by dividing numerator and denominator by $x^q$ and applying the limit laws you already know, combined with $\\lim_{x\\to\\infty} \\frac{1}{x^k} = 0$ for $k > 0$.\n\n**Connections.** Limits at infinity define horizontal asymptotes, which are precisely the values where a function becomes approximately constant — a link to continuity and the idea that sufficiently zoomed-out graphs resemble their end behavior. This also connects to linear approximation: for large $x$, if $p = q + 1$, performing polynomial long division gives $f(x) \\approx ax + b$, yielding an oblique asymptote — a \"linear approximation at infinity.\"\n\n**Stretch question.** Prove that $\\lim_{x \\to \\infty} \\frac{\\sin x}{x} = 0$ directly from the $\\epsilon$-$M$ definition. Then consider: does $\\lim_{x \\to \\infty} \\sin(x)$ exist? Why does the Squeeze Theorem argument work for the first but offer no help for the second?",
+      "intuition_md": "Think of the $\\epsilon$-$M$ definition as a challenge-response game. Your opponent picks a tolerance band $L \\pm \\epsilon$, no matter how narrow. You respond with a threshold $M$: \"Past this point on the $x$-axis, the function never leaves your band.\" If you can always win — for any $\\epsilon$, no matter how small — the function truly settles at $L$. The function doesn't have to reach $L$; it just has to get and stay arbitrarily close once $x$ is large enough. The tail of the function is trapped."
+    }
+  ],
+  "examples": [
+    {
+      "tier": "novice",
+      "problem_md": "Find $\\displaystyle\\lim_{x \\to \\infty} \\frac{3x + 5}{x + 2}$.",
+      "steps": [
+        {
+          "step_md": "Before doing any algebra, let's plug in a big number to build intuition. Try $x = 1{,}000$:\n\n$$\\frac{3(1{,}000) + 5}{1{,}000 + 2} = \\frac{3{,}005}{1{,}002} \\approx 2.999$$\n\nTry $x = 1{,}000{,}000$:\n\n$$\\frac{3{,}000{,}005}{1{,}000{,}002} \\approx 2.999997$$",
+          "why_md": "A \"limit at infinity\" just asks: what value does the fraction get closer and closer to as $x$ grows huge? Plugging in big numbers is like zooming out on a graph — you start to see where the curve is leveling off. Here it looks like the answer is heading toward $3$. Now let's prove it with algebra."
+        },
+        {
+          "step_md": "Divide every single term — top and bottom — by $x$:\n\n$$\\frac{3x + 5}{x + 2} = \\frac{\\dfrac{3x}{x} + \\dfrac{5}{x}}{\\dfrac{x}{x} + \\dfrac{2}{x}} = \\frac{3 + \\dfrac{5}{x}}{1 + \\dfrac{2}{x}}$$",
+          "why_md": "Why divide by $x$? Because when $x$ is enormous, terms like $5$ and $2$ are tiny compared to the $x$-terms. Dividing by $x$ lets us isolate those tiny pieces so we can see exactly what shrinks away and what stays. Think of it like converting miles to \"per mile\" — it puts everything on the same scale."
+        },
+        {
+          "step_md": "Now let $x \\to \\infty$. Watch what happens to each piece:\n\n- $\\dfrac{5}{x} \\to 0$ (a fixed number divided by something huge becomes basically zero)\n- $\\dfrac{2}{x} \\to 0$ (same reasoning)\n\nSo the fraction becomes:\n\n$$\\frac{3 + 0}{1 + 0} = \\frac{3}{1} = 3$$",
+          "why_md": "This is the key idea for limits at infinity: any constant divided by $x$ vanishes as $x$ grows without bound. $\\dfrac{5}{x}$ is like splitting \\$5 among a million people — each person's share is essentially nothing. Once those fractions disappear, you're left with the ratio of the leading coefficients: $\\dfrac{3}{1}$."
+        },
+        {
+          "step_md": "$$\\lim_{x \\to \\infty} \\frac{3x + 5}{x + 2} = 3$$\n\nThis also means the graph of $y = \\frac{3x + 5}{x + 2}$ has a **horizontal asymptote** at $y = 3$.",
+          "why_md": "A horizontal asymptote is just a fancy name for the horizontal line the graph hugs as $x$ heads off to the right (or left). It comes directly from the limit at infinity you just found. Here's a handy shortcut to remember: when the top and bottom of a fraction are both degree 1 (both have $x$ to the first power as the highest term), the limit is simply the ratio of the leading coefficients — here $\\dfrac{3}{1} = 3$. If you want to stretch yourself, try $\\displaystyle\\lim_{x \\to \\infty} \\frac{7x - 4}{2x + 9}$ using the same technique and see if you get $\\dfrac{7}{2}$."
+        }
+      ]
+    },
+    {
+      "tier": "on_pace",
+      "problem_md": "Evaluate $$\\lim_{x \\to \\infty} \\frac{5x^3 - 2x + 7}{-3x^3 + 4x^2 + 1}.$$",
+      "steps": [
+        {
+          "step_md": "Identify the highest power of $x$ in the numerator and denominator. Here both the numerator and denominator have degree $3$ (the terms $5x^3$ and $-3x^3$).",
+          "why_md": "The behavior of a rational function as $x \\to \\infty$ is controlled entirely by the highest-degree terms, because they grow faster than everything else. Identifying the degree up front tells you which strategy to use: if the degrees match, the limit is a finite ratio; if the numerator's degree is larger, the limit is $\\pm\\infty$; if the denominator's degree is larger, the limit is $0$. This is the single most important observation for limits-at-infinity problems."
+        },
+        {
+          "step_md": "Divide every term in the numerator and every term in the denominator by $x^3$ (the highest power you just identified): $$\\frac{5x^3 - 2x + 7}{-3x^3 + 4x^2 + 1} = \\frac{\\dfrac{5x^3}{x^3} - \\dfrac{2x}{x^3} + \\dfrac{7}{x^3}}{\\dfrac{-3x^3}{x^3} + \\dfrac{4x^2}{x^3} + \\dfrac{1}{x^3}} = \\frac{5 - \\dfrac{2}{x^2} + \\dfrac{7}{x^3}}{-3 + \\dfrac{4}{x} + \\dfrac{1}{x^3}}.$$",
+          "why_md": "Dividing by $x^3$ is the algebraic move that exposes which terms survive and which vanish. Every leftover fraction like $\\frac{2}{x^2}$ has $x$ in the denominator, so it will go to $0$ as $x \\to \\infty$. This converts a messy expression into something you can evaluate term-by-term. Common mistake: students sometimes divide numerator and denominator by different powers, which changes the value of the fraction. Always use the same power for both."
+        },
+        {
+          "step_md": "Now take the limit of each piece as $x \\to \\infty$. Recall that for any positive integer $n$, $\\displaystyle\\lim_{x \\to \\infty} \\frac{1}{x^n} = 0$. So: $$\\frac{2}{x^2} \\to 0, \\qquad \\frac{7}{x^3} \\to 0, \\qquad \\frac{4}{x} \\to 0, \\qquad \\frac{1}{x^3} \\to 0.$$",
+          "why_md": "This is the payoff of the previous step. The fact that $\\frac{1}{x^n} \\to 0$ is the fundamental building block for all limits at infinity of rational functions. After these terms drop out, only the constants remain — exactly the leading coefficients you care about."
+        },
+        {
+          "step_md": "Substitute those limits into the simplified fraction: $$\\lim_{x \\to \\infty} \\frac{5 - 0 + 0}{-3 + 0 + 0} = \\frac{5}{-3} = -\\frac{5}{3}.$$",
+          "why_md": "With all the vanishing terms gone, the limit reduces to the ratio of the leading coefficients: $\\frac{5}{-3}$. This confirms the general shortcut you may have seen — when numerator and denominator share the same degree, the limit at infinity equals the ratio of their leading coefficients. The full divide-by-$x^n$ process is the proof behind that shortcut, and the AP exam often asks you to show work, so it is worth knowing both the shortcut and the justification."
+        },
+        {
+          "step_md": "$$\\boxed{\\lim_{x \\to \\infty} \\frac{5x^3 - 2x + 7}{-3x^3 + 4x^2 + 1} = -\\frac{5}{3}}$$",
+          "why_md": "This result also tells you there is a horizontal asymptote at $y = -\\frac{5}{3}$. Horizontal asymptotes come directly from limits at infinity, which is the geometric meaning of what you just computed. Next up, you will likely encounter limits at infinity for non-rational expressions — things like $\\frac{\\sin x}{x}$ or expressions involving $e^x$ and $\\ln x$. Those require new tools (Squeeze Theorem, L'Hôpital's Rule), but the core question is the same: what dominates as $x$ grows without bound?"
+        }
+      ]
+    },
+    {
+      "tier": "advanced",
+      "problem_md": "Evaluate $$\\lim_{x \\to \\infty} \\frac{\\sqrt{4x^6 + x^3 \\sin x} - 2x^3}{x^2}.$$",
+      "steps": [
+        {
+          "step_md": "Identify the dominant behavior inside the radical. Since $|\\sin x| \\le 1$, we have $x^3 \\sin x$ bounded between $-x^3$ and $x^3$, so $$4x^6 + x^3 \\sin x = 4x^6\\left(1 + \\frac{\\sin x}{4x^3}\\right).$$ As $x \\to \\infty$, the term $u = \\frac{\\sin x}{4x^3} \\to 0$.",
+          "why_md": "Limits at infinity hinge on comparing growth rates. The expression under the radical is dominated by $4x^6$; everything else is a perturbation. Factoring out the dominant term sets up a linearization argument — the same philosophy behind big-O analysis and linear approximation."
+        },
+        {
+          "step_md": "Apply the linear approximation $\\sqrt{1+u} \\approx 1 + \\frac{u}{2}$ for small $u$: $$\\sqrt{4x^6\\left(1+u\\right)} = 2x^3\\sqrt{1+u} \\approx 2x^3\\left(1 + \\frac{u}{2}\\right) = 2x^3 + 2x^3 \\cdot \\frac{\\sin x}{8x^3} = 2x^3 + \\frac{\\sin x}{4}.$$",
+          "why_md": "This is where limits at infinity connect to local linear approximation (tangent-line approximation at $u=0$ for $f(u)=\\sqrt{1+u}$). The subtraction $\\sqrt{\\cdot} - 2x^3$ creates a $\\infty - \\infty$ indeterminate form; the linearization resolves it by isolating the first-order correction. Formally, $\\sqrt{1+u} = 1 + \\frac{u}{2} + O(u^2)$, and the $O(u^2)$ remainder will vanish after division by $x^2$."
+        },
+        {
+          "step_md": "Substitute back into the full expression: $$\\frac{\\sqrt{4x^6 + x^3\\sin x} - 2x^3}{x^2} \\approx \\frac{\\frac{\\sin x}{4}}{x^2} = \\frac{\\sin x}{4x^2}.$$",
+          "why_md": "After the leading $2x^3$ cancels, the numerator is bounded (since $|\\sin x| \\le 1$) while the denominator $x^2 \\to \\infty$. This is the classic Squeeze Theorem setup."
+        },
+        {
+          "step_md": "Make the argument rigorous via the Squeeze Theorem. We have $$-\\frac{1}{4x^2} \\le \\frac{\\sin x}{4x^2} \\le \\frac{1}{4x^2},$$ and both bounds tend to $0$ as $x \\to \\infty$.",
+          "why_md": "The linearization above is heuristic until you control the error. The Squeeze Theorem provides the rigorous guarantee. Note: you also need to confirm the $O(u^2)$ remainder from the Taylor expansion contributes terms of order $\\frac{1}{x^6} \\cdot x^3 / x^2 = \\frac{1}{x^5}$, which likewise $\\to 0$. So the approximation loses nothing."
+        },
+        {
+          "step_md": "$$\\lim_{x \\to \\infty} \\frac{\\sqrt{4x^6 + x^3 \\sin x} - 2x^3}{x^2} = 0.$$",
+          "why_md": "The result is $0$ because the perturbation $x^3 \\sin x$ is too small relative to $4x^6$ to produce a correction visible at the $x^2$ scale in the denominator. A natural stretch question: what denominator would give a non-trivial (nonzero, finite) limit? Replace $x^2$ with $1$ — then the limit of the numerator itself is $\\frac{\\sin x}{4}$, which oscillates and has no limit. So instead try the problem with $x^3 \\sin x$ replaced by $x^4$, a non-oscillatory term, and denominator $x$: $$\\lim_{x \\to \\infty}\\frac{\\sqrt{4x^6 + x^4}-2x^3}{x}.$$ The same linearization gives $\\frac{1}{4}$. This illustrates how the balance between the perturbation's growth rate and the denominator determines whether you get $0$, a finite constant, or $\\infty$ — the same trichotomy that governs all rational-function limits at infinity."
+        }
+      ]
+    }
+  ],
+  "misconceptions": [
+    {
+      "short_name": "infinity_is_a_number",
+      "description_md": "The student treats $\\infty$ as a real number and performs arithmetic with it directly. For example, they write $\\lim_{x \\to \\infty}(x - x) = \\infty - \\infty = 0$, or they claim $\\frac{\\infty}{\\infty} = 1$.",
+      "why_wrong_md": "$\\infty$ is not a real number — it describes unbounded growth, not a fixed value. Expressions like $\\infty - \\infty$ and $\\frac{\\infty}{\\infty}$ are indeterminate forms, not computable quantities. The actual limit depends on the rates at which the pieces grow. For instance, $\\lim_{x \\to \\infty}(x^2 - x) = \\infty$, not $0$.",
+      "socratic_response_md": "Try plugging in $x = 1{,}000{,}000$ into both $x - x$ and $x^2 - x$. They both look like \"$\\infty - \\infty$\" symbolically, but do they give the same numerical result? What does that tell you about treating $\\infty$ like a number you can subtract?"
+    },
+    {
+      "short_name": "highest_power_only_in_numerator",
+      "description_md": "When evaluating $\\lim_{x \\to \\infty} \\frac{3x^2 + x}{5x^2 + 2}$, the student keeps only the highest power in the numerator but forgets (or mishandles) the denominator, arriving at something like $\\frac{3x^2}{5x^2 + 2}$ and then getting stuck or simplifying incorrectly.",
+      "why_wrong_md": "The \"dominant term\" shortcut works only when you compare leading terms in both the numerator and the denominator simultaneously. The rigorous technique is to divide every term by the highest power of $x$ in the denominator, giving $\\frac{3 + \\frac{1}{x}}{5 + \\frac{2}{x^2}} \\to \\frac{3}{5}$. Selectively dropping terms in only one part of the fraction changes the ratio.",
+      "socratic_response_md": "What happens if you divide every single term — top and bottom — by $x^2$? After you do that, which terms vanish as $x \\to \\infty$, and which survive?"
+    },
+    {
+      "short_name": "horizontal_asymptote_cannot_be_crossed",
+      "description_md": "The student believes a function can never touch or cross its horizontal asymptote. For example, they claim $f(x) = \\frac{\\sin x}{x}$ cannot equal $0$ for large $x$ because $y = 0$ is the horizontal asymptote.",
+      "why_wrong_md": "A horizontal asymptote describes end behavior — what $f(x)$ approaches as $x \\to \\infty$ (or $-\\infty$). It says nothing about whether the function equals that value at finite points. $\\frac{\\sin x}{x}$ crosses $y = 0$ at every $x = n\\pi$ ($n$ a nonzero integer) even though $\\lim_{x \\to \\infty} \\frac{\\sin x}{x} = 0$.",
+      "socratic_response_md": "Graph $f(x) = \\frac{\\sin x}{x}$ and look at what happens at $x = \\pi, 2\\pi, 3\\pi, \\ldots$ Does $f$ actually hit $y = 0$ at those points? If a function can cross its horizontal asymptote, what does the asymptote really describe?"
+    },
+    {
+      "short_name": "all_rationals_have_horizontal_asymptote",
+      "description_md": "The student assumes every rational function has a finite horizontal asymptote. When asked for $\\lim_{x \\to \\infty} \\frac{x^3 + 1}{x + 2}$, they try to force an answer like $1$ (ratio of leading coefficients) instead of recognizing that the limit is $\\infty$.",
+      "why_wrong_md": "The ratio-of-leading-coefficients rule applies only when the degree of the numerator equals the degree of the denominator. When the numerator's degree is higher, the function grows without bound — there is no horizontal asymptote. Here the degree on top is $3$ and on the bottom is $1$, so $\\frac{x^3}{x} = x^2 \\to \\infty$.",
+      "socratic_response_md": "Before using the leading-coefficient shortcut, compare the degrees of the numerator and denominator. Which one is larger here? If the top grows like $x^3$ and the bottom only grows like $x$, what does $\\frac{x^3}{x}$ simplify to, and where does that head as $x \\to \\infty$?"
+    },
+    {
+      "short_name": "limit_at_infinity_means_function_never_arrives",
+      "description_md": "The student conflates \"limit at infinity\" with \"limit equals infinity.\" They say things like \"$\\lim_{x \\to \\infty} \\frac{1}{x} = \\infty$ because $x$ goes to infinity,\" ignoring that the output $\\frac{1}{x}$ is actually shrinking toward $0$.",
+      "why_wrong_md": "The phrase \"$x \\to \\infty$\" describes the input growing without bound; it does not determine the output. You must track what $f(x)$ does as $x$ grows. For $f(x) = \\frac{1}{x}$, larger inputs produce smaller outputs: $f(1000) = 0.001$, $f(1{,}000{,}000) = 0.000001$, and so on. The limit is $0$, not $\\infty$.",
+      "socratic_response_md": "Compute $\\frac{1}{x}$ for $x = 100$, $x = 10{,}000$, and $x = 1{,}000{,}000$. Are those outputs getting bigger or getting closer to some specific value? Which quantity is heading to infinity — the input $x$, or the output $\\frac{1}{x}$?"
+    }
+  ],
+  "checks": [
+    {
+      "tier": "novice",
+      "question_md": "Imagine you're walking along the graph of $f(x) = \\frac{1}{x}$ and you keep walking to the right — past $x = 10$, past $x = 1{,}000$, past $x = 1{,}000{,}000$. The outputs are $0.1$, $0.001$, $0.000001$, and so on.\n\nFill in the blank: As $x$ gets larger and larger, $\\frac{1}{x}$ gets closer and closer to __________.",
+      "expected_answer_md": "$0$. The bigger the number you divide 1 by, the tinier the result. It never actually reaches $0$, but it keeps getting closer — so we say $\\lim_{x \\to \\infty} \\frac{1}{x} = 0$.",
+      "expected_pattern": "\\b0\\b|zero"
+    },
+    {
+      "tier": "novice",
+      "question_md": "A student says: \"$\\lim_{x \\to \\infty} \\frac{3x}{x} = \\infty$ because the top has an $x$ and $x$ is going to infinity.\"\n\nSpot the mistake. Which of the following is the correct value of $\\lim_{x \\to \\infty} \\frac{3x}{x}$?\n\n- (A) $\\infty$\n- (B) $3$\n- (C) $0$\n- (D) Does not exist",
+      "expected_answer_md": "**(B) $3$**. Before you think about infinity, simplify first: $\\frac{3x}{x} = 3$ for every $x$ (except $x=0$). The function is just the constant $3$, so as $x$ grows, the output stays at $3$. The student's mistake was not simplifying before jumping to conclusions.",
+      "expected_pattern": "\\b[Bb]\\b|\\b3\\b"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Fill in the blank: $$\\lim_{x \\to \\infty} \\frac{5x^3 + 2x}{7x^3 - 4} = \\underline{\\phantom{xxxx}}$$ Hint: when the degrees of the numerator and denominator are the same, the limit at infinity is just the ratio of the ______.",
+      "expected_answer_md": "The limit is $\\frac{5}{7}$. When the degrees match, you take the ratio of the **leading coefficients**: $\\frac{5}{7}$.",
+      "expected_pattern": "5\\s*/\\s*7|5\\/7|\\\\frac\\{5\\}\\{7\\}|leading\\s*coefficients?"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Spot the mistake in this work:\n\n*\"Since $\\lim_{x \\to \\infty} \\frac{3x^2 + 1}{x^3 + x} = \\frac{3}{1} = 3$ because I compared the leading coefficients, the horizontal asymptote is $y = 3$.\"*\n\nWhat went wrong, and what is the correct limit?",
+      "expected_answer_md": "The student compared leading coefficients, but the degree of the numerator ($2$) is **less than** the degree of the denominator ($3$). You can only compare leading coefficients when the degrees are equal. Because the denominator grows faster, $\\lim_{x \\to \\infty} \\frac{3x^2 + 1}{x^3 + x} = 0$. The horizontal asymptote is $y = 0$.",
+      "expected_pattern": "0|degree.*less|numerator.*smaller|denominator.*larger|grows.*faster"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "**Spot the mistake.** A student argues:\n\n$$\\lim_{x \\to \\infty} \\frac{3x^2 + x}{2x^2 - 1} = \\frac{3}{2} \\quad \\text{\"because the constant terms vanish.\"}$$\n\nThe final value $\\frac{3}{2}$ is correct, but the reasoning is sloppy. In one sentence, state the *precise* operation that justifies dividing through by $x^2$, and why it is valid (i.e., why it preserves the limit).",
+      "expected_answer_md": "You divide numerator and denominator by $x^2$, which is equivalent to multiplying by $\\frac{1/x^2}{1/x^2} = 1$. This is valid because for $x \\neq 0$ you are multiplying by 1, so the expression is algebraically identical for all $x$ in a neighborhood of $\\infty$; equal expressions share the same limit.",
+      "expected_pattern": "(?i)(multiply|divid).*(by\\s*1|equal|identity|same\\s*expression|algebraic|equivalent|does\\s*not\\s*change)"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "**Fill in the blank.** For rational functions, the limit at infinity depends on the degrees of numerator ($n$) and denominator ($m$). This is really a consequence of a deeper fact: the $\\varepsilon$-$M$ definition says $\\lim_{x\\to\\infty} f(x) = L$ iff for every $\\varepsilon > 0$ there exists $M$ such that $x > M \\implies |f(x) - L| < \\varepsilon$.\n\nUsing this definition, if $n > m$ the limit does not exist (diverges) because the dominant term grows without bound. If $n < m$ the limit is $\\boxed{\\phantom{?}}$ because $\\frac{\\text{leading coeff} \\cdot x^n}{\\text{leading coeff} \\cdot x^m} = O(x^{n-m}) \\to \\boxed{\\phantom{?}}$ as $x \\to \\infty$.\n\nFill in both blanks (they are the same value).",
+      "expected_answer_md": "$0$. When $n < m$, the numerator's degree is smaller, so after dividing through, every surviving term has a negative power of $x$ and tends to $0$.",
+      "expected_pattern": "(?i)^\\s*0\\s*$|zero"
+    }
+  ],
+  "deep_dives": [
+    {
+      "title": "Why the Highest Power Dominates as $x \\to \\infty$",
+      "body_md": "Start with a concrete polynomial: $p(x) = 3x^4 + 5x^3 - 2x + 7$. You want to understand what happens as $x \\to \\infty$. The standard move is to factor out the highest power of $x$:\n\n$$p(x) = x^4\\!\\left(3 + \\frac{5}{x} - \\frac{2}{x^3} + \\frac{7}{x^4}\\right)$$\n\nNow look at what is inside the parentheses. Every term except the constant $3$ has $x$ in the denominator. As $x \\to \\infty$, each of those fractions $\\to 0$. So the parenthetical factor $\\to 3$, and you are left with $p(x) \\approx 3x^4$ for large $x$.\n\nThat is the *mechanism*, but why does it actually make sense? Think about rates of growth. The function $x^4$ eventually dwarfs $x^3$ because\n\n$$\\frac{x^4}{x^3} = x \\to \\infty$$\n\nThe ratio itself is unbounded. So no matter how large the coefficient on $x^3$ is — make it $5$, $5{,}000$, or $5$ million — once $x$ is large enough, the $x^4$ term overwhelms it. The same logic applies to every lower-degree term: $x^4 / x^k = x^{4-k} \\to \\infty$ for every $k < 4$.\n\nYou can make this rigorous with a bound. For $x > 1$, each lower-degree term satisfies $|a_k x^k| \\le |a_k|\\, x^{n-1}$ when $k \\le n-1$. Summing all such terms gives a quantity at most $C\\, x^{n-1}$ for some constant $C$. Then\n\n$$\\frac{C\\, x^{n-1}}{a_n\\, x^n} = \\frac{C}{a_n\\, x} \\to 0$$\n\nSo the combined contribution of *all* lower-degree terms becomes negligible compared to the leading term.\n\nThe same principle extends to rational functions. For $\\displaystyle\\frac{3x^4 + 5x^3}{2x^4 - x + 1}$, divide numerator and denominator by $x^4$:\n\n$$\\frac{3 + 5/x}{2 - 1/x^3 + 1/x^4} \\;\\longrightarrow\\; \\frac{3}{2}$$\n\nAgain, only the leading coefficients survive because every other piece shrinks to zero.\n\nNotice that this argument depends entirely on the *algebraic* fact that $x^a / x^b \\to \\infty$ when $a > b > 0$. That is ultimately a consequence of the Archimedean property of real numbers: for any real number $M$, there exists an $x$ large enough that $x^{a-b} > M$. Without this property, 'infinity' would not work the way you expect.\n\nOne subtlety worth flagging: this dominance hierarchy $\\ldots < x^2 < x^3 < x^4 < \\ldots$ is specific to power functions. Exponentials like $e^x$ grow faster than *every* polynomial, and logarithms grow slower than *every* positive power of $x$. The hierarchy extends:\n\n$$\\ln x \\;\\ll\\; x^{0.001} \\;\\ll\\; x^{100} \\;\\ll\\; e^x \\;\\ll\\; e^{e^x}$$\n\nwhere $f \\ll g$ means $f(x)/g(x) \\to 0$ as $x \\to \\infty$.\n\n**Follow-up to chew on:** If $e^x$ dominates every polynomial, does there exist a function that grows faster than every exponential $e^{nx}$ but slower than $e^{e^x}$? If so, can you write one down?"
+    },
+    {
+      "title": "Limits at Infinity That Don't Blow Up — Yet Still Don't Exist",
+      "body_md": "You already know that $\\lim_{x \\to \\infty} f(x) = L$ means $f(x)$ settles toward a single real number $L$. And you know a limit can fail to exist because the function \"blows up\" — think $\\lim_{x \\to \\infty} x^2 = \\infty$. But here is a subtler situation: **what if $f(x)$ stays perfectly bounded, never blows up, and the limit at infinity still does not exist?**\n\nConsider $f(x) = \\sin(x)$. For every $x$, we have $-1 \\le \\sin(x) \\le 1$, so there is no blowing up whatsoever. Yet $\\lim_{x \\to \\infty} \\sin(x)$ does not exist. Why not?\n\nReturn to the precise definition. Saying $\\lim_{x \\to \\infty} f(x) = L$ means:\n\n$$\\forall\\;\\varepsilon > 0,\\;\\exists\\;M \\text{ such that } x > M \\implies |f(x) - L| < \\varepsilon.$$\n\nThis demands that, beyond some threshold $M$, the function stays **within an $\\varepsilon$-band around a single value $L$** — permanently. $\\sin(x)$ can never satisfy this for any candidate $L$, because no matter how large $M$ is, $\\sin(x)$ keeps cycling through the full interval $[-1, 1]$. Pick $L = 0$ and $\\varepsilon = 0.5$: beyond any $M$, there will always be an $x$ where $\\sin(x) = 1$, which is $1$ unit away from $0$. The same argument defeats every other candidate $L$.\n\nThe core mechanism is **persistent oscillation with non-vanishing amplitude**. It is not enough for $f(x)$ to be bounded; the oscillations must also *shrink* for a limit to exist. Compare:\n\n- $g(x) = \\frac{\\sin(x)}{x}$. Still oscillates, but the amplitude $\\frac{1}{x} \\to 0$. So $\\lim_{x \\to \\infty} g(x) = 0$ — the oscillation is *damped*.\n- $h(x) = \\sin(x^2)$. Bounded, and the oscillations actually speed up as $x \\to \\infty$, but crucially their amplitude stays at $1$. The limit does not exist.\n\nYou can even construct non-periodic examples. Define $f(x) = \\sin(\\ln x)$. This function is not periodic in $x$, yet as $x \\to \\infty$, $\\ln x \\to \\infty$, so $\\sin(\\ln x)$ keeps cycling through $[-1, 1]$ forever. No limit.\n\nThe takeaway is a clean dichotomy for bounded functions as $x \\to \\infty$:\n\n| Behavior far out | Limit exists? |\n|---|---|\n| Oscillation amplitude $\\to 0$ | Yes |\n| Oscillation amplitude $\\not\\to 0$ | No |\n| Settles to a constant (no oscillation) | Yes |\n\nSo \"does not blow up\" is necessary for a finite limit, but far from sufficient. The function must also eventually *commit* to a single value.\n\n**Follow-up question to chew on:** If $\\lim_{x \\to \\infty} f(x)$ does not exist because of oscillation, can $\\lim_{x \\to \\infty} \\frac{1}{x}\\int_0^x f(t)\\,dt$ still exist? (Hint: try $f(t) = \\sin(t)$. This connects to the idea of *Cesàro averages*, a powerful tool in analysis for extracting a meaningful \"limit\" from a sequence that refuses to converge.)"
+    }
+  ],
+  "applications": [
+    {
+      "context": "physics",
+      "problem_md": "A small steel ball bearing is dropped from rest into a tall cylinder of viscous oil. As the ball falls, the drag force from the oil increases with speed, and eventually the ball reaches a constant **terminal velocity**.\n\nUsing a force-balance model (gravity minus buoyant force minus drag), the ball's velocity as a function of time can be written as\n\n$$v(t) = v_T\\!\\left(1 - e^{-bt}\\right)$$\n\nwhere $v_T = 0.48\\;\\text{m/s}$ is the terminal speed and $b = 5.0\\;\\text{s}^{-1}$ is a drag-related constant that depends on the oil's viscosity and the ball's size.\n\n**(a)** Using the concept of a limit at infinity, prove analytically that $v_T$ is indeed the long-run speed of the ball. In other words, evaluate\n\n$$\\lim_{t \\to \\infty} v(t).$$\n\n**(b)** The **distance** the ball has fallen by time $t$ is\n\n$$s(t) = \\int_0^{t} v(\\tau)\\,d\\tau.$$\n\nFind $s(t)$ explicitly, then evaluate\n\n$$\\lim_{t \\to \\infty} \\left[\\,s(t) - v_T\\, t\\,\\right].$$\n\nInterpret this result physically: what does it tell you about how the ball's actual position compares to the position it *would* have had if it had been traveling at terminal velocity from the start?",
+      "solution_outline_md": "**Part (a)**\n\nWrite $v(t) = 0.48\\left(1 - e^{-5t}\\right)$. As $t \\to \\infty$, $e^{-5t} \\to 0$, so\n\n$$\\lim_{t \\to \\infty} v(t) = 0.48(1 - 0) = 0.48\\;\\text{m/s} = v_T.$$\n\nThis confirms the ball asymptotically approaches terminal velocity.\n\n**Part (b)**\n\nIntegrate:\n\n$$s(t) = \\int_0^{t} v_T\\!\\left(1 - e^{-b\\tau}\\right) d\\tau = v_T\\!\\left[\\tau + \\frac{1}{b}e^{-b\\tau}\\right]_0^{t} = v_T\\!\\left(t + \\frac{1}{b}e^{-bt} - \\frac{1}{b}\\right).$$\n\nNow form the difference:\n\n$$s(t) - v_T t = v_T\\!\\left(\\frac{1}{b}e^{-bt} - \\frac{1}{b}\\right) = \\frac{v_T}{b}\\!\\left(e^{-bt} - 1\\right).$$\n\nTake the limit:\n\n$$\\lim_{t \\to \\infty}\\left[s(t) - v_T t\\right] = \\frac{v_T}{b}(0 - 1) = -\\frac{v_T}{b} = -\\frac{0.48}{5.0} = -0.096\\;\\text{m}.$$\n\n**Physical interpretation:** The ball is forever about $0.096\\;\\text{m}$ (roughly 9.6 cm) behind where it would be if it had traveled at the full terminal velocity from $t = 0$. That deficit was accumulated during the initial acceleration phase and is never recovered, because once the ball reaches terminal speed it gains no more ground relative to the constant-velocity reference."
+    },
+    {
+      "context": "economics",
+      "problem_md": "A small direct-to-consumer coffee company has just launched online. Its marketing team models the total number of subscribers (in thousands) $t$ months after launch as\n\n$$S(t) = \\frac{48t + 5}{0.8t + 4}$$\n\nThe numerator reflects growing brand awareness; the denominator captures the increasing difficulty of acquiring each new subscriber as the reachable market saturates.\n\n**Part A.** According to this model, what is the long-run maximum number of subscribers the company can expect? In other words, evaluate $\\displaystyle\\lim_{t \\to \\infty} S(t)$, and interpret your answer in the context of the business.\n\n**Part B.** The company's fulfillment warehouse can handle at most 55,000 subscribers. Based on the model, will the company ever need to expand its warehouse capacity? Justify your answer using your result from Part A.\n\n**Part C.** Management wants to know how many months it takes for the subscriber count to first reach 90% of its long-run maximum. Set up and solve the equation, then round to the nearest whole month.",
+      "solution_outline_md": "**Part A.**\n\nBecause $S(t)$ is a rational function where the numerator and denominator are both degree 1 in $t$, the limit at infinity equals the ratio of leading coefficients:\n\n$$\\lim_{t \\to \\infty} \\frac{48t + 5}{0.8t + 4} = \\frac{48}{0.8} = 60$$\n\nSince $S$ is measured in thousands, the long-run subscriber ceiling is $60{,}000$ subscribers. Interpretation: no matter how long the company operates under this model, its subscriber base will approach but never exceed 60,000.\n\n**Part B.**\n\nThe long-run maximum is 60,000 subscribers, which exceeds the warehouse capacity of 55,000. So yes, the company will eventually need to expand. More precisely, at some finite time $t$ the model predicts $S(t) > 55$ (thousand), meaning demand will outgrow the current warehouse.\n\n**Part C.**\n\n90% of 60 is 54, so solve $S(t) = 54$:\n\n$$\\frac{48t + 5}{0.8t + 4} = 54$$\n\nCross-multiply:\n\n$$48t + 5 = 54(0.8t + 4) = 43.2t + 216$$\n\n$$48t - 43.2t = 216 - 5$$\n\n$$4.8t = 211$$\n\n$$t = \\frac{211}{4.8} \\approx 43.96$$\n\nRounded to the nearest whole month: $t = 44$ months.\n\nThe subscriber count first reaches 90% of its long-run maximum roughly 44 months after launch."
+    }
+  ]
+}

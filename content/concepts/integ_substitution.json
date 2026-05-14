@@ -1,0 +1,208 @@
+{
+  "concept_id": "integ.substitution",
+  "name": "Integration by Substitution",
+  "track": "BOTH",
+  "one_liner": "Reversing the chain rule by spotting an inner function and its derivative inside an integral.",
+  "prerequisites": [
+    "integ.ftc",
+    "deriv.chain-rule"
+  ],
+  "explanations": [
+    {
+      "tier": "novice",
+      "framing_index": 0,
+      "body_md": "You already know the chain rule for derivatives: to differentiate something like $(3x+1)^5$, you work from the outside in and then multiply by the derivative of the inside. Substitution is just the chain rule running **backwards** to undo a derivative and find an integral.\n\nThink of it as a four-step recipe.\n\n**Step 1 — Spot the inner function and call it $u$.**\nLook at $\\int (3x+1)^5 \\cdot 3\\,dx$. The \"inner\" piece is $3x+1$. Set $u = 3x+1$.\n\n**Step 2 — Compute $du$.**\nTake the derivative of $u$ with respect to $x$: $\\frac{du}{dx} = 3$. Then write this as $du = 3\\,dx$. That little $3\\,dx$ already appears in the integral — great, it matches.\n\n**Step 3 — Rewrite everything in terms of $u$.**\nReplace $3x+1$ with $u$ and $3\\,dx$ with $du$:\n$$\\int (3x+1)^5 \\cdot 3\\,dx \\;=\\; \\int u^5\\,du$$\nThis is now a basic power-rule integral you already know how to do.\n\n**Step 4 — Integrate, then substitute back.**\n$$\\int u^5\\,du = \\frac{u^6}{6} + C$$\nReplace $u$ with $3x+1$:\n$$\\frac{(3x+1)^6}{6} + C$$\n\nThat's the answer.\n\nA couple of honest notes. The trickiest part is usually Step 2 — making $du$ match what's left over in the integral. Sometimes you need to multiply and divide by a constant to make it fit. If the leftover piece involves $x$ in a complicated way, simple substitution might not be enough, and that's okay. Start with problems where the match is clean, and build from there.\n\nAlso, don't skip Step 4. A common mistake is leaving $u$ in your final answer. Always swap back to the original variable.",
+      "intuition_md": "Imagine you are following a recipe written in French, but you only cook in English. Substitution is like translating the recipe into English ($u$-world), doing the cooking (integrating), and then translating the finished dish's label back into French (replacing $u$ with the original expression). The translation step — choosing $u$ and finding $du$ — is where the real thinking happens. Once you are in $u$-world, the integral is usually something simple you have seen before, like a plain power rule. The whole point is to turn a hard integral into an easy one by temporarily changing the language."
+    },
+    {
+      "tier": "novice",
+      "framing_index": 1,
+      "body_md": "You already know the chain rule going forward. Let's start there and then flip it around.\n\nSuppose you need the derivative of $(x^2 + 1)^5$. The chain rule says: take the derivative of the outside, leave the inside alone, then multiply by the derivative of the inside.\n\n$$\\frac{d}{dx}(x^2+1)^5 = 5(x^2+1)^4 \\cdot 2x$$\n\nThat gives you $10x(x^2+1)^4$.\n\nNow imagine someone hands you the integral\n\n$$\\int 10x(x^2+1)^4\\,dx$$\n\nYou already know the answer — it's $(x^2+1)^5 + C$ — because you just went the other direction. Integration by substitution is just a systematic way to spot that you're looking at a chain rule product and reverse it.\n\nHere's the method. Pick the \"inside function\" and call it $u$. In our example:\n\n$$u = x^2 + 1$$\n\nTake its derivative: $\\frac{du}{dx} = 2x$, which you can write as $du = 2x\\,dx$.\n\nNow look at the original integral. You can literally swap pieces:\n\n$$\\int 10x(x^2+1)^4\\,dx = \\int 5\\,u^4\\,du$$\n\nThe $2x\\,dx$ became $du$, and $(x^2+1)$ became $u$. What remains is a simple power-rule integral:\n\n$$\\int 5u^4\\,du = \\frac{5u^5}{5} + C = u^5 + C$$\n\nFinally, replace $u$ with $x^2+1$:\n\n$$(x^2+1)^5 + C$$\n\nExactly what we expected.\n\nThe hardest part is choosing $u$. A good rule of thumb: look for a function whose derivative is also sitting in the integral (maybe off by a constant). Here, $x^2+1$ was a good pick because its derivative $2x$ appeared right next to it. If that derivative isn't there, substitution probably isn't the right tool for that problem.\n\nThis takes practice. If it feels tricky at first, that's normal — you're learning to read a chain rule product backwards, and that's genuinely a new skill.",
+      "intuition_md": "Think of the chain rule like wrapping a gift: you put an item in a box, then wrap the box. The derivative peels off one layer of wrapping at a time, from outside in, and multiplies by how fast the inside is changing. Substitution is re-wrapping. When you see an integral with a messy inside piece and its derivative hanging around as a factor, you're looking at an unwrapped chain rule. You set $u$ equal to the inside piece, bundle its derivative into $du$, and suddenly the integral looks like a simple, single-variable problem you already know how to solve."
+    },
+    {
+      "tier": "on_pace",
+      "framing_index": 0,
+      "body_md": "You already know the chain rule: $\\frac{d}{dx}[F(g(x))] = F'(g(x)) \\cdot g'(x)$. Integration by substitution is just the chain rule run in reverse.\n\nSuppose you face an integral like\n$$\\int 2x \\cos(x^2)\\,dx.$$\nYou notice that $x^2$ is sitting inside the cosine, and its derivative $2x$ is conveniently multiplied out front. That pattern — an inner function and its derivative — is your signal to substitute.\n\n**The method:**\n\n1. **Choose** $u = g(x)$, the \"inner\" piece. Here, $u = x^2$.\n2. **Differentiate:** $du = 2x\\,dx$.\n3. **Rewrite** the entire integral in terms of $u$:\n$$\\int 2x \\cos(x^2)\\,dx = \\int \\cos(u)\\,du.$$\n4. **Integrate** in $u$-world: $\\int \\cos(u)\\,du = \\sin(u) + C$.\n5. **Back-substitute:** $\\sin(x^2) + C$.\n\nFor definite integrals, you can either convert back to $x$ and use the original limits, or convert the limits themselves: if $u = x^2$ and $x$ goes from $0$ to $3$, then $u$ goes from $0$ to $9$.\n\n**Common sticking points:**\n\n- *What if the derivative isn't perfectly there?* You can adjust by constants. For $\\int x \\cos(x^2)\\,dx$, note $du = 2x\\,dx$, so $x\\,dx = \\frac{1}{2}du$. Pull the $\\frac{1}{2}$ out front.\n- *You cannot pull a variable out front.* Only constants factor out of an integral.\n- *Choosing $u$:* Look for a function whose derivative (up to a constant) also appears in the integrand. Compositions — something inside a power, trig function, exponential, or logarithm — are the usual suspects.\n\nThis technique connects directly to what's next: integration by parts handles products where substitution doesn't apply, and later, partial fractions tackle rational expressions. Substitution remains your first tool to try on almost every integral.",
+      "intuition_md": "Think of substitution as changing the variable you measure along. Imagine you are walking along a curvy path parameterized by $x$, but the integral becomes simple if you measure progress by $u = g(x)$ instead — like switching from miles along the road to elevation gained. The factor $g'(x)\\,dx$ is exactly the conversion factor between those two rulers: it tells you how much $u$ changes per small step in $x$. Once you switch rulers, the messy integral often collapses into a basic form you already know how to evaluate."
+    },
+    {
+      "tier": "advanced",
+      "framing_index": 0,
+      "body_md": "You already know the chain rule: $\\frac{d}{dx}[F(g(x))] = F'(g(x))\\cdot g'(x)$. Integration by substitution is simply the chain rule read backwards through the lens of the Fundamental Theorem.\n\n**Formal statement.** Let $g$ be continuously differentiable on $[a,b]$ and $f$ continuous on the range of $g$. Then\n\n$$\\int_a^b f(g(x))\\,g'(x)\\,dx = \\int_{g(a)}^{g(b)} f(u)\\,du$$\n\nwhere $u = g(x)$.\n\n**Why it's true.** Let $F$ be any antiderivative of $f$ (exists because $f$ is continuous). Then $F(g(x))$ is an antiderivative of $f(g(x))\\,g'(x)$ by the chain rule. Applying the FTC to both sides:\n\n$$\\text{LHS} = F(g(b)) - F(g(a)), \\qquad \\text{RHS} = F(g(b)) - F(g(a)).$$\n\nDone. The only hypotheses doing real work are (i) continuity of $f$ (so $F$ exists) and (ii) continuous differentiability of $g$ (so the composite is Riemann-integrable).\n\n**Differential-level picture.** When you write $du = g'(x)\\,dx$, you're invoking the linear approximation $\\Delta u \\approx g'(x)\\,\\Delta x$. Each thin rectangle of width $dx$ in $x$-space maps to a thin rectangle of width $du$ in $u$-space, scaled by the local stretching factor $g'(x)$. The integral's value is preserved because you're re-parameterizing the same accumulated area, not changing it — exactly the idea behind a change-of-variables in any measure-theoretic sense.\n\n**Practical routine.** Choose $u = g(x)$. Compute $du = g'(x)\\,dx$. Rewrite every $x$-dependent piece in terms of $u$. Transform limits (or back-substitute for indefinite integrals). If any $x$ remains, the substitution was ill-chosen.\n\n**Stretch question.** Substitution assumes $g$ is $C^1$. What happens if $g$ is merely absolutely continuous? Can you still justify the formula using the Lebesgue integral? Investigate the change-of-variables theorem in measure theory and compare the hypotheses.",
+      "intuition_md": "Think of $g$ as a nonlinear ruler laid along the $x$-axis. At each point it stretches or compresses lengths by the factor $g'(x)$. When you integrate $f$ along this warped ruler, every infinitesimal piece $dx$ contributes $f(u)\\,du = f(g(x))\\,g'(x)\\,dx$ — the value of $f$ at the warped position times the local stretch. Substitution just says: instead of summing over the warped ruler, straighten it out into $u$-space and sum $f(u)\\,du$ directly. The total doesn't change because you've accounted for every bit of stretching."
+    }
+  ],
+  "examples": [
+    {
+      "tier": "novice",
+      "problem_md": "Find $\\displaystyle \\int 2x \\,(x^2 + 1)^3 \\, dx$.",
+      "steps": [
+        {
+          "step_md": "Look at the integrand and notice that $x^2 + 1$ is sitting inside a cube, and its derivative $2x$ is standing right next to it as a factor.",
+          "why_md": "Substitution works when you can spot a chunk (an inner piece) whose derivative also appears in the integrand. Think of it like a receipt: if someone hands you the inside function AND its rate of change, you can simplify the whole expression into something much easier. Here the chunk is $x^2 + 1$, and $2x$ is exactly $\\frac{d}{dx}[x^2+1]$. That match is the green light telling you substitution will work."
+        },
+        {
+          "step_md": "Let $u = x^2 + 1$. Then compute $\\frac{du}{dx} = 2x$, which means $du = 2x\\,dx$.",
+          "why_md": "You are giving a short nickname — $u$ — to the messy inner chunk. Then you figure out what $du$ equals in terms of $dx$ so you can swap every $x$-piece out of the integral. After this step, there should be no $x$ left anywhere — only $u$. If there were leftover $x$'s you couldn't get rid of, that would be a sign the substitution might not be the right one."
+        },
+        {
+          "step_md": "Rewrite the integral entirely in terms of $u$:\n$$\\int 2x\\,(x^2+1)^3\\,dx \\;=\\; \\int u^3\\,du.$$\nHere $2x\\,dx$ was replaced by $du$, and $(x^2+1)^3$ became $u^3$.",
+          "why_md": "This is the payoff of the substitution. The original integral looked complicated — a product with a cube. Now it is just $u^3$, a plain power you already know how to integrate using the power rule. Substitution didn't solve the integral; it translated it into a simpler language."
+        },
+        {
+          "step_md": "Apply the power rule for integrals:\n$$\\int u^3\\,du = \\frac{u^4}{4} + C.$$",
+          "why_md": "The power rule says $\\int u^n\\,du = \\frac{u^{n+1}}{n+1} + C$ (as long as $n \\neq -1$). With $n = 3$ you get $\\frac{u^4}{4}$. The $+ C$ is the constant of integration — it accounts for the fact that many different functions can have the same derivative. Never forget it on an indefinite integral."
+        },
+        {
+          "step_md": "Substitute back: replace $u$ with $x^2 + 1$:\n$$\\frac{u^4}{4} + C \\;=\\; \\frac{(x^2+1)^4}{4} + C.$$",
+          "why_md": "Your answer should be in the same variable the problem started with — here that is $x$. So you undo the nickname by plugging $x^2 + 1$ back in for $u$. A quick sanity check: if you were to differentiate $\\frac{(x^2+1)^4}{4}$ using the chain rule, you would get $4 \\cdot \\frac{(x^2+1)^3}{4} \\cdot 2x = 2x(x^2+1)^3$, which is exactly the integrand you started with. That confirms the answer is correct. Checking by differentiating is a habit worth building — it catches mistakes and builds your confidence with both the chain rule and substitution at the same time. Once you are comfortable with this pattern, try a problem where the derivative of the inside doesn't appear perfectly — for example $\\int x(x^2+1)^3\\,dx$, where you would need to handle a missing constant factor."
+        }
+      ]
+    },
+    {
+      "tier": "on_pace",
+      "problem_md": "Evaluate $$\\int x^2 \\sqrt{x^3 + 1}\\, dx.$$",
+      "steps": [
+        {
+          "step_md": "Let $u = x^3 + 1$.",
+          "why_md": "You're looking for an inner function whose derivative also appears in the integrand (up to a constant). Here $x^3 + 1$ sits inside the square root, and its derivative $3x^2$ is closely related to the $x^2$ factor out front. That match is the signal to choose $u = x^3 + 1$."
+        },
+        {
+          "step_md": "Differentiate: $\\dfrac{du}{dx} = 3x^2$, so $du = 3x^2\\, dx$. Solve for the piece you actually see in the integral: $$x^2\\, dx = \\frac{1}{3}\\, du.$$",
+          "why_md": "The goal is to replace every $x$-expression (including $dx$) with $u$-expressions. The integrand has $x^2\\, dx$, not $3x^2\\, dx$, so you divide both sides by 3. This is the most common sticking point — don't forget to account for that constant factor."
+        },
+        {
+          "step_md": "Rewrite the integral entirely in terms of $u$: $$\\int x^2 \\sqrt{x^3 + 1}\\, dx = \\int \\sqrt{u}\\;\\cdot \\frac{1}{3}\\, du = \\frac{1}{3}\\int u^{1/2}\\, du.$$",
+          "why_md": "Once every part of the integrand is expressed in $u$, the integral should look like a straightforward power rule problem. If any $x$ is still hanging around at this stage, something went wrong with the substitution — go back and check."
+        },
+        {
+          "step_md": "Apply the Power Rule for integrals: $$\\frac{1}{3}\\int u^{1/2}\\, du = \\frac{1}{3} \\cdot \\frac{u^{3/2}}{3/2} = \\frac{1}{3} \\cdot \\frac{2}{3}\\, u^{3/2} = \\frac{2}{9}\\, u^{3/2}.$$",
+          "why_md": "This is the same rule you used in earlier antiderivative work: $\\int u^n\\, du = \\dfrac{u^{n+1}}{n+1} + C$. Dividing by $\\frac{3}{2}$ is the same as multiplying by $\\frac{2}{3}$. Keep the constant arithmetic clean — careless fraction errors are the number-one way points are lost on the AP exam."
+        },
+        {
+          "step_md": "Substitute back: $$\\frac{2}{9}\\, u^{3/2} + C = \\frac{2}{9}(x^3 + 1)^{3/2} + C.$$",
+          "why_md": "Your answer must be in the original variable $x$, so replace $u$ with $x^3 + 1$. Don't forget the $+ C$; this is an indefinite integral. A quick sanity check: differentiate $\\frac{2}{9}(x^3+1)^{3/2}$ using the Chain Rule. You get $\\frac{2}{9} \\cdot \\frac{3}{2}(x^3+1)^{1/2} \\cdot 3x^2 = x^2\\sqrt{x^3+1}$, which matches the original integrand. This \"differentiate to verify\" habit connects substitution directly back to the Chain Rule — substitution is really the Chain Rule run in reverse, and that idea carries forward into every integration technique you'll see next, including integration by parts."
+        }
+      ]
+    },
+    {
+      "tier": "advanced",
+      "problem_md": "Evaluate $$\\int_0^{\\,\\pi/2} \\frac{\\cos x}{1 + \\sin^2 x}\\,dx.$$",
+      "steps": [
+        {
+          "step_md": "**Identify the substitution.** Let $u = \\sin x$, so $du = \\cos x\\,dx$.",
+          "why_md": "Substitution is the chain rule in reverse. Formally, if $F'(u) = \\frac{1}{1+u^2}$, then $\\frac{d}{dx}F(\\sin x) = F'(\\sin x)\\cdot \\cos x = \\frac{\\cos x}{1+\\sin^2 x}$, which is exactly the integrand. We choose $u = \\sin x$ because the derivative $\\cos x$ already appears as a factor, making the integral collapse into one in $u$ alone. This is the heart of the substitution theorem: given $\\int_a^b f(g(x))\\,g'(x)\\,dx = \\int_{g(a)}^{g(b)} f(u)\\,du$, the requirement is that $g$ is continuously differentiable on $[a,b]$ and $f$ is continuous on the range of $g$. Both conditions hold here since $\\sin x \\in C^1$ and $\\frac{1}{1+u^2}$ is continuous everywhere."
+        },
+        {
+          "step_md": "**Transform the limits.** When $x = 0$: $u = \\sin 0 = 0$. When $x = \\pi/2$: $u = \\sin(\\pi/2) = 1$.",
+          "why_md": "Changing the limits lets you stay entirely in the $u$-world and avoid back-substituting. This is not just a convenience — it reflects the deeper fact that the substitution theorem is really a statement about reparametrizing an oriented path of integration. The map $x \\mapsto \\sin x$ sends $[0,\\,\\pi/2]$ onto $[0,1]$ monotonically, so orientation is preserved and the equality of the two integrals holds without a sign change."
+        },
+        {
+          "step_md": "**Rewrite the integral.** $$\\int_0^{\\,\\pi/2} \\frac{\\cos x}{1+\\sin^2 x}\\,dx = \\int_0^{1} \\frac{1}{1+u^2}\\,du.$$",
+          "why_md": "Every piece of the original integrand has been absorbed: $\\cos x\\,dx$ became $du$, and $\\sin^2 x$ became $u^2$. If any leftover $x$ remained, the substitution would fail — that residual $x$-dependence would signal that the integrand is not of the form $f(g(x))\\,g'(x)$. This is a quick self-check worth building into your workflow."
+        },
+        {
+          "step_md": "**Evaluate.** $$\\int_0^{1} \\frac{1}{1+u^2}\\,du = \\arctan u\\,\\Big|_0^1 = \\arctan 1 - \\arctan 0 = \\frac{\\pi}{4} - 0 = \\frac{\\pi}{4}.$$",
+          "why_md": "We use $\\frac{d}{du}[\\arctan u] = \\frac{1}{1+u^2}$, a result that itself comes from implicit differentiation of $u = \\tan \\theta$. Notice the satisfying closure: one trig substitution ($u = \\sin x$) reduced the problem to an integral whose antiderivative is an inverse trig function. This interplay between trig and inverse-trig is pervasive in calculus."
+        },
+        {
+          "step_md": "$$\\boxed{\\int_0^{\\,\\pi/2} \\frac{\\cos x}{1+\\sin^2 x}\\,dx = \\frac{\\pi}{4}}$$",
+          "why_md": "As a sanity check, the integrand is positive and at most $1$ on $[0,\\pi/2]$, so the integral should be between $0$ and $\\pi/2 \\approx 1.57$. Indeed $\\pi/4 \\approx 0.785$ fits. For a stretch: try generalizing to $\\int_0^{\\pi/2} \\frac{\\cos x}{a^2 + \\sin^2 x}\\,dx$ for $a > 0$. The same substitution works; you will need $\\int \\frac{du}{a^2+u^2} = \\frac{1}{a}\\arctan\\frac{u}{a}+C$. Then investigate: as $a \\to 0^+$, the integral diverges — can you determine the rate using the behavior of $\\arctan$ near $\\pm\\infty$? This connects substitution to the study of improper integrals and asymptotic analysis."
+        }
+      ]
+    }
+  ],
+  "misconceptions": [
+    {
+      "short_name": "forget_to_convert_dx",
+      "description_md": "The student substitutes $u$ into the integrand but leaves $dx$ unchanged. For example, given $\\int 2x \\cos(x^2)\\,dx$, they let $u = x^2$ and write $\\int \\cos(u)\\,dx$ instead of converting $dx$ to $du$.",
+      "why_wrong_md": "When you change the variable of integration from $x$ to $u$, you must also express $dx$ in terms of $du$. Since $du = 2x\\,dx$, you need $dx = \\frac{du}{2x}$. Mixing variables — having $u$ in the integrand but $dx$ as the differential — produces a meaningless expression that you cannot correctly evaluate.",
+      "socratic_response_md": "You've rewritten the inside of the cosine as $u$, which is great. But your integral now has two different variables — $u$ inside the function and $dx$ as the differential. Can an integral be written in terms of two different variables at once, and if not, how would you rewrite $dx$ using $u$ and $du$?"
+    },
+    {
+      "short_name": "ignore_leftover_x",
+      "description_md": "The student picks a substitution but doesn't check whether every remaining $x$ in the integrand can be expressed in terms of $u$. For instance, in $\\int x^2 \\cos(x^3)\\,dx$, they let $u = x^3$ so $du = 3x^2\\,dx$, but in a harder case like $\\int x^2 e^{x}\\,dx$ they try $u = x$ and get stuck with leftover $x$ terms they can't absorb.",
+      "why_wrong_md": "A substitution only works if, after replacing all parts, the entire integrand (including $dx$) is expressed purely in terms of $u$ and $du$. If you still have stray $x$-terms that can't be written as functions of $u$, the substitution doesn't simplify the integral — it just creates an unsolvable hybrid.",
+      "socratic_response_md": "After you substitute and replace $dx$ with $du$, look at what's left. Is every piece of the integrand now written entirely in terms of $u$, or is there still an $x$ lurking? What does that leftover $x$ tell you about whether this substitution is the right choice?"
+    },
+    {
+      "short_name": "drop_constant_from_du",
+      "description_md": "The student correctly computes $du$ but ignores the constant factor. For example, with $u = 3x + 1$, they write $du = dx$ instead of $du = 3\\,dx$, so they evaluate $\\int (3x+1)^5\\,dx$ as $\\frac{u^6}{6} + C$ instead of $\\frac{u^6}{18} + C$.",
+      "why_wrong_md": "Since $\\frac{du}{dx} = 3$, you have $du = 3\\,dx$, which means $dx = \\frac{du}{3}$. Omitting the $\\frac{1}{3}$ changes the antiderivative by a constant factor, giving an answer that is off by a factor of 3. You can verify by differentiating: $\\frac{d}{dx}\\left[\\frac{(3x+1)^6}{6}\\right] = (3x+1)^5 \\cdot 3$, not $(3x+1)^5$.",
+      "socratic_response_md": "You said $u = 3x + 1$ and then replaced $dx$ with $du$ directly. Try computing $\\frac{du}{dx}$ — is it equal to $1$? If not, what correction factor do you need when you solve for $dx$ in terms of $du$?"
+    },
+    {
+      "short_name": "forget_to_change_bounds",
+      "description_md": "On a definite integral, the student substitutes $u = g(x)$ but keeps the original $x$-limits of integration. For example, $\\int_0^2 2x(x^2+1)^3\\,dx$ with $u = x^2 + 1$: they write $\\int_0^2 u^3\\,du$ instead of $\\int_1^5 u^3\\,du$.",
+      "why_wrong_md": "The limits of integration describe the interval for whatever variable appears in the differential. Once you switch to $u$, the limits must be the $u$-values corresponding to the original $x$-values: $u(0) = 0^2 + 1 = 1$ and $u(2) = 2^2 + 1 = 5$. Keeping the old limits evaluates the integral over the wrong interval, producing an incorrect numerical answer.",
+      "socratic_response_md": "You've changed every $x$ in the integrand to $u$, but the bounds $0$ and $2$ were originally values of $x$. If $u = x^2 + 1$, what value does $u$ take when $x = 0$, and what value does $u$ take when $x = 2$? Shouldn't the bounds reflect the variable you're actually integrating with respect to?"
+    },
+    {
+      "short_name": "forget_to_back_substitute",
+      "description_md": "On an indefinite integral, the student completes the integration in terms of $u$ and writes the final answer in terms of $u$ instead of converting back to $x$. For instance, they write $\\int 2x e^{x^2}\\,dx = e^{u} + C$ and stop, leaving $u$ in the answer.",
+      "why_wrong_md": "The original problem is stated in terms of $x$, and $u$ was just a temporary helper variable. The antiderivative must be a function of $x$ so it can be differentiated or evaluated in the original variable. Here the final answer should be $e^{x^2} + C$. Leaving $u$ is like answering a question in a language the original problem doesn't speak.",
+      "socratic_response_md": "Your antiderivative is written in terms of $u$, but the original integral was a function of $x$. If someone asked you to check your answer by differentiating with respect to $x$, could you do that while $u$ is still sitting there? What should you replace $u$ with before you write your final answer?"
+    }
+  ],
+  "checks": [
+    {
+      "tier": "novice",
+      "question_md": "Suppose you want to find $\\int 2x \\cdot (x^2 + 1)^3 \\, dx$.\n\nThe first step in substitution is to pick an inside piece to call $u$. Think of it like peeling an onion — you name the inner layer.\n\nWhich part of this integral would you choose as $u$?\n\n(a) $2x$\n(b) $x^2 + 1$\n(c) $(x^2+1)^3$\n(d) $dx$",
+      "expected_answer_md": "**(b)** $u = x^2 + 1$. It is the \"inside\" part that is being cubed. Once you set $u = x^2 + 1$, notice that $\\frac{du}{dx} = 2x$, and that $2x$ is already sitting right there in the integral — that is a good sign you picked the right $u$.",
+      "expected_pattern": "[Bb]|x\\^?2\\s*\\+\\s*1"
+    },
+    {
+      "tier": "novice",
+      "question_md": "You are in the middle of a substitution. You set $u = 3x + 5$ and found that $du = 3\\,dx$.\n\nYour original integral has a plain $dx$ in it, not $3\\,dx$. To fix this, you need to replace $dx$ with something in terms of $du$.\n\nFill in the blank:\n\n$$dx = \\underline{\\phantom{\\frac{du}{3}}}$$",
+      "expected_answer_md": "$dx = \\frac{du}{3}$\n\nSince $du = 3\\,dx$, just divide both sides by 3. You can also write this as $\\frac{1}{3}\\,du$ — same thing.",
+      "expected_pattern": "(du\\s*/\\s*3|\\frac\\{du\\}\\{3\\}|1\\s*/\\s*3\\s*du|\\(1/3\\)\\s*du)"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "You want to evaluate $$\\int 3x^2 \\cos(x^3)\\,dx.$$ You set $u = x^3$, so $du = 3x^2\\,dx$. After substitution, what does the integral become in terms of $u$? (Write just the new integral, before antidifferentiating.)",
+      "expected_answer_md": "$$\\int \\cos(u)\\,du$$",
+      "expected_pattern": "\\bcos\\s*\\(?\\s*u\\s*\\)?\\s*d\\s*u\\b"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Spot the mistake in the following work:\n\n$$\\int 2x\\,e^{x^2}\\,dx$$\n\nStudent writes: \"Let $u = x^2$, so $du = x\\,dx$. Then the integral becomes $\\int 2\\,e^{u}\\,du = 2e^{u}+C = 2e^{x^2}+C$.\"\n\nWhat specifically went wrong when the student found $du$?",
+      "expected_answer_md": "The derivative of $x^2$ is $2x$, not $x$. The correct differential is $du = 2x\\,dx$. With that fix, the integral simplifies to $\\int e^{u}\\,du = e^{x^2}+C$ — no extra factor of 2.",
+      "expected_pattern": "du\\s*=\\s*2\\s*x|forgot.*2|missing.*2x|derivative.*2x|should be.*2x\\s*dx"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "**Spot the mistake.** A student writes:\n\n$$\\int_0^1 2x\\,e^{x^2}\\,dx = \\int_0^1 e^u\\,du = e - 1$$\n\nwhere $u = x^2$. The final numerical answer happens to be correct. But the student has been sloppy about one important detail that would produce a wrong answer in other problems. What is it?",
+      "expected_answer_md": "The limits of integration were not changed. When $x = 0$, $u = 0$ and when $x = 1$, $u = 1$, so the limits happen to stay $0$ to $1$ by coincidence. The student should have explicitly written the new limits as $u(0) = 0$ and $u(1) = 1$; in general the bounds must be transformed under the substitution.",
+      "expected_pattern": "(?i)(limits|bounds|didn.t change|didn.t transform|coinciden|same.*by.*luck|endpoints|u\\s*=\\s*0.*u\\s*=\\s*1|forgot.*convert)"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "Fill in the blank with a short conceptual justification.\n\nThe substitution rule $\\int f(g(x))\\,g'(x)\\,dx = \\int f(u)\\,du$ is really just the **\\_\\_\\_\\_\\_\\_\\_\\_** read in reverse (i.e., integrated from both sides). This is why the formula requires $g$ to be differentiable and $f$ to be continuous — the same hypotheses that guarantee that theorem applies.",
+      "expected_answer_md": "The **chain rule**. Differentiating $F(g(x))$ where $F' = f$ gives $f(g(x))\\,g'(x)$ by the chain rule, so integrating both sides recovers the substitution formula.",
+      "expected_pattern": "(?i)(chain\\s*rule)"
+    }
+  ],
+  "deep_dives": [
+    {
+      "title": "Why Does the $du$ Swap Work? A Linear-Approximation Justification",
+      "body_md": "You have probably been told you can treat $du = g'(x)\\,dx$ as though $du$ and $dx$ are separate quantities you can multiply and divide. That feels suspicious — after all, $\\frac{du}{dx}$ is defined as a *limit*, not a fraction. So why does the substitution mechanics actually produce correct answers?\n\n## The core idea: zoom in far enough and every differentiable function is linear\n\nPick a differentiable function $u = g(x)$. Near any point $x = a$, the best linear approximation is\n\n$$g(a + \\Delta x) \\approx g(a) + g'(a)\\,\\Delta x.$$\n\nThis means the *change* in $u$ satisfies\n\n$$\\Delta u \\approx g'(a)\\,\\Delta x.$$\n\nNow consider a Riemann sum for $\\int f(g(x))\\,g'(x)\\,dx$. A typical rectangle has area\n\n$$f(g(x_k))\\,g'(x_k)\\,\\Delta x.$$\n\nBecause $\\Delta u_k = g(x_{k+1}) - g(x_k) \\approx g'(x_k)\\,\\Delta x$, you can replace $g'(x_k)\\,\\Delta x$ with $\\Delta u_k$:\n\n$$f(g(x_k))\\,g'(x_k)\\,\\Delta x \\approx f(u_k)\\,\\Delta u_k.$$\n\nSum over all $k$:\n\n$$\\sum_k f(g(x_k))\\,g'(x_k)\\,\\Delta x \\approx \\sum_k f(u_k)\\,\\Delta u_k.$$\n\nAs $\\Delta x \\to 0$, two things happen simultaneously: the linear-approximation error in each $\\Delta u_k$ shrinks faster than $\\Delta x$ (it is $O(\\Delta x^2)$, courtesy of differentiability), and the sums converge to their respective integrals. The accumulated approximation errors vanish in the limit, giving you the exact equality\n\n$$\\int f(g(x))\\,g'(x)\\,dx = \\int f(u)\\,du.$$\n\n## Why the error truly disappears\n\nThe error in each rectangle is roughly $f(u_k)\\cdot O(\\Delta x^2)$. There are about $\\frac{b-a}{\\Delta x}$ rectangles, so the *total* error is at most\n\n$$\\frac{b-a}{\\Delta x} \\cdot C\\,(\\Delta x)^2 = C(b-a)\\,\\Delta x \\to 0.$$\n\nThis is the same argument that makes ordinary Riemann sums work: individual errors of order $\\Delta x^2$ accumulate over $O(1/\\Delta x)$ terms, giving total error $O(\\Delta x)$, which vanishes.\n\n## So what is $du$, really?\n\nThe symbol $du = g'(x)\\,dx$ is shorthand for the *differential* — the linear part of the change in $u$. When you write $du$ inside an integral, you are not dividing a derivative; you are replacing each $\\Delta u_k$ with its linear approximation and relying on the limit to wash away the higher-order leftovers. The notation is engineered so that a true theorem (the chain rule running in reverse) *looks* like simple algebra on fractions. It is a feature, not a coincidence.\n\n---\n\n**Follow-up to chew on:** If the justification above hinges on $g$ being differentiable (so the linear approximation error is $O(\\Delta x^2)$), what goes wrong if $g$ is merely continuous but not differentiable at some points — can you still substitute? Under what weaker conditions might $u$-substitution still be valid?"
+    },
+    {
+      "title": "Choosing $u$ When There Are Multiple Candidates — What Makes One Choice Better?",
+      "body_md": "Consider the integral\n$$\\int x^2 e^{x^3} \\, dx.$$\nYou could set $u = x^2$, or $u = x^3$, or even $u = e^{x^3}$. All are legitimate algebraic expressions sitting inside the integrand. So why does $u = x^3$ work beautifully while the others lead nowhere?\n\nThe core mechanism of substitution is the chain rule running in reverse:\n$$\\int f(g(x))\\, g'(x)\\, dx = \\int f(u)\\, du, \\qquad u = g(x).$$\nFor this to collapse into a clean $du$ integral, **two things must happen simultaneously**:\n1. Your choice of $u = g(x)$ must account for some \"inner layer\" of the integrand.\n2. The derivative $g'(x)$ must already be present (up to a constant factor) among the remaining factors.\n\nThink of it as a budget: every factor of $x$ in the integrand has to be \"spent\" — either absorbed into $u$ itself or absorbed into $du$. A good $u$ is one whose derivative exactly consumes whatever is left over.\n\nLet's test each candidate:\n\n**Try $u = x^2$.** Then $du = 2x\\,dx$. You can peel off one $x$ from $x^2$ to pair with $dx$, leaving $x \\cdot e^{x^3}$. But $e^{x^3}$ still contains $x^3$, which you cannot rewrite purely in terms of $u = x^2$ (since $x^3 = u^{3/2}$ only when $x \\ge 0$, and you still have a stray $x$ in front). The budget does not balance.\n\n**Try $u = e^{x^3}$.** Then $du = 3x^2 e^{x^3}\\,dx$. That derivative is $3x^2 e^{x^3}$, which actually accounts for *every* remaining factor in the integrand. So $\\int x^2 e^{x^3}\\,dx = \\frac{1}{3}\\int du = \\frac{1}{3}u + C$. This works too — but notice it works precisely because the $du$ calculation secretly invoked $u = x^3$ as the inner function anyway. You just front-loaded the exponentiation.\n\n**Try $u = x^3$.** Then $du = 3x^2\\,dx$, so $x^2\\,dx = \\frac{1}{3}\\,du$. The integrand becomes $\\frac{1}{3}e^u\\,du$. Every factor is accounted for, and you are left with an elementary antiderivative.\n\nThe deeper principle: **the best $u$ is the innermost composed function whose derivative already appears as a factor.** \"Innermost\" matters because substitution peels off exactly one layer of composition. If you choose an outer layer, you typically cannot invert it cleanly to eliminate $x$.\n\nHere is a reliable heuristic, stated precisely: scan the integrand for a composition $f(g(x))$. Set $u = g(x)$. Compute $du = g'(x)\\,dx$ and check whether every remaining $x$-dependent piece either cancels or converts to $u$. If not, try the next-innermost layer. This is why, in $\\int x \\sin(x^2)\\,dx$, you pick $u = x^2$ (inner layer of $\\sin$), not $u = \\sin(x^2)$ (whose derivative $2x\\cos(x^2)\\,dx$ introduces a $\\cos(x^2)$ that is nowhere in the original integrand).\n\nSo \"choosing $u$\" is not a guess — it is pattern-matching on the chain rule. You are asking: *which layer of composition, when peeled off, leaves behind exactly its own derivative?*\n\n**Follow-up question to chew on:** When two different substitutions both \"work\" (like $u = x^3$ and $u = e^{x^3}$ above), must they always yield the same antiderivative? Can you construct an example where two valid substitutions lead to answers that *look* different but differ only by a constant?"
+    }
+  ],
+  "applications": [
+    {
+      "context": "physics",
+      "problem_md": "A variable force acts on a 2 kg block sliding along a frictionless track. The force depends on the block's position $x$ (in meters) according to\n\n$$F(x) = 6x\\,(1 + x^2)^{3}$$\n\nwhere $F$ is in newtons and $x \\ge 0$.\n\nThe block starts at $x = 0$ and you want to know how much work the force does on the block as it moves from $x = 0$ to $x = 2$ m.\n\nRecall that the work done by a variable force over a displacement is\n\n$$W = \\int_{x_1}^{x_2} F(x)\\, dx.$$\n\n(a) Set up the integral that gives the work done.\n\n(b) Evaluate the integral using an appropriate substitution.\n\n(c) Using the work-energy theorem ($W = \\Delta KE$), find the speed of the block at $x = 2$ m if it starts from rest.",
+      "solution_outline_md": "**Part (a):** The work integral is\n\n$$W = \\int_0^2 6x\\,(1+x^2)^3\\, dx.$$\n\n**Part (b) — Substitution:**\n\nLet $u = 1 + x^2$, so $du = 2x\\,dx$, which means $x\\,dx = \\tfrac{1}{2}\\,du$.\n\nChange limits: when $x=0$, $u=1$; when $x=2$, $u=5$.\n\nThe integral becomes\n\n$$W = 6 \\cdot \\frac{1}{2}\\int_1^5 u^3\\, du = 3\\int_1^5 u^3\\, du.$$\n\nEvaluate:\n\n$$3\\left[\\frac{u^4}{4}\\right]_1^5 = \\frac{3}{4}\\left(5^4 - 1^4\\right) = \\frac{3}{4}(625 - 1) = \\frac{3}{4}(624) = 468 \\text{ J}.$$\n\n**Part (c):** By the work-energy theorem with $v_0 = 0$:\n\n$$W = \\tfrac{1}{2}mv^2 \\implies v = \\sqrt{\\frac{2W}{m}} = \\sqrt{\\frac{2(468)}{2}} = \\sqrt{468} = 6\\sqrt{13} \\approx 21.6 \\text{ m/s}.$$\n\n**Final answers:** $W = 468$ J and $v = 6\\sqrt{13}$ m/s $\\approx 21.6$ m/s."
+    },
+    {
+      "context": "engineering",
+      "problem_md": "A civil engineer is designing a storm-water retention pond. During a heavy rainstorm, the inflow rate into the pond (in cubic meters per hour) is modeled by\n\n$$Q(t) = 120t \\, e^{-0.5\\,t^2}$$\n\nwhere $t$ is measured in hours after the storm begins ($t \\ge 0$). The pond starts empty.\n\nThe engineer needs to know the total volume of water that enters the pond during the first two hours of the storm so she can verify the pond's capacity is sufficient.\n\n**Your task:**\n\n1. Write a definite integral that represents the total volume of water (in cubic meters) entering the pond for $0 \\le t \\le 2$.\n2. Evaluate the integral using $u$-substitution.\n3. Determine whether a pond with a capacity of $110\\text{ m}^3$ is large enough.",
+      "solution_outline_md": "**Setting up the integral.**\n\nTotal volume is\n\n$$V = \\int_0^2 120t\\,e^{-0.5\\,t^2}\\,dt.$$\n\n**Substitution.**\n\nLet $u = -0.5\\,t^2$, so $du = -t\\,dt$, which gives $t\\,dt = -du$.\n\nChange the limits: when $t=0$, $u=0$; when $t=2$, $u=-2$.\n\nThe integral becomes\n\n$$V = 120\\int_0^{-2} e^{u}(-du) = 120\\int_{-2}^{0} e^{u}\\,du.$$\n\n**Evaluating.**\n\n$$V = 120\\Big[e^{u}\\Big]_{-2}^{0} = 120\\left(e^{0} - e^{-2}\\right) = 120\\left(1 - e^{-2}\\right).$$\n\nNumerically, $e^{-2} \\approx 0.1353$, so\n\n$$V \\approx 120(0.8647) \\approx 103.8\\text{ m}^3.$$\n\n**Conclusion.**\n\nBecause $103.8\\text{ m}^3 < 110\\text{ m}^3$, the pond's capacity is sufficient for the first two hours of storm inflow, with roughly $6\\text{ m}^3$ of margin."
+    }
+  ]
+}

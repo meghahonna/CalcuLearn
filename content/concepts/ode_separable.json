@@ -1,0 +1,211 @@
+{
+  "concept_id": "ode.separable",
+  "name": "Separable Differential Equations",
+  "track": "BC",
+  "one_liner": "When $\\frac{dy}{dx}$ splits into a product of an $x$-only piece and a $y$-only piece, you can separate variables and integrate each side.",
+  "prerequisites": [
+    "integ.substitution"
+  ],
+  "explanations": [
+    {
+      "tier": "novice",
+      "framing_index": 0,
+      "body_md": "Imagine you pull a hot pizza out of the oven and set it on the counter. It cools down fast at first, then slower as it gets closer to room temperature. Newton's law of cooling says the *rate* of cooling is proportional to the difference between the pizza's temperature and the room's temperature.\n\nLet's call the pizza's temperature $y$ (which changes over time $t$), and the room temperature $70°$. The equation is:\n\n$$\\frac{dy}{dt} = -k(y - 70)$$\n\nHere $k$ is just some positive constant that depends on the situation. The minus sign is there because the pizza is cooling — $y$ is decreasing.\n\n**Step 1: Separate the variables.** Get everything with $y$ on one side and everything with $t$ on the other.\n\n$$\\frac{1}{y - 70}\\, dy = -k\\, dt$$\n\n**Step 2: Integrate both sides.**\n\n$$\\int \\frac{1}{y - 70}\\, dy = \\int -k\\, dt$$\n\nThe left side is a basic $\\frac{1}{u}$ integral (you can use substitution with $u = y - 70$). The right side is just a constant times $t$.\n\n$$\\ln|y - 70| = -kt + C$$\n\n**Step 3: Solve for $y$.** Raise $e$ to both sides to undo the $\\ln$:\n\n$$|y - 70| = e^{-kt + C} = e^C \\cdot e^{-kt}$$\n\nSince $e^C$ is just some positive constant, call it $A$:\n\n$$y - 70 = A e^{-kt}$$\n$$y = 70 + A e^{-kt}$$\n\n**Step 4: Apply the initial condition.** Say the pizza starts at $200°$ when $t = 0$:\n\n$$200 = 70 + A e^{0} = 70 + A$$\n$$A = 130$$\n\nSo the final answer is:\n\n$$y = 70 + 130\\, e^{-kt}$$\n\nAs $t$ gets large, $e^{-kt}$ shrinks toward $0$, and $y$ approaches $70$ — exactly what you'd expect. The pizza eventually reaches room temperature.\n\nThe whole technique boils down to: move variables apart, integrate each side, then solve. That's what \"separable\" means — you can separate $y$ from $t$.",
+      "intuition_md": "Think of the temperature gap between the pizza and the room as a rubber band pulling the pizza's temperature toward $70°$. When the gap is big, the pull is strong, so the temperature drops quickly. As the gap shrinks, the pull gets weaker, and the cooling slows way down. The equation $\\frac{dy}{dt} = -k(y-70)$ is just a mathematical way of saying \"the bigger the gap, the faster things change.\" Separating variables is like sorting laundry — put all the $y$-stuff in one pile, all the $t$-stuff in another — and then you can integrate each pile on its own."
+    },
+    {
+      "tier": "novice",
+      "framing_index": 1,
+      "body_md": "A separable differential equation is one where you can get all the $y$ stuff on one side and all the $x$ stuff on the other. That's it. If you can do that split, you can solve it.\n\nLet's start with a concrete example:\n\n$$\\frac{dy}{dx} = 2x \\cdot y$$\n\nYour goal is to find a function $y(x)$ that makes this true. Here's the trick: treat $\\frac{dy}{dx}$ as if $dy$ and $dx$ are separate pieces you can move around. Divide both sides by $y$ and \"multiply\" both sides by $dx$:\n\n$$\\frac{dy}{y} = 2x\\,dx$$\n\nNow integrate both sides:\n\n$$\\int \\frac{1}{y}\\,dy = \\int 2x\\,dx$$\n\n$$\\ln|y| = x^2 + C$$\n\nSolve for $y$: $y = Ae^{x^2}$, where $A$ is a constant.\n\nDone. But let's be honest about what just happened.\n\n**Why is it okay to split $dy$ and $dx$ apart?**\n\nIt looks like we just ripped a fraction in half, which feels sketchy. Here's the real justification. Start from $\\frac{dy}{dx} = 2xy$ and rewrite it as:\n\n$$\\frac{1}{y}\\frac{dy}{dx} = 2x$$\n\nNow integrate both sides *with respect to $x$*:\n\n$$\\int \\frac{1}{y}\\frac{dy}{dx}\\,dx = \\int 2x\\,dx$$\n\nThe left side is exactly a $u$-substitution with $u = y$, $du = \\frac{dy}{dx}dx$. So it collapses to $\\int \\frac{1}{u}\\,du = \\ln|y|$. Same answer as before.\n\nSo the \"split $dy$ and $dx$\" move is really shorthand for a substitution argument you already know. It always works for separable equations, and writing $\\frac{dy}{y} = 2x\\,dx$ is just a faster way to set up that substitution.\n\n**The general steps:**\n1. Get the equation into the form $\\frac{dy}{dx} = f(x)\\cdot g(y)$.\n2. Move: $\\frac{dy}{g(y)} = f(x)\\,dx$.\n3. Integrate both sides.\n4. Solve for $y$ if possible. Don't forget $+C$.",
+      "intuition_md": "Think of $dy$ and $dx$ like two ingredients that got mixed into the same fraction. Separating them is like sorting laundry — darks on the left, lights on the right. Once each side of the equation has only one variable, you can integrate each side independently because each integral only involves its own variable. The \"splitting\" feels like a magic trick, but it's really just the $u$-substitution you already learned, written in a shorthand that saves you a couple of lines. Every time you move $dy$ or $dx$ around, there's a legitimate substitution happening behind the scenes."
+    },
+    {
+      "tier": "on_pace",
+      "framing_index": 0,
+      "body_md": "A differential equation is **separable** if you can rearrange it so that all the $y$ stuff (including $dy$) is on one side and all the $x$ stuff (including $dx$) is on the other. The template looks like:\n\n$$\\frac{dy}{dx} = f(x)\\,g(y)$$\n\nYour goal is to solve for $y$ (or at least get an implicit relation). Here's the procedure:\n\n**Step 1 — Separate.** Divide both sides by $g(y)$ and multiply both sides by $dx$:\n\n$$\\frac{1}{g(y)}\\,dy = f(x)\\,dx$$\n\nYes, treating $\\frac{dy}{dx}$ as a fraction is technically informal, but it's justified by the chain rule and it works reliably here.\n\n**Step 2 — Integrate both sides.**\n\n$$\\int \\frac{1}{g(y)}\\,dy = \\int f(x)\\,dx$$\n\nEach side is a standard single-variable integral. This is where your $u$-substitution skills pay off — many of these integrals require exactly that technique.\n\n**Step 3 — Solve for $y$ if possible.** Sometimes you can isolate $y$ explicitly; sometimes you're left with an implicit equation, and that's perfectly fine.\n\n**Step 4 — Don't forget $+C$.** You only need one constant of integration (put it on the $x$-side by convention). If you have an initial condition like $y(0)=3$, plug it in to pin down $C$.\n\n**Example.** Solve $\\frac{dy}{dx} = 2x\\,y$, with $y(0)=5$.\n\nSeparate: $\\frac{1}{y}\\,dy = 2x\\,dx$. Integrate: $\\ln|y| = x^2 + C$. Exponentiate: $|y| = e^{x^2+C} = Ae^{x^2}$ where $A = e^C > 0$. Apply the initial condition: $5 = Ae^0$, so $A=5$. Solution: $y = 5e^{x^2}$.\n\n**Common pitfalls:**\n- Forgetting to check whether $g(y)=0$ gives extra constant solutions (e.g., $y=0$ in the example above).\n- Dropping the absolute value inside $\\ln|y|$ prematurely.\n- Writing two different constants on both sides instead of one.\n\nThis technique connects directly to what's next: slope fields visualize these solutions, and later you'll meet non-separable equations that need other methods (like integrating factors).",
+      "intuition_md": "Think of separation like sorting laundry. Your equation has $x$-clothes and $y$-clothes tumbled together. You pull every $y$-piece to the left basket and every $x$-piece to the right basket. Once sorted, you handle each basket independently — that is, you integrate each side on its own. The reason this works is that integration undoes differentiation, and by isolating the variables you've reduced one hard two-variable problem into two easy one-variable integrals. If the equation won't let you sort cleanly, it's not separable, and you need a different strategy."
+    },
+    {
+      "tier": "advanced",
+      "framing_index": 0,
+      "body_md": "A first-order ODE $\\frac{dy}{dx} = f(x, y)$ is **separable** if $f(x,y)$ factors as a product $g(x)\\,h(y)$. Equivalently, you can write\n\n$$\\frac{dy}{dx} = g(x)\\,h(y).$$\n\nWhen $h(y) \\neq 0$, divide both sides by $h(y)$ and integrate with respect to $x$:\n\n$$\\int \\frac{1}{h(y)}\\,\\frac{dy}{dx}\\,dx = \\int g(x)\\,dx.$$\n\nThe left side is just a $u$-substitution with $u = y(x)$, $du = \\frac{dy}{dx}\\,dx$, so it collapses to\n\n$$\\int \\frac{1}{h(y)}\\,dy = \\int g(x)\\,dx.$$\n\nThis is the formal justification for the mnemonic of \"moving $dx$ and $dy$ around like fractions.\" Nothing mystical is happening — it's substitution.\n\n**Why it works (rigorously).** The chain rule guarantees that if $Y(y)$ is an antiderivative of $1/h(y)$ and $G(x)$ is an antiderivative of $g(x)$, then $\\frac{d}{dx}[Y(y(x))] = Y'(y)\\,y' = \\frac{y'}{h(y)}$. So the equation $\\frac{y'}{h(y)} = g(x)$ becomes $\\frac{d}{dx}[Y(y)] = \\frac{d}{dx}[G(x)]$, which integrates to $Y(y) = G(x) + C$. Existence and uniqueness of solutions near a point $(x_0, y_0)$ with $h(y_0) \\neq 0$ follow from the Picard–Lindelöf theorem (continuity of $g$ and $h$, plus $h \\neq 0$, give a local Lipschitz condition in $y$).\n\n**Watch the zeros of $h(y)$.** Any $y_0$ with $h(y_0) = 0$ gives the constant (equilibrium) solution $y \\equiv y_0$, which you lose when you divide by $h(y)$. Always check these separately.\n\n**Stretch question.** Consider $\\frac{dy}{dx} = y^{2/3}$, $y(0)=0$. Separation gives $y = \\left(\\frac{x}{3}\\right)^3$, but $y \\equiv 0$ is also a solution. Why does uniqueness fail here, and what does this say about the Lipschitz condition at $y = 0$?",
+      "intuition_md": "Think of a separable ODE as a balance scale. One pan holds everything about $x$ (the input), the other holds everything about $y$ (the output). Because the rate $dy/dx$ splits into an $x$-factor times a $y$-factor, you can weigh each side independently — integrate each in its own variable. The $u$-substitution bridging the two sides is the fulcrum. When $h(y) = 0$, the fulcrum breaks: you can't divide, and a constant solution quietly sits there, invisible to the separation process."
+    }
+  ],
+  "examples": [
+    {
+      "tier": "novice",
+      "problem_md": "Solve the differential equation $\\frac{dy}{dx} = 2x$, given that $y = 3$ when $x = 0$.",
+      "steps": [
+        {
+          "step_md": "Recognize what the equation is telling you. The equation $\\frac{dy}{dx} = 2x$ says: \"the slope of some unknown curve $y$ depends on $x$.\" Your job is to find the actual function $y$ whose derivative is $2x$.",
+          "why_md": "A differential equation is just an equation that involves a derivative. Think of it like this: someone hands you a speedometer reading that changes over time, and you need to figure out the position. Here, you know the slope at every $x$-value, and you need to reverse-engineer the original curve. That \"reverse-engineering\" process is what solving the equation means."
+        },
+        {
+          "step_md": "Separate the variables. Move all the $y$-stuff to one side and all the $x$-stuff to the other side:\n\n$$dy = 2x \\, dx$$\n\nIn this problem there's no $y$ on the right side, so the left side is just $dy$ by itself. That's as simple as separation gets.",
+          "why_md": "The technique is called \"separable\" because you literally separate the two variables onto different sides of the equation. Why bother? Because once each side has only one variable, you can integrate each side independently — like solving two smaller, easier problems instead of one tangled one. Think of it as sorting laundry before washing: put the $x$-clothes in one machine and the $y$-clothes in another."
+        },
+        {
+          "step_md": "Integrate both sides:\n\n$$\\int dy = \\int 2x \\, dx$$\n\nThe left side gives $y$. The right side gives $x^2 + C$, where $C$ is an unknown constant.\n\n$$y = x^2 + C$$",
+          "why_md": "Integration is the reverse of differentiation. Since the original equation told you a derivative, integrating \"undoes\" that derivative and recovers the original function. The $+ C$ appears because many different curves can have the same slope pattern — they're just shifted up or down. For example, $y = x^2$, $y = x^2 + 5$, and $y = x^2 - 100$ all have the derivative $2x$. The constant $C$ keeps track of which specific curve you're on."
+        },
+        {
+          "step_md": "Use the initial condition $y = 3$ when $x = 0$ to find $C$. Plug in:\n\n$$3 = (0)^2 + C$$\n$$3 = 0 + C$$\n$$C = 3$$",
+          "why_md": "Remember that $C$ could be any number, meaning there are infinitely many curves that satisfy the differential equation. The initial condition is the extra piece of information that pins down exactly which curve you want. It's like knowing you started your road trip in Chicago — without that, knowing your speed at every moment still doesn't tell me where you are."
+        },
+        {
+          "step_md": "Write the final answer:\n\n$$y = x^2 + 3$$\n\nYou can check: take the derivative of $x^2 + 3$ and you get $2x$, which matches the original equation. And when $x = 0$, $y = 0 + 3 = 3$, which matches the initial condition.",
+          "why_md": "Always check your answer when you can. Plug the solution back into the original differential equation and verify the initial condition. If both check out, you're done. This problem was gentle because no $y$ appeared on the right side. As you get more comfortable, you'll see problems like $\\frac{dy}{dx} = xy$, where you need to divide by $y$ to separate — same idea, just one more algebra move."
+        }
+      ]
+    },
+    {
+      "tier": "on_pace",
+      "problem_md": "Find the particular solution to the differential equation $$\\frac{dy}{dx} = \\frac{x^2}{y}$$ given the initial condition $y(0) = 3$.",
+      "steps": [
+        {
+          "step_md": "Recognize that the equation is separable. The right-hand side can be written as a function of $x$ times a function of $y$: $$\\frac{dy}{dx} = x^2 \\cdot \\frac{1}{y}.$$",
+          "why_md": "A differential equation is **separable** if you can factor the right side into a piece that depends only on $x$ and a piece that depends only on $y$. That's the green light to use the technique you learned right after slope fields and basic DEs: separate and integrate. If you can't split the variables apart, you'd need a different method entirely."
+        },
+        {
+          "step_md": "Multiply both sides by $y$ and by $dx$ to separate variables: $$y \\, dy = x^2 \\, dx.$$",
+          "why_md": "The goal is to get all the $y$-stuff (including $dy$) on one side and all the $x$-stuff (including $dx$) on the other. This way each side becomes a single-variable expression you already know how to integrate. Common sticking point: treat $\\frac{dy}{dx}$ as a ratio you can \"multiply through\" — in this context, that's a perfectly valid move."
+        },
+        {
+          "step_md": "Integrate both sides: $$\\int y \\, dy = \\int x^2 \\, dx$$ $$\\frac{y^2}{2} = \\frac{x^3}{3} + C.$$",
+          "why_md": "You only need **one** constant of integration, not one per side. Why? If you wrote $+C_1$ on the left and $+C_2$ on the right, you'd just combine them into a single constant $C = C_2 - C_1$. Writing one $C$ on the right side is the standard convention and saves bookkeeping."
+        },
+        {
+          "step_md": "Apply the initial condition $y(0) = 3$ to find $C$: $$\\frac{(3)^2}{2} = \\frac{(0)^3}{3} + C$$ $$\\frac{9}{2} = C.$$",
+          "why_md": "Without the initial condition, you'd have a whole family of solution curves (one for each value of $C$). The initial condition pins you to exactly one curve in that family. Plug in $x = 0$, $y = 3$ **before** you try to solve for $y$ explicitly — it keeps the algebra cleaner."
+        },
+        {
+          "step_md": "Solve for $y$ explicitly. Substitute $C = \\frac{9}{2}$ back: $$\\frac{y^2}{2} = \\frac{x^3}{3} + \\frac{9}{2}$$ Multiply through by 2: $$y^2 = \\frac{2x^3}{3} + 9$$ Take the square root: $$y = \\sqrt{\\frac{2x^3}{3} + 9}.$$",
+          "why_md": "When you take the square root, you technically get $y = \\pm\\sqrt{\\cdots}$. You choose the **positive** root because the initial condition tells you $y(0) = 3 > 0$, and solutions to separable DEs are continuous, so $y$ stays positive near the initial point. Forgetting to choose the correct sign is one of the most common errors on the AP exam. Looking ahead, this same separate-and-integrate skill feeds directly into exponential growth/decay models and logistic growth — both are separable DEs with specific forms you'll see soon."
+        }
+      ]
+    },
+    {
+      "tier": "advanced",
+      "problem_md": "Find the particular solution to the differential equation $$\\frac{dy}{dx} = \\frac{x\\,e^{x^2}}{y^2\\,(1 + y^3)}$$ satisfying $y(0) = 1$. Express the solution as an implicit equation.",
+      "steps": [
+        {
+          "step_md": "Verify separability. Rewrite as $$y^2(1 + y^3)\\,dy = x\\,e^{x^2}\\,dx.$$",
+          "why_md": "A first-order ODE $\\frac{dy}{dx} = h(x)\\,g(y)$ is separable precisely when the right side factors into a function of $x$ alone times a function of $y$ alone. Here $h(x) = x e^{x^2}$ and $1/g(y) = y^2(1+y^3)$. Separating variables is really applying the chain rule in reverse: if $F(y)$ is an antiderivative of $y^2(1+y^3)$ with respect to $y$, then $\\frac{d}{dx}F(y) = F'(y)\\frac{dy}{dx} = y^2(1+y^3)\\frac{dy}{dx}$. So the equation becomes $\\frac{d}{dx}F(y) = x e^{x^2}$, and integrating both sides with respect to $x$ is now rigorous — no mysterious 'multiplying by $dx$' needed. The formal justification rests on the Inverse Function Theorem guaranteeing $y$ is locally a function of $x$ wherever $g(y) \\neq 0$, i.e., $y \\neq 0$."
+        },
+        {
+          "step_md": "Integrate the left side: $$\\int y^2(1 + y^3)\\,dy = \\int (y^2 + y^5)\\,dy = \\frac{y^3}{3} + \\frac{y^6}{6} + C_1.$$",
+          "why_md": "Expand the integrand to reduce it to a polynomial, which integrates term-by-term. No substitution is needed here, though you could also use $u = y^3$ to combine terms. Keeping the result exact (no decimals) is important because we will impose the initial condition later to pin down the constant."
+        },
+        {
+          "step_md": "Integrate the right side: $$\\int x\\,e^{x^2}\\,dx.$$ Let $u = x^2$, $du = 2x\\,dx$, so $$\\int x\\,e^{x^2}\\,dx = \\frac{1}{2}\\int e^u\\,du = \\frac{1}{2}e^{x^2} + C_2.$$",
+          "why_md": "This is a classic $u$-substitution whose structure mirrors the chain rule: $\\frac{d}{dx}[e^{x^2}] = 2x\\,e^{x^2}$, so the factor $x$ in the integrand is exactly the inner derivative (up to a constant). Recognizing this pattern quickly is essential — on the AP exam you won't have time to deliberate."
+        },
+        {
+          "step_md": "Combine and absorb constants: $$\\frac{y^3}{3} + \\frac{y^6}{6} = \\frac{1}{2}e^{x^2} + C,$$ where $C = C_2 - C_1$.",
+          "why_md": "Two arbitrary constants collapse to one because only their difference matters — a separable equation is first-order, so its general solution has exactly one free parameter. This is a consequence of the Existence and Uniqueness Theorem (Picard–Lindelöf): given a Lipschitz-continuous right side and one initial condition, the solution is unique. One constant, one condition."
+        },
+        {
+          "step_md": "Apply $y(0) = 1$: $$\\frac{1}{3} + \\frac{1}{6} = \\frac{1}{2}e^{0} + C \\implies \\frac{1}{2} = \\frac{1}{2} + C \\implies C = 0.$$",
+          "why_md": "The initial condition selects one integral curve from the family. Notice the satisfying cancellation: $C = 0$. Always worth checking that the point $(0,1)$ does not violate any continuity or division-by-zero issues in the original ODE — here $y = 1 \\neq 0$, so the solution is valid in a neighborhood of $x = 0$."
+        },
+        {
+          "step_md": "The particular solution is $$\\frac{y^3}{3} + \\frac{y^6}{6} = \\frac{1}{2}e^{x^2},$$ or equivalently, $$2y^3 + y^6 = 3e^{x^2}.$$",
+          "why_md": "There is no closed-form way to solve for $y$ explicitly — and that is fine. Implicit solutions are perfectly valid; what matters is that the relation defines $y$ as a function of $x$ locally, which is guaranteed by the Implicit Function Theorem whenever $\\frac{\\partial}{\\partial y}[2y^3 + y^6 - 3e^{x^2}] = 6y^2 + 6y^5 = 6y^2(1+y^3) \\neq 0$. At $(0,1)$ this equals $12 \\neq 0$, so you are safe.\n\n**Stretch question:** Suppose you want a linear approximation of $y$ near $x = 0$. You know $y(0)=1$. From the original ODE, $y'(0) = \\frac{0 \\cdot e^0}{1 \\cdot 2} = 0$. So $y \\approx 1$ near $x=0$ — the tangent line is flat. Can you find $y''(0)$ by implicitly differentiating the ODE (or the implicit solution) and build the degree-2 Taylor polynomial? This connects separable equations to local polynomial approximation and the idea that a differential equation encodes *all* derivatives of the solution, not just the first."
+        }
+      ]
+    }
+  ],
+  "misconceptions": [
+    {
+      "short_name": "forget_to_separate_before_integrating",
+      "description_md": "The student tries to integrate both sides of the differential equation without first moving all $y$-terms to one side and all $x$-terms to the other. For example, given $\\frac{dy}{dx} = xy$, they write $\\int dy = \\int xy\\, dx$ and then get stuck or treat $y$ as a constant on the right side.",
+      "why_wrong_md": "You cannot integrate $\\int xy\\, dx$ unless $y$ is a constant, but here $y$ is a function of $x$. The whole point of separation is to rewrite the equation as $\\frac{1}{y}\\, dy = x\\, dx$ so that each side contains only one variable before you integrate.",
+      "socratic_response_md": "When you wrote $\\int xy\\, dx$, you integrated as if $y$ were a constant — but $y$ depends on $x$, right? What could you do to the original equation $\\frac{dy}{dx} = xy$ so that everything involving $y$ is on the same side as $dy$?"
+    },
+    {
+      "short_name": "drop_constant_of_integration",
+      "description_md": "The student separates and integrates both sides correctly but omits the constant of integration $C$. For instance, from $\\frac{dy}{dx} = 2x$ they write $y = x^2$ and stop, losing an entire family of solutions.",
+      "why_wrong_md": "Every indefinite integral produces an arbitrary constant. Dropping $C$ gives you only one specific solution instead of the general solution. When an initial condition is provided later, you need $C$ to pin down the particular solution — without it, you cannot satisfy the initial condition.",
+      "socratic_response_md": "You found $y = x^2$, but does that formula account for, say, the solution that passes through $(0, 5)$? What happened to the $+C$ when you integrated?"
+    },
+    {
+      "short_name": "forget_absolute_value_in_log",
+      "description_md": "When integrating $\\int \\frac{1}{y}\\, dy$, the student writes $\\ln y$ instead of $\\ln |y|$, then later exponentiates without considering that $y$ could be negative. For example, solving $\\frac{dy}{dx} = y$ they get $y = e^{x+C}$, which is always positive, and miss the solutions where $y < 0$.",
+      "why_wrong_md": "The antiderivative of $\\frac{1}{y}$ is $\\ln|y| + C$, not $\\ln y + C$. When you exponentiate $\\ln|y| = x + C$, you get $|y| = e^{x+C}$, so $y = \\pm e^{C} \\cdot e^{x}$. Writing $y = Ae^x$ where $A$ is any nonzero constant (positive or negative) captures both cases. Omitting the absolute value silently eliminates half the solutions.",
+      "socratic_response_md": "Your general solution $y = e^{x+C}$ is always positive. But could there be a solution to $\\frac{dy}{dx} = y$ that starts at, say, $y(0) = -3$? What step in your integration might have thrown away those negative solutions?"
+    },
+    {
+      "short_name": "fail_to_solve_for_y",
+      "description_md": "The student separates, integrates, and finds an implicit equation like $\\frac{y^2}{2} = x + C$, then presents that as the final answer even when the problem asks for $y$ explicitly — or worse, makes an algebra error when solving, such as writing $y = \\sqrt{2x + C}$ and forgetting the $\\pm$.",
+      "why_wrong_md": "An implicit solution is sometimes acceptable, but when the problem asks you to solve for $y$, you must isolate $y$. Additionally, when you take a square root of both sides, $y^2 = 2x + 2C$ gives $y = \\pm\\sqrt{2x + 2C}$. Dropping the $\\pm$ discards valid solutions, and forgetting to double the constant is an algebra slip that changes the answer.",
+      "socratic_response_md": "You wrote $y = \\sqrt{2x + C}$, but what happens if you square a negative number — don't you also get a positive result? Could $y$ be negative here, and if so, what does that do to your solution?"
+    },
+    {
+      "short_name": "lose_equilibrium_solutions",
+      "description_md": "When separating $\\frac{dy}{dx} = y(1-y)$, the student divides both sides by $y(1-y)$ and proceeds to find a general solution but never checks whether $y = 0$ or $y = 1$ are also solutions. These constant (equilibrium) solutions are lost the moment you divide by an expression that could be zero.",
+      "why_wrong_md": "Dividing both sides by $y(1-y)$ is only valid when $y(1-y) \\neq 0$. If $y = 0$ or $y = 1$, then $\\frac{dy}{dx} = 0$, which is indeed satisfied by those constant functions. They are legitimate solutions to the differential equation that your algebraic manipulation silently discarded.",
+      "socratic_response_md": "To separate variables you divided by $y(1-y)$. What rule in algebra says you have to be careful when dividing by an expression — and what values of $y$ would make that expression equal to zero? Do those constant values of $y$ satisfy the original equation?"
+    }
+  ],
+  "checks": [
+    {
+      "tier": "novice",
+      "question_md": "You have the differential equation $\\frac{dy}{dx} = 2x \\cdot y$. The goal with a \"separable\" equation is to get all the $y$ stuff on one side and all the $x$ stuff on the other side. If you divide both sides by $y$ and then multiply both sides by $dx$, what do you get?\n\n(Fill in the blanks)\n\n$$\\frac{1}{\\text{___}} \\, dy = 2x \\, \\text{___}$$",
+      "expected_answer_md": "$$\\frac{1}{y} \\, dy = 2x \\, dx$$\n\nYou divided both sides by $y$ (so $y$ goes in the denominator on the left) and moved $dx$ to the right side. That's the key move — separate the variables so each side has only one letter.",
+      "expected_pattern": "(?i)(1\\s*/\\s*y.*dy.*=.*2\\s*x\\s*dx|y.*dx)"
+    },
+    {
+      "tier": "novice",
+      "question_md": "A student is solving $\\frac{dy}{dx} = 3x^2$ and writes the following steps:\n\n1. $dy = 3x^2 \\, dx$\n2. $\\int dy = \\int 3x^2 \\, dx$\n3. $y = 6x + C$\n\n**Spot the mistake.** Which step has an error — step 1, 2, or 3? And what should the right-hand side actually be?\n\n(Hint: what is $\\int 3x^2 \\, dx$?)",
+      "expected_answer_md": "Step 3 is wrong. The integral of $3x^2$ is $x^3$, not $6x$. The correct result is:\n\n$$y = x^3 + C$$\n\nRemember the power rule for integrals: you raise the exponent by one and divide by the new exponent. So $\\int 3x^2 \\, dx = \\frac{3x^3}{3} = x^3$.",
+      "expected_pattern": "(?i)(step\\s*3|3|x\\s*\\^\\s*3|x³)"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "You're solving the separable equation $\\frac{dy}{dx} = \\frac{x^2}{y}$. After separating variables you write $y\\,dy = x^2\\,dx$ and integrate both sides. What do you get right after integrating (before solving for $y$)? Fill in the blanks:\n\n$$\\frac{y^{\\,\\square}}{\\square} = \\frac{x^{\\,\\square}}{\\square} + C$$",
+      "expected_answer_md": "$$\\frac{y^{2}}{2} = \\frac{x^{3}}{3} + C$$\n\nYou increase each exponent by 1 and divide by the new exponent — the same Power Rule antiderivative you've been using since the integration unit. Note: you only need one arbitrary constant $C$; putting one on each side is redundant because the difference of two constants is still a constant.",
+      "expected_pattern": "y\\^?2.*\\/.*2.*=.*x\\^?3.*\\/.*3.*\\+?\\s*[Cc]"
+    },
+    {
+      "tier": "on_pace",
+      "question_md": "Spot the mistake in this student's work on $\\frac{dy}{dx} = 3y$.\n\nStep 1: $\\frac{1}{y}\\,dy = 3\\,dx$\n\nStep 2: $\\ln y = 3x + C$\n\nStep 3: $y = e^{3x} + C$\n\nWhich step first introduces an error, and what should it say instead?",
+      "expected_answer_md": "Step 3 is wrong. When you exponentiate both sides of $\\ln y = 3x + C$, the constant $C$ is in the exponent, so you get $y = e^{3x+C} = e^{C}\\cdot e^{3x}$. Writing $e^{C}$ as a new constant $A$, the correct result is $y = Ae^{3x}$. The common trap is pulling $C$ out of the exponent and just tacking it on with a plus sign.",
+      "expected_pattern": "[Ss]tep\\s*3|e\\^\\{?3x\\+?C|Ae\\^|e\\^C\\s*e\\^|exponent"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "**Spot the mistake.** A student solves $\\frac{dy}{dx} = \\frac{x}{y}$ as follows:\n\n1. $y\\,dy = x\\,dx$\n2. $\\int y\\,dy = \\int x\\,dx$\n3. $\\frac{y^2}{2} = \\frac{x^2}{2} + C$\n4. $y = x + C$\n\nWhich step contains the error, and what is the correct result from step 3 onward? (Think about what algebraic move went wrong and whether the solution family should be hyperbolas or lines.)",
+      "expected_answer_md": "The error is in step 4. Taking the square root of step 3 gives $y^2 - x^2 = C_1$ (a family of hyperbolas), so $y = \\pm\\sqrt{x^2 + C_1}$. The student incorrectly 'cancelled' the $\\frac{1}{2}$ and the squares as if $\\frac{y^2}{2} = \\frac{x^2}{2}+C$ implies $y = x + C$. You cannot distribute a square root over addition.",
+      "expected_pattern": "step\\s*4|sqrt|hyperbola|y\\^2\\s*[-−]\\s*x\\^2|\\broot\\b|square root.*addition"
+    },
+    {
+      "tier": "advanced",
+      "question_md": "When we \"separate\" $\\frac{dy}{dx} = f(x)\\,g(y)$ into $\\frac{dy}{g(y)} = f(x)\\,dx$ and integrate both sides, we are implicitly using the substitution $u = y(x)$ inside the chain rule. Fill in the blank:\n\nThe formal justification is that $\\int \\frac{1}{g(y)}\\,\\frac{dy}{dx}\\,dx$ equals $\\int \\frac{1}{g(y)}\\,dy$ by ________ , which requires that $y(x)$ is a ________ function of $x$.",
+      "expected_answer_md": "The first blank is **the substitution rule (change of variables / $u$-substitution)**. The second blank is **continuously differentiable** (or at minimum, continuous and differentiable) function of $x$.",
+      "expected_pattern": "(substitution|change\\s*of\\s*variables|u[- ]?sub).*((continuous|differentiable|C\\^1))"
+    }
+  ],
+  "deep_dives": [
+    {
+      "title": "Why Can You Rip Apart dy/dx and Treat It Like a Fraction?",
+      "body_md": "You learned early on that $\\frac{dy}{dx}$ is *not* a fraction — it is a limit:\n$$\\frac{dy}{dx} = \\lim_{\\Delta x \\to 0} \\frac{\\Delta y}{\\Delta x}.$$\nSo when you solve a separable ODE like $\\frac{dy}{dx} = g(x)h(y)$ by writing\n$$\\frac{1}{h(y)}\\,dy = g(x)\\,dx$$\nand integrating both sides, you appear to treat $dy$ and $dx$ as independent algebraic objects you can move around. Why is this legal?\n\n**Step 1: Start from the chain rule, not from symbol-pushing.**\n\nSuppose $y$ is implicitly a function of $x$. Define an antiderivative $H(y)$ such that $H'(y) = \\frac{1}{h(y)}$. Now differentiate $H(y(x))$ with respect to $x$ using the chain rule:\n$$\\frac{d}{dx}\\bigl[H(y)\\bigr] = H'(y)\\cdot\\frac{dy}{dx} = \\frac{1}{h(y)}\\cdot\\frac{dy}{dx}.$$\n\nBut the original equation says $\\frac{dy}{dx} = g(x)h(y)$, so substitute:\n$$\\frac{d}{dx}\\bigl[H(y)\\bigr] = \\frac{1}{h(y)}\\cdot g(x)\\,h(y) = g(x).$$\n\nNow integrate both sides with respect to $x$:\n$$H(y) = \\int g(x)\\,dx + C.$$\n\nThat is *exactly* the same result you would get by \"separating\" and writing $\\int \\frac{1}{h(y)}\\,dy = \\int g(x)\\,dx$. No fraction manipulation required — just the chain rule and the fundamental theorem of calculus.\n\n**Step 2: So where does the fraction illusion come from?**\n\nThe shorthand $\\frac{1}{h(y)}\\,dy = g(x)\\,dx$ is really a compact way of recording the substitution $u = y(x)$, $du = y'(x)\\,dx$ inside an integral. When you \"move $dx$ to the other side,\" you are performing a $u$-substitution in disguise. The notation happens to *look* like fraction algebra because Leibniz designed it that way — the formalism is consistent precisely because the chain rule makes it consistent.\n\n**Step 3: When does this break down?**\n\nThe whole argument hinges on two assumptions:\n1. $h(y) \\neq 0$ in the region of interest (you divided by it).\n2. $y$ is actually a differentiable function of $x$.\n\nIf $h(y_0) = 0$ for some value $y_0$, then $y(x) = y_0$ is a constant (equilibrium) solution that separation might miss entirely. This is the classic source of \"lost solutions\" in separable ODEs.\n\n**The upshot:** You are never really splitting a derivative into two pieces. You are applying the chain rule, then using Leibniz's brilliantly suggestive notation to write the result in a form that *looks* like fraction algebra. The notation is a mnemonic shortcut for a rigorous chain-rule argument.\n\n**Follow-up to chew on:** In multivariable calculus you will encounter expressions like $\\frac{\\partial y}{\\partial x}\\cdot\\frac{\\partial x}{\\partial z}\\cdot\\frac{\\partial z}{\\partial y} = -1$ (the cyclic relation for implicit functions). If $dy/dx$ always behaved like a true fraction, this product would equal $+1$. What goes wrong with the fraction analogy there, and what does it tell you about the limits of Leibniz notation?"
+    },
+    {
+      "title": "Separable DEs: Where the Constant Lives and Why It Matters",
+      "body_md": "Start with a separable equation like\n\n$$\\frac{dy}{dx} = 2xy.$$\n\nYou separate variables to get $\\frac{1}{y}\\,dy = 2x\\,dx$, then integrate both sides:\n\n$$\\int \\frac{1}{y}\\,dy = \\int 2x\\,dx.$$\n\nThis gives $\\ln|y| = x^2 + C$. But wait — shouldn't there be a constant on *both* sides? Technically, yes. The left side produces $\\ln|y| + C_1$ and the right side produces $x^2 + C_2$. But $C_1$ and $C_2$ are both arbitrary constants, so $C_2 - C_1$ is just another arbitrary constant. You absorb them into a single $C$ on one side. Nothing is lost.\n\nNow exponentiate: $|y| = e^{x^2 + C} = e^C \\cdot e^{x^2}$. Since $e^C$ is just some positive constant, call it $A$. Dropping the absolute value (and letting $A$ be any nonzero real number to account for the sign), you get the **general solution**:\n\n$$y = Ae^{x^2}, \\quad A \\neq 0.$$\n\nThis is a *family* of curves — one for every value of $A$. Geometrically, you are looking at infinitely many curves in the $xy$-plane, all sharing the same shape but scaled vertically. The constant $A$ is the family parameter.\n\nA **particular solution** picks out exactly one curve from that family by pinning down $A$ with an initial condition. Suppose $y(0) = 3$. Plug in:\n\n$$3 = Ae^{0} = A,$$\n\nso $A = 3$ and the particular solution is $y = 3e^{x^2}$.\n\nHere is the deeper point: the constant of integration is not just an algebraic nuisance. It encodes every possible *initial state* of the system. A first-order ODE has a one-parameter family of solutions because knowing the derivative everywhere still leaves one degree of freedom — the starting value. The initial condition removes that one degree of freedom.\n\nNotice how the constant can land in different-looking places depending on when you simplify. If you had written the general solution as $\\ln|y| = x^2 + C$, the constant sits as an additive shift in $\\ln|y|$. After exponentiating, it becomes a multiplicative factor $A = e^C$. These are the same family, just parameterized differently. This is why two students can get answers that look different but are both correct — the constant of integration can masquerade in many algebraic forms.\n\nOne subtlety: when you divided by $y$ at the start, you tacitly assumed $y \\neq 0$. But $y = 0$ is itself a solution (check: $\\frac{dy}{dx} = 0 = 2x \\cdot 0$). If you allow $A = 0$, the formula $y = Ae^{x^2}$ captures this \"lost\" solution too, which is why many textbooks quietly let $A$ range over all reals including zero.\n\n**Follow-up to chew on:** For a second-order ODE you get *two* arbitrary constants. What geometric information do you need to pin down a unique solution — and why is one initial condition no longer enough?"
+    }
+  ],
+  "applications": [
+    {
+      "context": "physics",
+      "problem_md": "A small steel ball bearing is dropped from rest into a tall cylinder of viscous oil. As it falls, the oil exerts a drag force proportional to the ball's velocity. Applying Newton's second law to the ball (taking downward as positive), the net force equation is\n\n$$m\\frac{dv}{dt} = mg - bv$$\n\nwhere $m = 0.025\\text{ kg}$ is the mass of the ball, $g = 9.8\\text{ m/s}^2$, and $b = 0.50\\text{ N·s/m}$ is the drag coefficient of the oil.\n\n(a) Separate variables and solve this differential equation for $v(t)$, using the initial condition $v(0) = 0$.\n\n(b) What is the terminal velocity of the ball — that is, $\\displaystyle\\lim_{t \\to \\infty} v(t)$?\n\n(c) How long does it take for the ball to reach 95% of its terminal velocity?",
+      "solution_outline_md": "**Setup.** Rewrite the ODE as\n\n$$\\frac{dv}{mg - bv} = \\frac{dt}{m}$$\n\n**Separation and integration.**\n\nIntegrate the left side with the substitution $u = mg - bv$:\n\n$$-\\frac{1}{b}\\ln|mg - bv| = \\frac{t}{m} + C$$\n\nApply $v(0)=0$ to find $C = -\\frac{1}{b}\\ln(mg)$.\n\nSolve for $v$:\n\n$$v(t) = \\frac{mg}{b}\\left(1 - e^{-bt/m}\\right)$$\n\nPlug in constants: $\\dfrac{mg}{b} = \\dfrac{(0.025)(9.8)}{0.50} = 0.49\\text{ m/s}$ and $\\dfrac{b}{m} = \\dfrac{0.50}{0.025} = 20\\text{ s}^{-1}$.\n\nSo $v(t) = 0.49\\left(1 - e^{-20t}\\right)$ m/s.\n\n**(a)** $v(t) = 0.49\\left(1 - e^{-20t}\\right)$ m/s.\n\n**(b)** As $t \\to \\infty$, $e^{-20t} \\to 0$, so the terminal velocity is $v_{\\text{term}} = \\dfrac{mg}{b} = 0.49\\text{ m/s}$.\n\n**(c)** Set $v = 0.95 \\cdot 0.49$:\n\n$$1 - e^{-20t} = 0.95 \\implies e^{-20t} = 0.05 \\implies t = \\frac{\\ln 20}{20} \\approx \\frac{3.00}{20} = 0.150\\text{ s}$$\n\nThe ball reaches 95% of terminal velocity in approximately $0.15$ seconds."
+    },
+    {
+      "context": "biology",
+      "problem_md": "A population of bacteria is cultured in a petri dish that can sustain at most $K = 5000$ bacteria. The growth rate of the population is proportional to both the current population $P$ and the fraction of the carrying capacity that remains available. That is,\n\n$$\\frac{dP}{dt} = rP\\!\\left(1 - \\frac{P}{K}\\right)$$\n\nwhere $r = 0.8\\;\\text{hr}^{-1}$ is the intrinsic growth rate.\n\nAt time $t = 0$ hours, a researcher counts $P(0) = 200$ bacteria.\n\n(a) Separate variables and find the general solution $P(t)$.\n\n(b) Apply the initial condition to determine the particular solution.\n\n(c) How many hours does it take for the population to reach $4000$ bacteria? Round to two decimal places.\n\n(d) What value does $P(t)$ approach as $t \\to \\infty$, and why does this make biological sense?",
+      "solution_outline_md": "**Approach.** This is the logistic equation. Separate variables:\n\n$$\\frac{dP}{P(1 - P/K)} = r\\,dt$$\n\nUse partial fractions on the left side:\n\n$$\\frac{1}{P(1 - P/K)} = \\frac{1}{P} + \\frac{1/K}{1 - P/K}$$\n\nIntegrate both sides, then exponentiate and solve for $P(t)$. The general logistic solution is\n\n$$P(t) = \\frac{K}{1 + A\\,e^{-rt}}$$\n\nwhere $A$ is a constant determined by the initial condition.\n\n**Finding $A$.** Set $t = 0$, $P = 200$:\n\n$$200 = \\frac{5000}{1 + A} \\implies 1 + A = 25 \\implies A = 24$$\n\nSo the particular solution is\n\n$$P(t) = \\frac{5000}{1 + 24\\,e^{-0.8t}}$$\n\n**Part (c).** Set $P(t) = 4000$:\n\n$$4000 = \\frac{5000}{1 + 24\\,e^{-0.8t}} \\implies 1 + 24\\,e^{-0.8t} = 1.25 \\implies e^{-0.8t} = \\frac{0.25}{24} = \\frac{1}{96}$$\n\n$$-0.8t = \\ln\\!\\left(\\frac{1}{96}\\right) \\implies t = \\frac{\\ln 96}{0.8} \\approx \\frac{4.5643}{0.8} \\approx 5.71 \\text{ hours}$$\n\n**Part (d).** As $t \\to \\infty$, $e^{-0.8t} \\to 0$, so $P(t) \\to 5000 = K$. Biologically, the population saturates at the carrying capacity because resources (nutrients, space) become limiting, and growth slows to zero."
+    }
+  ]
+}
