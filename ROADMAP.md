@@ -109,14 +109,57 @@ problems from the practice bank. Author 1–2 *new* harder problems per concept
 - **Tech notes:** Add a `stretchProblemPrompt` to `authoringPrompts.ts`; extend
   pipeline to write into `problems` with `is_challenge=1`.
 
-### A5. Faster classifier
-Drop per-turn latency from 10–40s to <5s by replacing the SLM-based response
-classifier with a smaller dedicated model (or strong heuristics).
-- **Effort:** Medium (1 week)
-- **Impact:** High (felt-performance unlock everywhere)
-- **Tech notes:** Distilled BERT classifier trained on labeled student answers,
-  or a stronger heuristic table. The current `quickAnswerMatch` already
-  handles short numeric answers without an SLM call.
+### A5. Faster classifier — **DONE** (`244ab88`)
+
+5-tier deterministic classifier replacing the SLM-only path. Tiers
+1–5 resolve in <5ms each; tier 6 (SLM) only fires as a last-resort
+fallback when all deterministic tiers abstain with low confidence.
+
+**Pipeline:**
+1. **Meta-phrase regex** (`<1ms`) — "I dont know", "explain differently",
+   "skip ahead", "slow down", "I'm lost", etc.
+2. **expected_pattern regex** (`<1ms`) — author-supplied regex match
+3. **Math-aware structural compare** (`<5ms`) — `2*x` ≡ `$2x$` ≡ `two x` ≡
+   `2(x+1)` ≡ `(x+1)^2 vs x^2+2x+1`. Uses the A1 expression parser to
+   probe both sides numerically at 7 test points.
+4. **Misconception keyword overlap** (`<5ms`) — free-form student input
+   matched against the misconception catalog, with conservative
+   thresholds (≥60% overlap + ≥3 absolute matches) to avoid false
+   positives on correct prose.
+5. **Heuristic confidence** (`<5ms`) — hedging words + math density +
+   expected-number containment → partial_correct / off_topic.
+6. **SLM fallback** (`8–25s`) — only for long, ambiguous, free-form
+   inputs that no deterministic tier handles. Opt-out via
+   `enableSlmFallback: false` for fully offline / airgapped runs.
+
+**Smoke-test result on 16 real-world cases:**
+| Tier | Count | Avg latency |
+|---|---:|---:|
+| 1 (meta) | 6 | 0.2ms |
+| 2 (pattern) | 1 | 0.0ms |
+| 3 (math) | 6 | 0.3ms |
+| 4 (misconception) | 1 | 0.0ms |
+| 6 (SLM fallback) | 2 | 16.3s |
+
+**Fast-path hit rate: 87.5%** on this deliberately edge-case-heavy
+set; production traffic will be higher because most replies are
+short numeric answers or meta intents.
+
+**Telemetry:** every classification result now carries a `tier`,
+`latencyMs`, and `confidence` field. `src/main.ts` aggregates hit
+counts and logs every 30 turns:
+```
+[classifier] 30 turns: tiers T1=12 T2=2 T3=8 T4=3 T5=4 T6=1
+  (96.7% fast-path, avg 1842ms/turn)
+```
+
+**Tests:** 52 new unit tests covering every tier, edge cases, the
+telemetry hook, the SLM-fallback toggle, and per-tier latency
+budgets. Full suite: 263/268 passing.
+
+**Net production impact:** a typical Learn Mode "check" turn drops
+from ~20–35s (classify SLM + generate SLM) to ~10–15s
+(classify fast-path + generate SLM) — a 2–3× perceived speedup.
 
 ---
 
@@ -275,7 +318,7 @@ the path so far** (A2 done, A1 v1 done).
 
 | Strategy | Remaining order | Optimizes for |
 |---|---|---|
-| **Maximize student value** _(current track)_ | A5 → A1.2 → A3 | Make the existing experience materially better for the struggling student |
+| **Maximize student value** _(current track)_ | A1.2 → A3 → A4 | Make the existing experience materially better for the struggling student |
 | **Maximize distribution** | C1 → B1 → C3 | Turn into a school-purchasable product |
 | **Harden v1, then expand** | E2 → E5 → A5 | Lock in quality on the foundation before adding more surface area |
 
@@ -283,9 +326,12 @@ the path so far** (A2 done, A1 v1 done).
 
 ## Currently in flight
 
-_(nothing in flight — A1 v1 and A2 both shipped. Pick the next item
-from the lists above. Top recommendation:_ **A5 — Faster classifier**, _which
-is the biggest UX unlock now that the content + visual layer is solid.)_
+_(nothing in flight — A1 v1, A2, and A5 all shipped. Pick the next
+item from the lists above. Top recommendations:_
+- **A1.2 — Visual expansion pack:** auto-author visuals for all 20 concepts +
+  add slope-field primitive
+- **A3 — Explore Mode:** free-form "ask me anything" with concept-graph routing
+- **C1 — Teacher dashboard:** biggest distribution unlock_)
 
 ---
 
@@ -299,13 +345,20 @@ is the biggest UX unlock now that the content + visual layer is solid.)_
 | fix(ui): challenge card overflow | `558ba0a` | 15 |
 | docs: ROADMAP — mark A2 done | `3406b81` | 7 |
 | docs: ROADMAP — mark A1 v1 done | `e1b0168` | 3 |
+| **fix(db): recoverOrCreate full schema + WAL safety** | `c5c631c` | 209 |
+| **A5 — 5-tier deterministic classifier** | `244ab88` | 901 |
 
 **Net since v1 merge:** ~3,750 lines added (≈2 new feature areas), 0
 broken tests (same 5 pre-existing infra failures).
 
 **Net product capability since v1 merge:**
-- Students can now teach a concept back and get probing feedback
+- Students can teach a concept back and get probing feedback
   anchored on the misconception catalog (A2).
 - Students see interactive math visuals inline during Learn Mode for
   limits, the power rule, Riemann sums, and FTC (A1).
+- Learn Mode and Teach-It-Back classification dropped from
+  ~20s/turn to <100ms on the fast path (A5).
+- Auto-recovery now restores the FULL schema instead of just the
+  legacy 5 tables, and backs up the suspected-corrupt DB before
+  deletion (fix on `c5c631c`).
 
