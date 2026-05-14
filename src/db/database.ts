@@ -12,6 +12,7 @@
 import BetterSqlite3, { type Database } from 'better-sqlite3'
 import * as fs from 'node:fs'
 import { createSchema } from './schema.js'
+import { applyMigrations } from './migrations.js'
 
 // ---------------------------------------------------------------------------
 // Error codes that indicate a corrupt or unreadable database file
@@ -61,6 +62,12 @@ export function openDatabase(path: string): Database {
  */
 export function initSchema(db: Database): void {
   createSchema(db)
+  // CRITICAL: also apply post-v1 migrations (002+). createSchema() only
+  // creates the original 5 tables; the concept content layer (002), adaptive
+  // signals (003), and visuals (004) live in migrations/. Without this,
+  // a fresh DB created by recoverOrCreate() would crash the moment the app
+  // queries any post-v1 table.
+  applyMigrations(db, { logger: { log: () => {}, warn: console.warn } })
 }
 
 // ---------------------------------------------------------------------------
@@ -113,7 +120,7 @@ export function recoverOrCreate(path: string): Database {
       const isCorrupt =
         sqliteErr.code !== undefined && CORRUPT_ERROR_CODES.has(sqliteErr.code)
       if (isCorrupt) {
-        return { db: opened!, corrupt: true, errorMsg: `${sqliteErr.code}: ${sqliteErr.message}` }
+        return { db: undefined as unknown as Database, corrupt: true, errorMsg: `${sqliteErr.code}: ${sqliteErr.message}` }
       }
       throw err
     }
@@ -125,8 +132,8 @@ export function recoverOrCreate(path: string): Database {
     const isOk = rows.length === 1 && rows[0]!.integrity_check === 'ok'
     if (!isOk) {
       const summary = rows.map(r => r.integrity_check).join('; ')
-      opened.close()
-      return { db: opened, corrupt: true, errorMsg: `integrity_check failed: ${summary}` }
+      try { opened.close() } catch { /* ignore */ }
+      return { db: undefined as unknown as Database, corrupt: true, errorMsg: `integrity_check failed: ${summary}` }
     }
 
     return { db: opened, corrupt: false }
@@ -146,13 +153,44 @@ export function recoverOrCreate(path: string): Database {
         `(${result.errorMsg}). Deleting and recreating the database file.`
     )
 
-    // Delete the corrupt file.
+    // SAFETY: Before deleting, copy the corrupt file to a sibling
+    // .corrupt-<ts> path so a false-positive corruption diagnosis (e.g. a
+    // momentary WAL inconsistency) never permanently destroys authored
+    // content. The backup is best-effort — failure to copy is logged but
+    // doesn't block recovery.
     try {
-      fs.unlinkSync(path)
-    } catch (unlinkErr: unknown) {
-      const ue = unlinkErr as NodeJS.ErrnoException
-      if (ue.code !== 'ENOENT') {
-        throw unlinkErr
+      const ts = new Date().toISOString().replace(/[:.]/g, '-')
+      const backup = `${path}.corrupt-${ts}`
+      fs.copyFileSync(path, backup)
+      console.error(
+        `[recoverOrCreate] Backed up corrupt DB to ${backup} before deletion.`
+      )
+    } catch (backupErr: unknown) {
+      const be = backupErr as NodeJS.ErrnoException
+      if (be.code !== 'ENOENT') {
+        console.error(
+          `[recoverOrCreate] Backup of corrupt DB failed: ${be.message}. ` +
+          `Proceeding with deletion anyway.`
+        )
+      }
+    }
+
+    // Delete the corrupt main file AND any WAL/SHM sidecar files. The
+    // sidecars must go too — a leftover -wal pointing at a deleted main
+    // file will re-attach to the new fresh DB and re-trigger corruption
+    // detection on the next open.
+    const filesToRemove = [path, `${path}-wal`, `${path}-shm`, `${path}-journal`]
+    for (const f of filesToRemove) {
+      try {
+        fs.unlinkSync(f)
+      } catch (unlinkErr: unknown) {
+        const ue = unlinkErr as NodeJS.ErrnoException
+        if (ue.code !== 'ENOENT') {
+          // For sidecars, swallow non-ENOENT errors with a warning — the
+          // main file is what matters. For the main file itself, re-raise.
+          if (f === path) throw unlinkErr
+          console.warn(`[recoverOrCreate] Could not remove ${f}: ${ue.message}`)
+        }
       }
     }
 
