@@ -228,6 +228,8 @@ export class LearnModeUi {
   private currentConceptName: string | null = null
   private messages: ChatMessage[] = []
   private busy = false
+  /** A1: tracks whether we've already injected visuals in this session. */
+  private visualsInjected = false
 
   // Element refs
   private panel!: HTMLElement
@@ -364,6 +366,7 @@ export class LearnModeUi {
   private async startSession(conceptId: string, tier: LearnTier): Promise<void> {
     this.busy = true
     this.setStatus('Starting Learn Mode...')
+    this.visualsInjected = false
     try {
       const r = await this.api.start({ studentId: this.studentId, conceptId, tier })
       this.sessionId = r.sessionId
@@ -415,6 +418,11 @@ export class LearnModeUi {
       text: r.agentMessage,
       block: r.contentBlock,
     })
+    // A1: inject inline visuals after the first explanation is delivered.
+    if (!this.visualsInjected && this.currentConceptId && r.stage === 'explain') {
+      this.visualsInjected = true
+      void this.injectVisuals(this.currentConceptId)
+    }
     this.renderActions(r.suggestedActions ?? [])
     this.headerInfo.textContent = `Stage: ${r.stage}${r.done ? ' · done' : ''}`
     this.clearStatus()
@@ -437,7 +445,47 @@ export class LearnModeUi {
     }
   }
 
-  private appendMessage(m: ChatMessage): void {
+  /**
+   * A1: Fetch visuals for the current concept and render them inline in the
+   * chat as an "agent" message. Best-effort — failure is silent.
+   */
+  private async injectVisuals(conceptId: string): Promise<void> {
+    try {
+      const url = `/api/visuals/list?conceptId=${encodeURIComponent(conceptId)}&slot=explanation`
+      const resp = await fetch(url)
+      if (!resp.ok) return
+      const data = (await resp.json()) as { visuals: Array<{ spec: unknown; title?: string; captionMd?: string }> }
+      if (!data.visuals || data.visuals.length === 0) return
+      const { renderVisual } = await import('../visuals/render.js')
+      for (const v of data.visuals) {
+        const wrap = this.doc.createElement('div')
+        wrap.className = 'learn-msg learn-msg-agent'
+        const bubble = this.doc.createElement('div')
+        bubble.className = 'learn-bubble visual-bubble'
+        if (v.title) {
+          const titleEl = this.doc.createElement('div')
+          titleEl.className = 'visual-title'
+          titleEl.textContent = v.title
+          bubble.appendChild(titleEl)
+        }
+        const node = renderVisual(v.spec as never)
+        bubble.appendChild(node)
+        if (v.captionMd) {
+          const cap = this.doc.createElement('div')
+          cap.className = 'visual-caption'
+          cap.innerHTML = renderMarkdownLatex(v.captionMd, this.katex)
+          bubble.appendChild(cap)
+        }
+        wrap.appendChild(bubble)
+        this.chat.appendChild(wrap)
+      }
+      this.chat.scrollTop = this.chat.scrollHeight
+    } catch (err) {
+      console.warn('[learn] visual injection failed:', err)
+    }
+  }
+
+    private appendMessage(m: ChatMessage): void {
     this.messages.push(m)
     const wrap = this.doc.createElement('div')
     wrap.className = `learn-msg learn-msg-${m.role}`

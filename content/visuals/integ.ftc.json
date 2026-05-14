@@ -1,0 +1,20 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Accumulation function",
+    "caption_md": "Drag $x$ to sweep right. The blue area is $F(x) = \\int_0^x 2t\\,dt$. Watch the readout: $F(x) = x^2$, so $F'(x) = 2x$ — which is the original function. That's the Fundamental Theorem.",
+    "display_order": 0,
+    "spec": {
+      "kind": "accumulation",
+      "expression": "2*x",
+      "axes": {
+        "xMin": -0.5, "xMax": 4, "yMin": -1, "yMax": 9,
+        "xLabel": "t", "yLabel": "f(t) = 2t"
+      },
+      "a": 0,
+      "xInitial": 2.0,
+      "xMin": 0,
+      "xMax": 4
+    }
+  }
+]

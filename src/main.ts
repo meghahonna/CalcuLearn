@@ -27,6 +27,7 @@ import { LearnModeService } from './components/learnModeService.js'
 import { AdaptiveRouter } from './components/adaptiveRouter.js'
 import { ChallengeService } from './components/challengeService.js'
 import { TeachBackService } from './components/teachBackService.js'
+import { VisualRetrieval } from './components/visualRetrieval.js'
 
 export interface CalcuLearnConfig {
   /** Filesystem path to the SQLite database. */
@@ -70,6 +71,8 @@ export interface CalcuLearnApp {
   challengeService: ChallengeService
   /** A2: Teach-it-back (Feynman) runtime. */
   teachBackService: TeachBackService
+  /** A1: Inline visual retrieval. */
+  visualRetrieval: VisualRetrieval
   /** Cleanly close the SQLite connection. */
   close(): void
 }
@@ -157,6 +160,8 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
     logger,
   })
 
+  const visualRetrieval = new VisualRetrieval(db)
+
   // Phase 1 fix: warm up Gemma immediately so the first student click is fast.
   // loadModel() is idempotent — subsequent calls return the cached promise.
   logger.log('[createApp] Warming up Gemma model...')
@@ -184,6 +189,7 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
     adaptiveRouter,
     challengeService,
     teachBackService,
+    visualRetrieval,
     close(): void {
       db.close()
     },

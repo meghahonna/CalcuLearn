@@ -27,6 +27,7 @@ const MIGRATIONS_DIR = path.resolve(__dirname, '../../migrations')
 const MIGRATIONS = [
   '002_concept_content.sql',
   '003_adaptive_signals.sql',
+  '004_visuals.sql',
 ]
 
 interface ColumnInfo {
@@ -109,6 +110,7 @@ function main(): void {
     'concept_deep_dives',
     'concept_applications',
     'student_concept_signals',
+    'concept_visuals',
   ]
   for (const t of expected) {
     if (!tableExists(db, t)) {

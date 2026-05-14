@@ -1,0 +1,22 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Riemann rectangles",
+    "caption_md": "Drag $n$ up to see the rectangles get thinner and the estimate approach the true area, $\\int_0^2 x^2\\,dx = 8/3 \\approx 2.667$. Toggle left / right / midpoint to see how the choice of sample point matters at low $n$ but vanishes as $n \\to \\infty$.",
+    "display_order": 0,
+    "spec": {
+      "kind": "riemann_sum",
+      "expression": "x^2",
+      "axes": {
+        "xMin": -0.5, "xMax": 2.5, "yMin": -0.5, "yMax": 5,
+        "xLabel": "x", "yLabel": "f(x) = x^2"
+      },
+      "a": 0,
+      "b": 2,
+      "nInitial": 4,
+      "nMin": 1,
+      "nMax": 40,
+      "methods": ["left", "right", "midpoint"]
+    }
+  }
+]

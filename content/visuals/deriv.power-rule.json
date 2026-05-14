@@ -1,0 +1,21 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Secant becoming tangent",
+    "caption_md": "Drag $h$ toward 0. The secant line through $(1, 1)$ and $(1+h, (1+h)^2)$ rotates into the tangent at $x = 1$, whose slope is the derivative: $f'(1) = 2$.",
+    "display_order": 0,
+    "spec": {
+      "kind": "secant_to_tangent",
+      "expression": "x^2",
+      "axes": {
+        "xMin": -1, "xMax": 3, "yMin": -1, "yMax": 8,
+        "xLabel": "x", "yLabel": "y = x^2"
+      },
+      "a": 1,
+      "hInitial": 1.0,
+      "hMin": 0.01,
+      "hMax": 2.0,
+      "hLabel": "h"
+    }
+  }
+]

@@ -344,6 +344,30 @@ async function handleApiRequest(app: CalcuLearnApp, request: IncomingMessage, re
       return
     }
 
+    // -------------------- A1: Visuals --------------------
+
+    // List visuals for a concept (optionally filtered by slot or tier)
+    if (request.method === 'GET' && pathname === '/api/visuals/list') {
+      const vUrl = new URL(request.url ?? '/', `http://${request.headers.host}`)
+      const conceptId = vUrl.searchParams.get('conceptId')
+      if (!conceptId) {
+        sendError(response, 400, 'Missing conceptId')
+        return
+      }
+      const slot = vUrl.searchParams.get('slot')
+      const tier = vUrl.searchParams.get('tier')
+      let rows
+      if (slot) {
+        rows = app.visualRetrieval.listForConceptAndSlot(conceptId, slot)
+      } else if (tier) {
+        rows = app.visualRetrieval.listForConceptAndTier(conceptId, tier)
+      } else {
+        rows = app.visualRetrieval.listForConcept(conceptId)
+      }
+      sendJson(response, 200, { conceptId, visuals: rows })
+      return
+    }
+
     // -------------------- A2: Teach It Back (Feynman) --------------------
 
     // Start a teach-back: app prompts the student to explain the concept

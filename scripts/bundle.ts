@@ -50,7 +50,13 @@ if (fs.existsSync(katexSrc)) {
   console.warn(`[bundle] KaTeX not installed at ${katexSrc}; run "npm install" first`)
 }
 
-// 4. Compiled app.js (from `npm run build` → dist/ui/app.js).
+// 4. A1: Visuals module. TSC outputs to dist/visuals/, but the UI is served
+//    from dist/ui/, so we copy compiled visuals into dist/ui/visuals/ where
+//    the relative import `../visuals/render.js` from dist/ui/learnMode.js
+//    can find them.
+copyIfExists(path.join(dist, 'visuals'), path.join(dist, 'ui', 'visuals'), 'visuals (ts->ui)')
+
+// 5. Compiled app.js (from `npm run build` → dist/ui/app.js).
 //    The TS compiler outputs `dist/ui/app.js` directly when src/ui/app.ts is
 //    included by tsconfig.json (which it is via "include": ["src/**/*"]).
 //    No copy needed — index.html references `./app.js` relative to itself.

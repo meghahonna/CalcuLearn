@@ -1,0 +1,22 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Approaching the hole",
+    "caption_md": "Slide ε toward 0. From both sides, $f(x)$ closes in on the limit value 2 — even though the function is undefined exactly at $x = 1$.",
+    "display_order": 0,
+    "spec": {
+      "kind": "limit_approach",
+      "expression": "(x^2 - 1)/(x - 1)",
+      "axes": {
+        "xMin": -1, "xMax": 3, "yMin": -1, "yMax": 5,
+        "xLabel": "x", "yLabel": "f(x)"
+      },
+      "c": 1,
+      "epsilonInitial": 0.5,
+      "epsilonMin": 0.01,
+      "epsilonMax": 1.5,
+      "hole": true,
+      "limitValue": 2
+    }
+  }
+]
