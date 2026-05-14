@@ -137,7 +137,34 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
 
   // Phase B: wire the Socratic runtime on top of the authored content.
   const contentRetrieval = new ContentRetrieval(db)
-  const responseClassifier = new ResponseClassifier(dialogueGenerator)
+  // A5: Telemetry — record which tier resolved each classification call so
+  // we can see the fast-path hit rate. Aggregated and logged every 30 turns
+  // (or at server shutdown via close()).
+  const classifierStats: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 }
+  let classifierTurns = 0
+  let classifierTotalLatency = 0
+  const responseClassifier = new ResponseClassifier(dialogueGenerator, {
+    onResult: (r) => {
+      classifierStats[r.tier] = (classifierStats[r.tier] ?? 0) + 1
+      classifierTurns++
+      classifierTotalLatency += r.latencyMs
+      // Log every 30 turns
+      if (classifierTurns % 30 === 0) {
+        const fastPath = (classifierStats[1] ?? 0) + (classifierStats[2] ?? 0) +
+                         (classifierStats[3] ?? 0) + (classifierStats[4] ?? 0) +
+                         (classifierStats[5] ?? 0)
+        const fastPct = ((fastPath / classifierTurns) * 100).toFixed(1)
+        const avgLatency = (classifierTotalLatency / classifierTurns).toFixed(0)
+        logger.log(
+          `[classifier] ${classifierTurns} turns: tiers ` +
+          `T1=${classifierStats[1]} T2=${classifierStats[2]} T3=${classifierStats[3]} ` +
+          `T4=${classifierStats[4]} T5=${classifierStats[5]} T6=${classifierStats[6]} ` +
+          `(${fastPct}% fast-path, avg ${avgLatency}ms/turn)`
+        )
+      }
+    },
+    logger,
+  })
   const learnModeService = new LearnModeService({
     contentRetrieval,
     dialogueGenerator,
