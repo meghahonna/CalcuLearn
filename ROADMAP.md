@@ -32,7 +32,7 @@ problems · 206 practice problems. ~750 content rows in SQLite.
 
 Items that improve what students experience in Learn / Practice / Challenge.
 
-### A1. Visuals & interactive graphs
+### A1. Visuals & interactive graphs — **DONE** v1 (`4 primitives + 4 hero concepts`)
 Tangent lines, Riemann sum animations, slope fields, function plotters,
 implicit-curve visualizations. The single biggest intuition unlock for
 struggling students — calculus is the subject where a picture is worth a
@@ -260,6 +260,8 @@ _(nothing in flight — pick the next item from the lists above)_
 
 | Date | Item | Commit |
 |---|---|---|
+| 2026 | **A1 — Visuals & interactive graphs (v1)** | _this commit_ |
+| 2026 | fix(ui): challenge card overflow | `558ba0a` |
 | 2026 | **A2 — Teach it back (Feynman) mode** | `453ce87` |
 | 2026 | docs: ROADMAP.md | `c6abcb6` |
 
