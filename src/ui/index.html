@@ -746,6 +746,16 @@
       text-align: left;
       cursor: pointer;
       transition: var(--transition);
+      /* Reset <button> defaults so grid sizing actually constrains content */
+      width: 100%;
+      box-sizing: border-box;
+      font: inherit;
+      color: inherit;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
     }
     .challenge-concept-card:hover {
       border-color: var(--accent);
@@ -759,11 +769,16 @@
       display: flex;
       align-items: center;
       gap: 0.4rem;
+      flex-wrap: wrap;
     }
     .challenge-concept-oneliner {
       font-size: 0.85rem;
       color: var(--muted);
       line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
       margin-bottom: 0.6rem;
     }
     .challenge-concept-counts {
