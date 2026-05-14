@@ -600,12 +600,53 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
   void (async () => {
     const { LearnModeUi } = await import('./learnMode.js')
     const { ChallengeUi } = await import('./challenge.js')
+    const { TeachBackUi } = await import('./teachBack.js')
     const learnContainer = document.getElementById('learn-container') as HTMLElement
     const challengeContainer = document.getElementById('challenge-container') as HTMLElement
     const practicePanel = document.getElementById('problem-panel') as HTMLElement
     const summaryPanel = document.getElementById('summary-panel') as HTMLElement
-    const learnUi = new LearnModeUi({ document, studentId })
-    const challengeUi = new ChallengeUi({ document, studentId })
+
+    // A2: shared teach-back host. We mount it at the bottom of <main> and
+    // scroll it into view when triggered from either Learn or Challenge.
+    const main = document.getElementById('app') as HTMLElement
+    const teachBackHost = document.createElement('div')
+    teachBackHost.id = 'teachback-host'
+    teachBackHost.className = 'teachback-host'
+    teachBackHost.hidden = true
+    main.appendChild(teachBackHost)
+    const teachBackUi = new TeachBackUi({
+      document,
+      studentId,
+      onOpenLearn: (conceptId) => {
+        teachBackHost.hidden = true
+        void (async () => {
+          await ensureLearnMounted()
+          setMode('learn')
+          try {
+            await learnUi.startConcept(conceptId, 'on_pace')
+          } catch (err) {
+            console.error('[teachback->learn]', err)
+          }
+        })()
+      },
+    })
+
+    function openTeachBack(conceptId: string, conceptName: string): void {
+      teachBackHost.hidden = false
+      void teachBackUi.open(teachBackHost, conceptId, conceptName)
+      teachBackHost.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+
+    const learnUi = new LearnModeUi({
+      document,
+      studentId,
+      onTeachBack: openTeachBack,
+    })
+    const challengeUi = new ChallengeUi({
+      document,
+      studentId,
+      onTeachBack: openTeachBack,
+    })
     let learnMounted = false
     let challengeMounted = false
 

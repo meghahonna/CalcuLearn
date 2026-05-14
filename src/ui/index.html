@@ -952,6 +952,225 @@
       border-radius: 99px;
     }
 
+
+    /* ── A2: Teach-It-Back ─────────────────────────────────────────── */
+    .teachback-host {
+      margin-top: 1rem;
+    }
+    .teachback-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+    }
+    .teachback-header h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+    .teachback-subtle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+    .teachback-chat {
+      max-height: 50vh;
+      overflow-y: auto;
+      padding: 0.45rem;
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      margin-bottom: 0.7rem;
+    }
+    .teachback-msg {
+      margin-bottom: 0.7rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .teachback-msg-agent { align-items: flex-start; }
+    .teachback-msg-student { align-items: flex-end; }
+    .teachback-bubble {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.6rem 0.85rem;
+      max-width: 85%;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+    .teachback-bubble p { margin: 0 0 0.4rem 0; }
+    .teachback-bubble p:last-child { margin-bottom: 0; }
+    .teachback-msg-student .teachback-bubble {
+      background: var(--accent-light);
+      border-color: var(--accent);
+      color: var(--accent-dark);
+    }
+
+    .teachback-block {
+      margin: 0.5rem 0;
+      padding: 0.6rem 0.85rem;
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      max-width: 100%;
+    }
+    .teachback-block-misconception {
+      background: var(--error-bg);
+      border-color: var(--error);
+      border-left: 3px solid var(--error);
+    }
+    .teachback-block-facet {
+      background: var(--bg);
+      border-left: 3px solid var(--accent);
+    }
+    .teachback-block-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+    .teachback-block-body {
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .teachback-scaffolding { margin-bottom: 0.6rem; }
+    .teachback-hints summary {
+      font-size: 0.82rem;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0.3rem 0;
+    }
+    .teachback-hints ul {
+      margin: 0.3rem 0 0 1.2rem;
+      font-size: 0.88rem;
+      color: var(--fg);
+    }
+    .teachback-hints li { margin-bottom: 0.25rem; }
+
+    .teachback-input-row { margin-bottom: 0.55rem; }
+    .teachback-input {
+      width: 100%;
+      padding: 0.6rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      font-family: inherit;
+      resize: vertical;
+      transition: var(--transition);
+    }
+    .teachback-input:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px var(--accent-light);
+    }
+    .teachback-input:disabled {
+      background: var(--bg);
+      cursor: not-allowed;
+    }
+
+    .teachback-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.55rem;
+    }
+    .teachback-actions button { font-size: 0.85rem; padding: 0.45rem 0.95rem; }
+
+    .teachback-status {
+      font-size: 0.78rem;
+      color: var(--muted);
+      min-height: 1.2em;
+    }
+    .teachback-status-error { color: var(--error); }
+
+    .teachback-assessment {
+      margin-top: 0.6rem;
+      padding: 1rem 1.1rem;
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius);
+    }
+    .teachback-assessment-head {
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-dark);
+      margin-bottom: 0.6rem;
+    }
+    .teachback-assessment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.7rem;
+      margin-bottom: 0.7rem;
+    }
+    .teachback-assessment-col {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 0.75rem;
+    }
+    .teachback-col-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+    .teachback-col-title.strong { color: var(--success); }
+    .teachback-col-title.weak { color: var(--error); }
+    .teachback-col-body {
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    .teachback-col-body ul, .teachback-col-body ol { margin-left: 1.2rem; }
+    .teachback-closing {
+      font-size: 0.92rem;
+      line-height: 1.55;
+      margin-bottom: 0.7rem;
+    }
+    .teachback-recs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .teachback-rec {
+      background: var(--surface);
+      color: var(--fg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.85rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .teachback-rec:hover {
+      background: var(--accent-light);
+      border-color: var(--accent);
+      color: var(--accent-dark);
+    }
+
+    /* "Teach it back" trigger button (used in Learn done + Challenge bundle) */
+    .teachback-trigger {
+      background: var(--accent-light);
+      color: var(--accent-dark);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 0.5rem 1rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .teachback-trigger:hover {
+      background: var(--accent);
+      color: white;
+    }
+
     /* ── Responsive ────────────────────────────────────────────────── */
     @media (max-width: 520px) {
       body { padding: 0.75rem; }

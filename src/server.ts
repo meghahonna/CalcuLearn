@@ -344,6 +344,62 @@ async function handleApiRequest(app: CalcuLearnApp, request: IncomingMessage, re
       return
     }
 
+    // -------------------- A2: Teach It Back (Feynman) --------------------
+
+    // Start a teach-back: app prompts the student to explain the concept
+    if (request.method === 'POST' && pathname === '/api/teachback/start') {
+      const body = (await readRequestBody(request)) as Record<string, unknown>
+      const studentId = requireString(body['studentId'])
+      const conceptId = requireString(body['conceptId'])
+      const tier =
+        (body['tier'] as 'novice' | 'on_pace' | 'advanced' | undefined) ?? undefined
+      const r = await app.teachBackService.start({ studentId, conceptId, tier })
+      sendJson(response, 200, r)
+      return
+    }
+
+    // Continue a teach-back with the student's explanation
+    if (request.method === 'POST' && pathname.startsWith('/api/teachback/respond/')) {
+      const sessionId = pathname.replace('/api/teachback/respond/', '')
+      const body = (await readRequestBody(request)) as Record<string, unknown>
+      const studentExplanation = requireString(body['studentExplanation'])
+      const r = await app.teachBackService.respond({ sessionId, studentExplanation })
+      sendJson(response, 200, r)
+      return
+    }
+
+    // Force the final assessment + recommendations
+    if (request.method === 'POST' && pathname.startsWith('/api/teachback/assess/')) {
+      const sessionId = pathname.replace('/api/teachback/assess/', '')
+      const r = await app.teachBackService.assess(sessionId)
+      sendJson(response, 200, r)
+      return
+    }
+
+    // Inspect a teach-back session
+    if (request.method === 'GET' && pathname.startsWith('/api/teachback/session/')) {
+      const sessionId = pathname.replace('/api/teachback/session/', '')
+      const sess = app.teachBackService.getSession(sessionId)
+      if (!sess) {
+        sendError(response, 404, 'Teach-back session not found')
+        return
+      }
+      sendJson(response, 200, {
+        id: sess.id,
+        studentId: sess.studentId,
+        conceptId: sess.conceptId,
+        conceptName: sess.conceptName,
+        tier: sess.tier,
+        stage: sess.stage,
+        probeCount: sess.probeCount,
+        maxProbes: sess.maxProbes,
+        facets: sess.facets,
+        turns: sess.turns,
+        startedAt: sess.startedAt,
+      })
+      return
+    }
+
     sendError(response, 404, 'Not found')
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error'

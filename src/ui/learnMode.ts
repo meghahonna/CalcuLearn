@@ -207,6 +207,8 @@ export interface LearnModeUiOptions {
   document: Document
   studentId: string
   katex?: KatexLike
+  /** A2: called when the student clicks "Teach it back" on the Learn done card. */
+  onTeachBack?: (conceptId: string, conceptName: string) => void
 }
 
 interface ChatMessage {
@@ -219,8 +221,11 @@ export class LearnModeUi {
   private readonly doc: Document
   private readonly studentId: string
   private readonly katex?: KatexLike
+  private readonly onTeachBack?: (conceptId: string, conceptName: string) => void
   private readonly api = new LearnApi()
   private sessionId: string | null = null
+  private currentConceptId: string | null = null
+  private currentConceptName: string | null = null
   private messages: ChatMessage[] = []
   private busy = false
 
@@ -238,6 +243,7 @@ export class LearnModeUi {
     this.doc = opts.document
     this.studentId = opts.studentId
     this.katex = opts.katex ?? (globalThis as { katex?: KatexLike }).katex
+    this.onTeachBack = opts.onTeachBack
   }
 
   /** Mount the Learn Mode panel inside the given container. */
@@ -306,6 +312,11 @@ export class LearnModeUi {
     await this.startSession(conceptId, tier)
   }
 
+  /** Current concept (used by integrations like the teach-back trigger). */
+  getCurrentConceptId(): string | null {
+    return this.currentConceptId
+  }
+
   // -------------------- internals --------------------
 
   private async loadConceptList(): Promise<void> {
@@ -322,6 +333,7 @@ export class LearnModeUi {
       for (const c of concepts) {
         const card = this.doc.createElement('div')
         card.className = 'learn-concept-card'
+        card.dataset['conceptId'] = c.id
         card.innerHTML = `
           <div class="learn-concept-name">${escapeHtml(c.name)}</div>
           <div class="learn-concept-oneliner">${escapeHtml(c.one_liner ?? '')}</div>
@@ -355,6 +367,13 @@ export class LearnModeUi {
     try {
       const r = await this.api.start({ studentId: this.studentId, conceptId, tier })
       this.sessionId = r.sessionId
+      this.currentConceptId = conceptId
+      // Try to find the concept name from the picker list we previously loaded.
+      const listEl = this.doc.getElementById('learn-concept-list')
+      const card = listEl?.querySelector(
+        '.learn-concept-card[data-concept-id="' + conceptId + '"] .learn-concept-name'
+      )
+      this.currentConceptName = (card?.textContent ?? conceptId).trim()
       this.messages = []
       this.picker.hidden = true
       ;(this.doc.getElementById('learn-chat-wrap') as HTMLElement).hidden = false
@@ -402,6 +421,19 @@ export class LearnModeUi {
     if (r.done) {
       this.chatInput.disabled = true
       this.sendBtn.disabled = true
+      // A2 entry point: surface a teach-back trigger on the done screen.
+      if (this.onTeachBack && this.currentConceptId) {
+        const trigger = this.doc.createElement('button')
+        trigger.className = 'teachback-trigger'
+        trigger.textContent = 'Teach it back to lock it in'
+        trigger.style.marginTop = '0.6rem'
+        trigger.addEventListener('click', () => {
+          if (this.currentConceptId && this.currentConceptName) {
+            this.onTeachBack!(this.currentConceptId, this.currentConceptName)
+          }
+        })
+        this.actionsRow.appendChild(trigger)
+      }
     }
   }
 

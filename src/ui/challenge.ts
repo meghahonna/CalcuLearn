@@ -141,12 +141,15 @@ export interface ChallengeUiOptions {
   document: Document
   studentId: string
   katex?: KatexLike
+  /** A2: called when the student clicks "Teach it back" on a bundle. */
+  onTeachBack?: (conceptId: string, conceptName: string) => void
 }
 
 export class ChallengeUi {
   private readonly doc: Document
   private readonly studentId: string
   private readonly katex?: KatexLike
+  private readonly onTeachBack?: (conceptId: string, conceptName: string) => void
   private readonly api = new ChallengeApi()
   private root: HTMLElement | null = null
   private currentBundle: ChallengeBundle | null = null
@@ -155,6 +158,7 @@ export class ChallengeUi {
     this.doc = opts.document
     this.studentId = opts.studentId
     this.katex = opts.katex ?? (globalThis as { katex?: KatexLike }).katex
+    this.onTeachBack = opts.onTeachBack
   }
 
   async mount(container: HTMLElement): Promise<void> {
@@ -266,6 +270,9 @@ export class ChallengeUi {
         <div class="challenge-bundle-header">
           <h3>${escapeHtml(bundle.conceptName)} ${lockNote}</h3>
           <div class="challenge-bundle-oneliner">${escapeHtml(bundle.oneLiner ?? '')}</div>
+          <div class="challenge-bundle-actions" style="margin-top:0.55rem;">
+            <button id="challenge-teachback" class="teachback-trigger">Teach it back</button>
+          </div>
         </div>
 
         ${
@@ -324,6 +331,16 @@ export class ChallengeUi {
         bundle.stretchProblems.forEach((p, i) =>
           stretchEl.appendChild(this.renderStretchProblemCard(p, i + 1))
         )
+      }
+
+      // A2: wire teach-back trigger
+      const tbBtn = body.querySelector('#challenge-teachback') as HTMLButtonElement | null
+      if (tbBtn) {
+        tbBtn.addEventListener('click', () => {
+          if (this.onTeachBack) {
+            this.onTeachBack(bundle.conceptId, bundle.conceptName)
+          }
+        })
       }
 
       this.clearStatus()
