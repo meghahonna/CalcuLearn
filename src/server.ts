@@ -368,6 +368,48 @@ async function handleApiRequest(app: CalcuLearnApp, request: IncomingMessage, re
       return
     }
 
+    // -------------------- A3: Explore Mode --------------------
+
+    // Start a new explore session
+    if (request.method === 'POST' && pathname === '/api/explore/start') {
+      const body = (await readRequestBody(request)) as Record<string, unknown>
+      const studentId = requireString(body['studentId'])
+      const r = app.exploreService.start(studentId)
+      sendJson(response, 200, r)
+      return
+    }
+
+    // Ask a question
+    if (request.method === 'POST' && pathname.startsWith('/api/explore/ask/')) {
+      const sessionId = pathname.replace('/api/explore/ask/', '')
+      const body = (await readRequestBody(request)) as Record<string, unknown>
+      const question = requireString(body['question'])
+      const pinConceptId = typeof body['pinConceptId'] === 'string'
+        ? (body['pinConceptId'] as string)
+        : null
+      const r = await app.exploreService.ask(sessionId, question, { pinConceptId })
+      sendJson(response, 200, r)
+      return
+    }
+
+    // Inspect a session
+    if (request.method === 'GET' && pathname.startsWith('/api/explore/session/')) {
+      const sessionId = pathname.replace('/api/explore/session/', '')
+      const sess = app.exploreService.getSession(sessionId)
+      if (!sess) {
+        sendError(response, 404, 'Explore session not found')
+        return
+      }
+      sendJson(response, 200, {
+        id: sess.id,
+        studentId: sess.studentId,
+        currentConceptId: sess.currentConceptId,
+        turns: sess.turns,
+        createdAt: sess.createdAt,
+      })
+      return
+    }
+
     // -------------------- A2: Teach It Back (Feynman) --------------------
 
     // Start a teach-back: app prompts the student to explain the concept

@@ -28,6 +28,8 @@ import { AdaptiveRouter } from './components/adaptiveRouter.js'
 import { ChallengeService } from './components/challengeService.js'
 import { TeachBackService } from './components/teachBackService.js'
 import { VisualRetrieval } from './components/visualRetrieval.js'
+import { ConceptRouter } from './components/conceptRouter.js'
+import { ExploreService } from './components/exploreService.js'
 
 export interface CalcuLearnConfig {
   /** Filesystem path to the SQLite database. */
@@ -73,6 +75,10 @@ export interface CalcuLearnApp {
   teachBackService: TeachBackService
   /** A1: Inline visual retrieval. */
   visualRetrieval: VisualRetrieval
+  /** A3: Free-form question router. */
+  conceptRouter: ConceptRouter
+  /** A3: Explore Mode runtime. */
+  exploreService: ExploreService
   /** Cleanly close the SQLite connection. */
   close(): void
 }
@@ -189,6 +195,14 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
 
   const visualRetrieval = new VisualRetrieval(db)
 
+  const conceptRouter = new ConceptRouter(contentRetrieval, dialogueGenerator, { logger })
+  const exploreService = new ExploreService({
+    router: conceptRouter,
+    content: contentRetrieval,
+    dialogue: dialogueGenerator,
+    logger,
+  })
+
   // Phase 1 fix: warm up Gemma immediately so the first student click is fast.
   // loadModel() is idempotent — subsequent calls return the cached promise.
   logger.log('[createApp] Warming up Gemma model...')
@@ -217,6 +231,8 @@ export async function createApp(config: CalcuLearnConfig): Promise<CalcuLearnApp
     challengeService,
     teachBackService,
     visualRetrieval,
+    conceptRouter,
+    exploreService,
     close(): void {
       db.close()
     },

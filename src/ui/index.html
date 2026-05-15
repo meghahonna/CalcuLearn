@@ -1277,6 +1277,118 @@
       border-color: var(--accent);
     }
 
+
+    /* ── A3: Explore Mode ─────────────────────────────────────────── */
+    .explore-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+    }
+    .explore-header h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .explore-subtle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+    .explore-chat {
+      min-height: 200px;
+      max-height: 55vh;
+      overflow-y: auto;
+      padding: 0.5rem;
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      margin-bottom: 0.7rem;
+    }
+    .explore-msg {
+      margin-bottom: 0.7rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .explore-msg-student { align-items: flex-end; }
+    .explore-msg-agent   { align-items: flex-start; }
+    .explore-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-dark);
+      margin-bottom: 0.25rem;
+      padding: 0.15rem 0.5rem;
+      background: var(--accent-light);
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+    }
+    .explore-bubble {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.6rem 0.85rem;
+      max-width: 88%;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+    .explore-bubble p { margin: 0 0 0.4rem 0; }
+    .explore-bubble p:last-child { margin-bottom: 0; }
+    .explore-msg-student .explore-bubble {
+      background: var(--accent-light);
+      border-color: var(--accent);
+      color: var(--accent-dark);
+    }
+    .explore-chips {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-top: 0.45rem;
+    }
+    .explore-chip {
+      background: var(--surface);
+      color: var(--fg);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .explore-chip:hover {
+      background: var(--accent-light);
+      border-color: var(--accent);
+      color: var(--accent-dark);
+    }
+    .explore-input-row {
+      display: flex;
+      gap: 0.45rem;
+      margin-bottom: 0.55rem;
+    }
+    .explore-input {
+      flex: 1;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+    .explore-input:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px var(--accent-light);
+    }
+    .explore-input:disabled { background: var(--bg); cursor: not-allowed; }
+    .explore-status {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      min-height: 1.2em;
+    }
+    .explore-status-error { color: var(--error); }
+
     /* ── Responsive ────────────────────────────────────────────────── */
     @media (max-width: 520px) {
       body { padding: 0.75rem; }
@@ -1313,6 +1425,7 @@
       <button class="mode-tab active" data-mode="practice" role="tab">Practice</button>
       <button class="mode-tab" data-mode="learn" role="tab">Learn</button>
       <button class="mode-tab" data-mode="challenge" role="tab" title="Real-world applications, deep dives, and stretch problems">Challenge</button>
+      <button class="mode-tab" data-mode="explore" role="tab" title="Free-form: ask anything about AP Calculus">Explore</button>
     </div>
 
     <!-- Learn Mode container (mounted dynamically by learnMode.ts) -->
@@ -1320,6 +1433,9 @@
 
     <!-- Challenge Mode container (mounted dynamically by challenge.ts) -->
     <div id="challenge-container" hidden></div>
+
+    <!-- Explore Mode container (A3, mounted dynamically by explore.ts) -->
+    <div id="explore-container" hidden></div>
 
     <!-- Problem panel -->
     <section id="problem-panel" class="panel">

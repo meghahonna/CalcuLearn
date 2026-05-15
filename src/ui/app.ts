@@ -601,8 +601,10 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
     const { LearnModeUi } = await import('./learnMode.js')
     const { ChallengeUi } = await import('./challenge.js')
     const { TeachBackUi } = await import('./teachBack.js')
+    const { ExploreUi } = await import('./explore.js')
     const learnContainer = document.getElementById('learn-container') as HTMLElement
     const challengeContainer = document.getElementById('challenge-container') as HTMLElement
+    const exploreContainer = document.getElementById('explore-container') as HTMLElement
     const practicePanel = document.getElementById('problem-panel') as HTMLElement
     const summaryPanel = document.getElementById('summary-panel') as HTMLElement
 
@@ -647,8 +649,13 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
       studentId,
       onTeachBack: openTeachBack,
     })
+    // ExploreUi is constructed lazily inside ensureExploreMounted below so
+    // we can pass it deep-link callbacks that reference setMode / learnUi
+    // / challengeUi (defined just above us). We declare it here.
+    let exploreUi: InstanceType<typeof ExploreUi> | null = null
     let learnMounted = false
     let challengeMounted = false
+    let exploreMounted = false
 
     async function ensureLearnMounted(): Promise<void> {
       if (!learnMounted) {
@@ -664,7 +671,34 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
       }
     }
 
-    function setMode(mode: 'practice' | 'learn' | 'challenge'): void {
+    async function ensureExploreMounted(): Promise<void> {
+      if (!exploreMounted) {
+        exploreUi = new ExploreUi({
+          document,
+          studentId,
+          onOpenLearn: (conceptId) => {
+            void (async () => {
+              await ensureLearnMounted()
+              setMode('learn')
+              try { await learnUi.startConcept(conceptId, 'on_pace') }
+              catch (err) { console.error('[explore->learn]', err) }
+            })()
+          },
+          onOpenChallenge: (conceptId) => {
+            void (async () => {
+              await ensureChallengeMounted()
+              setMode('challenge')
+              try { await challengeUi.openConcept?.(conceptId) }
+              catch (err) { console.error('[explore->challenge]', err) }
+            })()
+          },
+        })
+        await exploreUi.mount(exploreContainer)
+        exploreMounted = true
+      }
+    }
+
+    function setMode(mode: 'practice' | 'learn' | 'challenge' | 'explore'): void {
       document.querySelectorAll('.mode-tab').forEach((b) => {
         b.classList.toggle('active', (b as HTMLElement).dataset['mode'] === mode)
       })
@@ -674,13 +708,15 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
       if (!showPractice) summaryPanel.hidden = true
       learnContainer.hidden = mode !== 'learn'
       challengeContainer.hidden = mode !== 'challenge'
+      exploreContainer.hidden = mode !== 'explore'
       if (mode === 'learn') void ensureLearnMounted()
       if (mode === 'challenge') void ensureChallengeMounted()
+      if (mode === 'explore') void ensureExploreMounted()
     }
 
     document.querySelectorAll('.mode-tab').forEach((btn) => {
       btn.addEventListener('click', () => {
-        const mode = (btn as HTMLElement).dataset['mode'] as 'practice' | 'learn' | 'challenge'
+        const mode = (btn as HTMLElement).dataset['mode'] as 'practice' | 'learn' | 'challenge' | 'explore'
         if (mode && !(btn as HTMLButtonElement).disabled) setMode(mode)
       })
     })
