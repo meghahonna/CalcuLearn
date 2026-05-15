@@ -6,55 +6,62 @@
   "issues": [
     {
       "severity": "important",
-      "category": "ap_alignment",
-      "location": "explanations[0] (advanced tier)",
-      "description": "The prerequisites array is empty, yet optimization requires knowledge of derivatives, critical points, the first and second derivative tests, and the Extreme Value Theorem. An empty prerequisites list is misleading for any student navigating the app's dependency graph.",
-      "suggested_fix": "Add appropriate prerequisite concept IDs such as derivatives, critical points, first/second derivative tests, EVT, etc."
-    },
-    {
-      "severity": "minor",
       "category": "math",
-      "location": "examples[0].steps[4].why_md (advanced example stretch question)",
-      "description": "The stretch question asks the student to show the optimal ratio is h/r = 2c_e/c_s. Repeating the derivation with general costs: C = c_e·2πr² + c_s·2πrh, substitute h = V/(πr²), get C = 2πc_e r² + 2c_s V/r, differentiate: 4πc_e r − 2c_s V/r² = 0 → r³ = c_s V/(2πc_e), then h/r = V/(πr³) = 2c_e/c_s. This checks out. However, the original problem already used c_e=4, c_s=1, giving h/r = 2·4/1 = 8, which is consistent. No math error, but the general formula is stated without derivation and might be confusing if the student doesn't see the intermediate algebra. This is a stretch question so it's acceptable.",
-      "suggested_fix": "No change strictly required; optionally add a brief hint for the derivation."
-    },
-    {
-      "severity": "minor",
-      "category": "consistency",
-      "location": "checks[0] (advanced tier)",
-      "description": "The student's claimed critical point is x* = (2V)^{1/3}. Checking: S(x) = x² + 4V/x, S'(x) = 2x − 4V/x² = 0 → x³ = 2V → x* = (2V)^{1/3}. The expected answer says S''(x*) = 2 + 8V/(x*)³. But S''(x) = 2 + 8V/x³, so S''(x*) = 2 + 8V/(2V) = 2 + 4 = 6. The formula is correct, just not simplified. This is fine, but a student might wonder about the simplification.",
-      "suggested_fix": "Optionally simplify S''(x*) = 6 in the expected answer for clarity."
+      "location": "explanations[1].body_md (novice framing_index=1), Step 5 sign chart",
+      "description": "The sign chart evaluation at x = -2 is incorrect. f'(x) = 2x(2x^2 - 7). At x = -2: 2(-2) = -4 (negative), 2(4)-7 = 1 (positive), so f'(-2) = -4 * 1 = -4, which is negative. This is correct. But the claim that -2 is 'left of -sqrt(7/2) ≈ -1.87' is correct since -2 < -1.87. At x = -1: 2(-1) = -2 (negative), 2(1)-7 = -5 (negative), product = 10 (positive). This is correct. At x = 1: 2(1) = 2 (positive), 2(1)-7 = -5 (negative), product = -10 (negative). Correct. At x = 2: 2(2) = 4 (positive), 2(4)-7 = 1 (positive), product = 4 (positive). Correct. Sign pattern -, +, -, + is correct. So the sign chart is actually fine. However, the final distance computation is wrong. At (±sqrt(7/2), 7/2), the squared distance is x^2 + (y-4)^2 = 7/2 + (7/2 - 4)^2 = 7/2 + (-1/2)^2 = 7/2 + 1/4 = 15/4 = 3.75. So D = sqrt(3.75) ≈ 1.936. The text says D = sqrt(3.5 + 0.25) = sqrt(3.75), which is the same since 7/2 = 3.5. This checks out. Actually the entire example is mathematically correct upon careful review.",
+      "suggested_fix": "No fix needed; this issue is retracted upon verification."
     },
     {
       "severity": "important",
-      "category": "pedagogy",
-      "location": "explanations[1] (novice, framing_index 1)",
-      "description": "This second novice explanation only covers the first-derivative (sign chart) test and briefly mentions the closed-interval method at the end, but it never introduces the standard optimization workflow (define objective, use constraint to reduce to one variable, etc.). Since the concept is 'Optimisation' and not just 'finding local extrema,' this explanation is incomplete for the concept. A novice encountering this as their only explanation would not learn how to set up and solve a word-problem optimization question.",
-      "suggested_fix": "Either expand the explanation to include the optimization setup workflow (objective + constraint → one variable → differentiate → check), or re-label it as a supplementary explanation on the first-derivative test rather than a standalone optimization explanation."
+      "category": "math",
+      "location": "checks[0] (advanced tier), expected_answer_md",
+      "description": "The student's claimed critical point is x* = (2V)^{1/3}. Let's verify: S(x) = x^2 + 4V/x, so S'(x) = 2x - 4V/x^2 = 0 gives 2x^3 = 4V, x^3 = 2V, x* = (2V)^{1/3}. The expected answer then states S''(x*) = 2 + 8V/(x*)^3. Check: S''(x) = 2 + 8V/x^3. At x* = (2V)^{1/3}, (x*)^3 = 2V, so S''(x*) = 2 + 8V/(2V) = 2 + 4 = 6. This is positive, confirming a minimum. The formula and reasoning in the expected answer are correct. No issue here either.",
+      "suggested_fix": "No fix needed; retracted."
     },
     {
       "severity": "minor",
       "category": "style",
       "location": "concept_id and name",
-      "description": "The concept uses British spelling 'Optimisation' throughout. While not wrong, AP Calculus materials (College Board) consistently use American English 'Optimization.' This could confuse students searching for the term.",
-      "suggested_fix": "Consider using 'Optimization' to match AP exam vocabulary, or at minimum note the alternate spelling."
+      "description": "The concept uses the British spelling 'Optimisation' rather than the American spelling 'Optimization' used on the AP exam. The AP Calculus framework and College Board materials use American English.",
+      "suggested_fix": "Change 'Optimisation' to 'Optimization' in the name and concept_id (e.g., deriv.optimization) to match AP exam conventions."
+    },
+    {
+      "severity": "important",
+      "category": "pedagogy",
+      "location": "explanations[0] (advanced tier), stretch question",
+      "description": "The stretch question about f(x) = |x^2 - 1| on [-2,2] states corners are at x = ±1 'because the absolute value function isn't differentiable when its argument equals zero.' While the conclusion is correct, the reasoning is slightly misleading — the absolute value function IS differentiable when its argument is nonzero; the issue is that the absolute value has a corner when its argument equals zero, i.e., when x^2 - 1 = 0. The explanation could be clearer that the composition |g(x)| fails to be differentiable where g(x) = 0 because |t| is not differentiable at t = 0.",
+      "suggested_fix": "Rephrase to: 'which has corners at x = ±1 because |g(x)| is not differentiable where g(x) = x^2 - 1 equals zero, since the absolute value function has a corner at the origin.'"
+    },
+    {
+      "severity": "important",
+      "category": "consistency",
+      "location": "explanations[1] (novice framing_index=1), body_md",
+      "description": "This novice explanation is extremely long — it contains a full worked example with a sign chart analysis for the closest-point-to-parabola problem, then a second separate worked example, plus a detailed 6-step workflow. The level of detail (sign charts with four test points, justifying why minimizing D^2 is equivalent to minimizing D via monotonicity, discussion of open vs closed domains) is more on-pace or even advanced in complexity. A novice student would likely be overwhelmed. The framing_index=1 novice explanation is significantly harder than the framing_index=0 novice explanation.",
+      "suggested_fix": "Simplify the novice framing_index=1 explanation. Use a simpler worked example (the closest-point-to-parabola problem is typically an on-pace or advanced problem). Reserve the detailed sign chart with four test points for the on-pace tier. Keep the workflow but use a simpler illustrative example."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "examples[0] (advanced tier), steps[4].why_md, stretch question",
+      "description": "The stretch question asks about an open-topped can and says the optimal ratio 'depends on c_e/c_s differently.' This is a good question but provides no hint about how the setup changes (only one end instead of two), which could leave even advanced students unsure what is being asked.",
+      "suggested_fix": "Add a brief hint: 'For the open-top can, the cost function becomes C = c_e · πr^2 + c_s · 2πrh (only one circular end). Set up and solve analogously.'"
+    },
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "checks[1] (advanced tier)",
+      "description": "The second advanced check question asks about Lagrange multipliers and multivariable optimization, which is explicitly not in the AP Calculus AB or BC curriculum. While the question frames it as a preview, it tests content that AP students are not expected to know and cannot be assessed on the exam.",
+      "suggested_fix": "Either remove this check or relabel it clearly as a 'beyond AP' stretch question that is not testable content. Replace with an AP-aligned advanced check if needed."
     },
     {
       "severity": "minor",
       "category": "style",
-      "location": "explanations[2] (on_pace), body_md last paragraph",
-      "description": "The sentence 'Looking ahead: once you learn integration, optimization reappears when you maximize areas, volumes, and even accumulated rates.' is mild filler/preview language. Not egregious but slightly violates the 'no filler' guideline.",
-      "suggested_fix": "Remove or shorten this forward-looking paragraph."
-    },
-    {
-      "severity": "minor",
-      "category": "consistency",
-      "location": "examples[2] (on_pace) steps[4].why_md",
-      "description": "The stretch challenge says 'the constraint becomes 2x + 2y = 120 (one extra interior fence of length y)'. If there is one interior fence parallel to the barn (of length y), the constraint should be 2x + 2y = 120 only if that interior fence has length y. But the original setup has y as the side parallel to the barn. Adding one interior fence of length y means the constraint is 2x + y + y = 2x + 2y = 120. This is stated correctly, but the parenthetical '(one extra interior fence of length y)' is slightly confusing because it implies only one fence was added, yet the equation already accounts for the original y plus the new y. It would be clearer to say the total fencing is 2x + 2y because there are now two parallel-to-barn fences (the outer one and the divider).",
-      "suggested_fix": "Clarify: 'the constraint becomes 2x + 2y = 120 because there are now two lengths of y (the outer side plus the interior divider).'"
+      "location": "explanations[1] (novice framing_index=1), body_md",
+      "description": "The explanation contains a horizontal rule (---) which acts as a section divider mid-explanation. This is somewhat unusual for a single explanation block and might render oddly in the app.",
+      "suggested_fix": "Consider splitting into two separate explanation blocks or removing the horizontal rule and using a transition sentence instead."
     }
   ],
-  "summary": "Content is mathematically sound overall with good worked examples and misconceptions, but the empty prerequisites array and the second novice explanation's incomplete coverage of the optimization workflow are the most significant issues.",
-  "critiquedAt": "2026-05-15T19:26:39.330Z",
+  "summary": "Content is mathematically accurate throughout, but the second novice explanation (framing_index=1) is too complex for its tier, and one advanced check question tests Lagrange multipliers which is outside AP scope. Minor style issues with British spelling and formatting.",
+  "critiquedAt": "2026-05-15T21:08:12.867Z",
   "modelVersion": "claude-opus-4-6"
 }

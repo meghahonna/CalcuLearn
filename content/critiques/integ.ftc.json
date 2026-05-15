@@ -2,52 +2,52 @@
   "conceptId": "integ.ftc",
   "conceptName": "Fundamental Theorem of Calculus",
   "verdict": "issues_found",
-  "overall_severity": "important",
+  "overall_severity": "minor",
   "issues": [
     {
-      "severity": "important",
-      "category": "ap_alignment",
-      "description": "The engineering application (Part A) requires integration by parts, which is a BC-only technique, yet the concept is marked track: BOTH (AB and BC). AB students seeing this application would encounter a technique they have not learned. Additionally, the problem complexity (IBP + real-world modeling) goes well beyond typical AB expectations.",
-      "location": "applications[1]",
-      "suggested_fix": "Either mark this application as BC-only, replace the inflow model with a function AB students can antidifferentiate (e.g., a polynomial), or add a note that this application is intended for BC students."
-    },
-    {
-      "severity": "important",
-      "category": "consistency",
-      "description": "The prerequisites array is empty. The FTC depends on understanding definite integrals/Riemann sums, continuity, antiderivatives/power rule, and the limit definition of the derivative. Listing no prerequisites means the dependency graph gives students no guidance on what they should know first.",
-      "location": "prerequisites",
-      "suggested_fix": "Add prerequisite concept IDs for definite integrals / Riemann sums, continuity, basic antiderivatives, and the chain rule."
-    },
-    {
       "severity": "minor",
-      "category": "math",
-      "description": "In the advanced example, step 5, the problem states 'Find f(x) in closed form, and evaluate f(1).' However, f(1) is only obtained via a limit because the closed-form expression is undefined at x=1 (the second term is 0/0). The problem should note that f(1) means the limiting value, or define f more carefully. Also, the step says 'Take the limit as x→1⁺' but the limit should be two-sided (x→1) since ln x is defined for x>0 and the function is approached from both sides in a neighborhood of 1.",
-      "location": "examples[0].steps[4]",
-      "suggested_fix": "Clarify that f(1) is defined as the limit of f(x) as x→1 (two-sided), or note the domain restriction. Change 'x→1⁺' to 'x→1'."
+      "category": "ap_alignment",
+      "description": "The prerequisites array is empty. FTC logically depends on concepts like limits, continuity, the definition of the definite integral (Riemann sums), and basic derivative rules. Leaving this empty may cause sequencing issues in the app.",
+      "location": "prerequisites",
+      "suggested_fix": "Add prerequisite concept IDs for definite integrals / Riemann sums, continuity, and basic differentiation rules."
     },
     {
       "severity": "minor",
       "category": "pedagogy",
-      "description": "The advanced explanation ends with a 'stretch question' asking the student to find g'(x) for g(x)=∫₀^{x²} e^{-t²} dt and asks 'What happens if both bounds are functions of x?' but never provides the answer. This is fine as a teaser, but the advanced example actually works out that exact pattern in full. A cross-reference or brief answer would be more helpful.",
+      "description": "The advanced explanation's stretch question ('What happens if both bounds are functions of x?') is posed but never answered in that explanation. This is fine as a teaser, but the advanced example does answer it, so the flow works — however, the stretch question about g(x) = int_0^{x^2} e^{-t^2} dt is also never explicitly resolved in the explanation itself, which could leave a reader hanging.",
       "location": "explanations[0].body_md",
-      "suggested_fix": "Add a brief answer (g'(x)=2x·e^{-x⁴}) or reference the advanced example that works through a similar problem."
+      "suggested_fix": "Either provide the answer inline (g'(x) = e^{-x^4} · 2x) or explicitly point the reader to the worked example or misconception that addresses it."
     },
     {
       "severity": "minor",
       "category": "style",
-      "description": "The novice explanation (framing_index 0) opens with 'You already know two big ideas…' which is fine, but the second novice explanation (framing_index 1) opens with the near-identical sentence 'You already know two big ideas: derivatives (slopes) and integrals (areas made from Riemann sums).' This repetition may feel copy-pasted if a student sees both framings.",
-      "location": "explanations[2].body_md",
-      "suggested_fix": "Vary the opening of the second novice framing to differentiate it from the first."
+      "description": "The novice explanation (framing_index 0) opens with 'You already know two big ideas' which is fine, but the on_pace and novice (framing_index 1) explanations open with nearly identical phrasing ('You already know two big ideas: derivatives...'). This repetition across tiers is not a problem for a student who sees only one tier, but it suggests a lack of variety in framing.",
+      "location": "explanations[1].body_md, explanations[2].body_md, explanations[3].body_md",
+      "suggested_fix": "Vary the opening line slightly across framings to differentiate them if a student ever switches tiers."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "description": "In the advanced example step 5, the analysis of f(1) treats f as defined by the derivative expression and then evaluates the limit. Technically f(x) is defined as the derivative for all x in its domain, and at x=1 the expression has a 0/0 form in the second term. The step correctly computes the limit, but it would be clearer to note that f(1) equals the limit of f(x) as x→1 (since f is actually continuous there by construction), rather than saying 'evaluate f(1)' and then switching to a limit mid-calculation.",
+      "location": "examples[0].steps[4]",
+      "suggested_fix": "Add a brief note: 'Since f(x) is defined as a derivative and is continuous at x=1, we can compute f(1) as lim_{x→1} f(x).'"
     },
     {
       "severity": "minor",
       "category": "pedagogy",
-      "description": "In the on_pace explanation, the note 'Part 1 requires continuity of f. If f has a jump discontinuity at x = c, you cannot blindly apply FTC1 there.' could be slightly misleading — FTC1 actually still holds at points where f is continuous even if f has discontinuities elsewhere. The statement should clarify that you cannot apply FTC1 *at the point of discontinuity*, not that FTC1 fails globally.",
-      "location": "explanations[3].body_md",
-      "suggested_fix": "Rephrase to: 'If f has a jump discontinuity at x = c, the accumulation function F may not be differentiable at c, so FTC1 does not apply at that specific point.'"
+      "description": "The novice check question about filling in the blank for F(b) - F(___) is very easy and tests recall more than understanding. A slightly more diagnostic question would better assess whether the student grasps the concept.",
+      "location": "checks[3]",
+      "suggested_fix": "Consider a question that also tests whether the student understands what happens when you swap limits of integration, or why the subtraction order matters."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "description": "The application problem (physics) Part (b) mentions that the maximum velocity on [0,10] is at t=10, and references t=15 being outside the domain. However, the problem says the model is valid on [0,10], so stating that a(t)=0 at t=15 could confuse a student who wonders about physical meaning outside the domain. The reasoning is correct but could be clearer.",
+      "location": "applications[0].solution_outline_md",
+      "suggested_fix": "Rephrase to: 'Setting a(t) = 0 gives t = 15, which is outside [0,10]. Since a(t) > 0 for all t in [0,10], the velocity is increasing on the entire interval, so the maximum velocity occurs at t = 10.'"
     }
   ],
-  "summary": "Mathematically sound overall with a strong set of examples and misconceptions; the main issue is that the engineering application uses integration by parts (BC-only) while the concept is marked for both AB and BC tracks, and the prerequisites list is empty.",
-  "critiquedAt": "2026-05-15T19:27:38.623Z",
+  "summary": "Mathematically sound and pedagogically strong across all tiers; issues are limited to minor style, clarity, and metadata concerns.",
+  "critiquedAt": "2026-05-15T20:35:55.412Z",
   "modelVersion": "claude-opus-4-6"
 }

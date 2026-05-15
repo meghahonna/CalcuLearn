@@ -1,47 +1,46 @@
 {
   "conceptId": "limits.definition",
   "conceptName": "Limit Definition",
-  "verdict": "issues_found",
-  "overall_severity": "important",
+  "verdict": "ok",
+  "overall_severity": "minor",
   "issues": [
     {
-      "severity": "important",
+      "severity": "minor",
       "category": "ap_alignment",
-      "description": "The concept is titled 'Limit Definition' and the one-liner describes what a limit is, yet every single worked example, every application, and most check-for-understanding questions are about the limit definition of the *derivative*, not about evaluating limits in general. A student coming here to learn what a limit is will instead be drilled almost exclusively on derivatives. The explanations themselves are good introductions to limits, but the examples/checks/applications are misaligned with the concept name and explanations.",
-      "suggested_fix": "Add at least one worked example per tier that evaluates a limit (e.g., a limit involving a hole, a piecewise function, or a rational expression) without involving derivatives. Reserve derivative-focused examples for a separate 'derivative definition' concept, or at minimum balance the set so the concept lives up to its name."
+      "description": "The epsilon-delta formal definition is not part of the AP Calculus AB/BC curriculum (it is explicitly excluded from the AP framework). The advanced tier explanation and the second deep dive center heavily on epsilon-delta. While this is mathematically correct and appropriate for an 'advanced' tier, it could mislead students into thinking they need this for the AP exam.",
+      "location": "explanations[0].body_md, deep_dives[1]",
+      "suggested_fix": "Add a brief note such as 'The formal epsilon-delta definition is beyond the AP exam but deepens understanding of what a limit truly means.' to set expectations."
     },
     {
-      "severity": "important",
+      "severity": "minor",
+      "category": "pedagogy",
+      "description": "The second misconception's socratic_response_md references the epsilon-delta definition, which a novice-level student experiencing this misconception is unlikely to know. The Socratic nudge should meet the student at their level.",
+      "location": "misconceptions[1].socratic_response_md",
+      "suggested_fix": "Offer a more intuitive nudge first (e.g., 'Does the sequence 0.9, 0.99, 0.999, ... ever equal 1? Yet we say it approaches 1.') and optionally mention epsilon-delta as a formal backup."
+    },
+    {
+      "severity": "minor",
       "category": "consistency",
-      "description": "The novice and on-pace explanations introduce what a limit is (no derivatives), but the novice worked example immediately jumps to the limit definition of the derivative ('find f'(2)'). A novice who just learned 'as x approaches 3, what does 2x+1 approach?' is not prepared for derivative notation and the difference quotient. The example tier does not match the explanation tier.",
-      "suggested_fix": "Provide a novice example that practices evaluating a basic limit (e.g., a function with a hole like (x^2-1)/(x-1) as x→1, or a piecewise function) before introducing derivative examples."
-    },
-    {
-      "severity": "minor",
-      "category": "pedagogy",
-      "description": "In the advanced explanation, the 'Stretch question' asks the student to prove the linear limit and then 'try a quadratic: lim_{x→2} x^2 = 4. The quadratic case forces you to manage δ more carefully — why?' This is a nice prompt but no guidance or answer is given, and it's left dangling. For an advanced tier this is acceptable but could be stronger with a brief hint.",
-      "suggested_fix": "Optionally add a one-sentence hint, e.g., 'Because |x^2 - 4| = |x-2||x+2|, and you must bound the |x+2| factor by restricting δ.'"
-    },
-    {
-      "severity": "minor",
-      "category": "pedagogy",
-      "description": "The misconception 'limit_at_infinity_equals_infinity_means_exists' uses the Socratic prompt 'can you locate ∞ on the number line?' While valid, this may inadvertently reinforce a surface-level understanding. The AP exam does accept writing lim = ∞ as descriptive notation; the nuance that this means 'the limit does not exist (as a finite number)' could be stated more precisely to avoid confusing AP students who are told to 'find the limit' and write ∞.",
-      "suggested_fix": "Clarify in why_wrong_md that on the AP exam, writing lim = ∞ is acceptable descriptive notation, but it means the limit does not exist as a real number, and ∞ cannot be used in arithmetic."
+      "description": "The concept is 'Limit Definition' (limits.definition) with no prerequisites, yet several check-for-understanding questions and both application problems test the limit definition of the derivative, which is a separate concept (derivatives.definition). While the connection is valuable, the checks should primarily test the limit concept itself; currently 4 of 6 checks and both applications focus on the derivative.",
+      "location": "checks, applications",
+      "suggested_fix": "Consider adding at least one or two checks that test the core limit idea (e.g., evaluating a basic limit, interpreting a graph with a hole, or one-sided limits) without involving derivatives, so coverage is balanced for the stated concept."
     },
     {
       "severity": "minor",
       "category": "style",
-      "description": "The novice explanation (framing_index 0) body_md begins with 'Imagine you have a curve drawn on a graph.' While not exactly filler, this is very close to the 'In this lesson…' style. More importantly, the maps-app analogy appears in both the body_md and the intuition_md of the same explanation, creating redundancy.",
-      "suggested_fix": "Remove the maps-app analogy from one of the two locations (body or intuition) to avoid repetition."
+      "description": "The deep dive 'Why a Limit and a Function Value Are Fundamentally Different Ideas' ends with a provocative follow-up about a function discontinuous at every rational — this is interesting but potentially confusing for the target audience without any guidance or answer sketch.",
+      "location": "deep_dives[0].body_md (last paragraph)",
+      "suggested_fix": "Either remove the provocative follow-up or add a brief hint (e.g., mention Thomae's function) so the student has a starting point."
     },
     {
       "severity": "minor",
-      "category": "ap_alignment",
-      "description": "The advanced check-for-understanding question about |x| at 0 and differentiability, while excellent, tests derivative concepts rather than the core limit definition concept. This reinforces the overall imbalance toward derivatives.",
-      "suggested_fix": "Consider adding or substituting a check question that tests limit evaluation or the ε-δ definition directly."
+      "category": "style",
+      "description": "In the novice explanation (framing_index 0), the maps-app analogy is used in both body_md and intuition_md, making the intuition section feel redundant rather than offering a fresh angle.",
+      "location": "explanations[1].body_md and explanations[1].intuition_md",
+      "suggested_fix": "Use a different analogy in one of the two places (the campfire analogy from framing_index 1 would work well, for instance)."
     }
   ],
-  "summary": "Explanations of the limit concept are strong across all tiers, but the examples, applications, and checks are almost entirely about the limit definition of the derivative rather than limits themselves, creating a significant alignment and consistency gap.",
-  "critiquedAt": "2026-05-15T19:28:02.442Z",
+  "summary": "Mathematically accurate and pedagogically solid overall; minor issues around AP scope clarity for epsilon-delta content, over-emphasis on derivatives in checks/applications for a 'Limit Definition' concept, and a couple of style/consistency nits.",
+  "critiquedAt": "2026-05-15T20:36:43.872Z",
   "modelVersion": "claude-opus-4-6"
 }

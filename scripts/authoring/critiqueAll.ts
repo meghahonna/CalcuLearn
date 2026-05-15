@@ -66,7 +66,7 @@ interface Row {
 
 function loadConcept(db: BetterSqlite3.Database, conceptId: string): Record<string, unknown> | null {
   const meta = db.prepare(
-    `SELECT id, name, track, COALESCE(one_liner, '') AS one_liner, COALESCE(prerequisites, '[]') AS prerequisites FROM concepts WHERE id = ?`
+    `SELECT id, name, track, COALESCE(one_liner, '') AS one_liner, COALESCE(prerequisites_json, '[]') AS prerequisites FROM concepts WHERE id = ?`
   ).get(conceptId) as Row | undefined
   if (!meta) return null
   // Pull every related row, structured by section

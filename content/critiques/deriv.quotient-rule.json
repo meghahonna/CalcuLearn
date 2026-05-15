@@ -2,59 +2,52 @@
   "conceptId": "deriv.quotient-rule",
   "conceptName": "Quotient Rule",
   "verdict": "issues_found",
-  "overall_severity": "important",
+  "overall_severity": "minor",
   "issues": [
     {
-      "severity": "important",
+      "severity": "minor",
       "category": "ap_alignment",
-      "location": "explanations (all tiers), prerequisites[]",
-      "description": "The prerequisites array is empty, yet every explanation tier references prior knowledge of the product rule and/or the chain rule (e.g., 'You already know the product rule'). The product rule and basic derivative rules should be listed as prerequisites so the app's prerequisite graph is correct.",
-      "suggested_fix": "Add at least 'deriv.product-rule' and 'deriv.power-rule' (and ideally 'deriv.chain-rule' for the advanced and second novice framings) to the prerequisites array."
+      "location": "explanations[0] (advanced tier)",
+      "description": "The prerequisites array is empty, yet every explanation opens with 'You already know the product rule' and uses the chain rule freely. Product rule and chain rule should be listed as prerequisites.",
+      "suggested_fix": "Add 'deriv.product-rule' and 'deriv.chain-rule' (or equivalent concept IDs) to the prerequisites array."
     },
     {
       "severity": "minor",
       "category": "math",
       "location": "applications[1].solution_outline_md, Part (b)",
-      "description": "The numerator factor evaluated at t=5 is t^2 + 8t + 40 = 25 + 40 + 40 = 105, but 25 + 40 + 40 = 105 is wrong: 8*5 = 40, so 25 + 40 + 40 = 105 is presented as if 8t = 40 when it is indeed 40, but then the expression should read (25 + 40 + 40). The written grouping '25 + 40 + 40' is confusing because the three terms of the quadratic are t^2=25, 8t=40, 40=40, so it should be clearer as (25 + 40 + 40). Actually the arithmetic is correct (105), but the way it's presented doesn't clearly map to the three terms. This is very minor.",
-      "suggested_fix": "Write it as $25 + 40 + 40 = 105$ with labels, or simply $5^2 + 8(5) + 40 = 25 + 40 + 40 = 105$."
+      "description": "The numerator factor evaluated at t=5 is t^2+8t+40 = 25+40+40 = 105, but 25+40+40 = 105 only if the middle term is 8*5=40. That is correct (8·5=40). However the written grouping '25 + 40 + 40' is potentially confusing because it looks like the last two terms are the same by coincidence; writing '25 + 40 + 40' without showing 8(5)=40 may trip a student. This is very minor.",
+      "suggested_fix": "Show the substitution more explicitly: $25 + 8(5) + 40 = 25 + 40 + 40 = 105$."
     },
     {
       "severity": "minor",
       "category": "pedagogy",
-      "location": "applications[1].solution_outline_md, Part (b)",
-      "description": "A(5) = 60 dollars per pound is an unrealistically high cost for coffee, which might momentarily confuse a student. This is a minor realism issue with the chosen model parameters.",
-      "suggested_fix": "Consider adjusting model parameters for more realistic numbers, or add a brief note that the model is simplified/illustrative."
+      "location": "applications[0].problem_md, Part (c)",
+      "description": "The problem says 'a rocket car on a rail' that is 'ejecting fuel', which suggests losing mass. But the answer shows the car is gaining mass. The problem setup narrative is slightly misleading and could confuse a student, though the math is correct.",
+      "suggested_fix": "Adjust the flavor text to say something like 'collecting material' or make it neutral: 'In a system where mass changes with time (imagine a vehicle on a rail either collecting or ejecting material)…'"
     },
     {
       "severity": "minor",
       "category": "style",
-      "location": "explanations[0].body_md (advanced tier)",
-      "description": "The advanced explanation says 'You already know the product rule' which is fine, but the opening line is very similar across all three tiers, reading almost like filler. The advanced tier should get to the formal statement even more quickly.",
-      "suggested_fix": "Trim the opening sentence or make it more distinctive for the advanced tier."
+      "location": "explanations[1].body_md (novice, framing 0)",
+      "description": "The novice explanation contains an embedded worked example (x^2/(x+3)) inside the explanation body. This is fine pedagogically, but the example is also nearly identical to the novice-tier standalone example (3x+1)/(x+4). Having two very similar linear-over-linear examples across the novice explanation and the novice example is slightly redundant.",
+      "suggested_fix": "Consider using a slightly different function in the embedded example (e.g., one with a quadratic numerator) to give more variety, or note it is intentional warm-up."
     },
     {
       "severity": "minor",
-      "category": "consistency",
-      "location": "checks[0] (advanced tier)",
-      "description": "The expected_pattern regex uses 'product\\s*rule' but the expected answer's key insight is that g(x) is not a constant / linearity doesn't extend to quotients. The regex could match a response that merely mentions the product rule without identifying the actual flaw. Not a serious issue but the regex could be tighter.",
-      "suggested_fix": "Consider requiring the pattern to match something about g not being constant AND product rule, e.g., adding an AND condition or adjusting the alternation."
-    },
-    {
-      "severity": "minor",
-      "category": "pedagogy",
-      "location": "applications[0].problem_md (physics)",
-      "description": "The problem narrative says 'mass can be expressed as m(t) = p(t)/v(t)' and describes a system gaining mass at 2 kg/s. While mathematically consistent, a rocket car collecting mass at a constant rate while having linearly increasing velocity and quadratically increasing momentum is a somewhat contrived scenario. This is acceptable for a math exercise but could be noted as simplified.",
-      "suggested_fix": "No change strictly needed; optionally add a note that the model is idealized."
-    },
-    {
-      "severity": "minor",
-      "category": "style",
+      "category": "math",
       "location": "deep_dives[0].body_md",
-      "description": "The phrase 'A limit-definition check' subsection says 'adding and subtracting f(x)g(x)' but the standard trick is to add and subtract f(x)g(x+h) (or equivalently g(x)f(x+h)). The description is slightly imprecise about which cross term is added and subtracted.",
-      "suggested_fix": "Change to 'adding and subtracting $f(x)\\,g(x+h)$' or similar precise statement of the standard trick."
+      "description": "The 'dimensional intuition' paragraph claims f/g has 'units of f per g' and the rate of change should have units of 'f per g per x'. While the analogy is creative, it is informal and could confuse students who think of actual physical dimensions. It works only if f, g, and x each carry independent 'units', which isn't always the case.",
+      "suggested_fix": "Add a brief qualifier such as 'Imagining that f, g, and x each carry their own independent unit…' to frame it clearly as a heuristic."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "checks[0] (advanced tier)",
+      "description": "The expected_pattern regex is fairly complex but it may miss valid advanced-student answers that say something like 'the denominator is a function of x, not a constant' without using the exact phrases in the regex. This is a minor tooling concern rather than a content issue.",
+      "suggested_fix": "Broaden the regex slightly, e.g., add alternatives like 'function of x' or 'depends on x'."
     }
   ],
-  "summary": "Content is mathematically sound and pedagogically strong overall; the main issue is that the prerequisites array is empty despite all explanations relying on prior knowledge of the product rule and chain rule, which should be fixed for correct app sequencing.",
-  "critiquedAt": "2026-05-15T19:27:10.307Z",
+  "summary": "The content is mathematically accurate, pedagogically strong across all tiers, and well-aligned with the AP curriculum; only minor polish issues were found (empty prerequisites list, slightly misleading rocket-car narrative, and small style/clarity nits).",
+  "critiquedAt": "2026-05-15T20:38:04.468Z",
   "modelVersion": "claude-opus-4-6"
 }

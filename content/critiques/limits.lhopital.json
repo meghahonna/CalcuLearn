@@ -6,48 +6,48 @@
   "issues": [
     {
       "severity": "important",
-      "category": "pedagogy",
-      "location": "applications[1].problem_md",
-      "description": "The problem statement tells the student that 'as x → 0+, both the numerator and denominator approach 0' and then immediately contradicts itself ('or does it?'). Part (a) then asks the student to 'Show that the limit produces a 0/0 indeterminate form,' but the solution reveals it is NOT 0/0 — it is -10/0. The problem as posed is misleading: it asks the student to show something that is false, then pivots mid-solution to a different function ROI*(x). This is confusing and pedagogically poor for an applied problem.",
-      "suggested_fix": "Rewrite the problem so that the ROI is defined from the start as the advertising-driven return ROI*(x) = (R(x) - x)/x, which genuinely gives 0/0. Alternatively, keep the misdirection but reframe Part (a) as 'Determine whether the limit is indeterminate and, if not, redefine an appropriate quantity that is.' The current phrasing ('Show that … produces a 0/0 form') is a direct instruction to prove something false."
+      "category": "math",
+      "location": "applications[0].solution_outline_md, Part B second application",
+      "description": "The second derivative of the numerator $e^{-2t}\\sin(3t) - 3t$ is computed incorrectly. The first derivative is $-2e^{-2t}\\sin(3t) + 3e^{-2t}\\cos(3t) - 3$. Differentiating again: $d/dt[-2e^{-2t}\\sin(3t)] = 4e^{-2t}\\sin(3t) - 6e^{-2t}\\cos(3t)$ and $d/dt[3e^{-2t}\\cos(3t)] = -6e^{-2t}\\cos(3t) - 9e^{-2t}\\sin(3t)$. Summing: $e^{-2t}[(4-9)\\sin(3t) + (-6-6)\\cos(3t)] = e^{-2t}[-5\\sin(3t) - 12\\cos(3t)]$. At $t=0$ this gives $-12$, so the final answer $v(0) = -12/2 = -6$ m/s is correct. However, the written simplification says $(4-9)\\sin(3t) - 12\\cos(3t)$ which is $-5\\sin(3t) - 12\\cos(3t)$ — this is actually correct numerically. On closer inspection the intermediate expression written in the solution is consistent. Let me re-check the product rule steps more carefully. For $-2e^{-2t}\\sin(3t)$: derivative is $4e^{-2t}\\sin(3t) - 6e^{-2t}\\cos(3t)$. For $3e^{-2t}\\cos(3t)$: derivative is $-6e^{-2t}\\cos(3t) - 9e^{-2t}\\sin(3t)$. Sum: $(4-9)e^{-2t}\\sin(3t) + (-6-6)e^{-2t}\\cos(3t) = -5e^{-2t}\\sin(3t) - 12e^{-2t}\\cos(3t)$. At $t=0$: $0 - 12 = -12$. Denominator derivative: $2$. So $-12/2 = -6$. The written expression matches. I retract this issue.",
+      "suggested_fix": "N/A — the computation is actually correct upon careful verification."
     },
     {
       "severity": "important",
-      "category": "math",
-      "location": "applications[0].solution_outline_md, Part B second application",
-      "description": "The second derivative of the numerator h(t) = -2e^{-2t}sin(3t) + 3e^{-2t}cos(3t) - 3 is computed as h'(t) = 4e^{-2t}sin(3t) - 12e^{-2t}cos(3t) - 9e^{-2t}sin(3t). Let's verify: h'(t) = -2[-2e^{-2t}sin(3t) + 3e^{-2t}cos(3t)] + 3[-2e^{-2t}cos(3t) - 3e^{-2t}sin(3t)] = 4e^{-2t}sin(3t) - 6e^{-2t}cos(3t) - 6e^{-2t}cos(3t) - 9e^{-2t}sin(3t) = -5e^{-2t}sin(3t) - 12e^{-2t}cos(3t). At t=0 this gives 0 - 12 = -12, which matches. The written intermediate form '(4-9)sin(3t) - 12cos(3t)' is correct since 4-9 = -5. So the final answer -6 m/s is correct. However, the first derivative itself needs verification: d/dt[e^{-2t}sin(3t)] = -2e^{-2t}sin(3t) + 3e^{-2t}cos(3t), at t=0 gives 0+3=3. This is correct. No math error here after careful checking.",
-      "suggested_fix": "No fix needed — upon careful verification the math is correct. Removing this issue."
-    },
-    {
-      "severity": "minor",
-      "category": "ap_alignment",
-      "location": "concept top-level, prerequisites",
-      "description": "The prerequisites array is empty, but L'Hôpital's Rule requires knowledge of derivatives (basic differentiation rules), limits, and indeterminate forms. An empty prerequisite list may cause the app to surface this concept to students who haven't learned derivatives yet.",
-      "suggested_fix": "Add appropriate prerequisites such as 'derivatives.basic' and 'limits.indeterminate_forms' (or whatever the app's concept IDs are for those topics)."
-    },
-    {
-      "severity": "minor",
-      "category": "consistency",
-      "location": "explanations[2] (novice framing_index=1) vs examples[1] (novice)",
-      "description": "The second novice explanation (framing_index=1) uses the exact same problem (lim x→2 of (x²-4)/(x-2)) as the novice worked example. A student seeing both will encounter heavy redundancy rather than seeing a new perspective or problem.",
-      "suggested_fix": "Either change the novice example to a different problem (e.g., lim x→0 of sin(x)/x, which the first novice explanation uses) or change the second novice explanation to use a different motivating problem."
-    },
-    {
-      "severity": "minor",
       "category": "pedagogy",
-      "location": "deep_dives[1].body_md, section 3 (Circular application)",
-      "description": "The claim that using L'Hôpital's Rule to evaluate lim(sin x / x) is 'logically circular' is a common pedagogical assertion but is debatable — the derivative of sin x can be established without this specific limit (e.g., via the squeeze theorem on the difference quotient directly). While worth mentioning, stating it as absolute fact may confuse advanced students who have seen non-circular proofs of d/dx[sin x] = cos x.",
-      "suggested_fix": "Soften the language: 'In many textbooks, $(\\sin x)' = \\cos x$ is proved by first establishing $\\lim_{x\\to 0} \\frac{\\sin x}{x} = 1$, which would make L'Hôpital circular here. Whether it's circular depends on how the derivative was derived in your course.'"
+      "location": "deep_dives[1].body_md, Section 3 (Circular application)",
+      "description": "The deep dive claims that using L'Hôpital's Rule on $\\lim_{x\\to 0}\\frac{\\sin x}{x}$ is 'logically circular' because the derivative $\\cos x$ depends on first knowing this limit equals 1. While this is a valid foundational observation, the novice explanation (tier novice, framing_index 0) uses exactly this example as the primary demonstration of L'Hôpital's Rule. This creates a pedagogical tension: the main teaching example in the novice tier is later called circular in the deep dive. There's no acknowledgment in the novice explanation that this example is pedagogically convenient but foundationally circular, nor does the deep dive reference the novice explanation. A student reading both could be confused or lose confidence in what they learned.",
+      "suggested_fix": "Either (a) add a brief note in the novice explanation acknowledging the circularity subtlety (e.g., 'Technically this limit is what's used to prove the derivative of sin x in the first place, but it nicely illustrates the mechanics of the rule'), or (b) soften the deep dive's phrasing to clarify that the circularity is a foundational/logical concern rather than a practical error, and that using L'Hôpital on sin(x)/x is fine once the derivative of sin has been independently established."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "explanations[0].body_md, 'Why it works' paragraph",
+      "description": "The 'Why it works' argument says 'there exist $c_1, c_2$ between $a$ and $x$ such that $f(x) = f'(c_1)(x-a)$ and $g(x) = g'(c_2)(x-a)$' and then claims 'As $x \\to a$, both $c_1, c_2 \\to a$, recovering $f'(a)/g'(a)$.' This argument is slightly hand-wavy because $c_1$ and $c_2$ are different points, so the ratio is $f'(c_1)/g'(c_2)$ with $c_1 \\neq c_2$ in general. The passage to the limit requires continuity of $f'$ and $g'$ at $a$, which is not assumed in the standard theorem. The text does note the Cauchy MVT gives a single $c$, but the intermediate argument as stated is not fully rigorous.",
+      "suggested_fix": "Add a qualifying remark such as 'This informal argument assumes $f'$ and $g'$ are continuous at $a$; the rigorous proof avoids this assumption by using the Cauchy Mean Value Theorem with a single intermediate point $c$.'"
     },
     {
       "severity": "minor",
       "category": "style",
-      "location": "explanations[0].body_md (advanced tier)",
-      "description": "The advanced explanation includes the phrase 'Here's one way to think about it' style language in the intuition block, but the main body uses 'You can write each function via its local linear approximation' — both are fine, but the two-car analogy in intuition_md feels more novice-level than advanced. Not a serious issue but slightly mismatched in tone.",
-      "suggested_fix": "Consider making the advanced intuition slightly more formal or connecting it to the Cauchy MVT rather than repeating the car analogy used in novice tiers."
+      "location": "explanations[1].body_md (novice, framing_index 1)",
+      "description": "The sentence 'Think of it like a race between two cars that both start at position zero' in the intuition_md repeats the same car-race analogy used in the other novice explanation and the on_pace explanation. While not incorrect, three instances of the same analogy across tiers could feel repetitive to a student who reads multiple tiers.",
+      "suggested_fix": "Consider varying the analogy slightly for the second novice framing, e.g., using a different concrete metaphor such as draining water from two tanks."
+    },
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "misconceptions[4] (assuming_limit_must_exist)",
+      "description": "The example $\\lim_{x \\to \\infty} \\frac{x + \\sin x}{x}$ is not actually $\\frac{\\infty}{\\infty}$ in the way a student would typically encounter — a student might not even think to apply L'Hôpital here since dividing by $x$ is obvious. A more illustrative example for AP students would be one where L'Hôpital genuinely tempts the student, such as $\\lim_{x\\to\\infty}\\frac{x - \\sin x}{x + \\sin x}$.",
+      "suggested_fix": "Consider replacing with an example that more naturally tempts the student to apply L'Hôpital, such as $\\lim_{x\\to\\infty}\\frac{x - \\sin x}{x + \\sin x}$ where differentiating gives $\\frac{1 - \\cos x}{1 + \\cos x}$, which oscillates."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "checks[0] (advanced tier)",
+      "description": "The expected_pattern includes 'linear|tangent' which would match a student who just writes the word 'linear' anywhere in their response, potentially giving a false positive for an incorrect answer.",
+      "suggested_fix": "Tighten the regex to require something more specific, e.g., 'g.?\\(a\\).*x\\s*-\\s*a|f.?\\(a\\)\\s*/\\s*g.?\\(a\\)|linear approx|tangent line'."
     }
   ],
-  "summary": "The economics application problem asks the student to prove something that turns out to be false (the 0/0 form), which is pedagogically confusing; there is also notable redundancy between a novice explanation and the novice example using the identical problem. Math is correct throughout. Several minor style and prerequisite issues.",
-  "critiquedAt": "2026-05-15T19:28:16.123Z",
+  "summary": "Content is mathematically sound and pedagogically strong overall; the main concern is the tension between the novice explanation using sin(x)/x as a primary example and the deep dive calling that application logically circular, which could confuse students reading both.",
+  "critiquedAt": "2026-05-15T21:09:30.522Z",
   "modelVersion": "claude-opus-4-6"
 }

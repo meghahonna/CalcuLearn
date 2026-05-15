@@ -2,52 +2,45 @@
   "conceptId": "integ.riemann",
   "conceptName": "Riemann Sums",
   "verdict": "issues_found",
-  "overall_severity": "important",
+  "overall_severity": "minor",
   "issues": [
     {
-      "severity": "important",
-      "category": "pedagogy",
-      "location": "deep_dives[1].body_md, Step 2",
-      "description": "The claim 'Because f is continuous on each subinterval [x_{k-1}, x_k], the Intermediate Value Theorem guarantees that f(x̄_k) is sandwiched between f(x_{k-1}) and f(x_k)' is incorrect reasoning. IVT says that f achieves every value between f(x_{k-1}) and f(x_k), but it does NOT guarantee that f at the midpoint is between f at the two endpoints. For example, f could have a local max or min between the endpoints making f(midpoint) larger or smaller than both endpoint values. The correct bounding uses the Extreme Value Theorem: on each subinterval, m_k ≤ f(c_k) ≤ M_k for any sample point c_k, so L_n ≤ M_n ≤ U_n, and since U_n - L_n → 0, the squeeze theorem applies. The current argument is logically flawed.",
-      "suggested_fix": "Replace Step 2 with the correct argument: by the Extreme Value Theorem, on each subinterval m_k ≤ f(x̄_k) ≤ M_k, so L_n ≤ M_n ≤ U_n (lower/upper Darboux sums). Since U_n - L_n → 0 by uniform continuity, the Squeeze Theorem forces M_n to the same limit. Alternatively, just note that the midpoint sum is a special case of Step 3's general argument."
-    },
-    {
       "severity": "minor",
       "category": "math",
-      "location": "deep_dives[1].body_md, Follow-up question",
-      "description": "The follow-up question says 'Left and right sums now give different limits (1 and... also 1, or is it 0?)' which is confusing and somewhat misleading. For the Dirichlet function with equal-width partitions, right endpoints (or left endpoints) always include both rationals and irrationals, so L_n and R_n depend on the specific sample-point rule, not just 'left' vs 'right.' The parenthetical remark muddies the point rather than clarifying it.",
-      "suggested_fix": "Clarify: for the Dirichlet function, choosing all sample points to be rational gives sum = b-a, while choosing all irrational gives sum = 0. The issue is that different valid sample-point choices yield different limits, which is exactly why the function is not Riemann integrable."
-    },
-    {
-      "severity": "minor",
-      "category": "style",
-      "location": "explanations[0].body_md, paragraph 4",
-      "description": "The phrase 'the zeroth-order version of linear approximation' is potentially confusing — a zeroth-order approximation is a constant approximation, not a linear one. The sentence calls it 'a local linear approximation' and then 'the zeroth-order version of linear approximation,' which is contradictory.",
-      "suggested_fix": "Change to something like: 'essentially treating f as constant on a tiny interval — a zeroth-order (constant) approximation of f on each subinterval.'"
+      "location": "deep_dives[1].body_md, final follow-up question",
+      "description": "The follow-up question states 'Left and right sums now give different limits (1 and... also 1, or is it 0?).' This is sloppy and potentially confusing. For the Dirichlet function on [0,1], the left Riemann sum with rational left endpoints gives 1 while with irrational left endpoints gives 0; similarly for right sums. The issue is sample-point dependence, not specifically left vs. right. The parenthetical '(1 and... also 1, or is it 0?)' is misleading since both left and right sums with equally-spaced rational endpoints would give 1, and it's not a left-vs-right distinction but a sample-point-choice distinction.",
+      "suggested_fix": "Rewrite the follow-up to say something like: 'For the Dirichlet function, different choices of sample points yield Riemann sums that converge to different values (1 if all sample points are rational, 0 if all are irrational). What does this tell you about the boundaries of Riemann's definition?'"
     },
     {
       "severity": "minor",
       "category": "pedagogy",
-      "location": "explanations[0].body_md, prerequisites",
-      "description": "The prerequisites array is empty, but the advanced explanation references the Squeeze Theorem, limits, and linear approximation as prior knowledge ('which you already know from limits'). While listing prerequisites may be handled elsewhere in the app, having an empty prerequisites array for a concept that explicitly builds on limits is worth noting.",
-      "suggested_fix": "Consider adding 'limits.squeeze_theorem' or similar prerequisite IDs if the app uses them for sequencing."
+      "location": "explanations[0].body_md, stretch question",
+      "description": "The stretch question asks the student to 'look up Thomae's function' and prove its integrability. This is appropriate for an advanced tier, but the earlier body text says 'countably many' discontinuities can be handled 'with care' — Thomae's function is discontinuous at every rational and continuous at every irrational, which is uncountably many points of continuity but countably many discontinuities. The body text's parenthetical 'even countably many, with care' is correct but could be more precise about what 'with care' means (measure zero).",
+      "suggested_fix": "Consider replacing 'even countably many, with care' with 'even countably many' (dropping 'with care') since countable sets always have measure zero — no extra care is needed. The measure-zero criterion is already stated in the next sentence."
     },
     {
       "severity": "minor",
       "category": "style",
-      "location": "applications[1].problem_md",
-      "description": "The comma formatting '5{,}500' uses LaTeX-style thin-space comma grouping inside what appears to be a markdown context. Depending on rendering, this may display literally as '5{,}500' rather than '5,500'.",
-      "suggested_fix": "Use plain '5,500' or ensure the rendering engine handles LaTeX brace grouping in inline text."
+      "location": "explanations[0].body_md, paragraph 3",
+      "description": "The phrase 'Connecting to other ideas:' uses a bold header style that reads slightly like filler/section heading rather than flowing prose.",
+      "suggested_fix": "Integrate the paragraph more naturally, e.g., start with 'Each term $f(x_k^*)\\,\\Delta x$ is a local...' without the bold header."
     },
     {
       "severity": "minor",
-      "category": "math",
-      "location": "examples[0].steps[4].step_md",
-      "description": "The integration by parts result is stated as (2e^3 + 1)/9 ≈ 4.48. Let's verify: ∫x²ln(x)dx with u=ln(x), dv=x²dx gives (x³/3)ln(x) - x³/9 + C. Evaluating from 1 to e: [e³/3·1 - e³/9] - [0 - 1/9] = e³/3 - e³/9 + 1/9 = 2e³/9 + 1/9 = (2e³+1)/9. With e³≈20.086, this gives ≈41.17/9 ≈ 4.575. The stated ≈4.48 is slightly off from the more accurate ≈4.575.",
-      "suggested_fix": "Change '≈ 4.48' to '≈ 4.58' or simply remove the decimal approximation."
+      "category": "consistency",
+      "location": "examples[2].steps[4].step_md (on_pace example)",
+      "description": "The on-pace example invokes the Fundamental Theorem of Calculus to compute the exact integral, but the on_pace explanation explicitly says 'the Fundamental Theorem of Calculus, coming next' — implying it hasn't been taught yet. While the example frames it as a comparison, computing an antiderivative and evaluating it may confuse students who haven't yet learned FTC.",
+      "suggested_fix": "Add a brief note like 'You will learn this technique shortly; for now, trust the result so you can see how the approximation compares' or simply state the exact value without showing the FTC computation steps."
+    },
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "checks[0] (advanced check-for-understanding)",
+      "description": "The expected_pattern regex is quite complex and may fail to match reasonable correct student answers that explain the concept differently (e.g., 'the single discontinuity is contained in one subinterval whose area contribution vanishes'). This is a minor tooling concern rather than a content issue.",
+      "suggested_fix": "Broaden the regex or add alternative patterns like 'single|one.*sub-?interval.*vanish|contribut.*zero'."
     }
   ],
-  "summary": "The deep dive on convergence of left/right/midpoint sums contains an incorrect application of IVT that could mislead advanced students; the rest of the content is mathematically sound with minor style and approximation issues.",
-  "critiquedAt": "2026-05-15T19:27:38.359Z",
+  "summary": "The content is mathematically sound, pedagogically well-structured across all three tiers, and well-aligned with the AP curriculum; only minor wording, consistency, and precision issues were found.",
+  "critiquedAt": "2026-05-15T20:36:20.802Z",
   "modelVersion": "claude-opus-4-6"
 }

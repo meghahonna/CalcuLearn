@@ -4,7 +4,9 @@
   "track": "BOTH",
   "one_liner": "Finding $dy/dx$ when $y$ is tangled up with $x$ in an equation you cannot solve for $y$.",
   "prerequisites": [
-    "deriv.chain-rule"
+    "deriv.chain-rule",
+    "deriv.power-rule",
+    "deriv.product-rule"
   ],
   "explanations": [
     {

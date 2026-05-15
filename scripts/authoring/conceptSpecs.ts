@@ -120,7 +120,7 @@ export const CONCEPT_SPECS: Record<string, ConceptSpec> = {
     name: 'The Fundamental Theorem of Calculus',
     track: 'BOTH',
     one_liner: 'The bridge between differentiation and integration: integrals can be evaluated using antiderivatives.',
-    prerequisites: ['integ.riemann', 'deriv.power-rule'],
+    prerequisites: ['integ.riemann', 'continuity.definition', 'deriv.power-rule'],
     framingHints: {
       novice: [
         'Walk through both parts (FTC1 and FTC2) with one concrete example carried through. State each part in plain English first, then symbolically.',
@@ -264,7 +264,7 @@ export const CONCEPT_SPECS: Record<string, ConceptSpec> = {
     name: 'Quotient Rule',
     track: 'BOTH',
     one_liner: 'How to differentiate a ratio of two functions, with a sign and denominator-squared you cannot skip.',
-    prerequisites: ['deriv.product-rule'],
+    prerequisites: ['deriv.product-rule', 'deriv.power-rule', 'deriv.chain-rule'],
     framingHints: {
       novice: [
         'Use the mnemonic LO d-HI minus HI d-LO over LO squared, anchored on a worked example.',
@@ -284,7 +284,7 @@ export const CONCEPT_SPECS: Record<string, ConceptSpec> = {
     name: 'Implicit Differentiation',
     track: 'BOTH',
     one_liner: 'Finding $dy/dx$ when $y$ is tangled up with $x$ in an equation you cannot solve for $y$.',
-    prerequisites: ['deriv.chain-rule'],
+    prerequisites: ['deriv.chain-rule', 'deriv.power-rule', 'deriv.product-rule'],
     framingHints: {
       novice: [
         'Treat $y$ as a function of $x$ — every time you differentiate a $y$ term, append $\\frac{dy}{dx}$. Walk through a circle equation.',
@@ -330,7 +330,7 @@ export const CONCEPT_SPECS: Record<string, ConceptSpec> = {
     name: 'Optimisation',
     track: 'BOTH',
     one_liner: 'Finding the maximum or minimum of a quantity using critical points and the first or second derivative test.',
-    prerequisites: ['deriv.chain-rule', 'continuity.definition'],
+    prerequisites: ['deriv.power-rule', 'deriv.chain-rule', 'continuity.definition'],
     framingHints: {
       novice: [
         'Walk through the box-volume problem — define the quantity to maximise, write it as a function of one variable, find critical points, classify.',

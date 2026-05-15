@@ -6,62 +6,48 @@
   "issues": [
     {
       "severity": "important",
-      "category": "ap_alignment",
-      "location": "explanations[0] (advanced tier)",
-      "description": "The prerequisites array is empty, yet implicit differentiation critically depends on the chain rule and basic differentiation rules (power rule, product rule). A student arriving at this concept without those prerequisites could be lost. This is a metadata issue that affects the learning path.",
-      "suggested_fix": "Add prerequisite concept IDs for chain rule, product rule, and basic differentiation rules."
-    },
-    {
-      "severity": "minor",
       "category": "math",
       "location": "applications[0].solution_outline_md",
-      "description": "The arithmetic simplification is messy and contains an intermediate expression that is hard to follow. The line '-25·7·4 / (49·5√3) = -700/245√3' is correct (700/245 = 20/7), but then there's a strange intermediate '-(4/√3)·(5/7)·(7/5)' which equals -4/√3, not -20/(7√3). This intermediate step is wrong even though the final answer is correct.",
-      "suggested_fix": "Remove or fix the intermediate step '-4/√3 · 5/7 · 7/5'. Just go directly from -700/(245√3) to -20/(7√3) = -20√3/21."
+      "description": "The arithmetic simplification of dy/dt is messy and contains an error in an intermediate factoring step. Let's verify: dy/dt = -25·(7/2)·4 / (49·(5√3/2)) = -25·7·4 / (49·5√3) = -700/(245√3) = -20/(7√3) = -20√3/21. The intermediate line '-4/√3 · 5/7 · 7/5' is correct in value but is confusingly presented — it appears to be a random refactoring. More importantly, the speed calculation has inconsistencies: 8256/441 is stated, then later sqrt(2752/147) ≈ sqrt(18.72) ≈ 4.33. Check: 8256/441 = 18.7211..., and 2752/147 = 18.7211..., so the numerical value is consistent. However 8256 = 16·516 gives √8256 = 4√516, but then the answer is written as 4√516/21, which is not simplified further or connected to the 2752/147 form. The presentation is confusing and error-prone for students. Also 8256 = 441·18.72... is fine numerically but the jump from 8256/441 to 2752/147 is unexplained (divide by 3: 8256/3 = 2752, 441/3 = 147). This is disorganized but not mathematically wrong.",
+      "suggested_fix": "Clean up the intermediate algebra. Remove the confusing intermediate factoring step '-4/√3 · 5/7 · 7/5'. Present the speed calculation more directly, e.g., speed² = 16 + 1200/441 = (7056+1200)/441 = 8256/441 = 2752/147, speed ≈ 4.33 km/s."
     },
     {
-      "severity": "minor",
-      "category": "math",
-      "location": "applications[0].solution_outline_md (part b)",
-      "description": "The speed simplification jumps to √(2752/147) ≈ √18.72 ≈ 4.33 without clearly showing how 8256/441 simplifies to 2752/147. While 8256/441 = 2752/147 is correct (divide by 3), the presentation is confusing with multiple different radical forms that don't obviously agree.",
-      "suggested_fix": "Clean up the speed calculation. Just compute 16 + 1200/441 = (7056+1200)/441 = 8256/441 and then note numerically √(8256/441) = √8256/21 ≈ 90.86/21 ≈ 4.33."
+      "severity": "important",
+      "category": "ap_alignment",
+      "location": "applications[0]",
+      "description": "The application problem states dx/dt = 4 km/s and asks for dy/dt — this is a related rates problem, not purely an implicit differentiation problem. While the connection is valid and mentioned in the on_pace explanation, the problem uses units of 'thousands of kilometers' for x and y but then gives dx/dt in km/s without clarifying whether the 4 is in km/s or thousands of km/s. If x is in thousands of km, then dx/dt should be in thousands of km/s, making 4 mean 4000 km/s which is physically absurd for a satellite. This unit inconsistency could confuse students.",
+      "suggested_fix": "Clarify units: either state x and y are in km (and adjust the ellipse equation) or state dx/dt = 4 thousands of km/s (or 0.004 thousands of km/s for a realistic satellite). Alternatively, just remove the 'thousands of kilometers' language and let x,y be abstract or in km."
     },
     {
       "severity": "minor",
       "category": "pedagogy",
-      "location": "applications[0].problem_md",
-      "description": "The point (3.5, 5√3/2) should be verified as lying on the ellipse in the solution, but the solution doesn't explicitly check this. Substituting: (3.5)²/49 + (5√3/2)²/25 = 12.25/49 + 75/4/25 = 0.25 + 0.75 = 1. It checks out, but showing this would be consistent with the engineering problem which does verify the point.",
-      "suggested_fix": "Add a verification step at the start of the satellite solution."
+      "location": "explanations[0].body_md",
+      "description": "The advanced explanation mentions 'dF/dy[F(x,y)]-style reasoning' which is a partial derivative concept. While this is appropriate for an advanced tier, it introduces notation (partial derivatives) that is not part of AP Calculus AB/BC curriculum without sufficient context. The parenthetical 'but in single-variable terms' tries to walk it back but may confuse students.",
+      "suggested_fix": "Either remove the partial derivative reference or add a brief note that this connects to multivariable calculus concepts beyond the AP scope."
     },
     {
       "severity": "minor",
       "category": "style",
-      "location": "explanations[0].body_md (advanced tier)",
-      "description": "The phrase 'where ∂F/∂y-style reasoning would predict' with a dash is somewhat unclear and informal for an advanced tier explanation. The mention of partial derivatives is appropriate but the phrasing is awkward.",
-      "suggested_fix": "Rephrase to something like 'which aligns with the condition from the Implicit Function Theorem that ∂F/∂y ≠ 0 at the point.'"
-    },
-    {
-      "severity": "minor",
-      "category": "pedagogy",
-      "location": "deep_dives[1].body_md",
-      "description": "The deep dive 'Necessary Tool or Convenient Shortcut?' is excellent in content, but the Case 2 example (folium of Descartes x³+y³=6xy) while pedagogically interesting, is not a standard AP Calculus topic. This is fine for a deep dive but could be noted as beyond typical AP scope.",
-      "suggested_fix": "Optionally add a brief note that the folium is a famous curve beyond typical AP examples, shown here to illustrate the point."
+      "location": "checks[2].question_md",
+      "description": "The novice check question includes explanatory content ('Remember, y secretly depends on x, so you need the chain rule. Think of it like peeling an onion...') that makes it more of a guided exercise than a check-for-understanding. This is fine pedagogically for novice tier but blurs the line between explanation and assessment.",
+      "suggested_fix": "Consider reducing the scaffolding slightly so the question actually tests whether the student internalized the concept rather than walking them through it again."
     },
     {
       "severity": "minor",
       "category": "consistency",
-      "location": "checks (advanced tier, question 1)",
-      "description": "The check question says 'the final answer happens to be correct' and asks the student to spot the error. But a student might wonder HOW the final answer came out correct if the intermediate step is wrong. The expected answer says 'the student apparently still solved as though the missing dy/dx were there,' which is a bit hand-wavy. It would be clearer to note this is a presentation error where the student likely did the work correctly but wrote it sloppily.",
-      "suggested_fix": "Clarify the expected answer: the student likely performed the algebra correctly in their head or on scratch work but wrote the differentiation step incorrectly, omitting dy/dx from the notation."
+      "location": "explanations[0] vs explanations[3]",
+      "description": "The advanced explanation (tier index 0) and on_pace explanation (tier index 3) both use the same circle example x²+y²=25. While not wrong, the advanced tier could benefit from a more sophisticated motivating example to differentiate it from the on_pace tier.",
+      "suggested_fix": "Consider using a more complex curve (e.g., the folium of Descartes or an equation involving trig functions) as the primary example in the advanced tier."
     },
     {
       "severity": "minor",
       "category": "style",
-      "location": "explanations[3] (on_pace).intuition_md",
-      "description": "The analogy of 'a friend riding inside a car with tinted windows' is creative but slightly strained — it doesn't map cleanly to the mathematical concept. The novice tier analogies are better.",
-      "suggested_fix": "Consider simplifying to focus on the core idea: y is a function you can't see explicitly, but the chain rule accounts for its hidden dependence on x."
+      "location": "deep_dives[1].body_md",
+      "description": "The deep dive 'Implicit Differentiation: Necessary Tool or Convenient Shortcut?' uses the phrase 'Let's keep things single-variable' which uses 'let's' (first person plural). Style guide says to use 'you' not 'we'.",
+      "suggested_fix": "Change to something like 'keeping things in single-variable terms' or 'you can stay in the single-variable framework'."
     }
   ],
-  "summary": "Mathematically sound content with strong pedagogy across tiers; main issues are an empty prerequisites array (important for the learning path) and some messy arithmetic in the satellite application problem, plus minor style and clarity items.",
-  "critiquedAt": "2026-05-15T20:01:54.817Z",
+  "summary": "Content is mathematically sound with good pedagogical structure, but the satellite application has a unit inconsistency that could confuse students, and the solution arithmetic is disorganized; otherwise minor style and presentation issues.",
+  "critiquedAt": "2026-05-15T21:08:49.304Z",
   "modelVersion": "claude-opus-4-6"
 }

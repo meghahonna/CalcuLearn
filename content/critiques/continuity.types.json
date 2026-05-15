@@ -7,61 +7,68 @@
     {
       "severity": "important",
       "category": "math",
-      "location": "examples[0].steps[2]",
-      "description": "The left-hand limit analysis at x = -2 is inconsistent. The problem defines f(x) = ln(x+3) only for -3 < x < -2, and for x ≠ 2, x ≠ -2 the rational expression applies. So for x approaching -2 from the left, the function is governed by the ln(x+3) piece, giving limit ln(1) = 0. But then the step also discusses lim_{x→-2^-} g(x) = -∞ from the rational piece, which doesn't actually govern f on the left side of -2. The step correctly concludes the left-hand limit of f is 0, but the intermediate discussion of g(x)→-∞ from the left is confusing and potentially misleading. More importantly, since the left-hand limit is 0 (finite) and the right-hand limit is +∞, calling this simply an 'infinite discontinuity' is technically correct (at least one one-sided limit is ±∞) but the discussion is muddled.",
-      "suggested_fix": "Clean up the analysis: state clearly that f is defined as ln(x+3) for -3<x<-2 and as the rational expression for x>-2 (x≠2), so lim_{x→-2^-} f(x) = 0 and lim_{x→-2^+} f(x) = +∞. Remove the extraneous computation of lim_{x→-2^-} g(x) = -∞ since g does not govern f on that side."
+      "location": "examples[0].steps[4].step_md",
+      "description": "The step claims f >= 2 > 1 on (-2, 2), but it only checks the critical point x = 0 (a local minimum with f(0) = 2). As x -> -2^+, f(x) -> +infinity, so the minimum is indeed 2 on (-2, 2). However, the claim 'f >= 2' needs to also consider the boundary behavior: as x -> -2^+, f -> +infty (fine), and at x approaching 2 from the left, f -> 3. So f >= 2 on (-2,2) is correct. The real issue is minor: the 'why_md' says 'f >= 2 > 1 on (-2,2)' but the function value at x=0 is exactly 2, so it should be f >= 2 (which it says). This is actually fine on closer inspection. Withdrawing this issue.",
+      "suggested_fix": "No fix needed."
     },
     {
       "severity": "important",
-      "category": "math",
-      "location": "examples[0].steps[4] (advanced example step 5)",
-      "description": "The analysis of whether f(c)=1 has a solution on (-2,2) is incomplete and partially hand-wavy. The step claims 'All values exceed 1 on this piece' based on checking only a few points (f(0)=2, f(-1)=3, f(1)=7/3). While the step later verifies algebraically that x^2+x+2=0 has no real solution (correct), and mentions the minimum is approximately 1.46, the flow is disorganized and the minimum calculation is stated without derivation. For an advanced tier, the minimum should be derived or at least the derivative check should be shown.",
-      "suggested_fix": "Reorganize: first show algebraically that f(x)=1 has no solution (discriminant argument, which is already there), then optionally verify the minimum via derivative to confirm f > 1 on (-2,2). Remove the scattered trial-and-error evaluations that don't contribute to the proof."
-    },
-    {
-      "severity": "minor",
-      "category": "math",
-      "location": "examples[0].problem_md",
-      "description": "The piecewise definition of f is incomplete/ambiguous. The first piece covers x ≠ 2, x ≠ -2, and the third piece covers -3 < x < -2. These overlap: for -3 < x < -2 with x ≠ -2, both the rational expression and ln(x+3) are specified. The problem should clarify which piece takes priority, or redefine the domains to be non-overlapping.",
-      "suggested_fix": "Change the first piece's domain to something like x > -2, x ≠ 2 (or x ∉ {-2, 2} and x ≥ -2) and explicitly state the ln piece governs (-3, -2). Alternatively, add a note that the ln piece overrides the rational piece on (-3,-2)."
-    },
-    {
-      "severity": "minor",
       "category": "pedagogy",
-      "location": "explanations[0].body_md (advanced tier)",
-      "description": "The advanced explanation mentions 'oscillatory discontinuity' with sin(1/x) as an example, but this type is not tested on the AP exam and is not revisited elsewhere in the concept. While mentioning it is not wrong, it could confuse students about scope.",
-      "suggested_fix": "Either label it explicitly as 'not tested on the AP exam but worth knowing' or remove it to keep focus on the three AP-relevant types."
+      "location": "examples[0].steps[2].step_md",
+      "description": "The classification at x = -2 is stated as 'infinite discontinuity,' which is correct because the right-hand limit is +infinity. However, the problem definition says f(x) = ln(x+3) only for -3 < x < -2. For x between -2 and 2 (excluding x=2), the rational piece applies. But the problem statement also says f is defined for 'x != 2, x != -2' with the rational formula, and f(x) = ln(x+3) for -3 < x < -2. There is no definition of f at x = -2 at all (not in any piece). This is fine for discussing the discontinuity but should be explicitly noted. More importantly, the step is correct and well-reasoned. No real issue here.",
+      "suggested_fix": "No fix needed."
     },
     {
       "severity": "minor",
-      "category": "ap_alignment",
-      "location": "deep_dives[0] and deep_dives[1]",
-      "description": "The two deep dives cover very similar material (both prove IVT using the supremum/completeness argument, both discuss what goes wrong without continuity). There is significant redundancy.",
-      "suggested_fix": "Merge into a single deep dive, or differentiate them more clearly — e.g., one focused on the proof and one focused on counterexamples/topology."
+      "category": "math",
+      "location": "explanations[0].body_md",
+      "description": "The advanced explanation states the IVT sketch proof says S is non-empty because it 'contains a or b'. Under the assumption f(a) < N < f(b), S = {x in [a,b] : f(x) <= N} contains a (since f(a) < N <= N), but not necessarily b (since f(b) > N). Saying 'contains a or b' is slightly misleading in the context of the stated assumption. It should say 'contains a' or handle both orderings explicitly.",
+      "suggested_fix": "Change 'S is non-empty (contains a or b)' to 'S is non-empty (it contains a, since f(a) < N)' or handle both cases."
     },
     {
-      "severity": "minor",
+      "severity": "important",
       "category": "consistency",
-      "location": "checks[3] (novice IVT fill-in-the-blank)",
-      "description": "The expected_pattern regex would not match '2.5' because the sub-pattern '2\\.\\d*[1-9]' requires a nonzero digit but '2.5' does match. Actually checking: '2.5' matches '2\\.\\d*[1-9]' since \\d* matches empty and [1-9] matches 5. But '8' would not match, even though 8 is between 2 and 8 (and the problem says 'between'). The IVT statement says 'strictly between' so 8 should arguably not count, but the explanation says 'every y-value from 2 to 8' which is ambiguous. More importantly, the regex won't match valid answers like '2.1' but will match. Actually the bigger issue: the regex won't match answers like 'f(x) = 5' or just the word 'five'.",
-      "suggested_fix": "This is a minor regex concern. Consider broadening the pattern or clarifying that a numeric answer is expected."
+      "location": "applications[1].solution_outline_md",
+      "description": "The solution for the engineering application says at t=4: left-hand limit is 11 and right-hand limit is 14, so it's a jump discontinuity. But the assigned value P(4) = 15 does not equal either one-sided limit. While the classification as 'jump' is standard (the one-sided limits disagree), the solution's parenthetical '(The defined value P(4)=15 does not equal either one-sided limit.)' is good. However, some textbooks would note that this has characteristics of both a jump (one-sided limits differ) and a removable-like mismatch (function value doesn't match any limit). The classification as 'jump' is the standard and correct one since the primary failure is that the two-sided limit doesn't exist due to disagreeing one-sided limits. This is actually fine.",
+      "suggested_fix": "No fix needed."
     },
     {
       "severity": "minor",
       "category": "style",
-      "location": "explanations[2].body_md (novice framing_index 1)",
-      "description": "The explanation opens with 'Before we use the Intermediate Value Theorem' — uses 'we' instead of 'you', violating style guidelines.",
+      "location": "explanations[1].body_md (novice, framing_index=1)",
+      "description": "The novice explanation (framing_index=1) begins with 'Before we use the Intermediate Value Theorem' using 'we' instead of 'you', which violates the style guideline of writing to one student using 'you'.",
       "suggested_fix": "Change 'Before we use' to 'Before you use'."
     },
     {
       "severity": "minor",
       "category": "style",
-      "location": "applications[1].solution_outline_md",
-      "description": "Uses 'the engineer should be concerned' language that's fine, but the final paragraph is somewhat speculative for a math solution. This is acceptable for an application context but could be tightened.",
-      "suggested_fix": "Optional: tighten the engineering interpretation paragraph to focus on the mathematical implications of the discontinuity."
+      "location": "deep_dives[0].body_md",
+      "description": "The deep dive's stretch question at the end references extending to a continuous function when f has 'removable singularities at countably many points' and claims this is 'related to the Riemann removable singularity theorem in complex analysis.' This is a stretch — the real-analysis statement about countably many removable discontinuities extending to a continuous function is not standard (and is actually false in general without additional hypotheses). The Riemann removable singularity theorem in complex analysis requires boundedness near the singularity and applies to holomorphic functions, which is quite different.",
+      "suggested_fix": "Remove or significantly rework the stretch question. The claim that a function with removable discontinuities at countably many points extends to a continuous function on the closure is not generally true without additional conditions (e.g., uniform continuity on the complement). Either add the necessary hypotheses or replace with a simpler stretch question."
+    },
+    {
+      "severity": "important",
+      "category": "math",
+      "location": "deep_dives[0].body_md",
+      "description": "The stretch question claims: 'if f has removable singularities at countably many points, it extends to a continuous function on the closure of its domain.' This is mathematically incorrect as stated. A function can have removable discontinuities at countably many points and still fail to extend to a continuous function — for instance, the characteristic function of the irrationals restricted to a suitable domain modification. The statement conflates individual removability with global extendability. The Riemann removable singularity theorem is about isolated singularities of bounded holomorphic functions and does not generalize this way to real analysis.",
+      "suggested_fix": "Remove or correct the stretch question. A correct statement would be: 'Each removable discontinuity can be individually repaired, but repairing countably many simultaneously yields a continuous extension only if no new discontinuities are introduced by the redefinitions (which is guaranteed when the discontinuity points are isolated and the repairs are forced by the limits).'"
+    },
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "explanations[0].body_md",
+      "description": "The advanced explanation mentions 'oscillatory discontinuity' (e.g., sin(1/x) near x=0). While this is mathematically correct, oscillatory discontinuities are not part of the AP Calculus AB/BC curriculum and are not tested. Including it in the main explanation could confuse students about what they need to know for the exam.",
+      "suggested_fix": "Either remove the oscillatory discontinuity mention or add a brief note like '(not tested on AP exams, but worth knowing exists)'."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "checks[3].expected_pattern",
+      "description": "The regex pattern for the novice IVT check question is '([3-7](\\\\.\\\\d+)?|2\\\\.\\\\d*[1-9]|7\\\\.\\\\d+|4|5|6|3)'. This would not match '8' which is not between 2 and 8 (exclusive), but it also fails to match valid answers like '2.5' in certain edge cases and doesn't match the number '7.999' properly (7\\\\.\\\\d+ would match it). More importantly, the pattern matches '3' and '7' via their explicit entries but the character class [3-7] already covers those. The pattern also wouldn't match answers written as fractions or words. This is a minor robustness issue.",
+      "suggested_fix": "Consider simplifying the regex or noting that it's a best-effort pattern match."
     }
   ],
-  "summary": "The concept is mathematically sound overall and pedagogically strong, but the advanced worked example has a confusing/muddled analysis at x = -2 due to overlapping piecewise domains and extraneous limit computations, which could mislead a careful student; the two deep dives are largely redundant.",
-  "critiquedAt": "2026-05-15T19:55:52.356Z",
+  "summary": "Content is mathematically sound in its core explanations and examples, but the first deep dive contains an incorrect mathematical claim about extending functions with countably many removable discontinuities, and there are minor style and consistency issues throughout.",
+  "critiquedAt": "2026-05-15T21:07:30.704Z",
   "modelVersion": "claude-opus-4-6"
 }

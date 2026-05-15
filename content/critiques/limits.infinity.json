@@ -2,52 +2,52 @@
   "conceptId": "limits.infinity",
   "conceptName": "Limits at Infinity",
   "verdict": "issues_found",
-  "overall_severity": "important",
+  "overall_severity": "minor",
   "issues": [
-    {
-      "severity": "important",
-      "category": "math",
-      "location": "examples[0].steps[3]",
-      "description": "The Squeeze Theorem argument as written applies only to the approximate expression sin(x)/(4x^2), not to the exact expression. The step claims rigor via Squeeze but doesn't actually bound the original expression — it bounds the linearized version. The preceding 'why' note mentions controlling the O(u^2) remainder, but the main step_md never does this. A student following the 'rigorous' argument would not actually have a complete proof. The error term from the Taylor expansion needs to be explicitly bounded in the step itself, not just mentioned parenthetically in the why note.",
-      "suggested_fix": "In step 4, explicitly bound the full expression (not just the linearized version). For instance, use the conjugate/rationalization approach: multiply numerator and denominator by (sqrt(4x^6 + x^3 sin x) + 2x^3) to get the exact numerator x^3 sin x, then bound |x^3 sin x| ≤ x^3 and note the denominator is ≥ 2x^3 · x^2 = 2x^5 for large x, giving |expression| ≤ 1/(2x^2) → 0. This avoids the hand-wavy linearization-then-claim-rigor issue."
-    },
     {
       "severity": "minor",
       "category": "math",
-      "location": "examples[0].steps[4].why_md",
-      "description": "The stretch question claims that replacing x^2 denominator with 1 gives limit sin(x)/4, which 'oscillates and has no limit.' While true, the preceding sentence says 'the limit of the numerator itself is sin(x)/4' — this is imprecise. The numerator's limit doesn't equal sin(x)/4; rather, the full expression with denominator 1 behaves like sin(x)/4 for large x, which has no limit.",
-      "suggested_fix": "Rephrase to: 'then the expression itself behaves like sin(x)/4 for large x, which oscillates and has no limit.'"
+      "location": "examples[0].steps[2]",
+      "description": "The Squeeze bound uses the factor '3' as a lower bound for the parenthesized expression (sqrt(...)+2), but the justification is a bit loose. For large x, sin(x)/x^3 >= -1/x^3 which is close to 0, so sqrt(4 + sin(x)/x^3) >= sqrt(4 - 1/x^3). For x >= 1 this is >= sqrt(3), so sqrt(3)+2 > 3. The reasoning is correct but could be stated more cleanly — 'for x large enough so that sin(x)/x^3 >= -1' is imprecise since sin(x)/x^3 >= -1/x^3 > -1 for all x > 1 automatically. This is a minor clarity issue, not an error.",
+      "suggested_fix": "Replace 'for x large enough so that sin(x)/x^3 >= -1' with 'for all x >= 1, since |sin x| <= 1 gives sin(x)/x^3 >= -1/x^3 >= -1, hence sqrt(4 + sin(x)/x^3) >= sqrt(3) > 1 and the full parenthesized factor exceeds 3.'"
     },
     {
       "severity": "minor",
       "category": "pedagogy",
-      "location": "explanations[0].body_md",
-      "description": "The advanced explanation says 'No mystery here — M plays the role that delta played before, but it bounds magnitude rather than proximity.' This is slightly misleading: delta bounds proximity (|x - c| < delta), and M bounds how far out x is (x > M). Saying M 'bounds magnitude' could confuse students since |x| > M is not exactly the same framing used (x > M for +∞).",
-      "suggested_fix": "Rephrase to something like: 'M plays the role that delta played, but instead of requiring x to be within delta of a point c, it requires x to be beyond the threshold M.'"
+      "location": "examples[0].steps[3].why_md",
+      "description": "The stretch question at the end of the final step is somewhat convoluted and hard to follow. It introduces multiple alternative scenarios (k=1, k=2 replaced by k=3) in a single dense paragraph. This may confuse even advanced students. The notation 'k=2 replaced by k=3 with x^3 sin x replaced by x^4' is particularly unclear.",
+      "suggested_fix": "Simplify the stretch question to one clean variant, e.g.: 'Try evaluating lim_{x->inf} (sqrt(4x^6 + x^4) - 2x^3)/x using the same conjugate technique, and verify you get 1/4.'"
     },
     {
       "severity": "minor",
       "category": "style",
-      "location": "explanations[1].intuition_md",
-      "description": "The highway/driving analogy is used in both the novice tier (framing_index 0) intuition and the on_pace tier intuition. While not wrong, the repetition reduces pedagogical variety across tiers.",
-      "suggested_fix": "Consider using a different analogy for one of the two tiers to provide varied intuitive anchors."
+      "location": "explanations[0].body_md",
+      "description": "The advanced explanation uses 'No mystery here' which borders on filler/casual tone. While not strictly an emoji or 'In this lesson we will explore', it could be tightened.",
+      "suggested_fix": "Remove 'No mystery here — ' or replace with a more precise connector."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "deep_dives[0].body_md",
+      "description": "The deep dive references the Archimedean property, which is a real analysis concept well beyond AP Calculus AB/BC scope. While this is a deep dive and some stretch is expected, it might benefit from a brief note that this is beyond the AP curriculum.",
+      "suggested_fix": "Add a parenthetical note: '(this is a foundational property from real analysis, beyond the AP curriculum, but it explains why the argument works).'"
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[1].body_md (novice tier 0)",
+      "description": "The phrase 'If this feels tricky, that's normal' is slightly filler-like motivational language.",
+      "suggested_fix": "Remove or replace with a concrete actionable tip, e.g., 'Practice by building a table for two or three different functions.'"
     },
     {
       "severity": "minor",
       "category": "ap_alignment",
       "location": "deep_dives[1].body_md",
-      "description": "The Cesàro averages follow-up, while mathematically interesting, goes well beyond AP scope. This is acceptable for a deep dive but worth noting it's clearly beyond BC level.",
-      "suggested_fix": "No change needed, but optionally add a note that this is a college-level analysis topic."
-    },
-    {
-      "severity": "minor",
-      "category": "consistency",
-      "location": "checks[0]",
-      "description": "The advanced check question asks the student to state the 'precise operation' in 'one sentence,' but the expected_pattern regex checks for keywords like 'multiply' and 'by 1' rather than verifying a one-sentence response. This is fine for automated grading but the expected_answer_md could be slightly tighter — it currently has two sentences.",
-      "suggested_fix": "Either combine the expected answer into one sentence or relax the 'one sentence' instruction to 'briefly.'"
+      "description": "The deep dive references Cesàro averages, which is firmly graduate-level analysis. This is fine as a teaser but the connection to AP Calculus is tenuous. The main body of the deep dive (sin(x) has no limit) is excellent and AP-relevant.",
+      "suggested_fix": "Optionally add a note that Cesàro averages are well beyond AP scope, or soften the follow-up to just ask 'what is lim_{x->inf} (1/x) int_0^x sin(t) dt?' without naming the concept."
     }
   ],
-  "summary": "Mathematically sound overall, but the advanced worked example's claim of rigor via Squeeze Theorem is incomplete — the linearization is heuristic and the actual bounding step is relegated to a parenthetical 'why' note rather than being shown in the main work, which could mislead an advanced student about what constitutes a rigorous argument.",
-  "critiquedAt": "2026-05-15T19:28:09.137Z",
+  "summary": "Content is mathematically accurate, pedagogically well-structured across tiers, and AP-aligned; only minor style, clarity, and polish issues were found.",
+  "critiquedAt": "2026-05-15T20:37:09.838Z",
   "modelVersion": "claude-opus-4-6"
 }

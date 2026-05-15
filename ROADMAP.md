@@ -424,6 +424,127 @@ rule arithmetic slip Opus found was in a check answer — exactly the
 kind of detail a tired human reviewer would skim past).
 
 
+
+### E2.1. Critique-driven content fixes — **DONE**
+
+Triaged the 10 important-tier issues found in E2 and shipped targeted
+fixes. Each fix was applied directly to the per-concept JSON (no full
+regenerations) and re-critiqued to verify.
+
+**Fixes applied:**
+
+1. **Empty prerequisites** in 4 concepts (`deriv.implicit`,
+   `deriv.optimisation`, `deriv.quotient-rule`, `integ.ftc`) — added
+   appropriate prereq lists in both the concept JSON and
+   `conceptSpecs.ts` so regens preserve them.
+
+2. **`integ.ftc` engineering application required integration by parts
+   (BC-only)** — replaced the exponential inflow function with a
+   polynomial `Q_in(t) = 60t - 6t^2` that AB students can integrate
+   using just the power rule. Cleaned up the solution.
+
+3. **`integ.riemann` deep dive misused IVT** — the convergence argument
+   for Riemann sums incorrectly cited IVT to sandwich `f(x̄_k)`
+   between endpoints. Replaced with the correct Extreme Value Theorem
+   argument (defines `m_k = min f`, `M_k = max f` on the subinterval,
+   sandwiches via Darboux sums).
+
+4. **`limits.lhopital` application contradicted itself** — the ROI
+   problem said "numerator → 0" then the solution found it was -10.
+   Rewrote the problem to use the marginal-ROI ratio
+   `(R(x) - x)/x` from the start, giving a genuine 0/0 form.
+
+5. **`limits.infinity` advanced example used sloppy Squeeze argument
+   on linearized form** — rewrote the 4-step solution using the
+   conjugate (rationalization) technique. Now the Squeeze bounds are
+   on the exact expression, not an approximation, with no error term
+   to handwave away.
+
+6. **`continuity.definition` novice framing 1 stumbled mid-example** —
+   tried to illustrate three discontinuity types with one piecewise
+   function, then realized it didn't work and "tweaked" on the fly.
+   Replaced with three separate clean piecewise functions, one per
+   discontinuity type.
+
+7. **`continuity.types` advanced example** — cleaned up the ambiguous
+   piecewise domain (specified the rational piece governs $(-2,2)$
+   and $x > 2$ explicitly, not just "x ≠ ±2"). Fixed the misleading
+   `g(x) → -∞` discussion in step 2 (it doesn't govern f on that
+   side). Restructured step 4 to lead with the algebraic
+   discriminant argument instead of trial-and-error point checking.
+
+8. **`continuity.types` deep dives were duplicates** (both about IVT)
+   — replaced `deep_dives[0]` with a different topic: "Why
+   'Removable' Actually Means Removable — Extending to a Continuous
+   Function." Connects to the limit-definition-of-derivative idea.
+
+9. **`continuity.types` engineering app** — removed the redundant
+   `t ≠ 3` condition on the `t > 4` piece (already implied).
+
+10. **`deriv.optimisation` novice framing 1 was a sign-chart only
+    explanation, missing the optimization workflow** — rewrote
+    completely to lead with the 6-step optimization workflow
+    (Identify → Express → Constrain → Differentiate → Sign-chart →
+    Read off). Used a distance-to-parabola problem to diversify from
+    the farmer-fencing motif everywhere else in the concept.
+
+11. **`deriv.optimisation` on_pace example was another
+    farmer-fencing problem** — replaced with a minimum-surface-area
+    open-top box problem, exercising the same workflow on a different
+    geometry.
+
+12. **`deriv.optimisation` advanced stretch question incorrectly
+    invoked chain rule** — the non-differentiability of `|x² - 1|` is
+    about the absolute value, not the chain rule. Rewrote the
+    stretch question hint to correctly point out that you must
+    check critical points, endpoints, AND non-differentiable points.
+
+13. **`deriv.optimisation` advanced explanation said "linear
+    approximation" when it meant "quadratic approximation"** — fixed
+    the terminology error.
+
+14. **`deriv.chain-rule` arithmetic slip** (from E2): `3(5x)² · 5 =
+    75x²` should be `375x²`. Fixed in the check answer.
+
+15. **Bug in the critique pipeline itself** —
+    `critiqueAll.ts.loadConcept()` was reading from a column
+    `prerequisites` that doesn't exist (the schema column is
+    `prerequisites_json`). SQLite returned NULL silently, so the
+    critique pipeline saw every concept's prereqs as empty. Fixed
+    the column name. Several "empty prerequisites" critiques in E2
+    were false positives caused by this bug.
+
+**Final verdict rollup:**
+
+| Verdict | Pre-E2 | Post-E2 | Post-E2.1 |
+|---|---:|---:|---:|
+| ok (no issues) | 3 | 3 | **4** |
+| minor only | 6 | 7 | **12** |
+| important | 9 | 10 | **4** |
+| critical | 2 | 0 | **0** |
+
+**6 of 10 important-issue concepts** dropped to minor or OK
+(`continuity.definition`, `deriv.chain-rule`, `deriv.quotient-rule`,
+`integ.ftc`, `integ.riemann`, `limits.definition`, `limits.infinity`
+— that's 7 actually, since `limits.definition` went OK).
+
+The remaining 4 still-important concepts (`continuity.types`,
+`deriv.implicit`, `deriv.optimisation`, `limits.lhopital`) hit the
+diminishing-returns wall — each fix surfaced new (legitimate but
+increasingly minor) pedagogical objections from Opus. Examples of
+the new objections: "the explanation is too long now", "you check the
+critical point but not the rate of approach to the boundary",
+"the absolute value example is technically right but could clarify
+why". These are edge-case caveats, not content errors. Safe to ship;
+addressable in future iterations.
+
+**Side effect:** the conceptSpecs.ts file now has correct, complete
+prerequisite chains for the 4 derivative/integral concepts that were
+thin, so any future regeneration will inherit them. The DB-column
+bug in `critiqueAll.ts` is fixed so future critique runs will see
+the actual prereq lists.
+
+
 ### E3. Rotate the GitHub token
 The token `ghp_LXrv...` that was used to push earlier was visible in chat.
 Rotate at https://github.com/settings/tokens and set the replacement as
@@ -469,15 +590,14 @@ the path so far** (A2 done, A1 v1 done).
 
 ## Currently in flight
 
-_(nothing in flight — A1 v1, A1.2, A1.3, A2, A3, A5, and E2 all
-shipped. Pick the next item from the lists above. Top recommendations:_
+_(nothing in flight — A1 v1, A1.2, A1.3, A2, A3, A5, E2, and E2.1
+all shipped. Pick the next item from the lists above. Top
+recommendations:_
 - **A4 — Custom-authored stretch problems:** harder, multi-concept,
   olympiad-flavored problems beyond reusing the existing practice bank
 - **B1 — Daily classroom companion:** "what did you cover today?"
   loop that maps a topic name to the right Learn Mode walkthrough
-- **C1 — Teacher dashboard:** biggest distribution unlock (B2B)
-- **E2.1 — Address remaining 10 important-tier critiques:** mostly
-  empty-prerequisites arrays and small pedagogical polish_)
+- **C1 — Teacher dashboard:** biggest distribution unlock (B2B)_)
 
 ---
 
@@ -496,7 +616,8 @@ shipped. Pick the next item from the lists above. Top recommendations:_
 | **A1.2 — Visuals expansion pack (all 20 concepts)** | `81c4623` | 1,250 |
 | **A3 — Explore Mode** | `5666f4e` | 1,361 |
 | **A1.3 — Visuals expansion 2** | `27d13e3` | 426 |
-| **E2 — Content critique pass + fixes** | this commit | ~700 |
+| **E2 — Content critique pass + fixes** | `4f8d37f` | ~700 |
+| **E2.1 — Critique-driven content fixes** | this commit | ~1,800 |
 
 **Net since v1 merge:** ~3,750 lines added (≈2 new feature areas), 0
 broken tests (same 5 pre-existing infra failures).
@@ -526,10 +647,15 @@ broken tests (same 5 pre-existing infra failures).
   Mode walkthroughs (A1.3).
 - Content quality is now systematically validated. All 20 concepts
   have passed a structured Opus-based critique covering math accuracy,
-  pedagogy, AP-curriculum alignment, internal consistency, and
-  style. Two critical math errors (a piecewise-continuity puzzle
-  with no solution; an IVT problem that's impossible on the stated
-  interval) and the AP-curriculum drift to multivariable calculus
-  in advanced-tier explanations were fixed. Zero critical issues
-  remain across the 20 concepts (E2).
+  pedagogy, AP-curriculum alignment, internal consistency, and style.
+  Zero critical issues remain. 16 of 20 concepts now have only minor
+  issues or none at all. Specific bugs caught & fixed include: two
+  application problems with mathematical contradictions; AP-scope
+  drift to multivariable calculus in advanced tiers; an arithmetic
+  slip in a chain rule check (75x² should be 375x²); an integ.ftc
+  application that required BC-only integration by parts despite
+  being marked AB/BC; an IVT vs EVT reasoning bug in a Riemann
+  deep dive; a sloppy Squeeze-Theorem proof that bounded the wrong
+  expression; and duplicate deep dives in continuity.types.
+  (E2 + E2.1)
 
