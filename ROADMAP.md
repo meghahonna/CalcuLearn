@@ -85,14 +85,46 @@ and tangent/secant/segment line kinds on `function_plot`.
   axis-bracket + render-under-JSDOM), retries up to 3 times with the
   validation error fed back to Opus, and writes JSON when all checks pass.
 
-**What's still deferred to A1.3 (not in this commit):**
-- Related-rates animated scenarios (per-problem cone-draining /
-  ladder-sliding diagrams).
-- Visuals on `example` / `deep_dive` / `application` slots (only the
-  `explanation` slot is wired into the UI right now).
-- Practice-mode visual reveals.
-- Control-binding (`bind` field) — type system supports it but renderer
-  doesn't honor it yet.
+**Note:** Items deferred from A1.2 — related-rates scenarios,
+multi-slot visual injection, and practice-mode visual reveals — are
+shipped as part of **A1.3** (see below). Control-binding (`bind`
+field) is still deferred.
+
+### A1.3. Visuals — expansion 2 — **DONE** (`27d13e3`)
+
+Three deliverables on top of A1.2's foundation:
+
+**1. New primitive: `related_rates`**
+
+Time-driven scenario player for related-rates problems. Declarative spec:
+- `state` array: time-driven variables (e.g. `x = t`, `y = sqrt(100 - t*t)`,
+  `dydt = -t / sqrt(100 - t*t)`)
+- `drawables` array: SVG primitives (circle, segment, rect, polygon,
+  polyline, point, text) with attributes computed from state vars
+- `readouts` array: live numeric displays below the diagram
+- Time slider with the student scrubbing through the scenario
+
+**Hand-authored hero:** Ladder sliding down a wall — student drags
+the base-distance slider, watches `dy/dt` blow up as `y → 0`. Wired
+to `deriv.related-rates`.
+
+**2. Multi-slot visual injection in Learn Mode**
+
+`learnMode.ts` now tracks injected slots in a Set and injects the
+`example`-slot visual when the example stage delivers, in addition to
+the `explanation`-slot visual on the explain stage. The DB and API
+already supported any slot; only the UI was previously wired to a
+single slot. Authoring more visuals for example/deep-dive/application
+slots is now a content-only change.
+
+**3. Practice-mode visual reveal**
+
+When the Practice feedback card renders, the concept's hero visual is
+surfaced underneath in a `<details>` block:
+- Wrong answer → expanded by default (this is when the picture matters most)
+- Right answer → collapsed by default
+
+Best-effort: silent skip if no visual exists for the concept.
 
 ### A2. "Teach it back" mode (Feynman technique) — **DONE** (`453ce87`)
 Student explains a concept in their own words; SLM probes their explanation
@@ -361,7 +393,7 @@ the path so far** (A2 done, A1 v1 done).
 
 | Strategy | Remaining order | Optimizes for |
 |---|---|---|
-| **Maximize student value** _(current track)_ | A4 → A1.3 → E2 | Make the existing experience materially better for the struggling student |
+| **Maximize student value** _(current track)_ | A4 → E2 → B1 | Make the existing experience materially better for the struggling student |
 | **Maximize distribution** | C1 → B1 → C3 | Turn into a school-purchasable product |
 | **Harden v1, then expand** | E2 → E5 → A5 | Lock in quality on the foundation before adding more surface area |
 
@@ -369,15 +401,13 @@ the path so far** (A2 done, A1 v1 done).
 
 ## Currently in flight
 
-_(nothing in flight — A1 v1, A1.2, A2, A3, and A5 all shipped. Pick
-the next item from the lists above. Top recommendations:_
+_(nothing in flight — A1 v1, A1.2, A1.3, A2, A3, and A5 all shipped.
+Pick the next item from the lists above. Top recommendations:_
 - **A4 — Custom-authored stretch problems:** harder, multi-concept,
   olympiad-flavored problems beyond reusing the existing practice bank
-- **A1.3 — Visuals expansion 2:** related-rates animated scenarios,
-  visuals on example/deep_dive/application slots, practice-mode visuals
-- **C1 — Teacher dashboard:** biggest distribution unlock
 - **E2 — Critique pass on the 20 authored concepts:** content quality
-  foundation; uses the RUN_CRITIQUE=1 flag we already built_)
+  foundation; uses the RUN_CRITIQUE=1 flag we already built
+- **C1 — Teacher dashboard:** biggest distribution unlock (B2B)_)
 
 ---
 
@@ -395,6 +425,7 @@ the next item from the lists above. Top recommendations:_
 | **A5 — 5-tier deterministic classifier** | `244ab88` | 901 |
 | **A1.2 — Visuals expansion pack (all 20 concepts)** | `81c4623` | 1,250 |
 | **A3 — Explore Mode** | `5666f4e` | 1,361 |
+| **A1.3 — Visuals expansion 2** | `27d13e3` | 426 |
 
 **Net since v1 merge:** ~3,750 lines added (≈2 new feature areas), 0
 broken tests (same 5 pre-existing infra failures).
@@ -417,4 +448,9 @@ broken tests (same 5 pre-existing infra failures).
   picks the right concept in <1ms and the agent answers under the
   strict leash against pre-authored content. Follow-up chips deep-
   link into Learn Mode (A3).
+- Related-rates problems are now visual: ladder-sliding-down-a-wall
+  with a scrubbable time slider and live (x, y, dx/dt, dy/dt)
+  readouts. Visuals also appear under Practice solutions (especially
+  when the student got it wrong) and below example stages in Learn
+  Mode walkthroughs (A1.3).
 
