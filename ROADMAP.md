@@ -54,25 +54,45 @@ sliders / segmented toggles. Zero external deps.
 `scripts/authoring/seedVisuals.ts`, `content/visuals/*.json`. Wired
 into `LearnModeUi` via stage-transition injection on `stage='explain'`.
 
-### A1.2. Visuals — expansion pack — **NOT STARTED**
+### A1.2. Visuals — expansion pack — **DONE** (`81c4623`)
 
-What's still deferred from the original A1 scope:
-- **Auto-author visuals for all 20 concepts** via an `authorVisuals.ts`
-  Opus prompt that emits the same JSON spec format. Each concept gets at
-  least one hero visual.
-- **Slope-field primitive** for ODEs (`ode.separable`, `ode.first-order-linear`).
-- **Related-rates scenarios** — animated, per-problem diagrams (cone draining,
-  ladder sliding, etc.).
-- **Tangent + secant overlays on `function_plot`** — the spec types already
-  allow `bind` references to controls; renderer just needs to honor them.
-- **Visuals on `example` / `deep_dive` / `application` slots** (only the
+Auto-authored one inline interactive visual for every concept in the
+curriculum. Coverage: 4/20 → 20/20. Also added the slope_field primitive
+and tangent/secant/segment line kinds on `function_plot`.
+
+**Distribution across the 20 visuals:**
+- 9 × function_plot (derivatives, asymptotes, optimization)
+- 4 × accumulation (FTC + integral applications)
+- 3 × limit_approach (limits, continuity, L'Hopital)
+- 2 × slope_field (the two ODE concepts)
+- 1 × secant_to_tangent (power rule)
+- 1 × riemann_sum (Riemann sums)
+
+**New primitive — slope_field:**
+- Draws short tangent-slope segments at a grid of (x, y) points where
+  the slope is `y' = f(x, y)`.
+- Traces particular solutions via Euler integration from each initial
+  condition.
+- The first IC is a **draggable** dot — students grab it and watch the
+  solution curve morph in real time. Pointer-capture works on touch and mouse.
+
+**Authoring pipeline:**
+- `scripts/authoring/visualPrompts.ts` — Opus system prompt with all 6
+  primitive schemas, expression-dialect rules, axis-range guidance.
+- `scripts/authoring/authorVisuals.ts` — pipeline that reads the
+  ground-truth explanation from `concept_explanations`, calls Opus with
+  primitive hints per concept, validates (shape + expression-compile +
+  axis-bracket + render-under-JSDOM), retries up to 3 times with the
+  validation error fed back to Opus, and writes JSON when all checks pass.
+
+**What's still deferred to A1.3 (not in this commit):**
+- Related-rates animated scenarios (per-problem cone-draining /
+  ladder-sliding diagrams).
+- Visuals on `example` / `deep_dive` / `application` slots (only the
   `explanation` slot is wired into the UI right now).
-- **Practice-mode visuals** — render the visual when the practice solution
-  reveal is shown.
-
-- **Effort:** Medium (1 week)
-- **Impact:** High — turns visuals from "4 concepts" to "all 20" and adds
-  the most expressive primitives.
+- Practice-mode visual reveals.
+- Control-binding (`bind` field) — type system supports it but renderer
+  doesn't honor it yet.
 
 ### A2. "Teach it back" mode (Feynman technique) — **DONE** (`453ce87`)
 Student explains a concept in their own words; SLM probes their explanation
@@ -318,7 +338,7 @@ the path so far** (A2 done, A1 v1 done).
 
 | Strategy | Remaining order | Optimizes for |
 |---|---|---|
-| **Maximize student value** _(current track)_ | A1.2 → A3 → A4 | Make the existing experience materially better for the struggling student |
+| **Maximize student value** _(current track)_ | A3 → A4 → A1.3 | Make the existing experience materially better for the struggling student |
 | **Maximize distribution** | C1 → B1 → C3 | Turn into a school-purchasable product |
 | **Harden v1, then expand** | E2 → E5 → A5 | Lock in quality on the foundation before adding more surface area |
 
@@ -326,12 +346,14 @@ the path so far** (A2 done, A1 v1 done).
 
 ## Currently in flight
 
-_(nothing in flight — A1 v1, A2, and A5 all shipped. Pick the next
-item from the lists above. Top recommendations:_
-- **A1.2 — Visual expansion pack:** auto-author visuals for all 20 concepts +
-  add slope-field primitive
+_(nothing in flight — A1 v1, A1.2, A2, and A5 all shipped. Pick the
+next item from the lists above. Top recommendations:_
 - **A3 — Explore Mode:** free-form "ask me anything" with concept-graph routing
-- **C1 — Teacher dashboard:** biggest distribution unlock_)
+- **A4 — Custom-authored stretch problems:** harder, multi-concept,
+  olympiad-flavored problems beyond reusing the existing practice bank
+- **C1 — Teacher dashboard:** biggest distribution unlock
+- **E2 — Critique pass on the 20 authored concepts:** content quality
+  foundation; uses the RUN_CRITIQUE=1 flag we already built_)
 
 ---
 
@@ -347,6 +369,7 @@ item from the lists above. Top recommendations:_
 | docs: ROADMAP — mark A1 v1 done | `e1b0168` | 3 |
 | **fix(db): recoverOrCreate full schema + WAL safety** | `c5c631c` | 209 |
 | **A5 — 5-tier deterministic classifier** | `244ab88` | 901 |
+| **A1.2 — Visuals expansion pack (all 20 concepts)** | `81c4623` | 1,250 |
 
 **Net since v1 merge:** ~3,750 lines added (≈2 new feature areas), 0
 broken tests (same 5 pre-existing infra failures).
@@ -361,4 +384,8 @@ broken tests (same 5 pre-existing infra failures).
 - Auto-recovery now restores the FULL schema instead of just the
   legacy 5 tables, and backs up the suspected-corrupt DB before
   deletion (fix on `c5c631c`).
+- Every Learn Mode walkthrough now has an interactive visual — 20/20
+  concept coverage via Opus-authored visuals; new slope_field
+  primitive for ODE concepts; tangent/secant/segment line kinds on
+  function_plot (A1.2).
 
