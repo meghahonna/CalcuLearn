@@ -1389,6 +1389,70 @@
     }
     .explore-status-error { color: var(--error); }
 
+
+    /* ── A1.3: related-rates readouts ──────────────────────────── */
+    .visual-readouts {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      padding: 0.45rem 0.55rem;
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      margin-top: 0.55rem;
+      font-size: 0.85rem;
+    }
+    .visual-readout {
+      display: inline-flex;
+      gap: 0.3rem;
+      align-items: baseline;
+      padding: 0.15rem 0.4rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .visual-readout-label {
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .visual-readout-value {
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+      color: var(--accent-dark);
+    }
+
+
+    /* ── A1.3: practice-mode visual reveal ─────────────────────── */
+    .practice-visual {
+      margin-top: 0.7rem;
+      padding: 0.6rem 0.85rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .practice-visual > summary {
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+      list-style: none;
+      user-select: none;
+      padding: 0.2rem 0;
+    }
+    .practice-visual > summary::before {
+      content: '▸ ';
+      display: inline-block;
+      transition: transform 0.15s;
+    }
+    .practice-visual[open] > summary::before {
+      content: '▾ ';
+    }
+    .practice-visual > .visual-title {
+      margin-top: 0.4rem;
+    }
+    .practice-visual .visual {
+      margin-top: 0.4rem;
+    }
+
     /* ── Responsive ────────────────────────────────────────────────── */
     @media (max-width: 520px) {
       body { padding: 0.75rem; }

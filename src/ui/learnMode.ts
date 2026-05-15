@@ -228,8 +228,8 @@ export class LearnModeUi {
   private currentConceptName: string | null = null
   private messages: ChatMessage[] = []
   private busy = false
-  /** A1: tracks whether we've already injected visuals in this session. */
-  private visualsInjected = false
+  /** A1: tracks which slot visuals have been injected in this session. */
+  private injectedSlots = new Set<string>()
 
   // Element refs
   private panel!: HTMLElement
@@ -366,7 +366,7 @@ export class LearnModeUi {
   private async startSession(conceptId: string, tier: LearnTier): Promise<void> {
     this.busy = true
     this.setStatus('Starting Learn Mode...')
-    this.visualsInjected = false
+    this.injectedSlots.clear()
     try {
       const r = await this.api.start({ studentId: this.studentId, conceptId, tier })
       this.sessionId = r.sessionId
@@ -419,9 +419,15 @@ export class LearnModeUi {
       block: r.contentBlock,
     })
     // A1: inject inline visuals after the first explanation is delivered.
-    if (!this.visualsInjected && this.currentConceptId && r.stage === 'explain') {
-      this.visualsInjected = true
-      void this.injectVisuals(this.currentConceptId)
+    // A1.3: also inject example-slot visuals when an example is delivered.
+    if (this.currentConceptId) {
+      if (r.stage === 'explain' && !this.injectedSlots.has('explanation')) {
+        this.injectedSlots.add('explanation')
+        void this.injectVisuals(this.currentConceptId, 'explanation')
+      } else if (r.stage === 'example' && !this.injectedSlots.has('example')) {
+        this.injectedSlots.add('example')
+        void this.injectVisuals(this.currentConceptId, 'example')
+      }
     }
     this.renderActions(r.suggestedActions ?? [])
     this.headerInfo.textContent = `Stage: ${r.stage}${r.done ? ' · done' : ''}`
@@ -449,9 +455,9 @@ export class LearnModeUi {
    * A1: Fetch visuals for the current concept and render them inline in the
    * chat as an "agent" message. Best-effort — failure is silent.
    */
-  private async injectVisuals(conceptId: string): Promise<void> {
+  private async injectVisuals(conceptId: string, slot: string): Promise<void> {
     try {
-      const url = `/api/visuals/list?conceptId=${encodeURIComponent(conceptId)}&slot=explanation`
+      const url = `/api/visuals/list?conceptId=${encodeURIComponent(conceptId)}&slot=${encodeURIComponent(slot)}`
       const resp = await fetch(url)
       if (!resp.ok) return
       const data = (await resp.json()) as { visuals: Array<{ spec: unknown; title?: string; captionMd?: string }> }

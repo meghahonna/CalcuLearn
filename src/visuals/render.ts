@@ -23,6 +23,8 @@ import type {
   AccumulationVisual,
   LimitApproachVisual,
   SlopeFieldVisual,
+  RelatedRatesVisual,
+  RRDrawable,
 } from './types.js'
 
 // ---------- constants ----------
@@ -944,6 +946,197 @@ function renderSlopeField(v: SlopeFieldVisual): HTMLElement {
   return container
 }
 
+function renderRelatedRates(v: RelatedRatesVisual): HTMLElement {
+  const container = document.createElement('div')
+  container.className = 'visual'
+  const t = mkAxisTransform(v.axes)
+  const svg = makeSvg()
+  container.appendChild(svg)
+  if (!v.hideAxes) drawAxes(svg, t)
+
+  // Pre-compile every expression we will evaluate per-frame, so updates
+  // are cheap.
+  const stateFns: Array<{ name: string; f: (env: Record<string, number>) => number }> = []
+  for (const s of v.state) {
+    stateFns.push({ name: s.name, f: compileExpression(s.expression) })
+  }
+
+  // For each drawable, compile every string attribute (numeric attrs stay as constants).
+  const compiledDrawables: Array<{
+    kind: typeof v.drawables[number]['kind']
+    attrs: Record<string, (env: Record<string, number>) => number>
+    raw: RRDrawable
+  }> = []
+  for (const d of v.drawables) {
+    const compiled: Record<string, (env: Record<string, number>) => number> = {}
+    for (const [k, val] of Object.entries(d.attrs)) {
+      if (typeof val === 'number') {
+        const c = val
+        compiled[k] = () => c
+      } else {
+        compiled[k] = compileExpression(val)
+      }
+    }
+    compiledDrawables.push({ kind: d.kind, attrs: compiled, raw: d })
+  }
+
+  // Readouts
+  const compiledReadouts: Array<{ label: string; f: (env: Record<string, number>) => number; format?: string; unit?: string }> = []
+  if (v.readouts) {
+    for (const r of v.readouts) {
+      compiledReadouts.push({ label: r.label, f: compileExpression(r.expression), format: r.format, unit: r.unit })
+    }
+  }
+
+  // Group that we rebuild every frame.
+  const sceneGroup = el('g', {}, svg)
+  // Persistent readout container below the SVG
+  const readoutWrap = document.createElement('div')
+  readoutWrap.className = 'visual-readouts'
+  container.appendChild(readoutWrap)
+
+  function evalState(time: number): Record<string, number> {
+    const env: Record<string, number> = { t: time }
+    for (const s of stateFns) {
+      env[s.name] = s.f(env)
+    }
+    return env
+  }
+
+  function dashFor(style?: 'solid' | 'dashed' | 'dotted'): string {
+    return style === 'dashed' ? '5,4' : style === 'dotted' ? '1,3' : '0'
+  }
+
+  function update(time: number): void {
+    // Clear scene
+    while (sceneGroup.firstChild) sceneGroup.removeChild(sceneGroup.firstChild)
+    const env = evalState(time)
+    for (const d of compiledDrawables) {
+      const a: Record<string, number> = {}
+      for (const [k, fn] of Object.entries(d.attrs)) a[k] = fn(env)
+      const stroke = d.raw.stroke ?? COLOR.curve
+      const fill = d.raw.fill ?? 'none'
+      const sw = d.raw.strokeWidth ?? 2
+      const dash = dashFor(d.raw.dash)
+      if (d.kind === 'circle') {
+        const cx = t.toX(a['cx'] ?? 0)
+        const cy = t.toY(a['cy'] ?? 0)
+        // Radius is in axis units. We use x-axis scale for radius (assumes equal aspect).
+        const rPixels = Math.abs(t.toX((a['r'] ?? 0)) - t.toX(0))
+        el('circle', { cx, cy, r: rPixels, stroke, fill, 'stroke-width': sw, 'stroke-dasharray': dash }, sceneGroup)
+      } else if (d.kind === 'rect') {
+        const x = t.toX(a['x'] ?? 0)
+        const y = t.toY((a['y'] ?? 0) + (a['height'] ?? 0))
+        const w = Math.abs(t.toX((a['x'] ?? 0) + (a['width'] ?? 0)) - t.toX(a['x'] ?? 0))
+        const h = Math.abs(t.toY(a['y'] ?? 0) - t.toY((a['y'] ?? 0) + (a['height'] ?? 0)))
+        el('rect', { x, y, width: w, height: h, stroke, fill, 'stroke-width': sw, 'stroke-dasharray': dash }, sceneGroup)
+      } else if (d.kind === 'line' || d.kind === 'segment') {
+        el('line', {
+          x1: t.toX(a['x1'] ?? 0), y1: t.toY(a['y1'] ?? 0),
+          x2: t.toX(a['x2'] ?? 0), y2: t.toY(a['y2'] ?? 0),
+          stroke, 'stroke-width': sw, 'stroke-dasharray': dash,
+        }, sceneGroup)
+      } else if (d.kind === 'polygon' || d.kind === 'polyline') {
+        // Polygons/polylines: expect attrs.points = "x1,y1 x2,y2 x3,y3..."
+        // For our renderer we accept a raw string in the original .attrs (not compiled).
+        // Look up the raw points if not compiled — handled below.
+        const rawPoints = d.raw.attrs['points']
+        if (typeof rawPoints !== 'string') continue
+        // Each "x,y" pair maps through the axis transform.
+        const pts = rawPoints.trim().split(/\s+/).map((pair) => {
+          const [px, py] = pair.split(',').map(Number)
+          return `${t.toX(px ?? 0).toFixed(2)},${t.toY(py ?? 0).toFixed(2)}`
+        }).join(' ')
+        el(d.kind, {
+          points: pts, stroke, fill, 'stroke-width': sw, 'stroke-dasharray': dash,
+        }, sceneGroup)
+      } else if (d.kind === 'point') {
+        el('circle', {
+          cx: t.toX(a['x'] ?? 0), cy: t.toY(a['y'] ?? 0),
+          r: 4, stroke, fill: d.raw.fill ?? stroke, 'stroke-width': 1.5,
+        }, sceneGroup)
+      } else if (d.kind === 'text') {
+        const txt = el('text', {
+          x: t.toX(a['x'] ?? 0), y: t.toY(a['y'] ?? 0),
+          'font-size': 11, fill: stroke, 'font-weight': '600',
+        }, sceneGroup) as SVGTextElement
+        txt.textContent = d.raw.label ?? ''
+      }
+      // Optional label
+      if (d.raw.label && d.kind !== 'text') {
+        const off = d.raw.labelOffset ?? { dx: 0.2, dy: 0.2 }
+        let anchorX = 0, anchorY = 0
+        if (d.kind === 'circle') {
+          anchorX = (a['cx'] ?? 0) + (a['r'] ?? 0)
+          anchorY = (a['cy'] ?? 0)
+        } else if (d.kind === 'rect') {
+          anchorX = (a['x'] ?? 0) + (a['width'] ?? 0)
+          anchorY = (a['y'] ?? 0) + (a['height'] ?? 0)
+        } else if (d.kind === 'line' || d.kind === 'segment') {
+          anchorX = ((a['x1'] ?? 0) + (a['x2'] ?? 0)) / 2
+          anchorY = ((a['y1'] ?? 0) + (a['y2'] ?? 0)) / 2
+        } else if (d.kind === 'point') {
+          anchorX = (a['x'] ?? 0)
+          anchorY = (a['y'] ?? 0)
+        }
+        const lab = el('text', {
+          x: t.toX(anchorX + off.dx),
+          y: t.toY(anchorY + off.dy),
+          'font-size': 11, fill: stroke, 'font-weight': '600',
+        }, sceneGroup) as SVGTextElement
+        lab.textContent = d.raw.label
+      }
+    }
+
+    // Update readouts
+    readoutWrap.innerHTML = ''
+    for (const r of compiledReadouts) {
+      const v = r.f(env)
+      const formatted = formatReadout(v, r.format)
+      const span = document.createElement('span')
+      span.className = 'visual-readout'
+      span.innerHTML = `<span class="visual-readout-label">${escapeForHtml(r.label)}</span>` +
+                       `<span class="visual-readout-value">${escapeForHtml(formatted)}${r.unit ? ` ${escapeForHtml(r.unit)}` : ''}</span>`
+      readoutWrap.appendChild(span)
+    }
+  }
+  update(v.tInitial)
+
+  // Time slider
+  const controls = document.createElement('div')
+  controls.className = 'visual-controls'
+  controls.appendChild(mkSlider({
+    id: 't',
+    label: v.tLabel ?? 't',
+    min: v.tMin,
+    max: v.tMax,
+    step: v.tStep ?? 0.05,
+    initial: v.tInitial,
+    onInput: (val) => update(val),
+  }))
+  container.appendChild(controls)
+
+  return container
+}
+
+function formatReadout(v: number, format?: string): string {
+  if (!Number.isFinite(v)) return '—'
+  if (format) {
+    // sprintf-light: %.2f, %.0f, %.3f, %d, %g
+    const m = format.match(/^%\.(\d+)f$/)
+    if (m) return v.toFixed(Number(m[1]))
+    if (format === '%d') return String(Math.round(v))
+    if (format === '%g') return v.toPrecision(4)
+  }
+  if (Math.abs(v) < 0.01) return v.toFixed(3)
+  if (Math.abs(v) < 1) return v.toFixed(2)
+  return v.toFixed(1)
+}
+
+function escapeForHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+}
+
 // ---------- Public entry ----------
 
 /**
@@ -959,6 +1152,7 @@ export function renderVisual(spec: Visual): HTMLElement {
       case 'accumulation': return renderAccumulation(spec)
       case 'limit_approach': return renderLimitApproach(spec)
       case 'slope_field': return renderSlopeField(spec)
+      case 'related_rates': return renderRelatedRates(spec)
       default: {
         const err = document.createElement('div')
         err.className = 'visual-error'

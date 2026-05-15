@@ -196,6 +196,73 @@ export interface SlopeFieldVisual {
   stepSize?: number
 }
 
+/**
+ * 'related_rates' — animated scenario for related-rates problems.
+ *
+ * Declarative time-driven scene: one or more state variables driven by
+ * expressions in t (time), and one or more drawables (circle, line,
+ * rect, polygon, polyline, point, text) whose attributes reference
+ * those state variables. The student scrubs a time slider and watches
+ * the configuration evolve while a readout shows the current values
+ * and rates of change.
+ *
+ * Coordinates are in axis units, not pixels — same as every other
+ * primitive. The renderer maps them through the AxisConfig.
+ */
+export type RRDrawableKind = 'circle' | 'line' | 'segment' | 'rect' | 'polygon' | 'polyline' | 'point' | 'text'
+
+export interface RRStateVar {
+  /** Variable name (e.g. "r", "h", "theta"). Must be a-z, 0-9, underscore. */
+  name: string
+  /** Expression in t (time). e.g. "5 - 0.2*t", "sqrt(100 - t^2)". */
+  expression: string
+}
+
+export interface RRDrawable {
+  kind: RRDrawableKind
+  /** Each attribute is either a numeric constant or an expression in t + state vars. */
+  attrs: Record<string, number | string>
+  /** Optional stroke / fill / style hints (passed through to SVG). */
+  stroke?: string
+  fill?: string
+  strokeWidth?: number
+  dash?: 'solid' | 'dashed' | 'dotted'
+  /** Optional label drawn near the drawable. */
+  label?: string
+  /** Label anchor offset in axis units. */
+  labelOffset?: { dx: number; dy: number }
+}
+
+export interface RRReadout {
+  /** Variable name to display. Can be a state var OR a computed expression. */
+  label: string
+  expression: string
+  /** Optional sprintf-style format: "%.2f". Defaults to one-decimal. */
+  format?: string
+  /** Unit suffix to append (e.g. "m", "rad/s"). */
+  unit?: string
+}
+
+export interface RelatedRatesVisual {
+  kind: 'related_rates'
+  axes: AxisConfig
+  /** Hide axis grid + ticks for a cleaner diagram. Default false. */
+  hideAxes?: boolean
+  /** State variables, evaluated in order (later ones may reference earlier ones). */
+  state: RRStateVar[]
+  /** Drawables, rendered in order (later ones appear on top). */
+  drawables: RRDrawable[]
+  /** Live readouts shown below the diagram. */
+  readouts?: RRReadout[]
+  /** Time slider configuration. */
+  tInitial: number
+  tMin: number
+  tMax: number
+  tStep?: number
+  /** Optional label for the time variable (default "t"). */
+  tLabel?: string
+}
+
 export type Visual =
   | FunctionPlotVisual
   | SecantToTangentVisual
@@ -203,6 +270,7 @@ export type Visual =
   | AccumulationVisual
   | LimitApproachVisual
   | SlopeFieldVisual
+  | RelatedRatesVisual
 
 /** Row-level wrapper as stored in concept_visuals. */
 export interface ConceptVisual {

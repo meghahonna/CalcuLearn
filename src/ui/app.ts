@@ -158,6 +158,57 @@ export function bindDom(options: DomBindingOptions): () => void {
   const summaryPanel  = doc.getElementById('summary-panel')
   const summaryStats  = doc.getElementById('summary-stats')
   const masteryDeltas = doc.getElementById('mastery-deltas')
+
+  /**
+   * A1.3: fetch and append the concept's explanation-slot visual under
+   * the practice feedback card. Wrapped in a <details> so it's
+   * collapsed by default; expanded by default when the answer was wrong.
+   */
+  const appendPracticeVisual = async (
+    container: HTMLElement,
+    conceptId: string,
+    expandedByDefault: boolean
+  ): Promise<void> => {
+    try {
+      const resp = await fetch(
+        `/api/visuals/list?conceptId=${encodeURIComponent(conceptId)}&slot=explanation`
+      )
+      if (!resp.ok) return
+      const data = (await resp.json()) as {
+        visuals: Array<{ spec: unknown; title?: string; captionMd?: string }>
+      }
+      if (!data.visuals || data.visuals.length === 0) return
+      const v = data.visuals[0]!
+      const { renderVisual } = await import('../visuals/render.js')
+      const wrap = doc.createElement('details')
+      wrap.className = 'practice-visual'
+      if (expandedByDefault) wrap.open = true
+      const summary = doc.createElement('summary')
+      summary.textContent = expandedByDefault
+        ? 'Diagram (open) — visualize this concept'
+        : 'Diagram — visualize this concept'
+      wrap.appendChild(summary)
+      if (v.title) {
+        const titleEl = doc.createElement('div')
+        titleEl.className = 'visual-title'
+        titleEl.textContent = v.title
+        wrap.appendChild(titleEl)
+      }
+      const node = renderVisual(v.spec as never)
+      wrap.appendChild(node)
+      if (v.captionMd) {
+        const cap = doc.createElement('div')
+        cap.className = 'visual-caption'
+        // Apply the same markdown+LaTeX renderer used in Learn Mode so
+        // captions match visually across modes.
+        renderLatexInElement(cap, v.captionMd, katex)
+        wrap.appendChild(cap)
+      }
+      container.appendChild(wrap)
+    } catch (err) {
+      console.warn('[practice] visual fetch failed:', err)
+    }
+  }
   const statusBar     = doc.getElementById('status-bar')
   const progressWrap  = doc.getElementById('progress-bar-wrap')
   const progressBar   = doc.getElementById('progress-bar')
@@ -307,6 +358,13 @@ export function bindDom(options: DomBindingOptions): () => void {
         card.className = `feedback-card ${isCorrect ? 'correct' : 'incorrect'}`
         renderLatexInElement(card, controller.state.feedbackText, katex)
         feedbackArea.appendChild(card)
+        // A1.3: surface the concept's hero visual under the feedback (collapsed).
+        // Especially useful on an incorrect answer — calculus visuals unlock
+        // intuition that prose alone can't.
+        const conceptId = controller.state.session?.targetConcept?.id
+        if (conceptId) {
+          void appendPracticeVisual(feedbackArea, conceptId, !isCorrect)
+        }
       }
 
       // Animate to next problem — use result.currentProblem which the server
@@ -720,6 +778,7 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
         if (mode && !(btn as HTMLButtonElement).disabled) setMode(mode)
       })
     })
+
 
     // ── Phase D: confidence chip + adaptive nudge ──
     const adaptive = await import('./adaptive.js')
