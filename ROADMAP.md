@@ -110,15 +110,38 @@ haven't built yet.
   New UI panel in Learn Mode (post-walkthrough), and as a standalone tab in
   Challenge Mode.
 
-### A3. Explore Mode (free-form "ask me anything")
-A chat surface where the student can ask anything; the app first classifies
-the question to a concept ID, then routes to a Socratic response anchored on
-that concept's authored content. Strict leash still applies — SLM may not
-introduce new math.
-- **Effort:** Medium (1 week)
-- **Impact:** Medium-high
-- **Tech notes:** Question → concept classifier (new prompt), then dispatch to
-  Learn Mode or Challenge Mode content. Hard-block off-topic drift.
+### A3. Explore Mode (free-form "ask me anything") — **DONE** (`5666f4e`)
+
+Fourth mode. Student types any question; the app routes it to a concept
+and answers using ONLY that concept's pre-authored content under the
+strict leash.
+
+**Two-tier router** (mirrors the A5 classifier pattern):
+- **Tier 1 (<1ms):** keyword scoring with IDF down-weighting against
+  concept name + one-liner + hand-curated alias map.
+- **Tier 2 (~1-2s):** SLM picks from top-3 candidates if tier-1 is
+  ambiguous; can also return "off_topic".
+
+**Strict-leash answer:** SLM receives the explanation + 3 misconceptions
++ 1 worked example for the routed concept and produces a 2-4 sentence
+response. No emojis, no filler, LaTeX for math, ends with at most one
+clarifying question.
+
+**Follow-up chips:** deterministic action chips after every agent
+message — Show me an example / Why does this work? / Common mistakes /
+A real-world use / Open Learn walkthrough. Chips pin the current
+concept so wording-generic follow-ups (e.g. "walk me through an
+example") don't drift off-topic.
+
+**Topic pivot:** if the router routes to a different concept than the
+previous turn, conversation memory resets.
+
+**Off-topic:** "I can only help with AP Calculus AB/BC" + 3 suggestion
+chips.
+
+**Tests:** 22 new ConceptRouter unit tests covering routing accuracy,
+off-topic detection, SLM disambiguation, and latency budgets.
+16/16 hand-crafted routing cases pass; full suite 285/290.
 
 ### A4. Custom-authored stretch problems
 The current `is_challenge=1` flag was set on existing application/proof-sketch
@@ -338,7 +361,7 @@ the path so far** (A2 done, A1 v1 done).
 
 | Strategy | Remaining order | Optimizes for |
 |---|---|---|
-| **Maximize student value** _(current track)_ | A3 → A4 → A1.3 | Make the existing experience materially better for the struggling student |
+| **Maximize student value** _(current track)_ | A4 → A1.3 → E2 | Make the existing experience materially better for the struggling student |
 | **Maximize distribution** | C1 → B1 → C3 | Turn into a school-purchasable product |
 | **Harden v1, then expand** | E2 → E5 → A5 | Lock in quality on the foundation before adding more surface area |
 
@@ -346,11 +369,12 @@ the path so far** (A2 done, A1 v1 done).
 
 ## Currently in flight
 
-_(nothing in flight — A1 v1, A1.2, A2, and A5 all shipped. Pick the
-next item from the lists above. Top recommendations:_
-- **A3 — Explore Mode:** free-form "ask me anything" with concept-graph routing
+_(nothing in flight — A1 v1, A1.2, A2, A3, and A5 all shipped. Pick
+the next item from the lists above. Top recommendations:_
 - **A4 — Custom-authored stretch problems:** harder, multi-concept,
   olympiad-flavored problems beyond reusing the existing practice bank
+- **A1.3 — Visuals expansion 2:** related-rates animated scenarios,
+  visuals on example/deep_dive/application slots, practice-mode visuals
 - **C1 — Teacher dashboard:** biggest distribution unlock
 - **E2 — Critique pass on the 20 authored concepts:** content quality
   foundation; uses the RUN_CRITIQUE=1 flag we already built_)
@@ -370,6 +394,7 @@ next item from the lists above. Top recommendations:_
 | **fix(db): recoverOrCreate full schema + WAL safety** | `c5c631c` | 209 |
 | **A5 — 5-tier deterministic classifier** | `244ab88` | 901 |
 | **A1.2 — Visuals expansion pack (all 20 concepts)** | `81c4623` | 1,250 |
+| **A3 — Explore Mode** | `5666f4e` | 1,361 |
 
 **Net since v1 merge:** ~3,750 lines added (≈2 new feature areas), 0
 broken tests (same 5 pre-existing infra failures).
@@ -388,4 +413,8 @@ broken tests (same 5 pre-existing infra failures).
   concept coverage via Opus-authored visuals; new slope_field
   primitive for ODE concepts; tangent/secant/segment line kinds on
   function_plot (A1.2).
+- Students can now ask any free-form question; the two-tier router
+  picks the right concept in <1ms and the agent answers under the
+  strict leash against pre-authored content. Follow-up chips deep-
+  link into Learn Mode (A3).
 
