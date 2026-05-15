@@ -1,0 +1,21 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Substitution Simplifies the Integrand",
+    "caption_md": "The blue curve shows the original integrand $f(x)=2x\\cos(x^2)$. The dashed orange curve shows the antiderivative $F(x)=\\sin(x^2)$, found by substituting $u=x^2$. The shaded area under $f(x)$ from $0$ to $x$ equals $F(x)-F(0)=\\sin(x^2)$. Drag $x$ to the right and watch the accumulated area track $\\sin(x^2)$ exactly — this confirms that the substitution $u=x^2$ correctly \"undoes\" the chain rule.",
+    "spec": {
+      "kind": "accumulation",
+      "expression": "2*x*cos(x^2)",
+      "axes": {
+        "xMin": -0.5,
+        "xMax": 3.5,
+        "yMin": -3.5,
+        "yMax": 3.5
+      },
+      "a": 0,
+      "xInitial": 1.2,
+      "xMin": 0,
+      "xMax": 3.2
+    }
+  }
+]

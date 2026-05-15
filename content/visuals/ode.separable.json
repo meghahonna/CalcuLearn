@@ -1,0 +1,21 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Slope field: $y' = y$",
+    "caption_md": "Each tiny arrow is the slope of $y$ at that point. Since $y' = y$, the slope at $(x,y)$ equals the height $y$. Drag the colored dot to change the initial condition and watch the exponential solution morph. This is the textbook separable ODE — its solution is $y = Ce^x$.",
+    "display_order": 0,
+    "spec": {
+      "kind": "slope_field",
+      "expression": "y",
+      "axes": {
+        "xMin": -3, "xMax": 3, "yMin": -4, "yMax": 4,
+        "xLabel": "x", "yLabel": "y"
+      },
+      "gridX": 12,
+      "gridY": 11,
+      "initialConditions": [
+        { "x": 0, "y": 1, "label": "y(0) = 1" }
+      ]
+    }
+  }
+]

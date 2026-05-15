@@ -1,0 +1,33 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Removable Discontinuity: A Hole in the Graph",
+    "caption_md": "This plot shows $f(x) = \\frac{x^2 - 4}{x - 2}$, which simplifies to $x + 2$ everywhere except at $x = 2$, where the function is undefined. The open circle marks the **removable discontinuity** (hole) at $(2, 4)$. Notice the two-sided limit $\\lim_{x \\to 2} f(x) = 4$ exists, but $f(2)$ is not defined — this is what makes the discontinuity removable rather than a jump or infinite discontinuity. Compare: a **jump** discontinuity would show two different finite values from the left and right, while an **infinite** discontinuity would show the curve blowing up toward $\\pm\\infty$ (a vertical asymptote).",
+    "spec": {
+      "kind": "function_plot",
+      "expression": "(x^2 - 4)/(x - 2)",
+      "axes": {
+        "xMin": -2,
+        "xMax": 6,
+        "yMin": -1,
+        "yMax": 9
+      },
+      "points": [
+        {
+          "x": 2,
+          "y": 4,
+          "label": "Hole: (2, 4)",
+          "style": "open"
+        }
+      ],
+      "lines": [
+        {
+          "kind": "horizontal",
+          "c": 4,
+          "label": "L = 4",
+          "style": "dashed"
+        }
+      ]
+    }
+  }
+]

@@ -22,6 +22,7 @@ import type {
   RiemannSumVisual,
   AccumulationVisual,
   LimitApproachVisual,
+  SlopeFieldVisual,
 } from './types.js'
 
 // ---------- constants ----------
@@ -205,6 +206,21 @@ function samplePath(
   return d
 }
 
+/**
+ * Numerical derivative via centered difference. Used for tangent lines
+ * in function_plot when the author doesn't supply an explicit slope.
+ */
+function numericDeriv(
+  f: (env: Record<string, number>) => number,
+  x: number,
+  h = 1e-4
+): number {
+  const a = f({ x: x - h })
+  const b = f({ x: x + h })
+  if (!Number.isFinite(a) || !Number.isFinite(b)) return NaN
+  return (b - a) / (2 * h)
+}
+
 // Build an SVG element with the standard viewBox.
 function makeSvg(): SVGElement {
   const svg = el('svg', {
@@ -364,25 +380,87 @@ function renderFunctionPlot(v: FunctionPlotVisual): HTMLElement {
     }
   }
 
-  // Lines (vertical asymptotes etc — static only)
+  // Lines: vertical, horizontal, tangent, secant, segment
   if (v.lines) {
+    const dashFor = (style?: string): string =>
+      style === 'dashed' ? '5,4' :
+      style === 'dotted' ? '1,3' :
+      style === 'solid'  ? '0'   : '3,3'
     for (const ln of v.lines) {
+      const color = ln.color ?? COLOR.tangent
       if (ln.kind === 'vertical' && typeof ln.c === 'number') {
         const px = t.toX(ln.c)
         el('line', {
           x1: px, y1: PAD.top, x2: px, y2: PAD.top + PLOT_H,
-          stroke: ln.color ?? COLOR.hole,
-          'stroke-width': 1.6,
-          'stroke-dasharray': ln.style === 'dashed' ? '5,4' : '3,3',
+          stroke: ln.color ?? COLOR.hole, 'stroke-width': 1.6,
+          'stroke-dasharray': dashFor(ln.style),
         }, svg)
       } else if (ln.kind === 'horizontal' && typeof ln.c === 'number') {
         const py = t.toY(ln.c)
         el('line', {
           x1: PAD.left, y1: py, x2: PAD.left + PLOT_W, y2: py,
-          stroke: ln.color ?? COLOR.tangent,
-          'stroke-width': 1.6,
-          'stroke-dasharray': ln.style === 'dashed' ? '5,4' : '3,3',
+          stroke: color, 'stroke-width': 1.6,
+          'stroke-dasharray': dashFor(ln.style),
         }, svg)
+      } else if (ln.kind === 'tangent' && typeof ln.at === 'number') {
+        // Tangent to f at x = at: y = f(at) + f'(at) * (x - at)
+        const at = ln.at
+        const y0 = f({ x: at })
+        const slope = numericDeriv(f, at)
+        if (Number.isFinite(y0) && Number.isFinite(slope)) {
+          const xL = v.axes.xMin, xR = v.axes.xMax
+          const yL = y0 + slope * (xL - at)
+          const yR = y0 + slope * (xR - at)
+          el('line', {
+            x1: t.toX(xL), y1: t.toY(yL),
+            x2: t.toX(xR), y2: t.toY(yR),
+            stroke: color, 'stroke-width': 2,
+            'stroke-dasharray': dashFor(ln.style ?? 'solid'),
+          }, svg)
+          if (ln.label) {
+            // Place label near the tangent point
+            const labY = t.toY(y0) - 8
+            const labX = t.toX(at) + 6
+            const labEl = el('text', {
+              x: labX, y: labY, 'font-size': 10,
+              fill: color, 'font-weight': '600',
+            }, svg)
+            labEl.textContent = ln.label
+          }
+        }
+      } else if (ln.kind === 'secant' && typeof ln.a === 'number' && typeof ln.b === 'number') {
+        const ya = f({ x: ln.a }), yb = f({ x: ln.b })
+        if (Number.isFinite(ya) && Number.isFinite(yb) && ln.b !== ln.a) {
+          const slope = (yb - ya) / (ln.b - ln.a)
+          const xL = v.axes.xMin, xR = v.axes.xMax
+          const yL = ya + slope * (xL - ln.a)
+          const yR = ya + slope * (xR - ln.a)
+          el('line', {
+            x1: t.toX(xL), y1: t.toY(yL),
+            x2: t.toX(xR), y2: t.toY(yR),
+            stroke: ln.color ?? COLOR.secant, 'stroke-width': 2,
+            'stroke-dasharray': dashFor(ln.style ?? 'dashed'),
+          }, svg)
+        }
+      } else if (ln.kind === 'segment') {
+        // Allow numeric (x,y) endpoints OR { y: 'f(x)' } meaning sample f at that x
+        const resolveY = (yv: unknown, xv: number): number => {
+          if (yv === 'f(x)') return f({ x: xv })
+          if (typeof yv === 'number') return yv
+          return NaN
+        }
+        if (typeof ln.x0 === 'number' && typeof ln.x1 === 'number') {
+          const y0 = resolveY(ln.y0, ln.x0)
+          const y1 = resolveY(ln.y1, ln.x1)
+          if (Number.isFinite(y0) && Number.isFinite(y1)) {
+            el('line', {
+              x1: t.toX(ln.x0), y1: t.toY(y0),
+              x2: t.toX(ln.x1), y2: t.toY(y1),
+              stroke: color, 'stroke-width': 2,
+              'stroke-dasharray': dashFor(ln.style ?? 'solid'),
+            }, svg)
+          }
+        }
       }
     }
   }
@@ -690,6 +768,182 @@ function renderLimitApproach(v: LimitApproachVisual): HTMLElement {
   return container
 }
 
+function renderSlopeField(v: SlopeFieldVisual): HTMLElement {
+  const container = document.createElement('div')
+  container.className = 'visual'
+  const t = mkAxisTransform(v.axes)
+  const f = compileExpression(v.expression)  // f(x, y) -- expects env { x, y }
+  const svg = makeSvg()
+  container.appendChild(svg)
+  drawAxes(svg, t)
+
+  // --- draw the slope-field arrows on a grid ---
+  const gridX = Math.max(4, Math.min(30, v.gridX ?? 14))
+  const gridY = Math.max(4, Math.min(30, v.gridY ?? 12))
+  const dx = (v.axes.xMax - v.axes.xMin) / gridX
+  const dy = (v.axes.yMax - v.axes.yMin) / gridY
+  // Each arrow is a small segment at the grid point, oriented by the slope.
+  // Length is the smaller of dx/dy so segments don't overlap their neighbours.
+  const segLen = Math.min(dx, dy) * 0.7
+  const arrowGroup = el('g', { 'stroke-width': 1, stroke: '#94a3b8', opacity: '0.85' }, svg)
+  for (let i = 0; i <= gridX; i++) {
+    const x = v.axes.xMin + i * dx
+    for (let j = 0; j <= gridY; j++) {
+      const y = v.axes.yMin + j * dy
+      const m = f({ x, y })
+      if (!Number.isFinite(m)) continue
+      // Convert slope to a unit vector (cap to avoid near-infinity verticals)
+      const cappedM = Math.max(-50, Math.min(50, m))
+      const norm = Math.sqrt(1 + cappedM * cappedM)
+      const ex = 1 / norm
+      const ey = cappedM / norm
+      const half = segLen / 2
+      const x1 = x - ex * half, y1 = y - ey * half
+      const x2 = x + ex * half, y2 = y + ey * half
+      el('line', {
+        x1: t.toX(x1), y1: t.toY(y1),
+        x2: t.toX(x2), y2: t.toY(y2),
+      }, arrowGroup)
+    }
+  }
+
+  // --- trace particular solutions ---
+  const SOLUTION_COLORS = [COLOR.tangent, COLOR.secant, '#7c3aed']
+  const initialConds = v.initialConditions ?? []
+  // Pre-create the solution path elements + interactive dot for the first IC.
+  const solutionEls: SVGPathElement[] = []
+  const labelEls: SVGTextElement[] = []
+  initialConds.forEach((_ic, idx) => {
+    const color = initialConds[idx]?.color ?? SOLUTION_COLORS[idx % SOLUTION_COLORS.length]!
+    const path = el('path', {
+      d: '',
+      fill: 'none',
+      stroke: color,
+      'stroke-width': 2,
+    }, svg) as SVGPathElement
+    solutionEls.push(path)
+    const lab = el('text', {
+      x: 0, y: 0, 'font-size': 10, fill: color, 'font-weight': '600',
+    }, svg) as SVGTextElement
+    labelEls.push(lab)
+  })
+
+  // Draggable initial point for IC #0 (when present)
+  let dragDot: SVGCircleElement | null = null
+  let activeIc: { x: number; y: number } | null = null
+  if (initialConds.length > 0) {
+    activeIc = { x: initialConds[0]!.x, y: initialConds[0]!.y }
+    dragDot = el('circle', {
+      cx: t.toX(activeIc.x),
+      cy: t.toY(activeIc.y),
+      r: 5,
+      fill: initialConds[0]?.color ?? SOLUTION_COLORS[0]!,
+      stroke: 'white',
+      'stroke-width': 1.5,
+      cursor: 'grab',
+    }, svg) as SVGCircleElement
+  }
+
+  /** Euler-integrate from (x0, y0) for steps in both directions. */
+  function traceSolution(x0: number, y0: number): string {
+    const h = v.stepSize ?? (v.axes.xMax - v.axes.xMin) / 200
+    // Walk forward until we exit the plot box, then walk backward similarly.
+    const forward: Array<[number, number]> = []
+    let x = x0, y = y0
+    for (let i = 0; i < 600; i++) {
+      forward.push([x, y])
+      const slope = f({ x, y })
+      if (!Number.isFinite(slope)) break
+      x += h
+      y += slope * h
+      if (x > v.axes.xMax + 0.1) break
+      if (y > v.axes.yMax + 1 || y < v.axes.yMin - 1) break
+    }
+    const backward: Array<[number, number]> = []
+    x = x0; y = y0
+    for (let i = 0; i < 600; i++) {
+      const slope = f({ x, y })
+      if (!Number.isFinite(slope)) break
+      x -= h
+      y -= slope * h
+      backward.push([x, y])
+      if (x < v.axes.xMin - 0.1) break
+      if (y > v.axes.yMax + 1 || y < v.axes.yMin - 1) break
+    }
+    const pts = [...backward.reverse(), ...forward]
+    if (pts.length === 0) return ''
+    let d = ''
+    for (let i = 0; i < pts.length; i++) {
+      const [px, py] = pts[i]!
+      const X = t.toX(px), Y = t.toY(py)
+      d += i === 0 ? `M${X.toFixed(2)},${Y.toFixed(2)}` : `L${X.toFixed(2)},${Y.toFixed(2)}`
+    }
+    return d
+  }
+
+  function update(): void {
+    initialConds.forEach((ic, idx) => {
+      // For idx === 0, use the active (potentially dragged) point; else use the spec's.
+      const x0 = idx === 0 && activeIc ? activeIc.x : ic.x
+      const y0 = idx === 0 && activeIc ? activeIc.y : ic.y
+      const d = traceSolution(x0, y0)
+      solutionEls[idx]!.setAttribute('d', d)
+      // Label near (x0, y0)
+      labelEls[idx]!.setAttribute('x', String(t.toX(x0) + 8))
+      labelEls[idx]!.setAttribute('y', String(t.toY(y0) - 6))
+      labelEls[idx]!.textContent =
+        ic.label ?? `(${formatTick(x0)}, ${formatTick(y0)})`
+    })
+    if (dragDot && activeIc) {
+      dragDot.setAttribute('cx', String(t.toX(activeIc.x)))
+      dragDot.setAttribute('cy', String(t.toY(activeIc.y)))
+    }
+  }
+  update()
+
+  // --- interaction: drag the first initial-condition point ---
+  if (dragDot && activeIc) {
+    let dragging = false
+    const onMove = (ev: PointerEvent): void => {
+      if (!dragging || !activeIc) return
+      const svgEl = svg as SVGSVGElement
+      const rect = svgEl.getBoundingClientRect()
+      const localX = (ev.clientX - rect.left) * (VB_W / rect.width)
+      const localY = (ev.clientY - rect.top) * (VB_H / rect.height)
+      // Map back to axis space
+      const xFrac = (localX - PAD.left) / PLOT_W
+      const yFrac = 1 - (localY - PAD.top) / PLOT_H
+      const x = v.axes.xMin + xFrac * (v.axes.xMax - v.axes.xMin)
+      const y = v.axes.yMin + yFrac * (v.axes.yMax - v.axes.yMin)
+      activeIc.x = Math.max(v.axes.xMin, Math.min(v.axes.xMax, x))
+      activeIc.y = Math.max(v.axes.yMin, Math.min(v.axes.yMax, y))
+      update()
+    }
+    dragDot.addEventListener('pointerdown', (e: PointerEvent) => {
+      dragging = true
+      ;(e.target as Element).setPointerCapture?.(e.pointerId)
+      ;(dragDot as SVGCircleElement).style.cursor = 'grabbing'
+    })
+    dragDot.addEventListener('pointermove', onMove)
+    const stop = (): void => {
+      dragging = false
+      if (dragDot) dragDot.style.cursor = 'grab'
+    }
+    dragDot.addEventListener('pointerup', stop)
+    dragDot.addEventListener('pointercancel', stop)
+  }
+
+  // No sliders — the drag interaction IS the control surface. But add a
+  // small hint chip below so the student knows.
+  if (dragDot) {
+    const hint = document.createElement('div')
+    hint.className = 'visual-controls visual-hint'
+    hint.textContent = 'Drag the dot to change the initial condition.'
+    container.appendChild(hint)
+  }
+  return container
+}
+
 // ---------- Public entry ----------
 
 /**
@@ -704,6 +958,7 @@ export function renderVisual(spec: Visual): HTMLElement {
       case 'riemann_sum': return renderRiemannSum(spec)
       case 'accumulation': return renderAccumulation(spec)
       case 'limit_approach': return renderLimitApproach(spec)
+      case 'slope_field': return renderSlopeField(spec)
       default: {
         const err = document.createElement('div')
         err.className = 'visual-error'

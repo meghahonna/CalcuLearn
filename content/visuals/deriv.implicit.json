@@ -1,0 +1,73 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Tangent Lines on a Circle via Implicit Differentiation",
+    "caption_md": "The circle $x^2 + y^2 = 25$ cannot be written as a single function $y = f(x)$, yet implicit differentiation gives us $\\frac{dy}{dx} = -\\frac{x}{y}$ at every point. Two tangent lines are shown: one at $(3, 4)$ with slope $-\\frac{3}{4}$, and one at $(-4, 3)$ with slope $\\frac{4}{3}$. Notice that each slope depends on **both** $x$ and $y$ — the same $x$-value can yield different slopes on the upper and lower halves of the circle. Verify each slope by plugging the point into $-x/y$.",
+    "spec": {
+      "kind": "function_plot",
+      "expression": "sqrt(25 - x^2)",
+      "axes": {
+        "xMin": -7,
+        "xMax": 7,
+        "yMin": -7,
+        "yMax": 7
+      },
+      "curves": [
+        {
+          "expression": "-1*sqrt(25 - x^2)",
+          "color": "#1a73e8",
+          "style": "solid"
+        }
+      ],
+      "points": [
+        {
+          "x": 3,
+          "y": 4,
+          "label": "(3, 4)",
+          "style": "filled"
+        },
+        {
+          "x": -4,
+          "y": 3,
+          "label": "(-4, 3)",
+          "style": "filled"
+        },
+        {
+          "x": 3,
+          "y": -4,
+          "label": "(3, -4)",
+          "style": "filled"
+        }
+      ],
+      "lines": [
+        {
+          "kind": "segment",
+          "x0": -1,
+          "y0": 7,
+          "x1": 7,
+          "y1": 1,
+          "label": "slope = -3/4",
+          "style": "solid"
+        },
+        {
+          "kind": "segment",
+          "x0": -7,
+          "y0": -1,
+          "x1": -1,
+          "y1": 7,
+          "label": "slope = 4/3",
+          "style": "solid"
+        },
+        {
+          "kind": "segment",
+          "x0": -1,
+          "y0": -7,
+          "x1": 7,
+          "y1": 1,
+          "label": "slope = 3/4",
+          "style": "dashed"
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Net Displacement as Accumulated Area",
+    "caption_md": "Here $v(t)=2\\sin(t)$ is a velocity function. Drag the right endpoint $x$ to sweep across the interval and watch the shaded area grow — that shaded region equals the net displacement $\\int_0^x v(t)\\,dt$. Notice how the accumulated value **increases** when $v(t)>0$ (moving forward) and **decreases** when $v(t)<0$ (moving backward). At $x=\\pi$ you have maximum displacement; by $x=2\\pi$ the positive and negative areas cancel and net displacement returns to 0.",
+    "spec": {
+      "kind": "accumulation",
+      "expression": "2*sin(x)",
+      "axes": {
+        "xMin": -0.5,
+        "xMax": 7,
+        "yMin": -3,
+        "yMax": 5
+      },
+      "a": 0,
+      "xInitial": 3.14,
+      "xMin": 0,
+      "xMax": 6.28
+    }
+  }
+]

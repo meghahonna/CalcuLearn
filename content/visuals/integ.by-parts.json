@@ -1,0 +1,21 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Integration by Parts: Accumulating ∫ x·eˣ dx",
+    "caption_md": "The shaded area shows $F(x) = \\int_0^x t\\,e^t\\,dt$ as you drag $x$ to the right. Integration by parts tells us this equals $x\\,e^x - e^x + 1$. Drag the upper bound and watch the accumulated area grow. Notice how the integrand $t\\,e^t$ is negative for $t<0$ (the product of a negative algebraic piece and a small exponential) and positive for $t>0$, so the area dips before climbing steeply — confirming why we need a technique like by-parts to antidifferentiate products.",
+    "spec": {
+      "kind": "accumulation",
+      "expression": "x*exp(x)",
+      "axes": {
+        "xMin": -2,
+        "xMax": 3,
+        "yMin": -2,
+        "yMax": 10
+      },
+      "a": 0,
+      "xInitial": 1,
+      "xMin": -2,
+      "xMax": 3
+    }
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Slope field: $y' + y = x$ (logistic-like)",
+    "caption_md": "A first-order linear ODE has an integrating-factor solution. Here we visualize a logistic-style equation $y' = 0.5y(1 - y/10)$: the slope field shows where $y$ grows toward the carrying capacity $y = 10$. Drag the dot to set $y(0)$ — anywhere below 10 grows up to it; anywhere above decays down.",
+    "display_order": 0,
+    "spec": {
+      "kind": "slope_field",
+      "expression": "0.5*y*(1 - y/10)",
+      "axes": {
+        "xMin": -1, "xMax": 8, "yMin": -2, "yMax": 13,
+        "xLabel": "x", "yLabel": "y"
+      },
+      "gridX": 14,
+      "gridY": 12,
+      "initialConditions": [
+        { "x": 0, "y": 1,  "label": "y(0) = 1"  },
+        { "x": 0, "y": 8,  "label": "y(0) = 8"  },
+        { "x": 0, "y": 11, "label": "y(0) = 11" }
+      ]
+    }
+  }
+]

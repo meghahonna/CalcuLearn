@@ -1,0 +1,49 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Chain Rule: Tangent to a Composition",
+    "caption_md": "The curve shows the composition $f(x) = (x^2+1)^3$. The dashed tangent line at $x=1$ has slope $6x(x^2+1)^2$ evaluated there, giving $6 \\cdot 1 \\cdot (1+1)^2 = 24$. Notice that if you forgot the inner derivative $g'(x)=2x$, you would get slope $3(x^2+1)^2 = 12$ — exactly half the correct value. The dotted curve shows the \"outer-only\" mistake $3(x^2+1)^2$ so you can see the wrong slope visually. The chain rule's extra factor of $g'(x)$ is what makes the tangent line match the actual curve.",
+    "spec": {
+      "kind": "function_plot",
+      "expression": "(x^2+1)^3",
+      "axes": {
+        "xMin": -2,
+        "xMax": 2,
+        "yMin": -5,
+        "yMax": 70
+      },
+      "points": [
+        {
+          "x": 1,
+          "y": "f(x)",
+          "label": "(1, 8)",
+          "style": "filled"
+        }
+      ],
+      "lines": [
+        {
+          "kind": "tangent",
+          "at": 1,
+          "label": "slope = 24 (chain rule)",
+          "style": "solid"
+        },
+        {
+          "kind": "segment",
+          "x0": -0.5,
+          "y0": -12,
+          "x1": 2,
+          "y1": 48,
+          "label": "slope = 12 (no chain rule — wrong)",
+          "style": "dashed"
+        }
+      ],
+      "curves": [
+        {
+          "expression": "3*(x^2+1)^2",
+          "color": "#cc4444",
+          "style": "dashed"
+        }
+      ]
+    }
+  }
+]

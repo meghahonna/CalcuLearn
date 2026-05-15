@@ -168,12 +168,41 @@ export interface LimitApproachVisual {
   limitValue?: number
 }
 
+/**
+ * 'slope_field' — direction field for a first-order ODE y' = f(x, y).
+ * Draws short tangent line segments at a grid of (x, y) points whose slopes
+ * are given by the expression. Optionally overlays one or more particular
+ * solution curves traced by Euler's method, anchored at user-draggable
+ * initial conditions.
+ */
+export interface SlopeFieldVisual {
+  kind: 'slope_field'
+  /** Expression in x and y, e.g. "x*y", "y - x", "-x/y", "0.5*y*(1 - y/10)". */
+  expression: string
+  axes: AxisConfig
+  /** Grid density along each axis. Defaults to 12. */
+  gridX?: number
+  gridY?: number
+  /**
+   * Initial conditions to trace. Each becomes a solution curve. The first
+   * one is also exposed as a draggable point (the student can move the
+   * initial condition and watch the solution morph).
+   */
+  initialConditions?: Array<{ x: number; y: number; color?: string; label?: string }>
+  /**
+   * Step size for Euler integration. Smaller = more accurate but slower.
+   * Defaults to (axes.xMax - axes.xMin) / 200.
+   */
+  stepSize?: number
+}
+
 export type Visual =
   | FunctionPlotVisual
   | SecantToTangentVisual
   | RiemannSumVisual
   | AccumulationVisual
   | LimitApproachVisual
+  | SlopeFieldVisual
 
 /** Row-level wrapper as stored in concept_visuals. */
 export interface ConceptVisual {

@@ -1,0 +1,40 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Product Rule: Visualizing h(x) = x² sin x and Its Derivative",
+    "caption_md": "The blue curve is $h(x)=x^2\\sin x$, and the dashed orange curve is its derivative $h'(x)=2x\\sin x + x^2\\cos x$, computed via the product rule. The tangent line is drawn at $x=1.5$. Notice that the tangent line's slope equals the value of the orange curve at $x=1.5$. Where the orange curve crosses zero, the blue curve has a local max or min — the tangent line there would be horizontal.",
+    "spec": {
+      "kind": "function_plot",
+      "expression": "(x^2)*sin(x)",
+      "axes": {
+        "xMin": -4,
+        "xMax": 4,
+        "yMin": -10,
+        "yMax": 10
+      },
+      "lines": [
+        {
+          "kind": "tangent",
+          "at": 1.5,
+          "label": "tangent at x = 1.5",
+          "style": "solid"
+        }
+      ],
+      "curves": [
+        {
+          "expression": "2*x*sin(x)+(x^2)*cos(x)",
+          "color": "#E67E22",
+          "style": "dashed"
+        }
+      ],
+      "points": [
+        {
+          "x": 1.5,
+          "y": "f(x)",
+          "label": "(1.5, h(1.5))",
+          "style": "filled"
+        }
+      ]
+    }
+  }
+]

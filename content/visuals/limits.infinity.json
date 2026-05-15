@@ -1,0 +1,63 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Limits at Infinity and Horizontal Asymptotes",
+    "caption_md": "The curve shows $f(x) = \\frac{3x^2 + 5}{7x^2 - x}$. The dashed line marks the horizontal asymptote $y = \\frac{3}{7}$. Notice how, as $x$ grows large in either direction, $f(x)$ settles closer and closer to $\\frac{3}{7}$. The key technique: divide numerator and denominator by $x^2$, and every $\\frac{k}{x^n}$ term vanishes, leaving only the ratio of leading coefficients. Trace the curve with your eye toward the far left and far right — the gap between $f(x)$ and the asymptote shrinks toward zero in both directions.",
+    "spec": {
+      "kind": "function_plot",
+      "expression": "(3*x^2 + 5)/(7*x^2 - x)",
+      "axes": {
+        "xMin": -15,
+        "xMax": 15,
+        "yMin": -0.5,
+        "yMax": 1.5
+      },
+      "points": [
+        {
+          "x": 1,
+          "y": "f(x)",
+          "label": "f(1) ≈ 1.33",
+          "style": "filled"
+        },
+        {
+          "x": 5,
+          "y": "f(x)",
+          "label": "f(5) ≈ 0.47",
+          "style": "filled"
+        },
+        {
+          "x": 15,
+          "y": "f(x)",
+          "label": "f(15) ≈ 0.44",
+          "style": "filled"
+        },
+        {
+          "x": -15,
+          "y": "f(x)",
+          "label": "f(−15) ≈ 0.43",
+          "style": "filled"
+        }
+      ],
+      "lines": [
+        {
+          "kind": "horizontal",
+          "c": 0.42857142857,
+          "label": "y = 3/7",
+          "style": "dashed"
+        },
+        {
+          "kind": "vertical",
+          "c": 0,
+          "label": "x = 0 (excluded)",
+          "style": "dashed"
+        },
+        {
+          "kind": "vertical",
+          "c": 0.142857,
+          "label": "x = 1/7 (excluded)",
+          "style": "dashed"
+        }
+      ]
+    }
+  }
+]

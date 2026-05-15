@@ -1,0 +1,23 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Continuity Check: Does the Limit Match the Value?",
+    "caption_md": "Drag the epsilon slider toward 0 and watch the two approach dots squeeze toward $x = 2$. The limit of $f(x) = \\frac{x^2 - 4}{x - 2}$ as $x \\to 2$ is $4$, but the function is defined as $f(2) = 10$ (the filled dot). Because $\\lim_{x \\to 2} f(x) = 4 \\neq 10 = f(2)$, condition 3 of continuity fails. Notice the open hole at $(2, 4)$ and the misplaced filled dot at $(2, 10)$ — that gap is exactly what discontinuity looks like.",
+    "spec": {
+      "kind": "limit_approach",
+      "expression": "(x^2 - 4)/(x - 2)",
+      "axes": {
+        "xMin": -1,
+        "xMax": 5,
+        "yMin": -1,
+        "yMax": 12
+      },
+      "c": 2,
+      "epsilonInitial": 0.5,
+      "epsilonMin": 0.01,
+      "epsilonMax": 1.5,
+      "hole": true,
+      "limitValue": 4
+    }
+  }
+]

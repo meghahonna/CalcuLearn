@@ -1,0 +1,45 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Finding the Maximum: Critical Point of an Objective Function",
+    "caption_md": "Consider the objective function $A(x) = -2x^2 + 8x + 3$, which models a quantity we want to maximize. Setting $A'(x) = -4x + 8 = 0$ gives the critical point $x = 2$. The tangent line at $x = 2$ is horizontal (slope $= 0$), confirming this is a critical point. Since $A''(x) = -4 < 0$, the second-derivative test tells us this is a local maximum. Notice how the endpoints of the domain $[0, 5]$ give smaller values: $A(0) = 3$ and $A(5) = -17$. On a closed interval, always compare the critical-point value with the endpoint values.",
+    "spec": {
+      "kind": "function_plot",
+      "expression": "-2*x^2 + 8*x + 3",
+      "axes": {
+        "xMin": -0.5,
+        "xMax": 5.5,
+        "yMin": -20,
+        "yMax": 14
+      },
+      "points": [
+        {
+          "x": 2,
+          "y": "f(x)",
+          "label": "Max: (2, 11)",
+          "style": "filled"
+        },
+        {
+          "x": 0,
+          "y": "f(x)",
+          "label": "Endpoint (0, 3)",
+          "style": "filled"
+        },
+        {
+          "x": 5,
+          "y": "f(x)",
+          "label": "Endpoint (5, −17)",
+          "style": "filled"
+        }
+      ],
+      "lines": [
+        {
+          "kind": "tangent",
+          "at": 2,
+          "label": "f'(2) = 0 (horizontal tangent)",
+          "style": "dashed"
+        }
+      ]
+    }
+  }
+]

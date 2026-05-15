@@ -1,0 +1,23 @@
+[
+  {
+    "slot": "explanation",
+    "title": "L'Hôpital's Rule: Seeing the 0/0 Form",
+    "caption_md": "This shows $f(x) = \\sin x$ (blue) and $g(x) = x$ (dashed orange), which form the ratio $\\frac{\\sin x}{x}$. At $x = 0$ both functions equal 0, giving the indeterminate form $\\frac{0}{0}$. The open dot marks the hole in the ratio at $x = 0$. Drag $\\varepsilon$ toward 0 and watch the two approach dots squeeze toward the hole. Notice that the ratio's value settles to 1 — the same answer L'Hôpital's Rule gives: $\\lim_{x\\to 0}\\frac{\\cos x}{1} = 1$. The key geometric insight is that near $x=0$, $\\sin x$ and $x$ look nearly identical, so their ratio approaches 1.",
+    "spec": {
+      "kind": "limit_approach",
+      "expression": "sin(x)/x",
+      "axes": {
+        "xMin": -4,
+        "xMax": 4,
+        "yMin": -0.5,
+        "yMax": 1.5
+      },
+      "c": 0,
+      "epsilonInitial": 0.5,
+      "epsilonMin": 0.01,
+      "epsilonMax": 1.5,
+      "hole": true,
+      "limitValue": 1
+    }
+  }
+]

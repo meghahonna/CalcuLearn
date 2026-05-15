@@ -1,0 +1,40 @@
+[
+  {
+    "slot": "explanation",
+    "title": "Quotient Rule in Action",
+    "caption_md": "The blue curve is $Q(x) = \\frac{x^2}{\\sin x}$, the example from the lesson. The dashed tangent line at $x = 1$ has slope given by the Quotient Rule: $$Q'(x) = \\frac{2x\\,\\sin x - x^2\\,\\cos x}{\\sin^2 x}.$$ At $x=1$ this evaluates to $Q'(1) \\approx 1.53$. The orange dashed curve is the derivative $Q'(x)$ itself. Notice how the tangent line's slope matches the height of the orange curve at $x=1$. Verify that swapping the subtraction order (the most common mistake) would give you the wrong sign for the slope.",
+    "spec": {
+      "kind": "function_plot",
+      "expression": "(x^2)/sin(x)",
+      "axes": {
+        "xMin": 0.3,
+        "xMax": 3.5,
+        "yMin": -1,
+        "yMax": 8
+      },
+      "points": [
+        {
+          "x": 1,
+          "y": "f(x)",
+          "label": "(1, Q(1))",
+          "style": "filled"
+        }
+      ],
+      "lines": [
+        {
+          "kind": "tangent",
+          "at": 1,
+          "label": "slope ≈ 1.53",
+          "style": "dashed"
+        }
+      ],
+      "curves": [
+        {
+          "expression": "(2*x*sin(x) - x^2*cos(x))/(sin(x)^2)",
+          "color": "#E67E22",
+          "style": "dashed"
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,63 @@
+[
+  {
+    "slot": "explanation",
+    "title": "One-Sided Limits on a Piecewise Function",
+    "caption_md": "This graph shows the piecewise function $f(x) = x + 1$ for $x < 2$ and $f(x) = 5$ for $x \\ge 2$. Drag the epsilon slider toward 0 to squeeze in on $x = 2$ from both sides. Notice that the left-hand approach settles near $y = 3$ while the right-hand approach settles near $y = 5$. Because $\\lim_{x \\to 2^-} f(x) = 3 \\neq 5 = \\lim_{x \\to 2^+} f(x)$, the two-sided limit does not exist. The open circle at $(2, 3)$ reminds you that $f(2) = 5$, not 3 — the function value at $c$ is separate from the limit.",
+    "spec": {
+      "kind": "function_plot",
+      "expression": "x + 1",
+      "axes": {
+        "xMin": -1,
+        "xMax": 5,
+        "yMin": -0.5,
+        "yMax": 7
+      },
+      "points": [
+        {
+          "x": 2,
+          "y": 3,
+          "label": "(2, 3) hole",
+          "style": "open"
+        },
+        {
+          "x": 2,
+          "y": 5,
+          "label": "f(2) = 5",
+          "style": "filled"
+        },
+        {
+          "x": 1,
+          "y": 2,
+          "label": "left approach → 3",
+          "style": "filled"
+        },
+        {
+          "x": 3,
+          "y": 5,
+          "label": "right approach → 5",
+          "style": "filled"
+        }
+      ],
+      "lines": [
+        {
+          "kind": "vertical",
+          "c": 2,
+          "label": "x = 2",
+          "style": "dashed"
+        }
+      ],
+      "curves": [
+        {
+          "expression": "x + 1",
+          "color": "#2563eb",
+          "style": "solid"
+        },
+        {
+          "expression": "5",
+          "color": "#dc2626",
+          "style": "solid"
+        }
+      ]
+    }
+  }
+]
