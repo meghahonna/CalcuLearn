@@ -1,0 +1,67 @@
+{
+  "conceptId": "ode.first-order-linear",
+  "conceptName": "First-Order Linear ODEs",
+  "verdict": "issues_found",
+  "overall_severity": "minor",
+  "issues": [
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "explanations[0].body_md",
+      "description": "The Picard-Lindelöf theorem is referenced by name, which is beyond AP BC scope. While the existence/uniqueness discussion is a nice enrichment for the advanced tier, students may be confused by a named theorem they won't encounter on the AP exam.",
+      "suggested_fix": "Consider noting explicitly that this theorem is beyond the AP curriculum, or simply state the existence-uniqueness result without the formal name."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "explanations[0].body_md, stretch question",
+      "description": "The stretch question about when the general solution is a polynomial given P(x)=n/x is interesting but somewhat disconnected from the rest of the explanation. No hint or direction is given, which may leave even advanced students without a productive entry point.",
+      "suggested_fix": "Add a brief hint, e.g., 'Try substituting a polynomial of degree d and matching coefficients.'"
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "explanations[3].body_md (on_pace tier)",
+      "description": "The on_pace explanation says 'If Q(x) = 0 the equation is separable (territory you already know).' This is true but could mislead: the prerequisites list is empty, so the concept does not formally assume students know separable equations. Similarly the final sentence references 'second-order equations if you continue into BC or differential-equations courses,' but this concept is itself on the BC track.",
+      "suggested_fix": "Either add separable ODEs as a prerequisite, or soften to 'which you may have already seen.' Change the second-order reference to 'in a differential equations course' (not 'BC')."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[1].body_md (novice tier, last line)",
+      "description": "'If the algebra feels heavy at first, that's completely normal.' While empathetic, this borders on filler.",
+      "suggested_fix": "Could be trimmed or removed without loss."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "deep_dives[1].body_md",
+      "description": "The Bernoulli equation, Riccati equation, and homogeneous equation transformations are well beyond AP BC scope. While deep dives can go further, labeling this as a deep dive without noting it is extra-curricular could confuse AP students about what they need to know.",
+      "suggested_fix": "Add a brief note at the top: 'This material goes beyond the AP BC curriculum and is included for enrichment.'"
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "applications[1] (engineering CSTR problem)",
+      "description": "The ODE dS/dt + (1/50)S = 0 is separable (Q=0), and the solution outline even says 'or simply separate variables.' While the integrating factor method still works, using a separable equation as the application example for a concept about first-order linear ODEs (where the whole point is that Q(x) ≠ 0 prevents separation) slightly undermines the pedagogical message. The novice explanation (framing_index 1, the mixing tank) is a better model because it has nonzero Q(t).",
+      "suggested_fix": "Modify the problem so that the inflow also carries some salt (e.g., a lower concentration brine), making Q(t) ≠ 0 and the equation genuinely non-separable."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "deep_dives[0].body_md, verification example",
+      "description": "The verification example uses y' + 2x y = x with integrating factor e^{x^2}. The resulting integral ∫ x e^{x^2} dx = (1/2)e^{x^2} + C is straightforward, but this is never completed in the text — the deep dive just says 'which you can integrate directly' without showing the final answer. This is fine for a deep dive, but slightly inconsistent with the thorough style elsewhere.",
+      "suggested_fix": "Optionally add: 'yielding e^{x^2} y = (1/2)e^{x^2} + C, so y = 1/2 + Ce^{-x^2}.'"
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "prerequisites",
+      "description": "The prerequisites array is empty, yet the content repeatedly references separable equations, integration by parts, u-substitution, and the product rule as assumed knowledge.",
+      "suggested_fix": "Add relevant prerequisites such as separable ODEs, integration techniques, and the product rule."
+    }
+  ],
+  "summary": "Mathematically accurate and pedagogically strong across all tiers; issues are minor and mostly involve empty prerequisites, one application that is separable rather than genuinely linear, and a few AP-scope labeling nits.",
+  "critiquedAt": "2026-05-15T19:28:33.199Z",
+  "modelVersion": "claude-opus-4-6"
+}

@@ -452,16 +452,58 @@ WHERE difficulty IN ('proof-sketch', 'application')
    AND concept_id = '<concept_id>';
 ```
 
-### 8.4 Critique pass (deferred to E2)
+### 8.4 Critique pass (E2 — shipped)
 
+Two flavours:
+
+**Single-concept critique (free-form):**
 ```bash
 RUN_CRITIQUE=1 npx tsx scripts/authoring/authorConcept.ts <concept_id>
 ```
+Asks Opus to review the just-authored concept and emit free-form
+prose critique. Useful when iterating on a single concept.
 
-The `RUN_CRITIQUE` flag asks Opus, in a second call, to play
-"senior AP teacher reviewing AI-authored content" and flag issues.
-Hasn't been run systematically across all 20 concepts yet — this is
-the E2 item on the roadmap.
+**Structured batch critique (across many concepts):**
+```bash
+# All concepts in the DB
+npx tsx scripts/authoring/critiqueAll.ts
+
+# Specific concepts only
+npx tsx scripts/authoring/critiqueAll.ts deriv.chain-rule limits.lhopital
+
+# Skip already-critiqued concepts
+npx tsx scripts/authoring/critiqueAll.ts --resume
+```
+
+Pulls each concept's full content from SQLite, asks Opus to apply a
+5-category rubric (math accuracy / pedagogy / AP alignment /
+consistency / style), and emits a STRUCTURED JSON verdict per concept
+with severity-ranked issues. Generates `content/critiques/<id>.json`
+per concept and a `SUMMARY.md` rollup.
+
+Sample verdict:
+```json
+{
+  "verdict": "issues_found",
+  "overall_severity": "minor",
+  "issues": [
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "checks[1].expected_answer_md",
+      "description": "$3(5x)^2 \\cdot 5 = 75x^2$ should simplify to $375x^2$",
+      "suggested_fix": "Change '= 75x^2' to '= 375x^2' in the expected answer."
+    }
+  ],
+  "summary": "Mathematically sound and pedagogically strong overall."
+}
+```
+
+Initial run (May 2026) across all 20 concepts found 2 critical
+issues (mathematical contradictions in application problems) and 21
+important issues (mostly AP-curriculum drift in advanced tiers).
+Both critical issues were fixed; the remaining important issues are
+documented and addressable iteratively.
 
 ---
 

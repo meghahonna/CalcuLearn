@@ -1,0 +1,60 @@
+{
+  "conceptId": "deriv.quotient-rule",
+  "conceptName": "Quotient Rule",
+  "verdict": "issues_found",
+  "overall_severity": "important",
+  "issues": [
+    {
+      "severity": "important",
+      "category": "ap_alignment",
+      "location": "explanations (all tiers), prerequisites[]",
+      "description": "The prerequisites array is empty, yet every explanation tier references prior knowledge of the product rule and/or the chain rule (e.g., 'You already know the product rule'). The product rule and basic derivative rules should be listed as prerequisites so the app's prerequisite graph is correct.",
+      "suggested_fix": "Add at least 'deriv.product-rule' and 'deriv.power-rule' (and ideally 'deriv.chain-rule' for the advanced and second novice framings) to the prerequisites array."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "applications[1].solution_outline_md, Part (b)",
+      "description": "The numerator factor evaluated at t=5 is t^2 + 8t + 40 = 25 + 40 + 40 = 105, but 25 + 40 + 40 = 105 is wrong: 8*5 = 40, so 25 + 40 + 40 = 105 is presented as if 8t = 40 when it is indeed 40, but then the expression should read (25 + 40 + 40). The written grouping '25 + 40 + 40' is confusing because the three terms of the quadratic are t^2=25, 8t=40, 40=40, so it should be clearer as (25 + 40 + 40). Actually the arithmetic is correct (105), but the way it's presented doesn't clearly map to the three terms. This is very minor.",
+      "suggested_fix": "Write it as $25 + 40 + 40 = 105$ with labels, or simply $5^2 + 8(5) + 40 = 25 + 40 + 40 = 105$."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "applications[1].solution_outline_md, Part (b)",
+      "description": "A(5) = 60 dollars per pound is an unrealistically high cost for coffee, which might momentarily confuse a student. This is a minor realism issue with the chosen model parameters.",
+      "suggested_fix": "Consider adjusting model parameters for more realistic numbers, or add a brief note that the model is simplified/illustrative."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[0].body_md (advanced tier)",
+      "description": "The advanced explanation says 'You already know the product rule' which is fine, but the opening line is very similar across all three tiers, reading almost like filler. The advanced tier should get to the formal statement even more quickly.",
+      "suggested_fix": "Trim the opening sentence or make it more distinctive for the advanced tier."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "checks[0] (advanced tier)",
+      "description": "The expected_pattern regex uses 'product\\s*rule' but the expected answer's key insight is that g(x) is not a constant / linearity doesn't extend to quotients. The regex could match a response that merely mentions the product rule without identifying the actual flaw. Not a serious issue but the regex could be tighter.",
+      "suggested_fix": "Consider requiring the pattern to match something about g not being constant AND product rule, e.g., adding an AND condition or adjusting the alternation."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "applications[0].problem_md (physics)",
+      "description": "The problem narrative says 'mass can be expressed as m(t) = p(t)/v(t)' and describes a system gaining mass at 2 kg/s. While mathematically consistent, a rocket car collecting mass at a constant rate while having linearly increasing velocity and quadratically increasing momentum is a somewhat contrived scenario. This is acceptable for a math exercise but could be noted as simplified.",
+      "suggested_fix": "No change strictly needed; optionally add a note that the model is idealized."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "deep_dives[0].body_md",
+      "description": "The phrase 'A limit-definition check' subsection says 'adding and subtracting f(x)g(x)' but the standard trick is to add and subtract f(x)g(x+h) (or equivalently g(x)f(x+h)). The description is slightly imprecise about which cross term is added and subtracted.",
+      "suggested_fix": "Change to 'adding and subtracting $f(x)\\,g(x+h)$' or similar precise statement of the standard trick."
+    }
+  ],
+  "summary": "Content is mathematically sound and pedagogically strong overall; the main issue is that the prerequisites array is empty despite all explanations relying on prior knowledge of the product rule and chain rule, which should be fixed for correct app sequencing.",
+  "critiquedAt": "2026-05-15T19:27:10.307Z",
+  "modelVersion": "claude-opus-4-6"
+}

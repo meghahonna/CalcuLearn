@@ -1,0 +1,53 @@
+{
+  "conceptId": "limits.infinity",
+  "conceptName": "Limits at Infinity",
+  "verdict": "issues_found",
+  "overall_severity": "important",
+  "issues": [
+    {
+      "severity": "important",
+      "category": "math",
+      "location": "examples[0].steps[3]",
+      "description": "The Squeeze Theorem argument as written applies only to the approximate expression sin(x)/(4x^2), not to the exact expression. The step claims rigor via Squeeze but doesn't actually bound the original expression — it bounds the linearized version. The preceding 'why' note mentions controlling the O(u^2) remainder, but the main step_md never does this. A student following the 'rigorous' argument would not actually have a complete proof. The error term from the Taylor expansion needs to be explicitly bounded in the step itself, not just mentioned parenthetically in the why note.",
+      "suggested_fix": "In step 4, explicitly bound the full expression (not just the linearized version). For instance, use the conjugate/rationalization approach: multiply numerator and denominator by (sqrt(4x^6 + x^3 sin x) + 2x^3) to get the exact numerator x^3 sin x, then bound |x^3 sin x| ≤ x^3 and note the denominator is ≥ 2x^3 · x^2 = 2x^5 for large x, giving |expression| ≤ 1/(2x^2) → 0. This avoids the hand-wavy linearization-then-claim-rigor issue."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "examples[0].steps[4].why_md",
+      "description": "The stretch question claims that replacing x^2 denominator with 1 gives limit sin(x)/4, which 'oscillates and has no limit.' While true, the preceding sentence says 'the limit of the numerator itself is sin(x)/4' — this is imprecise. The numerator's limit doesn't equal sin(x)/4; rather, the full expression with denominator 1 behaves like sin(x)/4 for large x, which has no limit.",
+      "suggested_fix": "Rephrase to: 'then the expression itself behaves like sin(x)/4 for large x, which oscillates and has no limit.'"
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "explanations[0].body_md",
+      "description": "The advanced explanation says 'No mystery here — M plays the role that delta played before, but it bounds magnitude rather than proximity.' This is slightly misleading: delta bounds proximity (|x - c| < delta), and M bounds how far out x is (x > M). Saying M 'bounds magnitude' could confuse students since |x| > M is not exactly the same framing used (x > M for +∞).",
+      "suggested_fix": "Rephrase to something like: 'M plays the role that delta played, but instead of requiring x to be within delta of a point c, it requires x to be beyond the threshold M.'"
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[1].intuition_md",
+      "description": "The highway/driving analogy is used in both the novice tier (framing_index 0) intuition and the on_pace tier intuition. While not wrong, the repetition reduces pedagogical variety across tiers.",
+      "suggested_fix": "Consider using a different analogy for one of the two tiers to provide varied intuitive anchors."
+    },
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "deep_dives[1].body_md",
+      "description": "The Cesàro averages follow-up, while mathematically interesting, goes well beyond AP scope. This is acceptable for a deep dive but worth noting it's clearly beyond BC level.",
+      "suggested_fix": "No change needed, but optionally add a note that this is a college-level analysis topic."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "checks[0]",
+      "description": "The advanced check question asks the student to state the 'precise operation' in 'one sentence,' but the expected_pattern regex checks for keywords like 'multiply' and 'by 1' rather than verifying a one-sentence response. This is fine for automated grading but the expected_answer_md could be slightly tighter — it currently has two sentences.",
+      "suggested_fix": "Either combine the expected answer into one sentence or relax the 'one sentence' instruction to 'briefly.'"
+    }
+  ],
+  "summary": "Mathematically sound overall, but the advanced worked example's claim of rigor via Squeeze Theorem is incomplete — the linearization is heuristic and the actual bounding step is relegated to a parenthetical 'why' note rather than being shown in the main work, which could mislead an advanced student about what constitutes a rigorous argument.",
+  "critiquedAt": "2026-05-15T19:28:09.137Z",
+  "modelVersion": "claude-opus-4-6"
+}

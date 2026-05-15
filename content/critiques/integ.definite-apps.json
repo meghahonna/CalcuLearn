@@ -1,0 +1,67 @@
+{
+  "conceptId": "integ.definite-apps",
+  "conceptName": "Applications of Definite Integrals",
+  "verdict": "issues_found",
+  "overall_severity": "minor",
+  "issues": [
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "explanations[0].body_md",
+      "description": "The Mean Value Theorem for Integrals guarantees some c in the *closed* interval [a,b], not the open interval (a,b). The statement says 'some c∈(a,b)' but the standard theorem guarantees c∈[a,b] (though for continuous f on [a,b] one can indeed get c in the open interval via IVT, the conventional statement uses the closed interval).",
+      "suggested_fix": "Change 'c∈(a,b)' to 'c∈[a,b]' to match the standard statement, or add a brief note that continuity actually lets you strengthen to the open interval."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "explanations[1].body_md (novice tier, area between curves)",
+      "description": "The evaluation at x = -1 is shown as 1/3 + 1/2 - 2 = -7/6, but the intermediate arithmetic is not shown. A novice would benefit from seeing: -(-1)^3/3 + (-1)^2/2 + 2(-1) = 1/3 + 1/2 - 2. The sign manipulations with the cube term could easily confuse a novice.",
+      "suggested_fix": "Add one line showing the substitution explicitly: -(-1)^3/3 + (-1)^2/2 + 2(-1) = -(-1)/3 + 1/2 - 2 = 1/3 + 1/2 - 2 = -7/6."
+    },
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "explanations[2].body_md (novice, displacement vs distance)",
+      "description": "The novice explanation ends with 'You already know substitution, so the actual integration isn't the hard part.' This is a potentially confusing forward reference for a novice who may not have studied u-substitution yet, and substitution isn't actually needed for this example.",
+      "suggested_fix": "Remove or rephrase the substitution reference, e.g., 'The polynomial integration isn't the hard part — it's remembering to split correctly.'"
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "explanations[3].body_md (on_pace tier)",
+      "description": "The on-pace explanation mentions 'Volumes of revolution (BC and some AB curricula)' and includes disk/washer methods. Volumes of known cross-sections and volumes of revolution (disk/washer) are standard AB topics per the CED (Units 8.7–8.12). Labeling them as 'BC and some AB' could confuse students.",
+      "suggested_fix": "Change to 'Volumes of revolution (AB and BC)' or simply remove the parenthetical qualifier, since disk/washer methods are squarely in the AB curriculum."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "misconceptions[3] (using_wrong_axis_for_washer_radius)",
+      "description": "The example given actually shows a disk method setup (single curve revolved), not a washer. The misconception title says 'washer radius' but only one radius is discussed. Slightly misleading.",
+      "suggested_fix": "Either add an inner radius to make it a true washer example, or change the short_name/description to reference the disk/washer method more generally."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "applications[0].solution_outline_md, Part (b)",
+      "description": "The position function derivation uses x(4)=200 as anchor and obtains x(t) = 15t^2 - 0.125t^4 - 8. Checking x(0) = -8 is noted as 'the sled started 8 m behind it.' However, an alternative and arguably cleaner approach would use v(0)=0 and integrate from 0 to get x(t)=x(0)+15t^2-0.125t^4, then use x(4)=200 to find x(0)=-8. The current derivation is correct but the narrative 'The sled did not literally start at the origin' might confuse students who expect the starting point to be the origin. This is a minor pedagogical note, not an error.",
+      "suggested_fix": "Add a brief clarifying sentence: 'Here the coordinate system is defined by the sensor's position, so the starting position x(0) = -8 m simply means the sled began 8 m before the coordinate origin.'"
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "deep_dives[0].body_md",
+      "description": "The deep dive references the expected value E[f(X)] for X ~ Uniform(a,b) and connects to probability. While mathematically enriching, this is outside AP Calculus AB/BC scope. It's fine as a deep dive but could benefit from a brief note that this is beyond the AP curriculum.",
+      "suggested_fix": "Add a parenthetical like '(this connection to probability goes beyond the AP curriculum but illustrates why the formula works).'"
+    },
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "concept top-level",
+      "description": "The prerequisites array is empty. This concept clearly depends on understanding definite integrals, the Fundamental Theorem of Calculus, and basic antidifferentiation techniques. An empty prerequisites list could cause the app to surface this concept too early.",
+      "suggested_fix": "Add appropriate prerequisite concept IDs such as those for definite integrals and the FTC."
+    }
+  ],
+  "summary": "Content is mathematically accurate and pedagogically strong across all tiers; issues are uniformly minor — small clarifications in arithmetic presentation, AP alignment labels, and an empty prerequisites list.",
+  "critiquedAt": "2026-05-15T19:27:32.858Z",
+  "modelVersion": "claude-opus-4-6"
+}

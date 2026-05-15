@@ -1,0 +1,53 @@
+{
+  "conceptId": "deriv.chain-rule",
+  "conceptName": "Chain Rule",
+  "verdict": "issues_found",
+  "overall_severity": "minor",
+  "issues": [
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "prerequisites",
+      "description": "The prerequisites array is empty. The chain rule depends on basic derivative rules (power rule, definition of derivative, limit properties). Listing no prerequisites could confuse the dependency graph for the app and for students who haven't yet learned the power rule.",
+      "suggested_fix": "Add prerequisites such as 'deriv.power-rule', 'deriv.definition', or whatever concept IDs correspond to basic differentiation rules in the app."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "checks[1].expected_answer_md",
+      "description": "The expected answer says the denominator 'can be zero for values of h arbitrarily close to 0 (even if g'(x) exists and is nonzero)'. While the parenthetical is technically correct (e.g., g(x)=x^2 sin(1/x) at x=0 has g'(0)=0, not nonzero; constructing a case with g'(x) nonzero where Δg=0 infinitely often near 0 is non-trivial), the claim may mislead an advanced student into thinking this is common when g'(x)≠0. The real concern is that g'(x)=0 or that g is constant on intervals. This is a very minor precision issue for the advanced tier.",
+      "suggested_fix": "Rephrase to: 'can be zero for values of h arbitrarily close to 0 (for instance when g'(x)=0, or more subtly even when g'(x)≠0 for certain pathological g)' or simply drop the parenthetical about nonzero."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "deep_dives[1].body_md (follow-up question)",
+      "description": "The follow-up asks whether a composite of smooth functions can have a corner. The answer is no: the composition of smooth (C^∞) functions is smooth. This could mislead a student into spending time looking for a nonexistent counterexample. The question would be better phrased for compositions of merely differentiable (not smooth) functions, or asking about compositions where one function is not differentiable.",
+      "suggested_fix": "Rephrase to something like: 'Can you construct a case where the composite of two differentiable functions fails to be differentiable?' or clarify that you mean 'smooth' in a colloquial sense (just differentiable once)."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[1].body_md (novice framing_index 0)",
+      "description": "The novice explanation uses the phrase 'If this feels like a lot, that's normal' which borders on filler. Similarly the second novice explanation ends with a similar phrase. While mildly encouraging, it adds little pedagogical value.",
+      "suggested_fix": "Consider trimming or replacing with a brief forward pointer like 'Practice on a few more examples and the pattern will become second nature.'"
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "checks[3] (novice check about (5x)^3)",
+      "description": "The expected answer states the correct derivative is 375x^2. Let's verify: d/dx[(5x)^3] = 3(5x)^2 · 5 = 3·25x^2·5 = 375x^2. This is correct. However, one could also just expand (5x)^3 = 125x^3 and differentiate to get 375x^2. The check is fine, but the problem (5x)^3 is so simple it can be done without the chain rule, which slightly weakens it as a chain rule diagnostic.",
+      "suggested_fix": "Consider using a slightly less trivially-expandable example, like (5x+2)^3, to make the chain rule more clearly necessary. This is a very minor point."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "applications[1].solution_outline_md part (c)",
+      "description": "The numerical estimates are approximate and the final answer t≈6.29 is reasonable but not verified to two-decimal-place accuracy in the solution. At t=6.29: 480(6.29)e^{0.03·39.5641} = 3019.2·e^{1.18692} ≈ 3019.2·3.2770 ≈ 9894, which is below 10000. At t=6.32: 480(6.32)e^{0.03·39.9424}=3033.6·e^{1.19827}≈3033.6·3.3144≈10054. So the crossing is closer to t≈6.31 or 6.32. The stated answer of 6.29 may be slightly off.",
+      "suggested_fix": "Re-do the numerical root-finding more carefully. The answer should be approximately t≈6.31 hours."
+    }
+  ],
+  "summary": "Content is mathematically sound and pedagogically strong overall; issues are all minor, including a small numerical inaccuracy in the biology application and a potentially misleading follow-up question in a deep dive.",
+  "critiquedAt": "2026-05-15T19:56:22.866Z",
+  "modelVersion": "claude-opus-4-6"
+}

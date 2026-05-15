@@ -1,0 +1,67 @@
+{
+  "conceptId": "deriv.implicit",
+  "conceptName": "Implicit Differentiation",
+  "verdict": "issues_found",
+  "overall_severity": "important",
+  "issues": [
+    {
+      "severity": "important",
+      "category": "ap_alignment",
+      "location": "explanations[0] (advanced tier)",
+      "description": "The prerequisites array is empty, yet implicit differentiation critically depends on the chain rule and basic differentiation rules (power rule, product rule). A student arriving at this concept without those prerequisites could be lost. This is a metadata issue that affects the learning path.",
+      "suggested_fix": "Add prerequisite concept IDs for chain rule, product rule, and basic differentiation rules."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "applications[0].solution_outline_md",
+      "description": "The arithmetic simplification is messy and contains an intermediate expression that is hard to follow. The line '-25·7·4 / (49·5√3) = -700/245√3' is correct (700/245 = 20/7), but then there's a strange intermediate '-(4/√3)·(5/7)·(7/5)' which equals -4/√3, not -20/(7√3). This intermediate step is wrong even though the final answer is correct.",
+      "suggested_fix": "Remove or fix the intermediate step '-4/√3 · 5/7 · 7/5'. Just go directly from -700/(245√3) to -20/(7√3) = -20√3/21."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "applications[0].solution_outline_md (part b)",
+      "description": "The speed simplification jumps to √(2752/147) ≈ √18.72 ≈ 4.33 without clearly showing how 8256/441 simplifies to 2752/147. While 8256/441 = 2752/147 is correct (divide by 3), the presentation is confusing with multiple different radical forms that don't obviously agree.",
+      "suggested_fix": "Clean up the speed calculation. Just compute 16 + 1200/441 = (7056+1200)/441 = 8256/441 and then note numerically √(8256/441) = √8256/21 ≈ 90.86/21 ≈ 4.33."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "applications[0].problem_md",
+      "description": "The point (3.5, 5√3/2) should be verified as lying on the ellipse in the solution, but the solution doesn't explicitly check this. Substituting: (3.5)²/49 + (5√3/2)²/25 = 12.25/49 + 75/4/25 = 0.25 + 0.75 = 1. It checks out, but showing this would be consistent with the engineering problem which does verify the point.",
+      "suggested_fix": "Add a verification step at the start of the satellite solution."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[0].body_md (advanced tier)",
+      "description": "The phrase 'where ∂F/∂y-style reasoning would predict' with a dash is somewhat unclear and informal for an advanced tier explanation. The mention of partial derivatives is appropriate but the phrasing is awkward.",
+      "suggested_fix": "Rephrase to something like 'which aligns with the condition from the Implicit Function Theorem that ∂F/∂y ≠ 0 at the point.'"
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "deep_dives[1].body_md",
+      "description": "The deep dive 'Necessary Tool or Convenient Shortcut?' is excellent in content, but the Case 2 example (folium of Descartes x³+y³=6xy) while pedagogically interesting, is not a standard AP Calculus topic. This is fine for a deep dive but could be noted as beyond typical AP scope.",
+      "suggested_fix": "Optionally add a brief note that the folium is a famous curve beyond typical AP examples, shown here to illustrate the point."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "checks (advanced tier, question 1)",
+      "description": "The check question says 'the final answer happens to be correct' and asks the student to spot the error. But a student might wonder HOW the final answer came out correct if the intermediate step is wrong. The expected answer says 'the student apparently still solved as though the missing dy/dx were there,' which is a bit hand-wavy. It would be clearer to note this is a presentation error where the student likely did the work correctly but wrote it sloppily.",
+      "suggested_fix": "Clarify the expected answer: the student likely performed the algebra correctly in their head or on scratch work but wrote the differentiation step incorrectly, omitting dy/dx from the notation."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[3] (on_pace).intuition_md",
+      "description": "The analogy of 'a friend riding inside a car with tinted windows' is creative but slightly strained — it doesn't map cleanly to the mathematical concept. The novice tier analogies are better.",
+      "suggested_fix": "Consider simplifying to focus on the core idea: y is a function you can't see explicitly, but the chain rule accounts for its hidden dependence on x."
+    }
+  ],
+  "summary": "Mathematically sound content with strong pedagogy across tiers; main issues are an empty prerequisites array (important for the learning path) and some messy arithmetic in the satellite application problem, plus minor style and clarity items.",
+  "critiquedAt": "2026-05-15T20:01:54.817Z",
+  "modelVersion": "claude-opus-4-6"
+}

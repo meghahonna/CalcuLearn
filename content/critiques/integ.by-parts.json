@@ -1,0 +1,53 @@
+{
+  "conceptId": "integ.by-parts",
+  "conceptName": "Integration by Parts",
+  "verdict": "ok",
+  "overall_severity": "minor",
+  "issues": [
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "explanations[0].body_md (advanced tier)",
+      "description": "The advanced explanation mentions the 'LIATE' mnemonic nowhere, but the advanced example (e^x cos x) references LIATE in step 2's why_md. This is fine contextually, but the advanced explanation's stretch question about (ln x)^n as an improper integral is a nice touch that goes beyond AP BC scope — not an error, just a note.",
+      "suggested_fix": "No change needed; it's appropriate for advanced tier."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "examples[1].steps[0].step_md (novice example)",
+      "description": "The step begins with 'We need to split' using 'we' instead of 'you', which violates the style guideline of writing to one student using 'you'.",
+      "suggested_fix": "Change 'We need to split' to 'You need to split'."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "examples[1].steps[0].why_md",
+      "description": "Uses the analogy 'you can't eat a sandwich in one bite' which borders on filler/emoji-level informality, but is acceptable for novice tier. More importantly, it's pedagogically fine.",
+      "suggested_fix": "No change strictly needed."
+    },
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "prerequisites",
+      "description": "The prerequisites array is empty. Integration by parts logically depends on basic antidifferentiation rules and the Fundamental Theorem of Calculus. Leaving prerequisites empty could mislead the app's prerequisite graph.",
+      "suggested_fix": "Add prerequisite concept IDs for basic antiderivatives and FTC (e.g., 'integ.basic-rules', 'ftc')."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "misconceptions[3] (not_recognizing_tabular_cycling), why_wrong_md",
+      "description": "The example equation states $I = e^x \\sin x - e^x \\cos x - I$, which gives $I = \\frac{e^x(\\sin x - \\cos x)}{2} + C$. Let's verify: with $u=e^x, dv=\\sin x\\,dx$: $I_{\\sin} = -e^x\\cos x + \\int e^x \\cos x\\,dx = -e^x\\cos x + I_{\\cos}$. But this misconception is about $\\int e^x \\sin x\\,dx$. Let $J = \\int e^x \\sin x\\,dx$. First IBP: $u=e^x, dv=\\sin x\\,dx \\Rightarrow J = -e^x\\cos x + \\int e^x\\cos x\\,dx$. Second IBP on the new integral: $\\int e^x\\cos x\\,dx = e^x\\sin x - \\int e^x\\sin x\\,dx = e^x\\sin x - J$. So $J = -e^x\\cos x + e^x\\sin x - J$, giving $2J = e^x(\\sin x - \\cos x)$, hence $J = \\frac{e^x(\\sin x - \\cos x)}{2}+C$. The formula in the misconception is correct.",
+      "suggested_fix": "No fix needed; just confirming correctness."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "deep_dives[0].body_md",
+      "description": "The follow-up question about summing the series from the 'wrong' direction is fascinating but might confuse students who haven't seen Taylor series yet. This is acceptable as a deep dive stretch question but could benefit from a brief note that it connects to material they may not have seen yet.",
+      "suggested_fix": "Optionally add a parenthetical: '(This connects to Taylor series, which you may study later.)'"
+    }
+  ],
+  "summary": "Mathematically accurate, pedagogically well-structured across all tiers, and AP-aligned. Only minor style and metadata issues found; no regeneration needed.",
+  "critiquedAt": "2026-05-15T19:27:20.412Z",
+  "modelVersion": "claude-opus-4-6"
+}

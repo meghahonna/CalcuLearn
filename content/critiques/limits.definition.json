@@ -1,0 +1,47 @@
+{
+  "conceptId": "limits.definition",
+  "conceptName": "Limit Definition",
+  "verdict": "issues_found",
+  "overall_severity": "important",
+  "issues": [
+    {
+      "severity": "important",
+      "category": "ap_alignment",
+      "description": "The concept is titled 'Limit Definition' and the one-liner describes what a limit is, yet every single worked example, every application, and most check-for-understanding questions are about the limit definition of the *derivative*, not about evaluating limits in general. A student coming here to learn what a limit is will instead be drilled almost exclusively on derivatives. The explanations themselves are good introductions to limits, but the examples/checks/applications are misaligned with the concept name and explanations.",
+      "suggested_fix": "Add at least one worked example per tier that evaluates a limit (e.g., a limit involving a hole, a piecewise function, or a rational expression) without involving derivatives. Reserve derivative-focused examples for a separate 'derivative definition' concept, or at minimum balance the set so the concept lives up to its name."
+    },
+    {
+      "severity": "important",
+      "category": "consistency",
+      "description": "The novice and on-pace explanations introduce what a limit is (no derivatives), but the novice worked example immediately jumps to the limit definition of the derivative ('find f'(2)'). A novice who just learned 'as x approaches 3, what does 2x+1 approach?' is not prepared for derivative notation and the difference quotient. The example tier does not match the explanation tier.",
+      "suggested_fix": "Provide a novice example that practices evaluating a basic limit (e.g., a function with a hole like (x^2-1)/(x-1) as x→1, or a piecewise function) before introducing derivative examples."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "description": "In the advanced explanation, the 'Stretch question' asks the student to prove the linear limit and then 'try a quadratic: lim_{x→2} x^2 = 4. The quadratic case forces you to manage δ more carefully — why?' This is a nice prompt but no guidance or answer is given, and it's left dangling. For an advanced tier this is acceptable but could be stronger with a brief hint.",
+      "suggested_fix": "Optionally add a one-sentence hint, e.g., 'Because |x^2 - 4| = |x-2||x+2|, and you must bound the |x+2| factor by restricting δ.'"
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "description": "The misconception 'limit_at_infinity_equals_infinity_means_exists' uses the Socratic prompt 'can you locate ∞ on the number line?' While valid, this may inadvertently reinforce a surface-level understanding. The AP exam does accept writing lim = ∞ as descriptive notation; the nuance that this means 'the limit does not exist (as a finite number)' could be stated more precisely to avoid confusing AP students who are told to 'find the limit' and write ∞.",
+      "suggested_fix": "Clarify in why_wrong_md that on the AP exam, writing lim = ∞ is acceptable descriptive notation, but it means the limit does not exist as a real number, and ∞ cannot be used in arithmetic."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "description": "The novice explanation (framing_index 0) body_md begins with 'Imagine you have a curve drawn on a graph.' While not exactly filler, this is very close to the 'In this lesson…' style. More importantly, the maps-app analogy appears in both the body_md and the intuition_md of the same explanation, creating redundancy.",
+      "suggested_fix": "Remove the maps-app analogy from one of the two locations (body or intuition) to avoid repetition."
+    },
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "description": "The advanced check-for-understanding question about |x| at 0 and differentiability, while excellent, tests derivative concepts rather than the core limit definition concept. This reinforces the overall imbalance toward derivatives.",
+      "suggested_fix": "Consider adding or substituting a check question that tests limit evaluation or the ε-δ definition directly."
+    }
+  ],
+  "summary": "Explanations of the limit concept are strong across all tiers, but the examples, applications, and checks are almost entirely about the limit definition of the derivative rather than limits themselves, creating a significant alignment and consistency gap.",
+  "critiquedAt": "2026-05-15T19:28:02.442Z",
+  "modelVersion": "claude-opus-4-6"
+}

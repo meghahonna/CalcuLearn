@@ -1,0 +1,60 @@
+{
+  "conceptId": "continuity.definition",
+  "conceptName": "Continuity at a Point",
+  "verdict": "issues_found",
+  "overall_severity": "important",
+  "issues": [
+    {
+      "severity": "important",
+      "category": "pedagogy",
+      "location": "explanations[2].body_md",
+      "description": "The second novice explanation attempts to use a single piecewise function to illustrate three types of discontinuity but stumbles mid-explanation. It initially proposes checking x=2 for a removable discontinuity, then discovers the one-sided limits don't even match (left limit 4, right limit -0.5), and has to awkwardly backtrack ('Wait — those one-sided limits don't even match... Let's tweak the example'). This mid-stream correction is confusing for a novice reader and undermines confidence. The example was not well-designed for its stated purpose.",
+      "suggested_fix": "Either redesign the piecewise function so that each discontinuity type cleanly appears at a different x-value (e.g., removable at x=2, jump at x=3, infinite at x=4), or present three separate simple examples. Eliminate the 'Wait' backtrack entirely."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "explanations[2].body_md",
+      "description": "When discussing the infinite discontinuity 'At x=4', the explanation says 'As x→4, 1/(x−4) blows up toward ±∞.' However, the piece 1/(x−4) only applies for x>2 per the piecewise definition. Since x=4 is in that domain region, this is technically valid, but the explanation doesn't note that for x<2 a different formula applies. Since we're only looking at x>2 pieces approaching x=4, this is fine, but the phrasing 'As x→4' without qualification could confuse a novice who might wonder about the left-hand limit from the other piece (the x<2 piece doesn't apply near x=4 anyway). This is a very minor issue.",
+      "suggested_fix": "Optionally clarify that for x near 4, only the third piece applies since 4>2."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[2].body_md",
+      "description": "The use of 'Wait —' is conversational in a way that mimics discovering an error live, which is not appropriate for polished instructional content and may confuse novice students.",
+      "suggested_fix": "Remove the 'Wait' interjection; redesign the example so no backtracking is needed."
+    },
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "deep_dives[1]",
+      "description": "The deep dive on pointwise vs. uniform continuity and the Heine-Cantor theorem is well beyond AP Calculus AB/BC scope. While deep dives are allowed to stretch beyond the curriculum, labeling it as such or noting it's enrichment beyond the AP exam would be helpful so students don't think they need to know this.",
+      "suggested_fix": "Add a brief note at the start such as: 'This topic goes beyond the AP Calculus curriculum but provides insight into why theorems about continuous functions on closed intervals work the way they do.'"
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "explanations[0].body_md (advanced) stretch question",
+      "description": "The stretch question about the Dirichlet function f(x) = x·D(x) being continuous at exactly one point is interesting but well beyond AP scope, and there's no follow-up or answer hint. This is acceptable for an advanced tier stretch question, but the notation D(x) for the Dirichlet function is not standard AP notation and is never defined beyond the parenthetical.",
+      "suggested_fix": "Add a brief inline definition: 'where D(x) = 1 if x is rational and D(x) = 0 if x is irrational.'"
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "checks[0]",
+      "description": "The first check question (advanced tier, 'Spot the mistake') has expected_pattern that includes 'removable', but a student could correctly identify the error without mentioning the word 'removable'. The pattern also doesn't match some valid phrasings like 'not in the domain'. This is a minor regex concern.",
+      "suggested_fix": "The pattern already includes 'domain' so this is mostly fine; no change strictly needed."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "applications[0].solution_outline_md",
+      "description": "The verification step uses a checkmark character (✓) which, while not an emoji, is a special character that could render inconsistently.",
+      "suggested_fix": "Replace ✓ with the word 'checks out' or 'confirmed'."
+    }
+  ],
+  "summary": "The content is mathematically accurate and well-structured overall, but the second novice explanation (framing_index 1) has a significant pedagogical issue where the example breaks down mid-explanation and requires an awkward backtrack, which would confuse novice students.",
+  "critiquedAt": "2026-05-15T19:55:10.163Z",
+  "modelVersion": "claude-opus-4-6"
+}

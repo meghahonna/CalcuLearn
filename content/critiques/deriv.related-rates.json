@@ -1,0 +1,60 @@
+{
+  "conceptId": "deriv.related-rates",
+  "conceptName": "Related Rates",
+  "verdict": "issues_found",
+  "overall_severity": "minor",
+  "issues": [
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "description": "The prerequisites array is empty. Related rates depends on implicit differentiation and the chain rule, which should be listed as prerequisites (e.g., 'deriv.implicit-differentiation', 'deriv.chain-rule'). An empty prerequisites list could confuse the app's sequencing logic.",
+      "location": "prerequisites",
+      "suggested_fix": "Add prerequisites such as implicit differentiation and the chain rule."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "description": "The advanced explanation's stretch question about d²y/dt² for the ladder problem is mentioned but never worked out, and the advanced example is a different problem (searchlight). While this is fine as a teaser, it would be more useful if it were tied to the example or had a brief answer sketch.",
+      "location": "explanations[0].body_md",
+      "suggested_fix": "Either provide a brief sketch of the second-derivative ladder calculation inline or move the stretch question to the advanced example's final why_md."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "description": "The novice explanation (framing_index 0) works through a balloon/sphere example with specific numbers (r=5, dV/dt=100), and the novice example is a different problem (circular puddle). Meanwhile, the novice explanation (framing_index 1) works through the full ladder problem with the same numbers as the on_pace example. This creates significant overlap between the novice framing_index=1 explanation and the on_pace example (same problem, same numbers, same answer). Consider varying the numbers or scenario to avoid redundancy.",
+      "location": "explanations[2] vs examples[2]",
+      "suggested_fix": "Change the numbers in either the novice ladder explanation or the on_pace ladder example (e.g., use a 13-ft ladder or different dx/dt) so the student sees varied practice."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "description": "In the advanced example problem statement, the phrase 'a runner begins sprinting along the wall' is introduced but plays no mathematical role — the runner's position is entirely determined by the searchlight geometry. This is slightly confusing narrative framing that could distract.",
+      "location": "examples[0].problem_md",
+      "suggested_fix": "Either remove the runner narrative or clarify that the runner is simply the bright spot on the wall, to avoid implying a separate physical entity with its own dynamics."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "description": "In the advanced check question (first one), the expected_answer_md says the student 'never explicitly applied the chain rule' and instead did algebraic cancellation. However, writing dV/dt ÷ (dV/dr) = dr/dt is actually a perfectly valid and rigorous application of the chain rule (it's just the chain rule rearranged). The answer should more precisely say the student used the inverse of dV/dr without verifying it's nonzero, not that they failed to apply the chain rule.",
+      "location": "checks[0].expected_answer_md",
+      "suggested_fix": "Rephrase to focus on the fact that the student's shortcut is valid when dV/dr ≠ 0 but implicitly relies on the inverse function theorem, and that the key issue is the division by dV/dr which fails when dV/dr = 0. The chain rule was applied, just in rearranged form."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "description": "The second advanced check question asks about rewriting F(x(t), y(t)) as a single-variable composite, which is a multivariable calculus concept (total derivative vs. single-variable chain rule). While the expected answer tries to reduce it to single-variable via implicit function theorem, the fill-in-the-blank format with 'dF/d___' suggests partial derivative notation, which is beyond AP Calculus AB/BC scope.",
+      "location": "checks[1]",
+      "suggested_fix": "Consider reframing this check to stay within AP scope, or explicitly note it is a stretch/enrichment question for advanced students only."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "description": "The deep_dives section titles include the prefix 'Related Rates:' which is slightly redundant given the concept context.",
+      "location": "deep_dives[0].title, deep_dives[1].title",
+      "suggested_fix": "Shorten to 'Why You Must Substitute After Differentiating' and 'Choosing the Right Equation' respectively."
+    }
+  ],
+  "summary": "Mathematically sound and pedagogically strong across all tiers; issues are minor — mostly redundancy between the novice ladder explanation and on_pace example, empty prerequisites, and a slightly imprecise framing in one advanced check question.",
+  "critiquedAt": "2026-05-15T19:57:30.716Z",
+  "modelVersion": "claude-opus-4-6"
+}

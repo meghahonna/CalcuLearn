@@ -1,0 +1,53 @@
+{
+  "conceptId": "deriv.power-rule",
+  "conceptName": "Power Rule",
+  "verdict": "ok",
+  "overall_severity": "minor",
+  "issues": [
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "explanations[0].body_md",
+      "description": "The statement 'For any real number n' at the top of the advanced explanation does not mention the domain restriction x > 0 needed when n is not a positive integer. The body later discusses the domain subtlety, but the opening theorem statement could mislead.",
+      "suggested_fix": "Add a parenthetical such as '(with x > 0 when n is not a positive integer)' to the initial statement of the rule."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "explanations[0].body_md, paragraph 'Extending beyond positive integers'",
+      "description": "For n = 0 the text writes f'(x) = 0 · x^{-1}, which is technically 0/0 at x = 0. While the derivative of the constant function is indeed 0 everywhere, invoking the power rule formula at x = 0 with n = 0 is slightly misleading because x^{-1} is undefined there.",
+      "suggested_fix": "Note that the formula n x^{n-1} with n = 0 is formal and that f'(x) = 0 follows immediately from the definition of derivative for a constant function."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[1].body_md (novice framing 0)",
+      "description": "Opens with 'Taking a derivative means finding how fast something changes. You already know that a derivative comes from a limit…' which borders on the filler the style guide prohibits ('In this lesson we will explore…').",
+      "suggested_fix": "Trim to jump straight into the rule, e.g., start with 'The Power Rule is a shortcut so you don't have to grind through the limit definition every time.'"
+    },
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "concept top-level",
+      "description": "prerequisites is an empty array. The concept references the limit definition of the derivative, constant multiple rule, and sum/difference rule in multiple places. Listing at least the limit definition as a prerequisite would improve curricular coherence.",
+      "suggested_fix": "Add 'deriv.limit-definition' (or equivalent concept id) to prerequisites."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "examples[0].steps[4] (advanced linear-approximation check)",
+      "description": "The numerical sanity check claims f(1.01) ≈ -1.8907. A quick computation: f'(1) = 164/15 ≈ 10.9333, so L(1.01) = -2 + 10.9333·0.01 ≈ -1.8907. This is fine, but the text says 'to several decimal places' without actually computing f(1.01) directly. The claim is plausible but unverified in-text; a student cannot check it from what is shown.",
+      "suggested_fix": "Either compute f(1.01) explicitly (≈ -1.8906) or soften the claim to 'this should be a good approximation of the true value — you can verify with a calculator.'"
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "deep_dives[0].body_md",
+      "description": "Uses 'you've already established' and 'you used' which is fine, but also uses 'Clean and done.' and similar very informal phrases. This is acceptable for the tone but slightly inconsistent with the otherwise semi-formal register of the deep dive.",
+      "suggested_fix": "No change required; flagging for awareness."
+    }
+  ],
+  "summary": "Mathematically sound and pedagogically strong across all tiers; only minor style, domain-restriction, and prerequisite-listing issues noted.",
+  "critiquedAt": "2026-05-15T19:26:57.217Z",
+  "modelVersion": "claude-opus-4-6"
+}

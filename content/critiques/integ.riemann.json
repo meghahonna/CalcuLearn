@@ -1,0 +1,53 @@
+{
+  "conceptId": "integ.riemann",
+  "conceptName": "Riemann Sums",
+  "verdict": "issues_found",
+  "overall_severity": "important",
+  "issues": [
+    {
+      "severity": "important",
+      "category": "pedagogy",
+      "location": "deep_dives[1].body_md, Step 2",
+      "description": "The claim 'Because f is continuous on each subinterval [x_{k-1}, x_k], the Intermediate Value Theorem guarantees that f(x̄_k) is sandwiched between f(x_{k-1}) and f(x_k)' is incorrect reasoning. IVT says that f achieves every value between f(x_{k-1}) and f(x_k), but it does NOT guarantee that f at the midpoint is between f at the two endpoints. For example, f could have a local max or min between the endpoints making f(midpoint) larger or smaller than both endpoint values. The correct bounding uses the Extreme Value Theorem: on each subinterval, m_k ≤ f(c_k) ≤ M_k for any sample point c_k, so L_n ≤ M_n ≤ U_n, and since U_n - L_n → 0, the squeeze theorem applies. The current argument is logically flawed.",
+      "suggested_fix": "Replace Step 2 with the correct argument: by the Extreme Value Theorem, on each subinterval m_k ≤ f(x̄_k) ≤ M_k, so L_n ≤ M_n ≤ U_n (lower/upper Darboux sums). Since U_n - L_n → 0 by uniform continuity, the Squeeze Theorem forces M_n to the same limit. Alternatively, just note that the midpoint sum is a special case of Step 3's general argument."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "deep_dives[1].body_md, Follow-up question",
+      "description": "The follow-up question says 'Left and right sums now give different limits (1 and... also 1, or is it 0?)' which is confusing and somewhat misleading. For the Dirichlet function with equal-width partitions, right endpoints (or left endpoints) always include both rationals and irrationals, so L_n and R_n depend on the specific sample-point rule, not just 'left' vs 'right.' The parenthetical remark muddies the point rather than clarifying it.",
+      "suggested_fix": "Clarify: for the Dirichlet function, choosing all sample points to be rational gives sum = b-a, while choosing all irrational gives sum = 0. The issue is that different valid sample-point choices yield different limits, which is exactly why the function is not Riemann integrable."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[0].body_md, paragraph 4",
+      "description": "The phrase 'the zeroth-order version of linear approximation' is potentially confusing — a zeroth-order approximation is a constant approximation, not a linear one. The sentence calls it 'a local linear approximation' and then 'the zeroth-order version of linear approximation,' which is contradictory.",
+      "suggested_fix": "Change to something like: 'essentially treating f as constant on a tiny interval — a zeroth-order (constant) approximation of f on each subinterval.'"
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "explanations[0].body_md, prerequisites",
+      "description": "The prerequisites array is empty, but the advanced explanation references the Squeeze Theorem, limits, and linear approximation as prior knowledge ('which you already know from limits'). While listing prerequisites may be handled elsewhere in the app, having an empty prerequisites array for a concept that explicitly builds on limits is worth noting.",
+      "suggested_fix": "Consider adding 'limits.squeeze_theorem' or similar prerequisite IDs if the app uses them for sequencing."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "applications[1].problem_md",
+      "description": "The comma formatting '5{,}500' uses LaTeX-style thin-space comma grouping inside what appears to be a markdown context. Depending on rendering, this may display literally as '5{,}500' rather than '5,500'.",
+      "suggested_fix": "Use plain '5,500' or ensure the rendering engine handles LaTeX brace grouping in inline text."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "examples[0].steps[4].step_md",
+      "description": "The integration by parts result is stated as (2e^3 + 1)/9 ≈ 4.48. Let's verify: ∫x²ln(x)dx with u=ln(x), dv=x²dx gives (x³/3)ln(x) - x³/9 + C. Evaluating from 1 to e: [e³/3·1 - e³/9] - [0 - 1/9] = e³/3 - e³/9 + 1/9 = 2e³/9 + 1/9 = (2e³+1)/9. With e³≈20.086, this gives ≈41.17/9 ≈ 4.575. The stated ≈4.48 is slightly off from the more accurate ≈4.575.",
+      "suggested_fix": "Change '≈ 4.48' to '≈ 4.58' or simply remove the decimal approximation."
+    }
+  ],
+  "summary": "The deep dive on convergence of left/right/midpoint sums contains an incorrect application of IVT that could mislead advanced students; the rest of the content is mathematically sound with minor style and approximation issues.",
+  "critiquedAt": "2026-05-15T19:27:38.359Z",
+  "modelVersion": "claude-opus-4-6"
+}

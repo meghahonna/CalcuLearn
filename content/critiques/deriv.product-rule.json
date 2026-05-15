@@ -1,0 +1,46 @@
+{
+  "conceptId": "deriv.product-rule",
+  "conceptName": "Product Rule",
+  "verdict": "ok",
+  "overall_severity": "minor",
+  "issues": [
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "explanations[0].intuition_md",
+      "description": "The intuition note says 'one with area $v\\,du$ (along the bottom) and one with area $u\\,dv$ (along the side)'. If $u$ is a side and $v$ is the other side, the strip from $u$ growing by $du$ has area $v\\,du$ and runs along the side, not the bottom. The geometric labeling (bottom vs. side) is swapped relative to typical convention (width along bottom, height along side). This is cosmetic but could momentarily confuse a student thinking about the picture.",
+      "suggested_fix": "Swap the descriptions: '$v\\,du$ (along the side, since $u$ is the side that grew)' and '$u\\,dv$ (along the top/bottom, since $v$ is the side that grew)', or simply remove the parenthetical directional labels."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "on_pace explanation, intuition_md",
+      "description": "The intuition says 'Picture two rectangles side by side forming a bigger rectangle whose area is $f(x) \\cdot g(x)$.' This is confusing — it should be one rectangle with sides $f$ and $g$, not two rectangles side by side.",
+      "suggested_fix": "Change to 'Picture a single rectangle whose sides are $f(x)$ and $g(x)$, so its area is $f(x) \\cdot g(x)$.'"
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "examples[1].steps[0].step_md",
+      "description": "Uses 'We have two functions' — style guide says address one student with 'you', not 'we'.",
+      "suggested_fix": "Change 'We have' to 'You have'."
+    },
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "prerequisites",
+      "description": "The prerequisites list is empty, but the explanations and examples assume knowledge of the power rule, basic trig derivatives, and the limit definition of the derivative. Listing at least 'deriv.power-rule' and 'deriv.limit-definition' as prerequisites would be appropriate.",
+      "suggested_fix": "Add relevant prerequisite concept IDs such as 'deriv.power-rule' and 'deriv.limit-definition'."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "deep_dives[0].body_md, paragraph 2",
+      "description": "The phrase 'Stare at the rectangle diagram' references a diagram that doesn't exist in the text content.",
+      "suggested_fix": "Change to 'Visualize the rectangle' or 'If you sketch the rectangle, you see...' to avoid implying there is an embedded figure."
+    }
+  ],
+  "summary": "Mathematically accurate, pedagogically strong across all tiers, and well-aligned with AP curriculum; only minor style and labeling issues found.",
+  "critiquedAt": "2026-05-15T19:26:58.545Z",
+  "modelVersion": "claude-opus-4-6"
+}

@@ -1,0 +1,39 @@
+{
+  "conceptId": "limits.one-sided",
+  "conceptName": "One-Sided Limits",
+  "verdict": "issues_found",
+  "overall_severity": "minor",
+  "issues": [
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "explanations[0].body_md",
+      "description": "The formal definition of the left-hand limit states 'Let f be defined on some open interval containing c (except possibly at c itself).' For a one-sided limit from the left, f only needs to be defined on an interval of the form (c-δ, c), not on an open interval containing c from both sides. The deep dive on endpoints later correctly addresses this, but the opening sentence of the advanced explanation is slightly misleading — it uses the two-sided limit's domain assumption for a section that is about to define one-sided limits.",
+      "suggested_fix": "Change to something like: 'Let f be defined on at least one side of c (in a punctured neighborhood or half-neighborhood of c).' or simply remove the domain sentence since the formal definitions themselves specify the relevant intervals."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "explanations[0].body_md, stretch question",
+      "description": "The stretch question asks the student to determine whether a discontinuity is removable when both one-sided limits exist but neither equals f(0). If the two one-sided limits are equal to each other (but not to f(0)), the discontinuity is removable. If they differ, it is a jump discontinuity (non-removable). The question says 'determine what kind of discontinuity f has at 0 and whether it's removable' but does not constrain whether the two one-sided limits should be equal or not, making the answer ambiguous depending on the student's construction.",
+      "suggested_fix": "Add a clarification such as 'and the two one-sided limits are equal to each other' or 'and the two one-sided limits differ' so the student knows which case to analyze."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[1].body_md (novice framing 0), last paragraph",
+      "description": "The phrase 'If this feels tricky, that's normal.' while warm and supportive, could be considered filler. Similarly 'Take your time with it.' is borderline filler.",
+      "suggested_fix": "Consider trimming to just the pedagogically substantive content, or leave as-is since it is brief and student-facing encouragement rather than true filler."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "applications[1].solution_outline_md, part (c)",
+      "description": "The solution says there is a '$3 drop' in the bill at the 2-hour mark (from 11 to 8). While mathematically correct, calling it a 'drop' might be slightly confusing since the function value at t=2 is C(2)=8+3(0)=8, so the actual charge at exactly 2 hours is $8, and the left-hand limit was $11. The narrative says 'staying a tiny bit longer past 2 hours costs you less than leaving a moment before 2 hours,' which is correct but could be phrased more carefully — leaving just before 2 hours costs close to $11, while the charge at exactly 2 hours or just after is $8.",
+      "suggested_fix": "Minor wording clarification: emphasize that the cost just before 2 hours approaches $11 while at and just after 2 hours it is $8, making the jump discontinuity a downward jump of $3."
+    }
+  ],
+  "summary": "Solid concept with correct mathematics, strong pedagogy across all tiers, and well-designed examples and checks; only minor wording and framing issues identified.",
+  "critiquedAt": "2026-05-15T19:28:05.982Z",
+  "modelVersion": "claude-opus-4-6"
+}

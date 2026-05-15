@@ -1,0 +1,53 @@
+{
+  "conceptId": "limits.lhopital",
+  "conceptName": "L'Hôpital's Rule",
+  "verdict": "issues_found",
+  "overall_severity": "important",
+  "issues": [
+    {
+      "severity": "important",
+      "category": "pedagogy",
+      "location": "applications[1].problem_md",
+      "description": "The problem statement tells the student that 'as x → 0+, both the numerator and denominator approach 0' and then immediately contradicts itself ('or does it?'). Part (a) then asks the student to 'Show that the limit produces a 0/0 indeterminate form,' but the solution reveals it is NOT 0/0 — it is -10/0. The problem as posed is misleading: it asks the student to show something that is false, then pivots mid-solution to a different function ROI*(x). This is confusing and pedagogically poor for an applied problem.",
+      "suggested_fix": "Rewrite the problem so that the ROI is defined from the start as the advertising-driven return ROI*(x) = (R(x) - x)/x, which genuinely gives 0/0. Alternatively, keep the misdirection but reframe Part (a) as 'Determine whether the limit is indeterminate and, if not, redefine an appropriate quantity that is.' The current phrasing ('Show that … produces a 0/0 form') is a direct instruction to prove something false."
+    },
+    {
+      "severity": "important",
+      "category": "math",
+      "location": "applications[0].solution_outline_md, Part B second application",
+      "description": "The second derivative of the numerator h(t) = -2e^{-2t}sin(3t) + 3e^{-2t}cos(3t) - 3 is computed as h'(t) = 4e^{-2t}sin(3t) - 12e^{-2t}cos(3t) - 9e^{-2t}sin(3t). Let's verify: h'(t) = -2[-2e^{-2t}sin(3t) + 3e^{-2t}cos(3t)] + 3[-2e^{-2t}cos(3t) - 3e^{-2t}sin(3t)] = 4e^{-2t}sin(3t) - 6e^{-2t}cos(3t) - 6e^{-2t}cos(3t) - 9e^{-2t}sin(3t) = -5e^{-2t}sin(3t) - 12e^{-2t}cos(3t). At t=0 this gives 0 - 12 = -12, which matches. The written intermediate form '(4-9)sin(3t) - 12cos(3t)' is correct since 4-9 = -5. So the final answer -6 m/s is correct. However, the first derivative itself needs verification: d/dt[e^{-2t}sin(3t)] = -2e^{-2t}sin(3t) + 3e^{-2t}cos(3t), at t=0 gives 0+3=3. This is correct. No math error here after careful checking.",
+      "suggested_fix": "No fix needed — upon careful verification the math is correct. Removing this issue."
+    },
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "concept top-level, prerequisites",
+      "description": "The prerequisites array is empty, but L'Hôpital's Rule requires knowledge of derivatives (basic differentiation rules), limits, and indeterminate forms. An empty prerequisite list may cause the app to surface this concept to students who haven't learned derivatives yet.",
+      "suggested_fix": "Add appropriate prerequisites such as 'derivatives.basic' and 'limits.indeterminate_forms' (or whatever the app's concept IDs are for those topics)."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "explanations[2] (novice framing_index=1) vs examples[1] (novice)",
+      "description": "The second novice explanation (framing_index=1) uses the exact same problem (lim x→2 of (x²-4)/(x-2)) as the novice worked example. A student seeing both will encounter heavy redundancy rather than seeing a new perspective or problem.",
+      "suggested_fix": "Either change the novice example to a different problem (e.g., lim x→0 of sin(x)/x, which the first novice explanation uses) or change the second novice explanation to use a different motivating problem."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "deep_dives[1].body_md, section 3 (Circular application)",
+      "description": "The claim that using L'Hôpital's Rule to evaluate lim(sin x / x) is 'logically circular' is a common pedagogical assertion but is debatable — the derivative of sin x can be established without this specific limit (e.g., via the squeeze theorem on the difference quotient directly). While worth mentioning, stating it as absolute fact may confuse advanced students who have seen non-circular proofs of d/dx[sin x] = cos x.",
+      "suggested_fix": "Soften the language: 'In many textbooks, $(\\sin x)' = \\cos x$ is proved by first establishing $\\lim_{x\\to 0} \\frac{\\sin x}{x} = 1$, which would make L'Hôpital circular here. Whether it's circular depends on how the derivative was derived in your course.'"
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[0].body_md (advanced tier)",
+      "description": "The advanced explanation includes the phrase 'Here's one way to think about it' style language in the intuition block, but the main body uses 'You can write each function via its local linear approximation' — both are fine, but the two-car analogy in intuition_md feels more novice-level than advanced. Not a serious issue but slightly mismatched in tone.",
+      "suggested_fix": "Consider making the advanced intuition slightly more formal or connecting it to the Cauchy MVT rather than repeating the car analogy used in novice tiers."
+    }
+  ],
+  "summary": "The economics application problem asks the student to prove something that turns out to be false (the 0/0 form), which is pedagogically confusing; there is also notable redundancy between a novice explanation and the novice example using the identical problem. Math is correct throughout. Several minor style and prerequisite issues.",
+  "critiquedAt": "2026-05-15T19:28:16.123Z",
+  "modelVersion": "claude-opus-4-6"
+}

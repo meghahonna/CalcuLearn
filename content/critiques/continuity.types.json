@@ -1,0 +1,67 @@
+{
+  "conceptId": "continuity.types",
+  "conceptName": "Types of Discontinuity and IVT",
+  "verdict": "issues_found",
+  "overall_severity": "important",
+  "issues": [
+    {
+      "severity": "important",
+      "category": "math",
+      "location": "examples[0].steps[2]",
+      "description": "The left-hand limit analysis at x = -2 is inconsistent. The problem defines f(x) = ln(x+3) only for -3 < x < -2, and for x ≠ 2, x ≠ -2 the rational expression applies. So for x approaching -2 from the left, the function is governed by the ln(x+3) piece, giving limit ln(1) = 0. But then the step also discusses lim_{x→-2^-} g(x) = -∞ from the rational piece, which doesn't actually govern f on the left side of -2. The step correctly concludes the left-hand limit of f is 0, but the intermediate discussion of g(x)→-∞ from the left is confusing and potentially misleading. More importantly, since the left-hand limit is 0 (finite) and the right-hand limit is +∞, calling this simply an 'infinite discontinuity' is technically correct (at least one one-sided limit is ±∞) but the discussion is muddled.",
+      "suggested_fix": "Clean up the analysis: state clearly that f is defined as ln(x+3) for -3<x<-2 and as the rational expression for x>-2 (x≠2), so lim_{x→-2^-} f(x) = 0 and lim_{x→-2^+} f(x) = +∞. Remove the extraneous computation of lim_{x→-2^-} g(x) = -∞ since g does not govern f on that side."
+    },
+    {
+      "severity": "important",
+      "category": "math",
+      "location": "examples[0].steps[4] (advanced example step 5)",
+      "description": "The analysis of whether f(c)=1 has a solution on (-2,2) is incomplete and partially hand-wavy. The step claims 'All values exceed 1 on this piece' based on checking only a few points (f(0)=2, f(-1)=3, f(1)=7/3). While the step later verifies algebraically that x^2+x+2=0 has no real solution (correct), and mentions the minimum is approximately 1.46, the flow is disorganized and the minimum calculation is stated without derivation. For an advanced tier, the minimum should be derived or at least the derivative check should be shown.",
+      "suggested_fix": "Reorganize: first show algebraically that f(x)=1 has no solution (discriminant argument, which is already there), then optionally verify the minimum via derivative to confirm f > 1 on (-2,2). Remove the scattered trial-and-error evaluations that don't contribute to the proof."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "examples[0].problem_md",
+      "description": "The piecewise definition of f is incomplete/ambiguous. The first piece covers x ≠ 2, x ≠ -2, and the third piece covers -3 < x < -2. These overlap: for -3 < x < -2 with x ≠ -2, both the rational expression and ln(x+3) are specified. The problem should clarify which piece takes priority, or redefine the domains to be non-overlapping.",
+      "suggested_fix": "Change the first piece's domain to something like x > -2, x ≠ 2 (or x ∉ {-2, 2} and x ≥ -2) and explicitly state the ln piece governs (-3, -2). Alternatively, add a note that the ln piece overrides the rational piece on (-3,-2)."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "explanations[0].body_md (advanced tier)",
+      "description": "The advanced explanation mentions 'oscillatory discontinuity' with sin(1/x) as an example, but this type is not tested on the AP exam and is not revisited elsewhere in the concept. While mentioning it is not wrong, it could confuse students about scope.",
+      "suggested_fix": "Either label it explicitly as 'not tested on the AP exam but worth knowing' or remove it to keep focus on the three AP-relevant types."
+    },
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "deep_dives[0] and deep_dives[1]",
+      "description": "The two deep dives cover very similar material (both prove IVT using the supremum/completeness argument, both discuss what goes wrong without continuity). There is significant redundancy.",
+      "suggested_fix": "Merge into a single deep dive, or differentiate them more clearly — e.g., one focused on the proof and one focused on counterexamples/topology."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "checks[3] (novice IVT fill-in-the-blank)",
+      "description": "The expected_pattern regex would not match '2.5' because the sub-pattern '2\\.\\d*[1-9]' requires a nonzero digit but '2.5' does match. Actually checking: '2.5' matches '2\\.\\d*[1-9]' since \\d* matches empty and [1-9] matches 5. But '8' would not match, even though 8 is between 2 and 8 (and the problem says 'between'). The IVT statement says 'strictly between' so 8 should arguably not count, but the explanation says 'every y-value from 2 to 8' which is ambiguous. More importantly, the regex won't match valid answers like '2.1' but will match. Actually the bigger issue: the regex won't match answers like 'f(x) = 5' or just the word 'five'.",
+      "suggested_fix": "This is a minor regex concern. Consider broadening the pattern or clarifying that a numeric answer is expected."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[2].body_md (novice framing_index 1)",
+      "description": "The explanation opens with 'Before we use the Intermediate Value Theorem' — uses 'we' instead of 'you', violating style guidelines.",
+      "suggested_fix": "Change 'Before we use' to 'Before you use'."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "applications[1].solution_outline_md",
+      "description": "Uses 'the engineer should be concerned' language that's fine, but the final paragraph is somewhat speculative for a math solution. This is acceptable for an application context but could be tightened.",
+      "suggested_fix": "Optional: tighten the engineering interpretation paragraph to focus on the mathematical implications of the discontinuity."
+    }
+  ],
+  "summary": "The concept is mathematically sound overall and pedagogically strong, but the advanced worked example has a confusing/muddled analysis at x = -2 due to overlapping piecewise domains and extraneous limit computations, which could mislead a careful student; the two deep dives are largely redundant.",
+  "critiquedAt": "2026-05-15T19:55:52.356Z",
+  "modelVersion": "claude-opus-4-6"
+}

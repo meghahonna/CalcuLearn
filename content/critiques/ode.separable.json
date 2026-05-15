@@ -1,0 +1,67 @@
+{
+  "conceptId": "ode.separable",
+  "conceptName": "Separable Differential Equations",
+  "verdict": "issues_found",
+  "overall_severity": "minor",
+  "issues": [
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "location": "explanations[0].body_md",
+      "description": "The concept is listed with track 'BC' but separable differential equations are part of the AP Calculus AB curriculum as well. The track designation may mislead students into thinking this is BC-only content.",
+      "suggested_fix": "Change track to 'AB' or 'AB_BC' (whichever the app's schema uses) to indicate the topic appears in both AB and BC."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "explanations[0].body_md (stretch question)",
+      "description": "The stretch question states separation gives y = (x/3)^3. Separating dy/dx = y^{2/3}: ∫ y^{-2/3} dy = ∫ dx → 3y^{1/3} = x + C. With y(0)=0, C=0, so y^{1/3} = x/3, hence y = (x/3)^3 = x^3/27. The expression (x/3)^3 is correct but it may be clearer to also write x^3/27 to avoid ambiguity. This is very minor.",
+      "suggested_fix": "Optionally clarify by writing y = (x/3)^3 = x^3/27."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "prerequisites",
+      "description": "The prerequisites array is empty, but this concept clearly depends on knowledge of integration techniques (u-substitution, antiderivatives, power rule), basic ODE concepts, and initial conditions. An empty prerequisites list could confuse students navigating the app's dependency graph.",
+      "suggested_fix": "Add prerequisite concept IDs for antiderivatives/indefinite integrals, u-substitution, and possibly basic ODE introduction."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[1].body_md (novice tier, framing_index 0)",
+      "description": "The novice explanation uses the degree symbol notation '200°' and '70°' without LaTeX formatting. For consistency with the style guide (LaTeX in $...$), these should be wrapped.",
+      "suggested_fix": "Use $200°$ or $200^{\\circ}$ and $70^{\\circ}$ consistently in LaTeX."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "misconceptions[3] (fail_to_solve_for_y)",
+      "description": "The why_wrong_md says 'forgetting to double the constant is an algebra slip that changes the answer' referring to going from y^2/2 = x + C to y^2 = 2x + 2C. But since C is arbitrary, 2C is also an arbitrary constant — calling it an error is slightly misleading. The real issue is the missing ± sign and not solving when asked.",
+      "suggested_fix": "Remove or soften the claim about 'forgetting to double the constant' since an arbitrary constant absorbed into a new symbol is still arbitrary. Focus the misconception squarely on the ± issue and on leaving implicit form when explicit is requested."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[1].intuition_md and explanations[2].intuition_md",
+      "description": "Both the novice framing_index 0 and framing_index 1 explanations use essentially the same 'sorting laundry' analogy in their intuition blocks, which is also repeated in the on_pace explanation. The repetition across tiers reduces the freshness of the metaphor.",
+      "suggested_fix": "Vary the analogies across tiers or framings so that a student who reads multiple tiers gets different perspectives."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "checks[0] (advanced, spot the mistake)",
+      "description": "The expected_answer_md says 'Taking the square root of step 3 gives y^2 - x^2 = C_1 (a family of hyperbolas), so y = ±√(x^2 + C_1).' This notation mixes up: from y^2/2 = x^2/2 + C, multiplying by 2 gives y^2 = x^2 + 2C, then y = ±√(x^2 + K). The mention of 'taking the square root of step 3 gives y^2 - x^2 = C_1' is not taking a square root — it is just rearranging. The phrasing is a bit confusing but mathematically the content is correct.",
+      "suggested_fix": "Rephrase to: 'Rearranging step 3 gives y^2 - x^2 = 2C (a family of hyperbolas), so y = ±√(x^2 + 2C).' for clarity."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "location": "checks[1] (advanced, fill-in-the-blank)",
+      "description": "The expected_pattern requires both 'substitution' and 'continuous/differentiable' to appear in the student's answer, connected by '.*'. This is a reasonable check, but 'continuously differentiable' is stricter than necessary — the substitution rule only requires continuity of the integrand and differentiability of y(x). Saying 'differentiable' alone would suffice for the AP level.",
+      "suggested_fix": "Accept 'differentiable' as sufficient for the second blank, noting that 'continuously differentiable' is a stronger but also correct answer."
+    }
+  ],
+  "summary": "The concept is mathematically sound and pedagogically strong across all tiers; issues are minor matters of metadata (track, prerequisites), style consistency (repeated analogy, LaTeX formatting), and small wording clarifications.",
+  "critiquedAt": "2026-05-15T19:28:42.589Z",
+  "modelVersion": "claude-opus-4-6"
+}

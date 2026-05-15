@@ -290,6 +290,9 @@ export const CONCEPT_SPECS: Record<string, ConceptSpec> = {
         'Treat $y$ as a function of $x$ — every time you differentiate a $y$ term, append $\\frac{dy}{dx}$. Walk through a circle equation.',
         'Use the unit circle $x^2 + y^2 = 1$ — find the slope of the tangent at a given point implicitly, then verify by solving for $y$ explicitly.',
       ],
+      advanced: [
+        'Treat this as an application of the single-variable chain rule to an equation that defines $y$ implicitly as a function of $x$. STAY IN SINGLE-VARIABLE CALCULUS — do NOT use partial derivatives, gradients, the Implicit Function Theorem, multivariable chain rule, tangent planes, or level curves. AP Calculus AB/BC does NOT cover multivariable techniques.',
+      ],
     },
     misconceptionCount: 5,
     deepDiveAngles: [
@@ -309,6 +312,9 @@ export const CONCEPT_SPECS: Record<string, ConceptSpec> = {
       novice: [
         'Use a recipe: identify variables, write a relationship, differentiate with respect to time, substitute known values LAST.',
         'Walk through a sliding ladder problem step by step — emphasise that the ladder length is constant but $x$ and $y$ both depend on $t$.',
+      ],
+      advanced: [
+        'Frame as an implicit-differentiation problem with respect to time, where every variable is a function of $t$. STAY IN SINGLE-VARIABLE CALCULUS — do NOT use partial derivatives $\\partial F/\\partial x$, gradient vectors, multivariable chain rule, constraint surfaces, or autonomous ODE theory. AP Calculus AB/BC does NOT cover multivariable techniques.',
       ],
     },
     misconceptionCount: 6,

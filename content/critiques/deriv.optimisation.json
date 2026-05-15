@@ -1,0 +1,60 @@
+{
+  "conceptId": "deriv.optimisation",
+  "conceptName": "Optimisation",
+  "verdict": "issues_found",
+  "overall_severity": "important",
+  "issues": [
+    {
+      "severity": "important",
+      "category": "ap_alignment",
+      "location": "explanations[0] (advanced tier)",
+      "description": "The prerequisites array is empty, yet optimization requires knowledge of derivatives, critical points, the first and second derivative tests, and the Extreme Value Theorem. An empty prerequisites list is misleading for any student navigating the app's dependency graph.",
+      "suggested_fix": "Add appropriate prerequisite concept IDs such as derivatives, critical points, first/second derivative tests, EVT, etc."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "location": "examples[0].steps[4].why_md (advanced example stretch question)",
+      "description": "The stretch question asks the student to show the optimal ratio is h/r = 2c_e/c_s. Repeating the derivation with general costs: C = c_e·2πr² + c_s·2πrh, substitute h = V/(πr²), get C = 2πc_e r² + 2c_s V/r, differentiate: 4πc_e r − 2c_s V/r² = 0 → r³ = c_s V/(2πc_e), then h/r = V/(πr³) = 2c_e/c_s. This checks out. However, the original problem already used c_e=4, c_s=1, giving h/r = 2·4/1 = 8, which is consistent. No math error, but the general formula is stated without derivation and might be confusing if the student doesn't see the intermediate algebra. This is a stretch question so it's acceptable.",
+      "suggested_fix": "No change strictly required; optionally add a brief hint for the derivation."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "checks[0] (advanced tier)",
+      "description": "The student's claimed critical point is x* = (2V)^{1/3}. Checking: S(x) = x² + 4V/x, S'(x) = 2x − 4V/x² = 0 → x³ = 2V → x* = (2V)^{1/3}. The expected answer says S''(x*) = 2 + 8V/(x*)³. But S''(x) = 2 + 8V/x³, so S''(x*) = 2 + 8V/(2V) = 2 + 4 = 6. The formula is correct, just not simplified. This is fine, but a student might wonder about the simplification.",
+      "suggested_fix": "Optionally simplify S''(x*) = 6 in the expected answer for clarity."
+    },
+    {
+      "severity": "important",
+      "category": "pedagogy",
+      "location": "explanations[1] (novice, framing_index 1)",
+      "description": "This second novice explanation only covers the first-derivative (sign chart) test and briefly mentions the closed-interval method at the end, but it never introduces the standard optimization workflow (define objective, use constraint to reduce to one variable, etc.). Since the concept is 'Optimisation' and not just 'finding local extrema,' this explanation is incomplete for the concept. A novice encountering this as their only explanation would not learn how to set up and solve a word-problem optimization question.",
+      "suggested_fix": "Either expand the explanation to include the optimization setup workflow (objective + constraint → one variable → differentiate → check), or re-label it as a supplementary explanation on the first-derivative test rather than a standalone optimization explanation."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "concept_id and name",
+      "description": "The concept uses British spelling 'Optimisation' throughout. While not wrong, AP Calculus materials (College Board) consistently use American English 'Optimization.' This could confuse students searching for the term.",
+      "suggested_fix": "Consider using 'Optimization' to match AP exam vocabulary, or at minimum note the alternate spelling."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "location": "explanations[2] (on_pace), body_md last paragraph",
+      "description": "The sentence 'Looking ahead: once you learn integration, optimization reappears when you maximize areas, volumes, and even accumulated rates.' is mild filler/preview language. Not egregious but slightly violates the 'no filler' guideline.",
+      "suggested_fix": "Remove or shorten this forward-looking paragraph."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "location": "examples[2] (on_pace) steps[4].why_md",
+      "description": "The stretch challenge says 'the constraint becomes 2x + 2y = 120 (one extra interior fence of length y)'. If there is one interior fence parallel to the barn (of length y), the constraint should be 2x + 2y = 120 only if that interior fence has length y. But the original setup has y as the side parallel to the barn. Adding one interior fence of length y means the constraint is 2x + y + y = 2x + 2y = 120. This is stated correctly, but the parenthetical '(one extra interior fence of length y)' is slightly confusing because it implies only one fence was added, yet the equation already accounts for the original y plus the new y. It would be clearer to say the total fencing is 2x + 2y because there are now two parallel-to-barn fences (the outer one and the divider).",
+      "suggested_fix": "Clarify: 'the constraint becomes 2x + 2y = 120 because there are now two lengths of y (the outer side plus the interior divider).'"
+    }
+  ],
+  "summary": "Content is mathematically sound overall with good worked examples and misconceptions, but the empty prerequisites array and the second novice explanation's incomplete coverage of the optimization workflow are the most significant issues.",
+  "critiquedAt": "2026-05-15T19:26:39.330Z",
+  "modelVersion": "claude-opus-4-6"
+}

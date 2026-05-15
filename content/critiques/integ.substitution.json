@@ -1,0 +1,46 @@
+{
+  "conceptId": "integ.substitution",
+  "conceptName": "Integration by Substitution",
+  "verdict": "issues_found",
+  "overall_severity": "minor",
+  "issues": [
+    {
+      "severity": "minor",
+      "category": "ap_alignment",
+      "description": "The 'prerequisites' array is empty. Integration by substitution relies on knowledge of the chain rule, basic antiderivatives / power rule, and the Fundamental Theorem of Calculus. Listing no prerequisites could mislead the app's sequencing logic.",
+      "location": "prerequisites",
+      "suggested_fix": "Add prerequisites such as 'deriv.chain_rule', 'integ.antiderivatives', and 'integ.ftc' (or whatever the corresponding concept IDs are)."
+    },
+    {
+      "severity": "minor",
+      "category": "pedagogy",
+      "description": "The advanced explanation's stretch question about absolute continuity and the Lebesgue integral goes well beyond AP Calculus AB/BC scope. While it is labeled 'stretch,' it may confuse even advanced AP students who have no exposure to measure theory.",
+      "location": "explanations[0].body_md (stretch question at end)",
+      "suggested_fix": "Either remove the stretch question or add a brief note that this is purely for students interested in real analysis beyond AP, to set expectations."
+    },
+    {
+      "severity": "minor",
+      "category": "consistency",
+      "description": "The novice explanation (framing_index 0) uses the example ∫(3x+1)^5 · 3 dx, but the novice worked example uses ∫2x(x²+1)^3 dx. These are fine as separate illustrations, but neither novice check-for-understanding question directly tests the 'adjust by a constant' scenario mentioned in the novice explanation ('Sometimes you need to multiply and divide by a constant to make it fit'). The novice check about dx = du/3 partially addresses this, which is good, but it might be more cohesive to have a novice worked example that demonstrates the constant-adjustment step.",
+      "location": "checks (novice tier) vs explanations (novice tier)",
+      "suggested_fix": "Consider adding a novice check or adjusting an existing one to have the student perform a full substitution that requires pulling out a constant factor."
+    },
+    {
+      "severity": "minor",
+      "category": "style",
+      "description": "In the deep dive 'Choosing u When There Are Multiple Candidates', the analysis of u = e^{x^3} says 'This works too' but doesn't note that the resulting antiderivative (1/3)e^{x^3} + C is identical to what you get with u = x^3. This is a missed pedagogical opportunity, especially since the follow-up question at the end asks exactly this.",
+      "location": "deep_dives[1].body_md (Try u = e^{x^3} paragraph)",
+      "suggested_fix": "Add a sentence explicitly noting the two substitutions yield the same antiderivative, connecting it to the follow-up question."
+    },
+    {
+      "severity": "minor",
+      "category": "math",
+      "description": "In the deep dive on linear approximation, the error analysis states each rectangle's error is f(u_k)·O(Δx²). More precisely, the error per rectangle involves the product of f's value and the second-order remainder of g, plus first-order terms from f's variation, but the stated bound is correct in spirit under the assumed continuity/differentiability hypotheses. This is acceptable for the level but slightly hand-wavy.",
+      "location": "deep_dives[0].body_md (Why the error truly disappears)",
+      "suggested_fix": "No change strictly necessary; optionally add a parenthetical noting this uses boundedness of f on a compact interval."
+    }
+  ],
+  "summary": "The concept is mathematically accurate, pedagogically well-structured across tiers, and AP-aligned; only minor style, consistency, and metadata issues were found.",
+  "critiquedAt": "2026-05-15T19:27:43.872Z",
+  "modelVersion": "claude-opus-4-6"
+}
