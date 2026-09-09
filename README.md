@@ -236,3 +236,15 @@ file lists the requirements it satisfies in its module-level JSDoc.
 ## License
 
 TBD — internal project.
+
+pip install mlx-lm
+python scripts/finetune/evalBaseModels.py            # full run (~128 records + 10 problems × 4 models)
+python scripts/finetune/evalBaseModels.py --limit 10 # quick pass first
+
+pip install "transformers>=5.7,<5.13"
+python scripts/finetune/evalBaseModels.py --limit 10
+
+npx tsx scripts/finetune/augment.ts        # generates classifier task + 12 remaining concepts
+python scripts/finetune/mixDataset.py      # rebuild: new synthetic in, 83 over-length out
+# train with the iters count the mixer prints, and:
+#   --adapter-path adapters/calculearn-v1.1

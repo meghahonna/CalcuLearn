@@ -1,0 +1,22 @@
+{
+  "generatedAt": "2026-07-07T22:54:08.706Z",
+  "total": 1826,
+  "splits": {
+    "train": 1519,
+    "valid": 131,
+    "test": 176
+  },
+  "heldOutConcepts": [
+    "deriv.quotient-rule",
+    "integ.by-parts"
+  ],
+  "byTask": {
+    "hint": 246,
+    "feedback": 207,
+    "worked-example": 60,
+    "semantic-eval": 202,
+    "problem-variant": 38,
+    "classifier": 974,
+    "intro": 99
+  }
+}

@@ -1,0 +1,758 @@
+[
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "As x approaches 3, f(x) approaches 7",
+  "output": "The limit $\\lim_{x \\to 3} f(x) = 7$ means that as $x$ gets closer and closer to 3 (from both the left and the right), the value of $f(x)$ gets arbitrarily close to 7. In other words, the function $f(x)$ approaches the value 7 as $x$ approaches 3.\n\nFinal answer: <answer> The limit $\\lim_{x \\to 3} f(x) = 7$ means that as $x$ approaches 3, the value of $f(x)$ approaches 7.",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: In your own words, what does $\\lim_{x \\to 3} f(x) = 7$ mean?"
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "11",
+  "output": "To evaluate the limit $\\lim_{x \\to 2} (3x^2 - x + 1)$, we can directly substitute $x = 2$ into the expression since it is a polynomial function, and polynomials are continuous everywhere.\n\nSubstitute $x = 2$:\n\n$$\n3(2)^2 - 2 + 1 = 3(4) - 2 + 1 = 12 - 2 + 1 = 11\n$$\n\nFinal answer: <answer>11</answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\lim_{x \\to 2} (3x^2 - x + 1)$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "2",
+  "output": "To evaluate the limit:\n\n$$\n\\lim_{x \\to 1} \\dfrac{x^2 - 1}{x - 1}\n$$\n\nwe first note that substituting $ x = 1 $ directly into the expression gives:\n\n$$\n\\frac{1^2 - 1}{1 - 1} = \\frac{0}{0}\n$$\n\nThis is an indeterminate form, so we need to simplify the expression.\n\n### Step 1: Factor the numerator\n\nWe factor the numerator:\n\n$$\nx^2 - 1 = (x - 1)(x + 1)\n$$\n\nSo the expression becomes:\n\n$$\n\\frac{(x - 1)(x + 1)}{x - 1}\n$$\n\n### Step 2: Cancel the common factor\n\nWe cancel the $ x - 1 $ terms (as long as $ x \\neq 1 $):\n\n$$\n\\frac{(x - 1)(x + 1)}{x - 1} = x + 1\n$$\n\n### Step 3: Take the limit\n\nNow we evaluate the simplified expression as $ x \\to 1 $:\n\n$$\n\\lim_{x \\to 1} (x + 1) = 1 + 1 = 2\n$$\n\n### Final answer:\n\nFinal answer: <answer>2</answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\lim_{x \\to 1} \\dfrac{x^2 - 1}{x - 1}$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "1",
+  "output": "To solve the limit $\\lim_{x \\to 0} \\dfrac{\\sin x}{x}$, we can use a known result from calculus:\n\n$$\n\\lim_{x \\to 0} \\dfrac{\\sin x}{x} = 1\n$$\n\nThis result is a standard limit and is often derived using the squeeze theorem or L\u2019H\u00f4pital\u2019s Rule. Here, we are directly using the known result.\n\nFinal answer: $\\boxed{1}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find $\\lim_{x \\to 0} \\dfrac{\\sin x}{x}$. (You may use the known result.)",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "Left-hand limit approaches from below; right-hand limit approaches from above",
+  "output": "To solve this problem, we need to understand the difference between the left-hand limit and the right-hand limit of a function $ f(x) $ as $ x $ approaches a specific value, in this case, $ x \\to 2 $.\n\n- $ \\lim_{x \\to 2^-} f(x) $ represents the limit of $ f(x) $ as $ x $ approaches 2 from the **left** (i.e., values of $ x $ less than 2).\n- $ \\lim_{x \\to 2^+} f(x) $ represents the limit of $ f(x) $ as $ x $ approaches 2 from the **right** (i.e., values of $ x $ greater than 2).\n\nThe key difference is that the left-hand limit considers values of $ x $ approaching 2 from the left, while the right-hand limit considers values approaching 2 from the right.\n\nFinal answer: <answer> The left-hand limit is the value that $ f(x) $ approaches as $ x $ approaches 2 from the left, while the right-hand limit is the value that $ f(x) $ approaches as $ x $ approaches 2 from the right.",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: What is the difference between $\\lim_{x \\to 2^-} f(x)$ and $\\lim_{x \\to 2^+} f(x)$?"
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "3 and 4",
+  "output": "To solve the given problem, we need to evaluate the left-hand limit and the right-hand limit of the piecewise function $ f(x) $ as $ x $ approaches 2.\n\n### Step 1: Left-hand limit $ \\lim_{x \\to 2^-} f(x) $\n\nFor $ x < 2 $, the function is defined as $ f(x) = x + 1 $. So, we evaluate:\n\n$$\n\\lim_{x \\to 2^-} f(x) = \\lim_{x \\to 2^-} (x + 1) = 2 + 1 = 3\n$$\n\n### Step 2: Right-hand limit $ \\lim_{x \\to 2^+} f(x) $\n\nFor $ x \\geq 2 $, the function is defined as $ f(x) = 3x - 2 $. So, we evaluate:\n\n$$\n\\lim_{x \\to 2^+} f(x) = \\lim_{x \\to 2^+} (3x - 2) = 3(2) - 2 = 6 - 2 = 4\n$$\n\n### Final Answer:\nFinal answer: <answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Let $f(x) = \\begin{cases} x+1 & x < 2 \\\\ 3x-2 & x \\geq 2 \\end{cases}$. Find $\\lim_{x \\to 2^-} f(x)$ and $\\lim_{x \\to 2^+} f(x)$."
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "No",
+  "output": "To determine whether the limit $\\lim_{x \\to 2} f(x)$ exists for the piecewise function, we need to check the left-hand limit and the right-hand limit as $x$ approaches 2.\n\nAssume the piecewise function is defined as follows (for example):\n\n$$\nf(x) =\n\\begin{cases}\nx - 2 & \\text{if } x < 2 \\\\\n3 & \\text{if } x = 2 \\\\\nx + 2 & \\text{if } x > 2\n\\end{cases}\n$$\n\nNow, compute the left-hand limit as $x \\to 2^-$:\n\n$$\n\\lim_{x \\to 2^-} f(x) = \\lim_{x \\to 2^-} (x - 2) = 2 - 2 = 0\n$$\n\nCompute the right-hand limit as $x \\to 2^+$:\n\n$$\n\\lim_{x \\to 2^+} f(x) = \\lim_{x \\to 2^+} (x + 2) = 2 + 2 = 4\n$$\n\nSince the left-hand limit and the right-hand limit are not equal, the two-sided limit $\\lim_{x \\to 2} f(x)$ does **not** exist.\n\nFinal answer: $\\boxed{\\text{No}}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Does $\\lim_{x \\to 2} f(x)$ exist for the piecewise function above?"
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "-1 and 1",
+  "output": "To evaluate the limits of the function $ f(x) = \\dfrac{|x-3|}{x-3} $ as $ x \\to 3^- $ and $ x \\to 3^+ $, we analyze the behavior of the function in each case.\n\n---\n\n### **Step 1: Understanding the function**\n\nThe function is:\n\n$$\nf(x) = \\dfrac{|x-3|}{x-3}\n$$\n\nThe absolute value function $ |x-3| $ is defined as:\n\n$$\n|x-3| = \n\\begin{cases}\nx-3 & \\text{if } x \\geq 3 \\\\\n3 - x & \\text{if } x < 3\n\\end{cases}\n$$\n\nSo, we can rewrite $ f(x) $ as:\n\n$$\nf(x) = \n\\begin{cases}\n\\dfrac{x-3}{x-3} = 1 & \\text{if } x > 3 \\\\\n\\dfrac{3 - x}{x-3} = \\dfrac{-(x-3)}{x-3} = -1 & \\text{if } x < 3\n\\end{cases}\n$$\n\n---\n\n### **Step 2: Evaluate the left-hand limit $ \\lim_{x \\to 3^-} f(x) $**\n\nFor $ x \\to 3^- $, $ x < 3 $, so we use the second case:\n\n$$\nf(x) = \\dfrac{3 - x}{x - 3} = -1\n$$\n\nSo,\n\n$$\n\\lim_{x \\to 3^-} f(x) = -1\n$$\n\n---\n\n### **Step 3: Evaluate the right-hand limit $ \\lim_{x \\to 3^+} f(x) $**\n\nFor $ x \\to 3^+ $, $ x > 3 $, so we use the first case:\n\n$$\nf(x) = \\dfrac{x - 3}{x - 3} = 1\n$$\n\nSo,\n\n$$\n\\lim_{x \\to 3^+} f(x) = 1\n$$\n\n---\n\n### **Final Answer:**\n\nFinal answer: $ \\lim_{x \\to 3^-} f(x) = -1 $, $ \\lim_{x \\to 3^+} f(x) = 1 $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: For $f(x) = \\dfrac{|x-3|}{x-3}$, find $\\lim_{x \\to 3^-} f(x)$ and $\\lim_{x \\to 3^+} f(x)$."
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "The graph has a horizontal asymptote at y = 5",
+  "output": "The limit $\\lim_{x \\to \\infty} f(x) = 5$ tells you that as $x$ becomes very large, the value of $f(x)$ approaches 5. This means that the graph of $f(x)$ will approach the horizontal line $y = 5$ as $x$ increases without bound.\n\nFinal answer: <answer> The graph of $f(x)$ approaches the horizontal line $y = 5$ as $x$ approaches infinity.",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: What does $\\lim_{x \\to \\infty} f(x) = 5$ tell you about the graph of f?"
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "3/5",
+  "output": "To evaluate the limit:\n\n$$\n\\lim_{x \\to \\infty} \\dfrac{3x^2 + 2x}{5x^2 - 1}\n$$\n\nWe observe that both the numerator and the denominator are polynomials of degree 2. As $ x \\to \\infty $, the highest degree terms dominate.\n\nFactor out $ x^2 $ from both the numerator and the denominator:\n\n$$\n\\lim_{x \\to \\infty} \\dfrac{x^2(3 + \\frac{2}{x})}{x^2(5 - \\frac{1}{x^2})}\n$$\n\nCancel $ x^2 $ from numerator and denominator (since $ x \\neq 0 $):\n\n$$\n\\lim_{x \\to \\infty} \\dfrac{3 + \\frac{2}{x}}{5 - \\frac{1}{x^2}}\n$$\n\nNow take the limit as $ x \\to \\infty $:\n\n- $ \\frac{2}{x} \\to 0 $\n- $ \\frac{1}{x^2} \\to 0 $\n\nSo the expression becomes:\n\n$$\n\\frac{3 + 0}{5 - 0} = \\frac{3}{5}\n$$\n\nFinal answer: <answer> $\\frac{3}{5}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\lim_{x \\to \\infty} \\dfrac{3x^2 + 2x}{5x^2 - 1}$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "infinity",
+  "output": "To evaluate the limit:\n\n$$\n\\lim_{x \\to \\infty} \\dfrac{4x^3 - x}{2x^2 + 7}\n$$\n\nwe analyze the behavior of the numerator and denominator as $ x \\to \\infty $.\n\n### Step 1: Identify the highest degree terms\n- The numerator is $ 4x^3 - x $, so the highest degree term is $ 4x^3 $.\n- The denominator is $ 2x^2 + 7 $, so the highest degree term is $ 2x^2 $.\n\n### Step 2: Compare the degrees\n- The numerator has degree 3.\n- The denominator has degree 2.\n\nAs $ x \\to \\infty $, the numerator grows much faster than the denominator.\n\n### Step 3: Apply the rule for limits of rational functions\nWhen the degree of the numerator is greater than the degree of the denominator, the limit tends to $ \\infty $ or $ -\\infty $, depending on the sign of the leading coefficient.\n\n- The leading term of the numerator is $ 4x^3 $.\n- The leading term of the denominator is $ 2x^2 $.\n\nSo, the limit is:\n\n$$\n\\lim_{x \\to \\infty} \\dfrac{4x^3 - x}{2x^2 + 7} = \\infty\n$$\n\nFinal answer: $\\boxed{\\infty}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\lim_{x \\to \\infty} \\dfrac{4x^3 - x}{2x^2 + 7}$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "y = 2 and y = -2",
+  "output": "To find the horizontal asymptotes of the function $ f(x) = \\dfrac{2x}{\\sqrt{x^2+1}} $, we analyze the behavior of the function as $ x \\to \\pm\\infty $.\n\n---\n\n### Step 1: Simplify the expression\n\nWe can simplify the expression by dividing numerator and denominator by $ x $ (assuming $ x \\neq 0 $):\n\n$$\nf(x) = \\dfrac{2x}{\\sqrt{x^2+1}} = \\dfrac{2x}{\\sqrt{x^2(1 + \\frac{1}{x^2})}} = \\dfrac{2x}{|x|\\sqrt{1 + \\frac{1}{x^2}}}\n$$\n\nNow, consider the absolute value:\n\n- For $ x > 0 $, $ |x| = x $\n- For $ x < 0 $, $ |x| = -x $\n\nSo we can write:\n\n$$\nf(x) = \\dfrac{2x}{|x|\\sqrt{1 + \\frac{1}{x^2}}} = \\dfrac{2}{\\sqrt{1 + \\frac{1}{x^2}}}\n$$\n\n---\n\n### Step 2: Analyze as $ x \\to \\pm\\infty $\n\nAs $ x \\to \\infty $ or $ x \\to -\\infty $, the term $ \\frac{1}{x^2} \\to 0 $, so:\n\n$$\n\\sqrt{1 + \\frac{1}{x^2}} \\to \\sqrt{1} = 1\n$$\n\nThus:\n\n$$\nf(x) \\to \\dfrac{2}{1} = 2\n$$\n\n---\n\n### Step 3: Conclusion\n\nThe function approaches 2 as $ x \\to \\pm\\infty $, so the horizontal asymptote is:\n\n$$\n\\boxed{y = 2}\n$$\n\nFinal answer: $ \\boxed{y = 2} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find all horizontal asymptotes of $f(x) = \\dfrac{2x}{\\sqrt{x^2+1}}$."
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "When the limit gives 0/0 or \u221e/\u221e",
+  "output": "To apply L'H\u00f4pital's Rule, the following conditions must be satisfied:\n\n1. The limit of the function results in an indeterminate form such as $\\frac{0}{0}$ or $\\frac{\\infty}{\\infty}$.\n2. The functions involved in the limit are differentiable in a neighborhood around the point of interest (except possibly at the point itself).\n3. The limit of the derivative of the numerator and the derivative of the denominator exist.\n\nFinal answer: L'H\u00f4pital's Rule can be applied when the limit results in an indeterminate form $\\frac{0}{0}$ or $\\frac{\\infty}{\\infty}$, and the functions are differentiable in a neighborhood around the point of interest.",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: When can you apply L'H\u00f4pital's rule?"
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "1",
+  "output": "To evaluate the limit:\n\n$$\n\\lim_{x \\to 0} \\dfrac{e^x - 1}{x}\n$$\n\nwe observe that as $ x \\to 0 $, both the numerator and denominator approach 0, resulting in an indeterminate form $ \\frac{0}{0} $. This allows us to apply **L'H\u00f4pital's Rule**.\n\n### Step 1: Differentiate the numerator and denominator\n\n- The derivative of the numerator $ e^x - 1 $ is $ e^x $.\n- The derivative of the denominator $ x $ is $ 1 $.\n\nSo, applying L'H\u00f4pital's Rule:\n\n$$\n\\lim_{x \\to 0} \\dfrac{e^x - 1}{x} = \\lim_{x \\to 0} \\dfrac{e^x}{1} = e^0 = 1\n$$\n\n### Final answer: Final answer: <answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Use L'H\u00f4pital's rule to evaluate $\\lim_{x \\to 0} \\dfrac{e^x - 1}{x}$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "0",
+  "output": "To evaluate the limit $\\lim_{x \\to \\infty} \\dfrac{\\ln x}{x}$, we analyze the behavior of the numerator and denominator as $x \\to \\infty$.\n\n- The numerator $\\ln x$ grows to infinity as $x \\to \\infty$.\n- The denominator $x$ also grows to infinity.\n\nThis is a $\\dfrac{\\infty}{\\infty}$ indeterminate form. We can apply **L'H\u00f4pital's Rule** to resolve it.\n\n### Applying L'H\u00f4pital's Rule:\n$$\n\\lim_{x \\to \\infty} \\dfrac{\\ln x}{x} = \\lim_{x \\to \\infty} \\dfrac{\\dfrac{d}{dx}(\\ln x)}{\\dfrac{d}{dx}(x)} = \\lim_{x \\to \\infty} \\dfrac{\\dfrac{1}{x}}{1} = \\lim_{x \\to \\infty} \\dfrac{1}{x} = 0\n$$\n\n### Final answer: $0$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\lim_{x \\to \\infty} \\dfrac{\\ln x}{x}$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "1/6",
+  "output": "To evaluate the limit:\n\n$$\n\\lim_{x \\to 0} \\dfrac{x - \\sin x}{x^3}\n$$\n\nwe can use **Taylor series expansion** of $\\sin x$ around $x = 0$:\n\n$$\n\\sin x = x - \\frac{x^3}{6} + \\frac{x^5}{120} - \\cdots\n$$\n\nSubstitute this into the expression:\n\n$$\nx - \\sin x = x - \\left(x - \\frac{x^3}{6} + \\frac{x^5}{120} - \\cdots\\right) = \\frac{x^3}{6} - \\frac{x^5}{120} + \\cdots\n$$\n\nNow divide by $x^3$:\n\n$$\n\\frac{x - \\sin x}{x^3} = \\frac{\\frac{x^3}{6} - \\frac{x^5}{120} + \\cdots}{x^3} = \\frac{1}{6} - \\frac{x^2}{120} + \\cdots\n$$\n\nAs $x \\to 0$, the higher-order terms vanish, so:\n\n$$\n\\lim_{x \\to 0} \\dfrac{x - \\sin x}{x^3} = \\frac{1}{6}\n$$\n\nFinal answer: $\\boxed{\\frac{1}{6}}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\lim_{x \\to 0} \\dfrac{x - \\sin x}{x^3}$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "f(a) defined, limit exists, limit equals f(a)",
+  "output": "To determine the three conditions required for a function $ f $ to be continuous at $ x = a $, we consider the following:\n\n1. **The function $ f $ must be defined at $ x = a $**, meaning $ f(a) $ exists.\n2. **The limit of $ f(x) $ as $ x $ approaches $ a $ must exist**, i.e., $ \\lim_{x \\to a} f(x) $ exists.\n3. **The limit of $ f(x) $ as $ x $ approaches $ a $ must equal $ f(a) $**, i.e., $ \\lim_{x \\to a} f(x) = f(a) $.\n\nFinal answer: Final answer: <answer> The three conditions are: $ f(a) $ exists, $ \\lim_{x \\to a} f(x) $ exists, and $ \\lim_{x \\to a} f(x) = f(a) $.",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: State the three conditions required for $f$ to be continuous at $x = a$."
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "No \u2014 f(2) is undefined",
+  "output": "To determine if the function $ f(x) = \\dfrac{x^2 - 4}{x - 2} $ is continuous at $ x = 2 $, we need to check three conditions:\n\n1. **The function is defined at $ x = 2 $**.\n2. **The limit of the function as $ x $ approaches 2 exists**.\n3. **The limit equals the function value at $ x = 2 $**.\n\n---\n\n**Step 1: Check if the function is defined at $ x = 2 $**  \nThe function is $ f(x) = \\dfrac{x^2 - 4}{x - 2} $. At $ x = 2 $, the denominator is zero, so the function is undefined at $ x = 2 $.\n\n---\n\n**Step 2: Simplify the function**  \nWe can factor the numerator:\n\n$$\nx^2 - 4 = (x - 2)(x + 2)\n$$\n\nSo the function becomes:\n\n$$\nf(x) = \\dfrac{(x - 2)(x + 2)}{x - 2}\n$$\n\nFor $ x \\neq 2 $, we can cancel the $ x - 2 $ terms:\n\n$$\nf(x) = x + 2 \\quad \\text{for } x \\neq 2\n$$\n\n---\n\n**Step 3: Check the limit as $ x \\to 2 $**  \nNow, we evaluate the limit:\n\n$$\n\\lim_{x \\to 2} f(x) = \\lim_{x \\to 2} (x + 2) = 2 + 2 = 4\n$$\n\n---\n\n**Step 4: Check if the function value at $ x = 2 $ is equal to the limit**  \nThe function is undefined at $ x = 2 $, but the limit as $ x \\to 2 $ is 4. Since the function is not defined at $ x = 2 $, the function is **not continuous** at $ x = 2 $.\n\n---\n\n**Final answer: <answer>**  \nFinal answer: $ \\boxed{\\text{No}} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Is $f(x) = \\dfrac{x^2-4}{x-2}$ continuous at $x = 2$? Explain."
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "c = 1",
+  "output": "To ensure the function $ f(x) $ is continuous at $ x = 2 $, the left-hand limit, the right-hand limit, and the function value at $ x = 2 $ must all be equal.\n\n### Step 1: Evaluate the function at $ x = 2 $\nFrom the piecewise definition:\n$$\nf(2) = c(2) + 1 = 2c + 1\n$$\n\n### Step 2: Compute the left-hand limit as $ x \\to 2^- $\nFor $ x \\leq 2 $, the function is $ f(x) = cx + 1 $, so:\n$$\n\\lim_{x \\to 2^-} f(x) = c(2) + 1 = 2c + 1\n$$\n\n### Step 3: Compute the right-hand limit as $ x \\to 2^+ $\nFor $ x > 2 $, the function is $ f(x) = x^2 - 1 $, so:\n$$\n\\lim_{x \\to 2^+} f(x) = (2)^2 - 1 = 4 - 1 = 3\n$$\n\n### Step 4: Set the left-hand limit equal to the right-hand limit\nFor continuity at $ x = 2 $, we require:\n$$\n2c + 1 = 3\n$$\n\n### Step 5: Solve for $ c $\n$$\n2c = 2 \\quad \\Rightarrow \\quad c = 1\n$$\n\n### Final answer: Final answer: <answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find the value of $c$ that makes $f(x) = \\begin{cases} cx + 1 & x \\leq 2 \\\\ x^2 - 1 & x > 2 \\end{cases}$ continuous at $x = 2$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "f(1) = -1 < 0 and f(2) = 5 > 0, so by IVT a root exists",
+  "output": "To show that the equation $ x^3 - x - 1 = 0 $ has a root in the interval $ (1, 2) $, we use the **Intermediate Value Theorem**.\n\n---\n\n### Step 1: Define the function\nLet $ f(x) = x^3 - x - 1 $.\n\n---\n\n### Step 2: Evaluate the function at the endpoints of the interval\nWe evaluate $ f(x) $ at $ x = 1 $ and $ x = 2 $:\n\n- $ f(1) = 1^3 - 1 - 1 = 1 - 1 - 1 = -1 $\n- $ f(2) = 2^3 - 2 - 1 = 8 - 2 - 1 = 5 $\n\n---\n\n### Step 3: Apply the Intermediate Value Theorem\nSince $ f(x) $ is a continuous function (it is a polynomial), and we have:\n\n- $ f(1) = -1 < 0 $\n- $ f(2) = 5 > 0 $\n\nBy the **Intermediate Value Theorem**, there exists at least one value $ c \\in (1, 2) $ such that $ f(c) = 0 $.\n\n---\n\n### Final answer:  \nFinal answer: <answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Use the Intermediate Value Theorem to show that $x^3 - x - 1 = 0$ has a root in $(1, 2)$."
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "Removable: limit exists but \u2260 f(a); Jump: one-sided limits exist but differ",
+  "output": "A **removable discontinuity** is a type of discontinuity where the function has a hole at a point, and the limit exists at that point. This means the function can be redefined at that point to make it continuous. The function's value at that point is not defined or is different from the limit.\n\nA **jump discontinuity** is a type of discontinuity where the left and right limits exist but are not equal. The function has a jump at that point, and the function is not continuous at that point.\n\nFinal answer: <answer> A removable discontinuity is a point where the function is undefined or has a hole, and the limit exists, while a jump discontinuity is where the left and right limits exist but are not equal.",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Describe the difference between a removable discontinuity and a jump discontinuity."
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "Removable discontinuity",
+  "output": "To classify the discontinuity of the function $ f(x) = \\dfrac{x^2 - 9}{x - 3} $ at $ x = 3 $, we analyze the behavior of the function near $ x = 3 $.\n\n### Step 1: Simplify the function\nThe function is:\n$$\nf(x) = \\dfrac{x^2 - 9}{x - 3}\n$$\nWe can factor the numerator:\n$$\nx^2 - 9 = (x - 3)(x + 3)\n$$\nSo the function becomes:\n$$\nf(x) = \\dfrac{(x - 3)(x + 3)}{x - 3}\n$$\n\n### Step 2: Simplify the expression\nFor $ x \\neq 3 $, the $ (x - 3) $ terms cancel:\n$$\nf(x) = x + 3\n$$\n\n### Step 3: Analyze the discontinuity\nAt $ x = 3 $, the original function is undefined because the denominator is zero. However, the simplified function $ f(x) = x + 3 $ is defined and continuous at $ x = 3 $.\n\nThis means the original function has a **removable discontinuity** at $ x = 3 $, because the function can be redefined at $ x = 3 $ to make it continuous.\n\n### Final answer: Final answer: <removable discontinuity>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Classify the discontinuity of $f(x) = \\dfrac{x^2-9}{x-3}$ at $x = 3$."
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "Jump discontinuity",
+  "output": "To classify the discontinuity of the piecewise function $ f(x) = \\begin{cases} 2x & x < 1 \\\\ x+3 & x \\geq 1 \\end{cases} $ at $ x = 1 $, we need to check the left-hand and right-hand limits and compare them to the function value at $ x = 1 $.\n\n1. **Left-hand limit** as $ x \\to 1^- $:  \n   $ f(x) = 2x $, so  \n   $ \\lim_{x \\to 1^-} f(x) = 2(1) = 2 $.\n\n2. **Right-hand limit** as $ x \\to 1^+ $:  \n   $ f(x) = x + 3 $, so  \n   $ \\lim_{x \\to 1^+} f(x) = 1 + 3 = 4 $.\n\n3. **Function value at $ x = 1 $**:  \n   $ f(1) = 1 + 3 = 4 $.\n\nNow compare the limits and the function value:\n- The left-hand limit is 2.\n- The right-hand limit is 4.\n- The function value is 4.\n\nSince the left-hand limit is not equal to the right-hand limit, and the function value equals the right-hand limit, the discontinuity at $ x = 1 $ is a **jump discontinuity**.\n\nFinal answer: Final answer: <answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Classify the discontinuity of $f(x) = \\begin{cases} 2x & x < 1 \\\\ x+3 & x \\geq 1 \\end{cases}$ at $x = 1$."
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "Let g(x) = cos x \u2212 x; g(0) = 1 > 0, g(\u03c0/2) = \u2212\u03c0/2 < 0; by IVT a root exists",
+  "output": "To prove that the equation $\\cos x = x$ has at least one solution in the interval $(0, \\pi/2)$ using the Intermediate Value Theorem (IVT), we consider the function:\n\n$$\nf(x) = \\cos x - x\n$$\n\nWe want to show that there exists some $c \\in (0, \\pi/2)$ such that $f(c) = 0$, i.e., $\\cos c = c$.\n\n---\n\n### Step 1: Evaluate $f(x)$ at the endpoints\n\n- At $x = 0$:  \n  $$\n  f(0) = \\cos(0) - 0 = 1 - 0 = 1\n  $$\n\n- At $x = \\pi/2$:  \n  $$\n  f(\\pi/2) = \\cos(\\pi/2) - \\pi/2 = 0 - \\pi/2 = -\\pi/2\n  $$\n\n---\n\n### Step 2: Analyze the function $f(x)$\n\n- The function $f(x) = \\cos x - x$ is continuous on the interval $[0, \\pi/2]$ because both $\\cos x$ and $x$ are continuous.\n- We observe that $f(0) = 1 > 0$ and $f(\\pi/2) = -\\pi/2 < 0$.\n- Since $f(x)$ is continuous and changes sign from positive to negative on the interval, by the **Intermediate Value Theorem**, there must be at least one value $c \\in (0, \\pi/2)$ such that $f(c) = 0$.\n\n---\n\n### Final Answer:\n\n$$\n\\text{Final answer: } \\boxed{0}\n$$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Use the IVT to prove that $\\cos x = x$ has at least one solution in $(0, \\pi/2)$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "d/dx[x^n] = n*x^(n-1)",
+  "output": "The power rule for differentiation states that if $ f(x) = x^n $, where $ n $ is any real number, then the derivative $ f'(x) = n x^{n-1} $.\n\nFinal answer: <answer> The power rule for differentiation states that if $ f(x) = x^n $, then $ f'(x) = n x^{n-1} \\.</answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: State the power rule for differentiation."
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "12x^2 - 4x + 5",
+  "output": "To find the derivative $ f'(x) $ of the function $ f(x) = 4x^3 - 2x^2 + 5x - 7 $, we apply the power rule to each term:\n\n- The derivative of $ 4x^3 $ is $ 12x^2 $.\n- The derivative of $ -2x^2 $ is $ -4x $.\n- The derivative of $ 5x $ is $ 5 $.\n- The derivative of the constant term $ -7 $ is $ 0 $.\n\nCombining these results, we get:\n\n$$\nf'(x) = 12x^2 - 4x + 5\n$$\n\nFinal answer: <answer>12x\u00b2 - 4x + 5</answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find $f'(x)$ if $f(x) = 4x^3 - 2x^2 + 5x - 7$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "1/(2*sqrt(x)) - 2/x^3",
+  "output": "To find $\\dfrac{dy}{dx}$ for $y = \\sqrt{x} + \\dfrac{1}{x^2}$, we differentiate each term separately.\n\n1. The derivative of $\\sqrt{x}$ is:\n   $$\n   \\dfrac{d}{dx} \\sqrt{x} = \\dfrac{1}{2\\sqrt{x}}\n   $$\n\n2. The derivative of $\\dfrac{1}{x^2}$ is:\n   $$\n   \\dfrac{d}{dx} \\left( x^{-2} \\right) = -2x^{-3} = -\\dfrac{2}{x^3}\n   $$\n\nCombining these results:\n$$\n\\dfrac{dy}{dx} = \\dfrac{1}{2\\sqrt{x}} - \\dfrac{2}{x^3}\n$$\n\nFinal answer: $\\boxed{\\dfrac{1}{2\\sqrt{x}} - \\dfrac{2}{x^3}}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find $\\dfrac{dy}{dx}$ if $y = \\sqrt{x} + \\dfrac{1}{x^2}$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "y = x - 2",
+  "output": "To find the equation of the tangent line to the curve $ y = x^3 - 2x $ at $ x = 1 $, follow these steps:\n\n1. **Find the derivative of the function** to determine the slope of the tangent line at $ x = 1 $:\n   $$\n   y = x^3 - 2x\n   $$\n   $$\n   \\frac{dy}{dx} = 3x^2 - 2\n   $$\n\n2. **Evaluate the derivative at $ x = 1 $** to find the slope of the tangent line:\n   $$\n   \\frac{dy}{dx} \\bigg|_{x=1} = 3(1)^2 - 2 = 3 - 2 = 1\n   $$\n\n3. **Find the point on the curve at $ x = 1 $**:\n   $$\n   y = (1)^3 - 2(1) = 1 - 2 = -1\n   $$\n   So the point is $ (1, -1) $.\n\n4. **Use the point-slope form of the equation of a line**:\n   $$\n   y - y_1 = m(x - x_1)\n   $$\n   Substituting $ m = 1 $, $ x_1 = 1 $, and $ y_1 = -1 $:\n   $$\n   y - (-1) = 1(x - 1)\n   $$\n   $$\n   y + 1 = x - 1\n   $$\n   $$\n   y = x - 2\n   $$\n\nFinal answer: $ y = x - 2 $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find the equation of the tangent line to $y = x^3 - 2x$ at $x = 1$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "(uv)' = u'v + uv'",
+  "output": "The product rule in calculus is a formula used to find the derivative of the product of two functions. It states that if you have a function $ f(x)g(x) $, then the derivative of this product is:\n\n$$\n\\frac{d}{dx}[f(x)g(x)] = f'(x)g(x) + f(x)g'(x)\n$$\n\nFinal answer: <answer> $ f'(x)g(x) + f(x)g'(x) $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: State the product rule."
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "2x*sin(x) + x^2*cos(x)",
+  "output": "To differentiate $ f(x) = x^2 \\sin x $, we use the **product rule**:\n\n$$\n\\frac{d}{dx}[u \\cdot v] = u'v + uv'\n$$\n\nLet:\n- $ u = x^2 $\n- $ v = \\sin x $\n\nThen:\n- $ u' = 2x $\n- $ v' = \\cos x $\n\nApply the product rule:\n\n$$\nf'(x) = (2x)(\\sin x) + (x^2)(\\cos x)\n$$\n\nSimplify:\n\n$$\nf'(x) = 2x \\sin x + x^2 \\cos x\n$$\n\nFinal answer: $ \\boxed{2x \\sin x + x^2 \\cos x} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Differentiate $f(x) = x^2 \\sin x$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "6x*(x^3-2x) + (3x^2+1)*(3x^2-2)",
+  "output": "To differentiate $ g(x) = (3x^2 + 1)(x^3 - 2x) $, we use the **product rule**:\n\n$$\n\\frac{d}{dx}[u(x)v(x)] = u'(x)v(x) + u(x)v'(x)\n$$\n\nLet:\n- $ u(x) = 3x^2 + 1 $\n- $ v(x) = x^3 - 2x $\n\nCompute the derivatives:\n- $ u'(x) = 6x $\n- $ v'(x) = 3x^2 - 2 $\n\nNow apply the product rule:\n\n$$\ng'(x) = u'(x)v(x) + u(x)v'(x)\n$$\n$$\ng'(x) = (6x)(x^3 - 2x) + (3x^2 + 1)(3x^2 - 2)\n$$\n\nSimplify each term:\n- $ (6x)(x^3 - 2x) = 6x^4 - 12x^2 $\n- $ (3x^2 + 1)(3x^2 - 2) = 9x^4 - 6x^2 + 3x^2 - 2 = 9x^4 - 3x^2 - 2 $\n\nAdd the two results:\n\n$$\ng'(x) = (6x^4 - 12x^2) + (9x^4 - 3x^2 - 2)\n$$\n$$\ng'(x) = 15x^4 - 15x^2 - 2\n$$\n\nFinal answer: $ \\boxed{15x^4 - 15x^2 - 2} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Differentiate $g(x) = (3x^2 + 1)(x^3 - 2x)$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "x = 0 and x = -2",
+  "output": "To find where $ h(x) = x^2 e^x $ has a horizontal tangent, we need to find where the derivative $ h'(x) = 0 $.\n\n### Step 1: Compute the derivative\nUse the product rule:\n$$\nh(x) = x^2 e^x\n$$\n$$\nh'(x) = \\frac{d}{dx}(x^2) \\cdot e^x + x^2 \\cdot \\frac{d}{dx}(e^x)\n$$\n$$\nh'(x) = 2x e^x + x^2 e^x\n$$\n\n### Step 2: Set the derivative equal to zero\n$$\nh'(x) = 0 \\Rightarrow 2x e^x + x^2 e^x = 0\n$$\n\n### Step 3: Factor the expression\n$$\nh'(x) = x e^x (2 + x) = 0\n$$\n\n### Step 4: Solve for $ x $\nSet each factor equal to zero:\n$$\nx e^x = 0 \\quad \\text{or} \\quad 2 + x = 0\n$$\n\n- $ x e^x = 0 $ implies $ x = 0 $ (since $ e^x \\neq 0 $ for all $ x $).\n- $ 2 + x = 0 $ implies $ x = -2 $.\n\n### Final Answer:\n$$\n\\text{Final answer: } \\boxed{-2}\n$$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find all x where $h(x) = x^2 e^x$ has a horizontal tangent."
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "(u/v)' = (u'v - uv') / v^2",
+  "output": "The **quotient rule** is a formula used to find the derivative of the quotient of two functions. It states:\n\nIf $ f(x) = \\frac{u(x)}{v(x)} $, then the derivative $ f'(x) $ is given by:\n\n$$\nf'(x) = \\frac{u'(x)v(x) - u(x)v'(x)}{[v(x)]^2}\n$$\n\nFinal answer: <answer> $\\frac{u'(x)v(x) - u(x)v'(x)}{[v(x)]^2}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: State the quotient rule."
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "(x^2 - 6x - 1) / (x-3)^2",
+  "output": "To differentiate the function $ f(x) = \\dfrac{x^2 + 1}{x - 3} $, we will use the **quotient rule**.\n\n### Quotient Rule:\nIf $ f(x) = \\dfrac{u(x)}{v(x)} $, then\n$$\nf'(x) = \\dfrac{u'(x)v(x) - u(x)v'(x)}{[v(x)]^2}\n$$\n\nHere:\n- $ u(x) = x^2 + 1 $, so $ u'(x) = 2x $\n- $ v(x) = x - 3 $, so $ v'(x) = 1 $\n\nNow apply the quotient rule:\n$$\nf'(x) = \\dfrac{(2x)(x - 3) - (x^2 + 1)(1)}{(x - 3)^2}\n$$\n\nSimplify the numerator:\n$$\n(2x)(x - 3) = 2x^2 - 6x\n$$\n$$\n(x^2 + 1)(1) = x^2 + 1\n$$\n$$\n\\text{Numerator} = (2x^2 - 6x) - (x^2 + 1) = 2x^2 - 6x - x^2 - 1 = x^2 - 6x - 1\n$$\n\nSo the derivative is:\n$$\nf'(x) = \\dfrac{x^2 - 6x - 1}{(x - 3)^2}\n$$\n\nFinal answer: $ \\boxed{\\dfrac{x^2 - 6x - 1}{(x - 3)^2}} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "(x*cos(x) - sin(x)) / x^2",
+  "output": "To differentiate $ g(x) = \\dfrac{\\sin x}{x} $, we use the **quotient rule**:\n\n$$\n\\left( \\dfrac{u}{v} \\right)' = \\dfrac{u'v - uv'}{v^2}\n$$\n\nLet $ u = \\sin x $ and $ v = x $. Then:\n\n- $ u' = \\cos x $\n- $ v' = 1 $\n\nApplying the quotient rule:\n\n$$\ng'(x) = \\dfrac{\\cos x \\cdot x - \\sin x \\cdot 1}{x^2}\n$$\n\nSimplify the numerator:\n\n$$\ng'(x) = \\dfrac{x \\cos x - \\sin x}{x^2}\n$$\n\nFinal answer: $ \\boxed{\\dfrac{x \\cos x - \\sin x}{x^2}} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Differentiate $g(x) = \\dfrac{\\sin x}{x}$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "x = 1 and x = -1",
+  "output": "To find the critical points of the function $ f(x) = \\dfrac{x}{x^2 + 1} $, we need to:\n\n1. **Find the derivative** of $ f(x) $ using the quotient rule.\n2. **Set the derivative equal to zero** and solve for $ x $.\n3. **Check for any points where the derivative is undefined** (i.e., where the denominator is zero).\n\n---\n\n**Step 1: Compute the derivative**\n\nUsing the quotient rule:\n$$\nf'(x) = \\frac{(x^2 + 1)(1) - x(2x)}{(x^2 + 1)^2}\n$$\n\nSimplify the numerator:\n$$\n(x^2 + 1) - 2x^2 = -x^2 + 1\n$$\n\nSo,\n$$\nf'(x) = \\frac{-x^2 + 1}{(x^2 + 1)^2}\n$$\n\n---\n\n**Step 2: Set the derivative equal to zero**\n\n$$\n\\frac{-x^2 + 1}{(x^2 + 1)^2} = 0\n$$\n\nThe denominator is always positive (since $ x^2 + 1 > 0 $ for all real $ x $), so the equation is satisfied when the numerator is zero:\n\n$$\n-x^2 + 1 = 0 \\Rightarrow x^2 = 1 \\Rightarrow x = \\pm 1\n$$\n\n---\n\n**Step 3: Check for points where the derivative is undefined**\n\nThe denominator $ (x^2 + 1)^2 $ is never zero, so the derivative is defined for all real $ x $.\n\n---\n\n**Final answer:**\nFinal answer: $ \\boxed{-1, 1} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find the critical points of $f(x) = \\dfrac{x}{x^2+1}$."
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "f'(g(x)) * g'(x)",
+  "output": "The chain rule for the derivative of a composite function $ f(g(x)) $ is:\n\n$$\n\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)\n$$\n\nFinal answer: <answer>$ f'(g(x)) \\cdot g'(x) $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: State the chain rule for $\\dfrac{d}{dx}[f(g(x))]$."
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "10x*(3x^2+1)^4 * 3 = 30x*(3x^2+1)^4",
+  "output": "To differentiate $ y = (3x^2 + 1)^5 $, we use the **chain rule**.\n\n1. Let $ u = 3x^2 + 1 $, so $ y = u^5 $.\n2. The derivative of $ y $ with respect to $ x $ is:\n   $$\n   \\frac{dy}{dx} = \\frac{dy}{du} \\cdot \\frac{du}{dx}\n   $$\n3. Compute $ \\frac{dy}{du} = 5u^4 $.\n4. Compute $ \\frac{du}{dx} = 6x $.\n5. Combine the results:\n   $$\n   \\frac{dy}{dx} = 5(3x^2 + 1)^4 \\cdot 6x = 30x(3x^2 + 1)^4\n   $$\n\nFinal answer: $ \\boxed{30x(3x^2 + 1)^4} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Differentiate $y = (3x^2 + 1)^5$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "3x^2 * cos(x^3)",
+  "output": "To differentiate $ h(x) = \\sin(x^3) $, we use the chain rule.\n\n1. The outer function is $ \\sin(u) $, where $ u = x^3 $.\n2. The derivative of $ \\sin(u) $ with respect to $ u $ is $ \\cos(u) $.\n3. The derivative of $ u = x^3 $ with respect to $ x $ is $ 3x^2 $.\n\nApplying the chain rule:\n$$\nh'(x) = \\cos(x^3) \\cdot 3x^2 = 3x^2 \\cos(x^3)\n$$\n\nFinal answer: $ \\boxed{3x^2 \\cos(x^3)} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Differentiate $h(x) = \\sin(x^3)$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "cos(x) * e^(sin(x))",
+  "output": "To differentiate $ f(x) = e^{\\sin x} $, we use the chain rule.\n\n1. The outer function is $ e^u $, where $ u = \\sin x $.\n2. The derivative of $ e^u $ with respect to $ u $ is $ e^u $.\n3. The derivative of $ \\sin x $ with respect to $ x $ is $ \\cos x $.\n\nApplying the chain rule:\n$$\nf'(x) = e^{\\sin x} \\cdot \\cos x\n$$\n\nFinal answer: $ f'(x) = \\boxed{e^{\\sin x} \\cos x} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Differentiate $f(x) = e^{\\sin x}$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "Because y is not explicitly solved for as a function of x",
+  "output": "We use implicit differentiation for $ x^2 + y^2 = 25 $ because $ y $ is not explicitly solved in terms of $ x $. This means $ y $ is a function of $ x $, but it is not expressed as a separate equation. Therefore, we cannot directly differentiate $ y $ with respect to $ x $ and substitute it directly. \n\nImplicit differentiation allows us to differentiate both sides of the equation with respect to $ x $, treating $ y $ as a function of $ x $, and then solve for $ \\frac{dy}{dx} $.\n\nFinal answer: <answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Why do we use implicit differentiation for $x^2 + y^2 = 25$?"
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "-x/y",
+  "output": "To find $\\dfrac{dy}{dx}$ for the equation $x^2 + y^2 = 25$, we use implicit differentiation.\n\nDifferentiate both sides with respect to $x$:\n\n$$\n\\frac{d}{dx}(x^2 + y^2) = \\frac{d}{dx}(25)\n$$\n\n$$\n2x + 2y \\frac{dy}{dx} = 0\n$$\n\nSolve for $\\frac{dy}{dx}$:\n\n$$\n2y \\frac{dy}{dx} = -2x\n$$\n\n$$\n\\frac{dy}{dx} = -\\frac{x}{y}\n$$\n\nFinal answer: $ \\boxed{-\\frac{x}{y}} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find $\\dfrac{dy}{dx}$ for $x^2 + y^2 = 25$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "(2y - x^2) / (y^2 - 2x)",
+  "output": "To find $\\dfrac{dy}{dx}$ for the equation $x^3 + y^3 = 6xy$, we use implicit differentiation.\n\nDifferentiate both sides with respect to $x$:\n\n$$\n\\frac{d}{dx}(x^3 + y^3) = \\frac{d}{dx}(6xy)\n$$\n\nDifferentiate term by term:\n\n- $\\frac{d}{dx}(x^3) = 3x^2$\n- $\\frac{d}{dx}(y^3) = 3y^2 \\frac{dy}{dx}$\n- $\\frac{d}{dx}(6xy) = 6\\left(x \\frac{dy}{dx} + y \\cdot 1\\right) = 6x \\frac{dy}{dx} + 6y$\n\nPutting it all together:\n\n$$\n3x^2 + 3y^2 \\frac{dy}{dx} = 6x \\frac{dy}{dx} + 6y\n$$\n\nNow isolate $\\frac{dy}{dx}$:\n\n$$\n3y^2 \\frac{dy}{dx} - 6x \\frac{dy}{dx} = 6y - 3x^2\n$$\n\nFactor out $\\frac{dy}{dx}$:\n\n$$\n\\frac{dy}{dx}(3y^2 - 6x) = 6y - 3x^2\n$$\n\nSolve for $\\frac{dy}{dx}$:\n\n$$\n\\frac{dy}{dx} = \\frac{6y - 3x^2}{3y^2 - 6x}\n$$\n\nSimplify the numerator and denominator:\n\n$$\n\\frac{dy}{dx} = \\frac{2y - x^2}{y^2 - 2x}\n$$\n\nFinal answer: $\\boxed{\\dfrac{dy}{dx} = \\dfrac{2y - x^2}{y^2 - 2x}}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find $\\dfrac{dy}{dx}$ for $x^3 + y^3 = 6xy$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "-3/4",
+  "output": "To find the slope of the tangent to the circle $ x^2 + y^2 = 25 $ at the point $ (3, 4) $, we can use implicit differentiation.\n\nDifferentiate both sides of the equation with respect to $ x $:\n\n$$\n\\frac{d}{dx}(x^2 + y^2) = \\frac{d}{dx}(25)\n$$\n\n$$\n2x + 2y \\frac{dy}{dx} = 0\n$$\n\nSolve for $ \\frac{dy}{dx} $:\n\n$$\n2y \\frac{dy}{dx} = -2x\n$$\n\n$$\n\\frac{dy}{dx} = -\\frac{x}{y}\n$$\n\nNow substitute $ x = 3 $ and $ y = 4 $:\n\n$$\n\\frac{dy}{dx} = -\\frac{3}{4}\n$$\n\nFinal answer: $ \\boxed{-\\frac{3}{4}} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find the slope of the tangent to $x^2 + y^2 = 25$ at the point $(3, 4)$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "Write an equation relating the quantities, then differentiate with respect to time",
+  "output": "The key strategy for solving a related-rates problem is to:\n\n1. Identify the quantities that are changing with respect to time.\n2. Write equations relating these quantities.\n3. Differentiate both sides of the equation with respect to time.\n4. Solve the resulting differential equation for the rate of change of one quantity.\n5. Use initial conditions to find the specific solution.\n\nFinal answer: <answer> Identify the quantities, write an equation, differentiate, solve, and apply initial conditions.",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: What is the key strategy for solving a related-rates problem?"
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "-3/2 m/s",
+  "output": "We are given:\n\n- Length of the ladder: $ L = 10 $ m\n- Rate at which the bottom slides away: $ \\frac{dx}{dt} = 2 $ m/s\n- We are to find: $ \\frac{dL}{dt} $ when $ x = 6 $ m\n\nWe use the Pythagorean theorem to relate the variables:\n\n$$\nx^2 + y^2 = L^2\n$$\n\nDifferentiate both sides with respect to time $ t $:\n\n$$\n2x \\frac{dx}{dt} + 2y \\frac{dy}{dt} = 0\n$$\n\nSimplify:\n\n$$\nx \\frac{dx}{dt} + y \\frac{dy}{dt} = 0\n$$\n\nSolve for $ \\frac{dy}{dt} $:\n\n$$\n\\frac{dy}{dt} = -\\frac{x}{y} \\frac{dx}{dt}\n$$\n\nWe are given $ x = 6 $ m, $ L = 10 $ m, so:\n\n$$\ny = \\sqrt{L^2 - x^2} = \\sqrt{10^2 - 6^2} = \\sqrt{100 - 36} = \\sqrt{64} = 8 \\text{ m}\n$$\n\nNow plug in the values:\n\n$$\n\\frac{dy}{dt} = -\\frac{6}{8} \\cdot 2 = -\\frac{3}{4} \\cdot 2 = -\\frac{3}{2} \\text{ m/s}\n$$\n\nFinal answer: $ \\boxed{-\\frac{3}{2}} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: A ladder 10 m long leans against a wall. The bottom slides away at 2 m/s. How fast is the top sliding down when the bottom is 6 m from the wall?"
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "1/(10\u03c0) cm/s",
+  "output": "To solve this problem, we use related rates from calculus.\n\nGiven:\n- The volume of a sphere is $ V = \\frac{4}{3}\\pi r^3 $.\n- The rate of change of volume is $ \\frac{dV}{dt} = 10 \\, \\text{cm}^3/\\text{s} $.\n- We are to find $ \\frac{dr}{dt} $ when $ r = 5 \\, \\text{cm} $.\n\nDifferentiate the volume formula with respect to time $ t $:\n\n$$\n\\frac{dV}{dt} = \\frac{d}{dt} \\left( \\frac{4}{3}\\pi r^3 \\right) = 4\\pi r^2 \\frac{dr}{dt}\n$$\n\nSolve for $ \\frac{dr}{dt} $:\n\n$$\n\\frac{dr}{dt} = \\frac{1}{4\\pi r^2} \\cdot \\frac{dV}{dt}\n$$\n\nSubstitute the known values:\n\n$$\n\\frac{dr}{dt} = \\frac{1}{4\\pi (5)^2} \\cdot 10 = \\frac{10}{4\\pi \\cdot 25} = \\frac{10}{100\\pi} = \\frac{1}{10\\pi}\n$$\n\nFinal answer: $ \\frac{1}{10\\pi} $ cm/s.",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: A spherical balloon is inflated at 10 cm\u00b3/s. How fast is the radius increasing when r = 5 cm?",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "-8/(9\u03c0) m/min",
+  "output": "To solve this problem, we use related rates from calculus.\n\n---\n\n**Given:**\n\n- The tank is a cone with:\n  - Radius $ r = 3 $ m\n  - Height $ h = 6 $ m\n  - Water drains at a rate $ \\frac{dV}{dt} = -2 $ m\u00b3/min (negative because the volume is decreasing)\n- We are to find the rate at which the water level is falling, i.e., $ \\frac{dh}{dt} $, when $ h = 3 $ m.\n\n---\n\n**Step 1: Volume of a cone**\n\nThe volume of a cone is given by:\n\n$$\nV = \\frac{1}{3} \\pi r^2 h\n$$\n\nSince the tank is a cone, the radius and height are related by similar triangles. When the water level is $ h $, the radius is $ r = \\frac{3}{6}h = \\frac{h}{2} $.\n\nSubstitute $ r = \\frac{h}{2} $ into the volume formula:\n\n$$\nV = \\frac{1}{3} \\pi \\left( \\frac{h}{2} \\right)^2 h = \\frac{1}{3} \\pi \\frac{h^2}{4} h = \\frac{1}{12} \\pi h^3\n$$\n\n---\n\n**Step 2: Differentiate with respect to time**\n\n$$\n\\frac{dV}{dt} = \\frac{d}{dt} \\left( \\frac{1}{12} \\pi h^3 \\right) = \\frac{1}{12} \\pi \\cdot 3h^2 \\cdot \\frac{dh}{dt} = \\frac{1}{4} \\pi h^2 \\cdot \\frac{dh}{dt}\n$$\n\n---\n\n**Step 3: Plug in known values**\n\nWe are given $ \\frac{dV}{dt} = -2 $ m\u00b3/min and $ h = 3 $ m.\n\n$$\n-2 = \\frac{1}{4} \\pi (3)^2 \\cdot \\frac{dh}{dt}\n$$\n\n$$\n-2 = \\frac{1}{4} \\pi \\cdot 9 \\cdot \\frac{dh}{dt}\n$$\n\n$$\n-2 = \\frac{9}{4} \\pi \\cdot \\frac{dh}{dt}\n$$\n\n---\n\n**Step 4: Solve for $ \\frac{dh}{dt} $**\n\n$$\n\\frac{dh}{dt} = \\frac{-2}{\\frac{9}{4} \\pi} = \\frac{-8}{9\\pi}\n$$\n\n---\n\n**Final answer:**\n\nFinal answer: $ \\boxed{-\\frac{8}{9\\pi}} $ m/min.",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Water drains from a conical tank (radius 3 m, height 6 m, vertex down) at 2 m\u00b3/min. How fast is the water level falling when h = 3 m?"
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "A point where f'(x) = 0 or f'(x) is undefined; extrema can only occur at critical points or endpoints",
+  "output": "A **critical point** of a function is a point in the domain where the derivative is zero or undefined. These points are important because they can indicate local maxima, minima, or saddle points in the function's graph.\n\nCritical points are important for optimisation because they are potential locations for extrema (maximum or minimum values) of the function. By analyzing these points, we can determine the maximum or minimum values of the function over a given interval, which is crucial in optimization problems.\n\nFinal answer: <answer> Critical points are where the derivative is zero or undefined, and they are important for optimisation because they indicate potential maxima, minima, or saddle points.",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: What is a critical point, and why are critical points important for optimisation?"
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "Max: 2 at x = -1; Min: -2 at x = 1",
+  "output": "To find the absolute maximum and minimum of the function $ f(x) = x^3 - 3x $ on the interval $[-2, 2]$, we follow these steps:\n\n---\n\n### **Step 1: Find the critical points**\n\nCritical points occur where the derivative is zero or undefined.\n\n$$\nf'(x) = \\frac{d}{dx}(x^3 - 3x) = 3x^2 - 3\n$$\n\nSet the derivative equal to zero:\n\n$$\n3x^2 - 3 = 0 \\Rightarrow x^2 = 1 \\Rightarrow x = \\pm 1\n$$\n\nSo, the critical points are $ x = -1 $ and $ x = 1 $.\n\n---\n\n### **Step 2: Evaluate the function at critical points and endpoints**\n\nEvaluate $ f(x) $ at $ x = -2, -1, 1, 2 $:\n\n- $ f(-2) = (-2)^3 - 3(-2) = -8 + 6 = -2 $\n- $ f(-1) = (-1)^3 - 3(-1) = -1 + 3 = 2 $\n- $ f(1) = (1)^3 - 3(1) = 1 - 3 = -2 $\n- $ f(2) = (2)^3 - 3(2) = 8 - 6 = 2 $\n\n---\n\n### **Step 3: Compare values**\n\n- $ f(-2) = -2 $\n- $ f(-1) = 2 $\n- $ f(1) = -2 $\n- $ f(2) = 2 $\n\nSo, the **absolute maximum** is $ 2 $, and the **absolute minimum** is $ -2 $.\n\n---\n\nFinal answer:  \nFinal answer: <answer>2</answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find the absolute maximum and minimum of $f(x) = x^3 - 3x$ on $[-2, 2]$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "Width = 50 m, Length = 100 m",
+  "output": "To maximize the area of a rectangular field with a barn wall as one side, we can use the following reasoning:\n\nLet the length of the field parallel to the barn be $ x $ meters, and the width perpendicular to the barn be $ y $ meters. Since the barn wall provides one side of the rectangle, we only need fencing for the other three sides.\n\nThe total fencing used is:\n$$\nx + 2y = 200\n$$\n\nWe want to maximize the area $ A $ of the rectangle:\n$$\nA = x \\cdot y\n$$\n\nFrom the fencing constraint, solve for $ x $:\n$$\nx = 200 - 2y\n$$\n\nSubstitute into the area formula:\n$$\nA = (200 - 2y) \\cdot y = 200y - 2y^2\n$$\n\nThis is a quadratic equation in terms of $ y $, and it opens downward (coefficient of $ y^2 $ is negative), so it has a maximum at its vertex.\n\nThe vertex of a quadratic $ ay^2 + by + c $ is at:\n$$\ny = -\\frac{b}{2a}\n$$\n\nHere, $ a = -2 $, $ b = 200 $, so:\n$$\ny = -\\frac{200}{2(-2)} = \\frac{200}{4} = 50\n$$\n\nSubstitute $ y = 50 $ back into the fencing equation to find $ x $:\n$$\nx = 200 - 2(50) = 100\n$$\n\nThus, the dimensions that maximize the area are:\n$$\nx = 100 \\text{ m}, \\quad y = 50 \\text{ m}\n$$\n\nFinal answer: <answer>100,50</answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: A farmer has 200 m of fencing to enclose a rectangular field against a barn wall (no fence needed on one side). What dimensions maximise the area?",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "Let sides be x and P/2 - x; A = x(P/2 - x); A' = 0 gives x = P/4; both sides equal P/4",
+  "output": "To prove that among all rectangles with a fixed perimeter $ P $, the square has the maximum area, we can use calculus and optimization techniques.\n\n---\n\n### Step 1: Express the area in terms of one variable\n\nLet the sides of the rectangle be $ x $ and $ y $. The perimeter is given by:\n\n$$\nP = 2x + 2y\n$$\n\nSolving for one variable in terms of the other:\n\n$$\nx + y = \\frac{P}{2} \\quad \\Rightarrow \\quad y = \\frac{P}{2} - x\n$$\n\nThe area $ A $ of the rectangle is:\n\n$$\nA = xy = x\\left(\\frac{P}{2} - x\\right) = \\frac{P}{2}x - x^2\n$$\n\n---\n\n### Step 2: Maximize the area function\n\nWe now maximize the area function:\n\n$$\nA(x) = \\frac{P}{2}x - x^2\n$$\n\nTake the derivative with respect to $ x $:\n\n$$\nA'(x) = \\frac{P}{2} - 2x\n$$\n\nSet the derivative equal to zero to find the critical point:\n\n$$\n\\frac{P}{2} - 2x = 0 \\quad \\Rightarrow \\quad x = \\frac{P}{4}\n$$\n\nSubstitute back to find $ y $:\n\n$$\ny = \\frac{P}{2} - x = \\frac{P}{2} - \\frac{P}{4} = \\frac{P}{4}\n$$\n\nSo the rectangle is a square with side length $ \\frac{P}{4} $, and the area is:\n\n$$\nA = x^2 = \\left(\\frac{P}{4}\\right)^2 = \\frac{P^2}{16}\n$$\n\n---\n\n### Step 3: Confirm it's a maximum\n\nTake the second derivative of $ A(x) $:\n\n$$\nA''(x) = -2\n$$\n\nSince $ A''(x) < 0 $, the function is concave down, so the critical point is a maximum.\n\n---\n\n### Final Answer:\n\n$$\n\\boxed{\\text{Final answer: } \\frac{P^2}{16}}\n$$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Prove that among all rectangles with a fixed perimeter P, the square has the maximum area."
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "The area under a curve (the definite integral)",
+  "output": "A Riemann sum approximates the definite integral of a function over a given interval. It does this by dividing the interval into smaller subintervals, evaluating the function at a point within each subinterval, multiplying by the width of the subinterval, and summing up all these products.\n\nFinal answer: <answer> the definite integral of a function over a given interval</answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: What does a Riemann sum approximate?"
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "7/4",
+  "output": "To compute the left Riemann sum for $ f(x) = x^2 $ on the interval $[0, 2]$ with $ n = 4 $ subintervals:\n\n1. **Determine the width of each subinterval**:\n   $$\n   \\Delta x = \\frac{2 - 0}{4} = \\frac{1}{2}\n   $$\n\n2. **Identify the left endpoints of each subinterval**:\n   - First subinterval: $ x_0 = 0 $\n   - Second subinterval: $ x_1 = \\frac{1}{2} $\n   - Third subinterval: $ x_2 = 1 $\n   - Fourth subinterval: $ x_3 = \\frac{3}{2} $\n\n3. **Evaluate the function at each left endpoint**:\n   - $ f(0) = 0^2 = 0 $\n   - $ f\\left(\\frac{1}{2}\\right) = \\left(\\frac{1}{2}\\right)^2 = \\frac{1}{4} $\n   - $ f(1) = 1^2 = 1 $\n   - $ f\\left(\\frac{3}{2}\\right) = \\left(\\frac{3}{2}\\right)^2 = \\frac{9}{4} $\n\n4. **Compute the left Riemann sum**:\n   $$\n   \\text{Left Riemann sum} = \\Delta x \\cdot \\left(f(0) + f\\left(\\frac{1}{2}\\right) + f(1) + f\\left(\\frac{3}{2}\\right)\\right)\n   $$\n   $$\n   = \\frac{1}{2} \\cdot \\left(0 + \\frac{1}{4} + 1 + \\frac{9}{4}\\right)\n   $$\n   $$\n   = \\frac{1}{2} \\cdot \\left(\\frac{1}{4} + \\frac{9}{4} + 1\\right)\n   $$\n   $$\n   = \\frac{1}{2} \\cdot \\left(\\frac{10}{4} + 1\\right)\n   $$\n   $$\n   = \\frac{1}{2} \\cdot \\left(\\frac{10}{4} + \\frac{4}{4}\\right)\n   $$\n   $$\n   = \\frac{1}{2} \\cdot \\frac{14}{4}\n   $$\n   $$\n   = \\frac{14}{8} = \\frac{7}{4}\n   $$\n\nFinal answer: $\\boxed{\\frac{7}{4}}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Compute the left Riemann sum for $f(x) = x^2$ on $[0, 2]$ with $n = 4$ subintervals.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "lim_{n\u2192\u221e} \u03a3 (1 + i*2/n)^2 * (2/n)",
+  "output": "To write the definite integral $\\int_1^3 x^2\\,dx$ as a limit of right Riemann sums, we follow these steps:\n\n1. **Divide the interval** $[1, 3]$ into $n$ subintervals of equal width:\n   $$\n   \\Delta x = \\frac{3 - 1}{n} = \\frac{2}{n}\n   $$\n\n2. **Choose a right endpoint** for each subinterval. The right endpoint of the $i$-th subinterval is:\n   $$\n   x_i^* = 1 + i \\cdot \\Delta x = 1 + i \\cdot \\frac{2}{n}\n   $$\n\n3. **Compute the right Riemann sum**:\n   $$\n   \\sum_{i=1}^{n} f(x_i^*) \\Delta x = \\sum_{i=1}^{n} \\left(1 + i \\cdot \\frac{2}{n}\\right)^2 \\cdot \\frac{2}{n}\n   $$\n\n4. **Take the limit as $n \\to \\infty$**:\n   $$\n   \\lim_{n \\to \\infty} \\sum_{i=1}^{n} \\left(1 + i \\cdot \\frac{2}{n}\\right)^2 \\cdot \\frac{2}{n}\n   $$\n\nThus, the definite integral $\\int_1^3 x^2\\,dx$ can be written as:\n\nFinal answer: $\\lim_{n \\to \\infty} \\sum_{i=1}^{n} \\left(1 + i \\cdot \\frac{2}{n}\\right)^2 \\cdot \\frac{2}{n}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Write the definite integral $\\int_1^3 x^2\\,dx$ as a limit of right Riemann sums.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "1/3",
+  "output": "To evaluate the integral $\\int_0^1 x^2\\,dx$ using the limit of right Riemann sums and the formula for the sum of squares, we proceed as follows:\n\n---\n\n### Step 1: Use the definition of the integral as a limit of Riemann sums\n\nThe integral $\\int_0^1 x^2\\,dx$ can be expressed as the limit of right Riemann sums as the number of subintervals $n$ approaches infinity:\n\n$$\n\\int_0^1 x^2\\,dx = \\lim_{n \\to \\infty} \\sum_{i=1}^n \\left( \\frac{1}{n} \\right)^2 \\cdot \\left( \\frac{1}{n} \\right)^2\n$$\n\nWait \u2014 this is not correct. Let's correct the setup.\n\nThe right Riemann sum for $\\int_0^1 x^2\\,dx$ with $n$ subintervals is:\n\n$$\n\\sum_{i=1}^n \\left( \\frac{1}{n} \\right)^2 \\cdot \\left( \\frac{1 + i}{n} \\right)^2\n$$\n\nBut this is more complex than the standard setup. Let's instead use the standard right Riemann sum with width $\\Delta x = \\frac{1}{n}$ and height at the right endpoint $x_i = \\frac{i}{n}$:\n\n$$\n\\int_0^1 x^2\\,dx = \\lim_{n \\to \\infty} \\sum_{i=1}^n \\left( \\frac{i}{n} \\right)^2 \\cdot \\frac{1}{n}\n$$\n\nThis simplifies to:\n\n$$\n\\lim_{n \\to \\infty} \\frac{1}{n^3} \\sum_{i=1}^n i^2\n$$\n\n---\n\n### Step 2: Use the formula for the sum of squares\n\nWe are given the formula:\n\n$$\n\\sum_{i=1}^n i^2 = \\frac{n(n+1)(2n+1)}{6}\n$$\n\nSubstitute this into the limit:\n\n$$\n\\int_0^1 x^2\\,dx = \\lim_{n \\to \\infty} \\frac{1}{n^3} \\cdot \\frac{n(n+1)(2n+1)}{6}\n$$\n\nSimplify the expression:\n\n$$\n\\int_0^1 x^2\\,dx = \\lim_{n \\to \\infty} \\frac{(n+1)(2n+1)}{6n^2}\n$$\n\nNow simplify the numerator:\n\n$$\n(n+1)(2n+1) = 2n^2 + 3n + 1\n$$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Explain why $\\int_0^1 x^2\\,dx = 1/3$ using the limit of right Riemann sums and the formula $\\sum_{i=1}^n i^2 = \\frac{n(n+1)(2n+1)}{6}$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "Part 1: d/dx[\u222b_a^x f(t)dt] = f(x); Part 2: \u222b_a^b f(x)dx = F(b) - F(a)",
+  "output": "**Part 1:** The Fundamental Theorem of Calculus, Part 1 states that if a function $ f $ is continuous on $[a, b]$, then the function $ F(x) = \\int_{a}^{x} f(t) \\, dt $ is differentiable on $[a, b]$ and $ F'(x) = f(x) $.\n\n**Part 2:** The Fundamental Theorem of Calculus, Part 2 states that if $ f $ is continuous on $[a, b]$ and $ F(x) = \\int_{a}^{b} f(t) \\, dt $, then the definite integral of $ f $ from $ a $ to $ b $ is equal to $ F(b) - F(a) $, where $ F $ is any antiderivative of $ f $.\n\nFinal answer: <answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: State both parts of the Fundamental Theorem of Calculus."
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "21",
+  "output": "To evaluate the definite integral $\\int_1^4 (2x + 3)\\,dx$, we first find the antiderivative of the integrand.\n\nThe antiderivative of $2x$ is $x^2$, and the antiderivative of $3$ is $3x$. So the antiderivative of $2x + 3$ is:\n\n$$\nx^2 + 3x\n$$\n\nNow evaluate this from $x = 1$ to $x = 4$:\n\n$$\n\\left[ x^2 + 3x \\right]_1^4 = (4^2 + 3 \\cdot 4) - (1^2 + 3 \\cdot 1)\n$$\n\n$$\n= (16 + 12) - (1 + 3)\n$$\n\n$$\n= 28 - 4 = 24\n$$\n\nFinal answer: $24$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\int_1^4 (2x + 3)\\,dx$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "2x * sin(x^2)",
+  "output": "To solve the problem, we use the **Fundamental Theorem of Calculus, Part 1**.\n\nThe theorem states:\n\n$$\n\\frac{d}{dx} \\int_a^{u(x)} f(t)\\,dt = f(u(x)) \\cdot u'(x)\n$$\n\nIn this problem, the integral is from 0 to $ x^2 $, and the integrand is $ \\sin t $.\n\nSo, applying the theorem:\n\n$$\n\\frac{d}{dx} \\int_0^{x^2} \\sin t\\,dt = \\sin(x^2) \\cdot \\frac{d}{dx}(x^2)\n$$\n\nNow compute the derivative of the upper limit:\n\n$$\n\\frac{d}{dx}(x^2) = 2x\n$$\n\nPutting it all together:\n\n$$\n\\frac{d}{dx} \\int_0^{x^2} \\sin t\\,dt = \\sin(x^2) \\cdot 2x\n$$\n\nFinal answer:  \nFinal answer: $ 2x \\sin(x^2) $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find $\\dfrac{d}{dx}\\int_0^{x^2} \\sin t\\,dt$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "2",
+  "output": "To evaluate the integral $\\int_0^{\\pi} \\sin x\\,dx$, we use the antiderivative of $\\sin x$, which is $-\\cos x$.\n\n$$\n\\int_0^{\\pi} \\sin x\\,dx = -\\cos x \\Big|_0^{\\pi} = -\\cos(\\pi) + \\cos(0)\n$$\n\nWe know that $\\cos(\\pi) = -1$ and $\\cos(0) = 1$, so:\n\n$$\n-\\cos(\\pi) + \\cos(0) = -(-1) + 1 = 1 + 1 = 2\n$$\n\nFinal answer: $2$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\int_0^{\\pi} \\sin x\\,dx$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "Reverse the chain rule by substituting u = g(x) to simplify the integrand",
+  "output": "The key idea behind u-substitution is to simplify a complex integral by making a substitution that transforms the integral into a more manageable form. This technique is used when the integrand can be expressed as the derivative of some function multiplied by another function. By substituting $ u $ for the part of the integrand that is the derivative of another function, the integral becomes easier to evaluate.\n\nFinal answer: <answer> u-substitution is a technique used to simplify integrals by substituting a part of the integrand with a new variable, $ u $, and then integrating with respect to $ u $.",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: What is the key idea behind u-substitution?"
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "(x^2+1)^5 / 5 + C",
+  "output": "To evaluate the integral $\\int 2x(x^2+1)^4\\,dx$, we use substitution.\n\nLet:\n$$\nu = x^2 + 1\n$$\nThen:\n$$\n\\frac{du}{dx} = 2x \\quad \\Rightarrow \\quad du = 2x\\,dx\n$$\n\nSubstitute into the integral:\n$$\n\\int 2x(x^2+1)^4\\,dx = \\int u^4\\,du\n$$\n\nNow integrate:\n$$\n\\int u^4\\,du = \\frac{u^5}{5} + C\n$$\n\nSubstitute back $u = x^2 + 1$:\n$$\n\\frac{(x^2 + 1)^5}{5} + C\n$$\n\nFinal answer: $\\boxed{\\frac{(x^2 + 1)^5}{5} + C}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\int 2x(x^2+1)^4\\,dx$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "(e-1)/2",
+  "output": "To evaluate the integral $\\int_0^1 x e^{x^2}\\,dx$, we use substitution.\n\nLet $ u = x^2 $. Then, $ du = 2x\\,dx $, so $ x\\,dx = \\frac{1}{2} du $.\n\nWhen $ x = 0 $, $ u = 0 $. When $ x = 1 $, $ u = 1 $.\n\nSubstitute into the integral:\n\n$$\n\\int_0^1 x e^{x^2}\\,dx = \\int_0^1 e^u \\cdot \\frac{1}{2} du = \\frac{1}{2} \\int_0^1 e^u\\,du\n$$\n\nNow integrate:\n\n$$\n\\frac{1}{2} \\left[ e^u \\right]_0^1 = \\frac{1}{2} \\left( e^1 - e^0 \\right) = \\frac{1}{2} (e - 1)\n$$\n\nFinal answer: $\\boxed{\\frac{e - 1}{2}}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\int_0^1 x e^{x^2}\\,dx$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "(ln x)^2 / 2 + C",
+  "output": "To evaluate the integral $\\int \\dfrac{\\ln x}{x}\\,dx$, we can use substitution.\n\nLet:\n$$\nu = \\ln x\n$$\nThen:\n$$\n\\frac{du}{dx} = \\frac{1}{x} \\quad \\Rightarrow \\quad du = \\frac{1}{x} dx\n$$\n\nSubstitute into the integral:\n$$\n\\int \\frac{\\ln x}{x} dx = \\int u \\, du\n$$\n\nNow integrate:\n$$\n\\int u \\, du = \\frac{1}{2} u^2 + C = \\frac{1}{2} (\\ln x)^2 + C\n$$\n\nFinal answer: $\\boxed{\\frac{1}{2} (\\ln x)^2 + C}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\int \\dfrac{\\ln x}{x}\\,dx$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "\u222bu dv = uv - \u222bv du",
+  "output": "The integration by parts formula is:\n\n$$\n\\int u \\, dv = uv - \\int v \\, du\n$$\n\nFinal answer: <answer>$$\\int u \\, dv = uv - \\int v \\, du$$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: State the integration by parts formula."
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "x*e^x - e^x + C",
+  "output": "To evaluate the integral $\\int x e^x\\,dx$, we use **integration by parts**.\n\nLet:\n- $u = x$ \u27f9 $du = dx$\n- $dv = e^x\\,dx$ \u27f9 $v = e^x$\n\nUsing the integration by parts formula:\n$$\n\\int u\\,dv = uv - \\int v\\,du\n$$\n\nSubstitute the values:\n$$\n\\int x e^x\\,dx = x e^x - \\int e^x\\,dx\n$$\n\nNow compute the remaining integral:\n$$\n\\int e^x\\,dx = e^x + C\n$$\n\nSo the final result is:\n$$\nx e^x - e^x + C\n$$\n\nFinal answer: <answer>$x e^x - e^x + C$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\int x e^x\\,dx$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "x^2*ln(x)/2 - x^2/4 + C",
+  "output": "To evaluate the integral $\\int x \\ln x\\,dx$, we use **integration by parts**.\n\nLet:\n- $u = \\ln x$ (so that $du = \\frac{1}{x} dx$)\n- $dv = x\\,dx$ (so that $v = \\frac{x^2}{2}$)\n\nUsing the integration by parts formula:\n$$\n\\int u\\,dv = uv - \\int v\\,du\n$$\n\nSubstitute the values:\n$$\n\\int x \\ln x\\,dx = \\frac{x^2}{2} \\ln x - \\int \\frac{x^2}{2} \\cdot \\frac{1}{x}\\,dx\n$$\n\nSimplify the integral:\n$$\n= \\frac{x^2}{2} \\ln x - \\int \\frac{x}{2}\\,dx\n$$\n\nNow integrate:\n$$\n= \\frac{x^2}{2} \\ln x - \\frac{1}{2} \\cdot \\frac{x^2}{2} + C\n$$\n\n$$\n= \\frac{x^2}{2} \\ln x - \\frac{x^2}{4} + C\n$$\n\nFinal answer:  \nFinal answer: $\\frac{x^2}{2} \\ln x - \\frac{x^2}{4} + C$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\int x \\ln x\\,dx$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "(e^x * sin(x) - e^x * cos(x)) / 2 + C",
+  "output": "To evaluate the integral $\\int e^x \\sin x\\,dx$, we use **integration by parts**.\n\nLet:\n- $u = \\sin x$, so $du = \\cos x\\,dx$\n- $dv = e^x\\,dx$, so $v = e^x$\n\nUsing the integration by parts formula:\n$$\n\\int u\\,dv = uv - \\int v\\,du\n$$\n\nSubstitute:\n$$\n\\int e^x \\sin x\\,dx = e^x \\sin x - \\int e^x \\cos x\\,dx\n$$\n\nNow, we need to evaluate $\\int e^x \\cos x\\,dx$. Again, use integration by parts.\n\nLet:\n- $u = \\cos x$, so $du = -\\sin x\\,dx$\n- $dv = e^x\\,dx$, so $v = e^x$\n\n$$\n\\int e^x \\cos x\\,dx = e^x \\cos x - \\int e^x (-\\sin x)\\,dx = e^x \\cos x + \\int e^x \\sin x\\,dx\n$$\n\nNow substitute back into the original equation:\n$$\n\\int e^x \\sin x\\,dx = e^x \\sin x - \\left(e^x \\cos x + \\int e^x \\sin x\\,dx\\right)\n$$\n\nSimplify:\n$$\n\\int e^x \\sin x\\,dx = e^x \\sin x - e^x \\cos x - \\int e^x \\sin x\\,dx\n$$\n\nMove the integral to the left:\n$$\n2 \\int e^x \\sin x\\,dx = e^x (\\sin x - \\cos x)\n$$\n\nDivide both sides by 2:\n$$\n\\int e^x \\sin x\\,dx = \\frac{1}{2} e^x (\\sin x - \\cos x) + C\n$$\n\nFinal answer: $\\boxed{\\frac{1}{2} e^x (\\sin x - \\cos x) + C}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\int e^x \\sin x\\,dx$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "\u222b_a^b [f(x) - g(x)] dx",
+  "output": "To find the area between two curves $ f(x) $ and $ g(x) $ on the interval $[a, b]$ where $ f(x) \\geq g(x) $, follow these steps:\n\n1. **Find the points of intersection** of the curves $ f(x) $ and $ g(x) $ by solving $ f(x) = g(x) $. These points divide the interval $[a, b]$ into subintervals where the curves are either above or below each other.\n\n2. **Set up the integral** for the area between the curves:\n   $$\n   \\text{Area} = \\int_{a}^{b} [f(x) - g(x)] \\, dx\n   $$\n\n3. **Evaluate the integral** to find the area.\n\nFinal answer: <answer> $\\int_{a}^{b} [f(x) - g(x)] \\, dx$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: How do you find the area between two curves $f(x)$ and $g(x)$ on $[a, b]$ where $f \\geq g$?"
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "1/6",
+  "output": "To find the area between the curves $ y = x^2 $ and $ y = x $ on the interval $[0, 1]$, we follow these steps:\n\n1. **Find the points of intersection** of the two curves:\n   $$\n   x^2 = x\n   $$\n   $$\n   x^2 - x = 0\n   $$\n   $$\n   x(x - 1) = 0\n   $$\n   So, the points of intersection are $ x = 0 $ and $ x = 1 $.\n\n2. **Set up the integral** for the area between the curves:\n   $$\n   \\text{Area} = \\int_{0}^{1} \\left| x - x^2 \\right| \\, dx\n   $$\n   Since $ x - x^2 \\geq 0 $ on $[0, 1]$, the absolute value can be removed:\n   $$\n   \\text{Area} = \\int_{0}^{1} (x - x^2) \\, dx\n   $$\n\n3. **Evaluate the integral**:\n   $$\n   \\int_{0}^{1} (x - x^2) \\, dx = \\left[ \\frac{1}{2}x^2 - \\frac{1}{3}x^3 \\right]_{0}^{1}\n   $$\n   $$\n   = \\left( \\frac{1}{2}(1)^2 - \\frac{1}{3}(1)^3 \\right) - \\left( \\frac{1}{2}(0)^2 - \\frac{1}{3}(0)^3 \\right)\n   $$\n   $$\n   = \\left( \\frac{1}{2} - \\frac{1}{3} \\right) - 0 = \\frac{1}{6}\n   $$\n\nFinal answer: <answer> $\\frac{1}{6}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find the area between $y = x^2$ and $y = x$ on $[0, 1]$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "3",
+  "output": "To find the average value of a function $ f(x) $ on the interval $[a, b]$, we use the formula:\n\n$$\n\\text{Average value} = \\frac{1}{b - a} \\int_{a}^{b} f(x) \\, dx\n$$\n\nFor the given function $ f(x) = x^2 $ on the interval $[0, 3]$, we compute:\n\n$$\n\\text{Average value} = \\frac{1}{3 - 0} \\int_{0}^{3} x^2 \\, dx\n$$\n\nFirst, compute the integral:\n\n$$\n\\int_{0}^{3} x^2 \\, dx = \\left[ \\frac{x^3}{3} \\right]_{0}^{3} = \\frac{3^3}{3} - \\frac{0^3}{3} = \\frac{27}{3} - 0 = 9\n$$\n\nNow, divide by the length of the interval:\n\n$$\n\\text{Average value} = \\frac{9}{3} = 3\n$$\n\nFinal answer: $ \\boxed{3} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find the average value of $f(x) = x^2$ on $[0, 3]$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "64/3",
+  "output": "To find the area enclosed by the curves $ y = x^2 - 4 $ and $ y = -x^2 + 4 $, we first find their points of intersection.\n\nSet the equations equal to each other:\n\n$$\nx^2 - 4 = -x^2 + 4\n$$\n\nSolve for $ x $:\n\n$$\n2x^2 = 8 \\Rightarrow x^2 = 4 \\Rightarrow x = \\pm 2\n$$\n\nSo the curves intersect at $ x = -2 $ and $ x = 2 $.\n\nNow, we compute the area between the curves from $ x = -2 $ to $ x = 2 $. The top function is $ y = -x^2 + 4 $ and the bottom function is $ y = x^2 - 4 $.\n\nThe area is given by:\n\n$$\n\\text{Area} = \\int_{-2}^{2} \\left[ (-x^2 + 4) - (x^2 - 4) \\right] \\, dx\n$$\n\nSimplify the integrand:\n\n$$\n(-x^2 + 4) - (x^2 - 4) = -x^2 + 4 - x^2 + 4 = -2x^2 + 8\n$$\n\nNow compute the integral:\n\n$$\n\\int_{-2}^{2} (-2x^2 + 8) \\, dx = \\left[ -\\frac{2}{3}x^3 + 8x \\right]_{-2}^{2}\n$$\n\nEvaluate at $ x = 2 $:\n\n$$\n-\\frac{2}{3}(8) + 8(2) = -\\frac{16}{3} + 16 = \\frac{28}{3}\n$$\n\nEvaluate at $ x = -2 $:\n\n$$\n-\\frac{2}{3}(-8) + 8(-2) = \\frac{16}{3} - 16 = -\\frac{32}{3}\n$$\n\nSubtract:\n\n$$\n\\frac{28}{3} - \\left(-\\frac{32}{3}\\right) = \\frac{28}{3} + \\frac{32}{3} = \\frac{60}{3} = 20\n$$\n\nFinal answer: $ \\boxed{20} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find the area enclosed by $y = x^2 - 4$ and $y = -x^2 + 4$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "It can be written as dy/dx = f(x)g(y), separating x and y to opposite sides",
+  "output": "A differential equation is said to be \"separable\" if it can be rewritten in the form:\n\n$$\n\\frac{dy}{dx} = f(x)g(y)\n$$\n\nwhere $ f(x) $ is a function of $ x $ alone and $ g(y) $ is a function of $ y $ alone. This allows the equation to be solved by separating the variables so that all terms involving $ x $ are on one side of the equation and all terms involving $ y $ are on the other side. Then, both sides can be integrated separately.\n\nFinal answer: <answer> A differential equation is separable if it can be written in the form $ \\frac{dy}{dx} = f(x)g(y) $, allowing variables to be separated and integrated independently.",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: What makes a differential equation \"separable\"?"
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "y = e^(x^2)",
+  "output": "We are given the differential equation:\n\n$$\n\\frac{dy}{dx} = 2xy\n$$\n\nwith the initial condition:\n\n$$\ny(0) = 1\n$$\n\nThis is a first-order linear ordinary differential equation. It is also separable. Let's solve it step by step.\n\n---\n\n### Step 1: Separate variables\n\nWe can rewrite the equation as:\n\n$$\n\\frac{dy}{y} = 2x \\, dx\n$$\n\n---\n\n### Step 2: Integrate both sides\n\n$$\n\\int \\frac{1}{y} \\, dy = \\int 2x \\, dx\n$$\n\n$$\n\\ln|y| = x^2 + C\n$$\n\nwhere $ C $ is the constant of integration.\n\n---\n\n### Step 3: Solve for $ y $\n\nExponentiate both sides to eliminate the logarithm:\n\n$$\n|y| = e^{x^2 + C} = e^C e^{x^2}\n$$\n\nSince $ e^C $ is a positive constant, we can write:\n\n$$\ny = K e^{x^2}\n$$\n\nwhere $ K = \\pm e^C $.\n\n---\n\n### Step 4: Apply the initial condition\n\nWe are given $ y(0) = 1 $. Plug in $ x = 0 $:\n\n$$\n1 = K e^{0^2} = K \\cdot 1 \\Rightarrow K = 1\n$$\n\n---\n\n### Final Answer:\n\n$$\n\\boxed{y = e^{x^2}}\n$$\n\nFinal answer: $ \\boxed{y = e^{x^2}} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Solve $\\dfrac{dy}{dx} = 2xy$ with $y(0) = 1$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "y^2 = x^2 + C",
+  "output": "We are given the differential equation:\n\n$$\n\\frac{dy}{dx} = \\frac{x}{y}\n$$\n\nThis is a first-order ordinary differential equation. To solve it, we can use separation of variables.\n\n---\n\n### Step 1: Separate the variables\n\nMultiply both sides by $ y \\, dx $:\n\n$$\ny \\, dy = x \\, dx\n$$\n\n---\n\n### Step 2: Integrate both sides\n\n$$\n\\int y \\, dy = \\int x \\, dx\n$$\n\n$$\n\\frac{y^2}{2} = \\frac{x^2}{2} + C\n$$\n\nwhere $ C $ is the constant of integration.\n\n---\n\n### Step 3: Solve for $ y $\n\nMultiply both sides by 2:\n\n$$\ny^2 = x^2 + 2C\n$$\n\nLet $ 2C = K $, where $ K $ is a constant:\n\n$$\ny^2 = x^2 + K\n$$\n\nTake the square root of both sides:\n\n$$\ny = \\pm \\sqrt{x^2 + K}\n$$\n\n---\n\n### Final Answer:\n\n$$\n\\boxed{y = \\pm \\sqrt{x^2 + K}}\n$$\n\nFinal answer: <answer> $ y = \\pm \\sqrt{x^2 + K} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Solve $\\dfrac{dy}{dx} = \\dfrac{x}{y}$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "P(t) = 500*e^(0.03t)",
+  "output": "We are given the differential equation:\n\n$$\n\\frac{dP}{dt} = 0.03P\n$$\n\nThis is a **separable differential equation**. We can separate the variables and integrate both sides.\n\n---\n\n**Step 1: Separate the variables**\n\n$$\n\\frac{dP}{P} = 0.03 \\, dt\n$$\n\n---\n\n**Step 2: Integrate both sides**\n\n$$\n\\int \\frac{dP}{P} = \\int 0.03 \\, dt\n$$\n\n$$\n\\ln|P| = 0.03t + C\n$$\n\n---\n\n**Step 3: Solve for $P$**\n\nExponentiate both sides to eliminate the logarithm:\n\n$$\nP = e^{0.03t + C} = e^C \\cdot e^{0.03t}\n$$\n\nLet $ e^C = K $, where $ K $ is a positive constant:\n\n$$\nP = K e^{0.03t}\n$$\n\n---\n\n**Step 4: Apply the initial condition**\n\nWe are given $ P(0) = 500 $:\n\n$$\n500 = K e^{0} = K \\cdot 1 \\Rightarrow K = 500\n$$\n\n---\n\n**Final Answer:**\n\n$$\n\\boxed{P(t) = 500e^{0.03t}}\n$$\n\nFinal answer: <answer>500e^{0.03t}</answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: A population grows at rate $\\dfrac{dP}{dt} = 0.03P$. If $P(0) = 500$, find $P(t)$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "\u03bc(x) = e^(\u222bP(x)dx)",
+  "output": "To find the integrating factor for the differential equation:\n\n$$\n\\frac{dy}{dx} + P(x)y = Q(x),\n$$\n\nwe recognize that this is a first-order linear differential equation. The standard form is:\n\n$$\n\\frac{dy}{dx} + P(x)y = Q(x).\n$$\n\nThe integrating factor is a function that, when multiplied through the entire equation, transforms the left-hand side into a derivative of a product. The formula for the integrating factor is:\n\n$$\n\\mu(x) = \\exp\\left(\\int P(x) \\, dx\\right).\n$$\n\nFinal answer: $\\boxed{\\exp\\left(\\int P(x) \\, dx\\right)}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: What is the integrating factor for $\\dfrac{dy}{dx} + P(x)y = Q(x)$?"
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "y = 2 + Ce^(-2x)",
+  "output": "To solve the differential equation:\n\n$$\n\\frac{dy}{dx} + 2y = 4\n$$\n\nThis is a first-order linear differential equation. We will use the method of integrating factors.\n\n---\n\n**Step 1: Identify the integrating factor**\n\nThe standard form of a first-order linear DE is:\n\n$$\n\\frac{dy}{dx} + P(x)y = Q(x)\n$$\n\nIn this case:\n\n- $ P(x) = 2 $\n- $ Q(x) = 4 $\n\nThe integrating factor is:\n\n$$\n\\mu(x) = e^{\\int P(x) \\, dx} = e^{\\int 2 \\, dx} = e^{2x}\n$$\n\n---\n\n**Step 2: Multiply both sides of the equation by the integrating factor**\n\n$$\ne^{2x} \\frac{dy}{dx} + 2e^{2x} y = 4e^{2x}\n$$\n\nThe left-hand side is now the derivative of the product $ e^{2x} y $:\n\n$$\n\\frac{d}{dx} \\left( e^{2x} y \\right) = 4e^{2x}\n$$\n\n---\n\n**Step 3: Integrate both sides**\n\n$$\n\\int \\frac{d}{dx} \\left( e^{2x} y \\right) \\, dx = \\int 4e^{2x} \\, dx\n$$\n\n$$\ne^{2x} y = 2e^{2x} + C\n$$\n\n---\n\n**Step 4: Solve for $ y $**\n\nDivide both sides by $ e^{2x} $:\n\n$$\ny = 2 + Ce^{-2x}\n$$\n\n---\n\n**Final answer:**\n\n$$\n\\boxed{y = 2 + Ce^{-2x}}\n$$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Solve $\\dfrac{dy}{dx} + 2y = 4$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "y = x^2/3 + C/x",
+  "output": "We are given the differential equation:\n\n$$\nx \\frac{dy}{dx} + y = x^2\n$$\n\nThis is a first-order linear differential equation. Let's rewrite it in standard form:\n\n$$\n\\frac{dy}{dx} + \\frac{1}{x} y = x\n$$\n\nThis is in the form:\n\n$$\n\\frac{dy}{dx} + P(x) y = Q(x)\n$$\n\nwhere $ P(x) = \\frac{1}{x} $ and $ Q(x) = x $.\n\n---\n\n### Step 1: Find the integrating factor\n\nThe integrating factor $ \\mu(x) $ is given by:\n\n$$\n\\mu(x) = \\exp\\left( \\int P(x) \\, dx \\right) = \\exp\\left( \\int \\frac{1}{x} \\, dx \\right) = \\exp(\\ln x) = x\n$$\n\n---\n\n### Step 2: Multiply the entire equation by the integrating factor\n\n$$\nx \\frac{dy}{dx} + y = x^2\n$$\n\nMultiply both sides by $ x $:\n\n$$\nx \\cdot \\frac{dy}{dx} + x \\cdot y = x^3\n$$\n\nThe left-hand side is now the derivative of $ x y $:\n\n$$\n\\frac{d}{dx}(x y) = x^3\n$$\n\n---\n\n### Step 3: Integrate both sides\n\n$$\n\\int \\frac{d}{dx}(x y) \\, dx = \\int x^3 \\, dx\n$$\n\n$$\nx y = \\frac{x^4}{4} + C\n$$\n\n---\n\n### Step 4: Solve for $ y $\n\n$$\ny = \\frac{x^3}{4} + \\frac{C}{x}\n$$\n\n---\n\n### Final Answer:\n\n$$\n\\boxed{y = \\frac{x^3}{4} + \\frac{C}{x}}\n$$\n\nFinal answer: <answer> $ y = \\frac{x^3}{4} + \\frac{C}{x} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Solve $x\\dfrac{dy}{dx} + y = x^2$ for $x > 0$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "A(t) = 50(1 - e^(-t/50))",
+  "output": "To solve this problem, we use the **Law of Mass Balance** for a well-mixed tank.\n\n---\n\n### **Given:**\n- Volume of the tank: $ V = 100 $ L\n- Inflow rate: $ \\frac{dV}{dt} = 0 $ (since the inflow and outflow rates are equal: 2 L/min in and 2 L/min out)\n- Inflow concentration: $ C_{\\text{in}} = 0.5 $ kg/L\n- Outflow concentration: $ C_{\\text{out}} = \\frac{A(t)}{V} $ (since the tank volume is constant)\n- Inflow rate: $ r = 2 $ L/min\n- Outflow rate: $ r = 2 $ L/min\n- Initial condition: $ A(0) = 0 $\n\n---\n\n### **Step 1: Set up the differential equation**\n\nThe rate of change of salt in the tank is given by:\n\n$$\n\\frac{dA}{dt} = \\text{Rate in} - \\text{Rate out}\n$$\n\n$$\n\\frac{dA}{dt} = (2 \\cdot 0.5) - \\left( \\frac{A(t)}{100} \\cdot 2 \\right)\n$$\n\n$$\n\\frac{dA}{dt} = 1 - \\frac{A(t)}{50}\n$$\n\n---\n\n### **Step 2: Solve the differential equation**\n\nThis is a first-order linear differential equation of the form:\n\n$$\n\\frac{dA}{dt} + \\frac{1}{50}A(t) = 1\n$$\n\nWe use an integrating factor:\n\n$$\n\\mu(t) = e^{\\int \\frac{1}{50} dt} = e^{t/50}\n$$\n\nMultiply both sides by the integrating factor:\n\n$$\ne^{t/50} \\frac{dA}{dt} + \\frac{1}{50} e^{t/50} A(t) = e^{t/50}\n$$\n\nThe left-hand side is the derivative of $ A(t) e^{t/50} $:\n\n$$\n\\frac{d}{dt} \\left( A(t) e^{t/50} \\right) = e^{t/50}\n$$\n\nIntegrate both sides:\n\n$$\nA(t) e^{t/50} = \\int e^{t/50} dt = 50 e^{t/50} + C\n$$\n\nDivide both sides by $ e^{t/50} $:\n\n$$\nA(t) = 50 + C e^{-t/50}\n$$\n\n---\n\n### **Step 3: Apply the initial condition**\n\n$$\nA(0) = ",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: A tank contains 100 L of pure water. Brine with 0.5 kg/L flows in at 2 L/min; the well-mixed solution drains at 2 L/min. Find the salt amount $A(t)$ with $A(0) = 0$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "Given \u03b5 > 0, choose \u03b4 = \u03b5/3; then |x-2| < \u03b4 implies |(3x-1)-5| = 3|x-2| < \u03b5",
+  "output": "To prove that $\\lim_{x \\to 2}(3x - 1) = 5$ using the $\\varepsilon$-$\\delta$ definition, we need to show that for every $\\varepsilon > 0$, there exists a $\\delta > 0$ such that:\n\n$$\n0 < |x - 2| < \\delta \\implies |(3x - 1) - 5| < \\varepsilon\n$$\n\n---\n\n**Step 1: Simplify the expression inside the absolute value**\n\n$$\n|(3x - 1) - 5| = |3x - 6| = 3|x - 2|\n$$\n\nSo the inequality becomes:\n\n$$\n0 < |x - 2| < \\delta \\implies 3|x - 2| < 3\\delta\n$$\n\nWe want this to be less than $\\varepsilon$, so:\n\n$$\n3\\delta < \\varepsilon \\implies \\delta < \\frac{\\varepsilon}{3}\n$$\n\n---\n\n**Step 2: Choose $\\delta$**\n\nLet $\\delta = \\min\\left(\\frac{\\varepsilon}{3}, 1\\right)$. This ensures that $\\delta > 0$ and that $|x - 2| < \\delta$ implies $3|x - 2| < \\varepsilon$.\n\n---\n\n**Conclusion:**\n\nFor every $\\varepsilon > 0$, choose $\\delta = \\min\\left(\\frac{\\varepsilon}{3}, 1\\right)$. Then:\n\n$$\n0 < |x - 2| < \\delta \\implies |(3x - 1) - 5| < \\varepsilon\n$$\n\nThus, by the $\\varepsilon$-$\\delta$ definition, we have:\n\n$$\n\\lim_{x \\to 2}(3x - 1) = 5\n$$\n\nFinal answer: $\\boxed{5}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Using the \u03b5-\u03b4 definition, prove that $\\lim_{x \\to 2}(3x - 1) = 5$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "Left limit = -1, right limit = 1; since -1 \u2260 1 the two-sided limit does not exist",
+  "output": "To prove that $\\lim_{x \\to 0} \\frac{|x|}{x}$ does not exist, we consider the one-sided limits:\n\n- As $x \\to 0^+$ (i.e., $x > 0$), $|x| = x$, so the expression becomes $\\frac{x}{x} = 1$.\n- As $x \\to 0^-$ (i.e., $x < 0$), $|x| = -x$, so the expression becomes $\\frac{-x}{x} = -1$.\n\nThus, the left-hand limit is $-1$ and the right-hand limit is $1$. Since the left-hand and right-hand limits are not equal, the two-sided limit does not exist.\n\nFinal answer: $\\lim_{x \\to 0} \\frac{|x|}{x}$ does not exist.",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Prove that $\\lim_{x \\to 0} |x|/x$ does not exist by showing the one-sided limits differ.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "Given \u03b5 > 0, choose N = 1/\u03b5; then x > N implies |1/x - 0| = 1/x < \u03b5",
+  "output": "To prove that $\\lim_{x \\to \\infty} \\dfrac{1}{x} = 0$ using the formal definition of a limit, we use the following definition:\n\n> A function $f(x)$ satisfies $\\lim_{x \\to \\infty} f(x) = L$ if for every $\\varepsilon > 0$, there exists a $N > 0$ such that for all $x > N$, we have $|f(x) - L| < \\varepsilon$.\n\n---\n\n### Step 1: Set up the problem\n\nWe want to show that:\n$$\n\\lim_{x \\to \\infty} \\dfrac{1}{x} = 0\n$$\n\nThis means for every $\\varepsilon > 0$, there exists a $N > 0$ such that for all $x > N$, we have:\n$$\n\\left| \\dfrac{1}{x} - 0 \\right| < \\varepsilon\n$$\n\nSimplify the inequality:\n$$\n\\left| \\dfrac{1}{x} \\right| < \\varepsilon\n$$\n\nSince $x > 0$ for large $x$, we can drop the absolute value:\n$$\n\\dfrac{1}{x} < \\varepsilon\n$$\n\n---\n\n### Step 2: Solve for $x$\n\nWe want to find $N$ such that for all $x > N$, the inequality $\\dfrac{1}{x} < \\varepsilon$ holds.\n\nSolving for $x$:\n$$\nx > \\dfrac{1}{\\varepsilon}\n$$\n\nSo, if we choose $N = \\dfrac{1}{\\varepsilon}$, then for all $x > N$, we have:\n$$\n\\dfrac{1}{x} < \\varepsilon\n$$\n\n---\n\n### Step 3: Conclusion\n\nFor every $\\varepsilon > 0$, we can find $N = \\dfrac{1}{\\varepsilon}$ such that for all $x > N$, the inequality $| \\dfrac{1}{x} - 0 | < \\varepsilon$ holds. Therefore, by the formal definition of a limit, we have:\n\n$$\n\\lim_{x \\to \\infty} \\dfrac{1}{x} = 0\n$$\n\n---\n\nFinal answer: $\\boxed{0}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Prove that $\\lim_{x \\to \\infty} \\dfrac{1}{x} = 0$ using the formal definition.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "The rule derives from Cauchy's MVT applied to f/g; without the indeterminate form the ratio is already determined. Example: lim_{x\u21920} x/1 = 0, but applying L'H\u00f4pital gives 1/0 = undefined.",
+  "output": "L'H\u00f4pital's rule is used to evaluate limits of the form $\\frac{0}{0}$ or $\\frac{\\infty}{\\infty}$, where the limit of the numerator and denominator both approach 0 or both approach infinity. The rule states that if the limit of the ratio of the derivatives of the numerator and denominator exists, then it equals the original limit.\n\n**Reasoning:**\nL'H\u00f4pital's rule requires the 0/0 or \u221e/\u221e form because it relies on the idea that the indeterminate forms are undefined and require further analysis. If the form is not indeterminate, the rule cannot be applied, and the limit may not exist or may be evaluated using other methods.\n\n**Example where applying L'H\u00f4pital's rule gives the wrong answer:**\n\nConsider the limit:\n$$\n\\lim_{x \\to 0} \\frac{\\sin(x)}{x}\n$$\nThis is a standard 0/0 form, and L'H\u00f4pital's rule gives:\n$$\n\\lim_{x \\to 0} \\frac{\\cos(x)}{1} = \\cos(0) = 1\n$$\nThis is correct.\n\nNow consider a non-indeterminate form, such as:\n$$\n\\lim_{x \\to 0} \\frac{x}{x^2}\n$$\nThis is not an indeterminate form because the numerator approaches 0 and the denominator approaches 0, but the limit is actually $\\infty$, not 0/0 or \u221e/\u221e. However, if we incorrectly apply L'H\u00f4pital's rule to this form, we might write:\n$$\n\\lim_{x \\to 0} \\frac{1}{2x}\n$$\nwhich gives $\\infty$, which is correct. But if we mistakenly apply L'H\u00f4pital's rule to a form that is not indeterminate, such as:\n$$\n\\lim_{x \\to 0} \\frac{x}{x}\n$$\nwhich is 1, and incorrectly apply L'H\u00f4pital's rule, we might write:\n$$\n\\lim_{x \\to 0} \\frac{1}{1} = 1\n$$\nwhich is correct. However, if we incorrectly apply L'H\u00f4pital's rule to a form that is not indeterminate, such as:\n$$\n\\lim_{x \\to 0} \\frac{x}{x^2}\n$$\nand mistakenly think it is 0/0, we might incorrectly apply L'H\u00f4pital's rule and get:\n$$\n\\lim_{x \\to 0} \\frac{1}{2x} = \\infty\n$$\nwhich is correct, but if we incorrectly apply it to a form that is not indeterminate, such as:\n$$\n\\lim_{x \\to 0} \\frac{x}{x}\n$$\nand",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Explain why L'H\u00f4pital's rule requires the 0/0 or \u221e/\u221e form, and give an example where applying it to a non-indeterminate form gives the wrong answer.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "lim_{x\u2192a} x\u00b2 = a\u00b2 = f(a) for all a, so all three continuity conditions hold",
+  "output": "To prove that $ f(x) = x^2 $ is continuous at every real number $ a $, we use the definition of continuity at a point.\n\n---\n\n**Definition of continuity at a point:**\n\nA function $ f $ is continuous at a point $ a $ if:\n\n$$\n\\lim_{x \\to a} f(x) = f(a)\n$$\n\nWe need to show that for any real number $ a $, the limit of $ f(x) $ as $ x $ approaches $ a $ equals $ f(a) $.\n\n---\n\n**Step-by-step proof:**\n\n1. **Given:** $ f(x) = x^2 $, and we want to show that $ f $ is continuous at $ a \\in \\mathbb{R} $.\n\n2. **Compute the limit:**\n\n$$\n\\lim_{x \\to a} f(x) = \\lim_{x \\to a} x^2 = a^2\n$$\n\n3. **Compute the function value:**\n\n$$\nf(a) = a^2\n$$\n\n4. **Conclusion:**\n\nSince $ \\lim_{x \\to a} f(x) = f(a) $, the function $ f(x) = x^2 $ is continuous at every real number $ a $.\n\n---\n\n**Final answer:**\n\nFinal answer: $ \\boxed{f(x) = x^2 \\text{ is continuous at every real number } a} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Prove that $f(x) = x^2$ is continuous at every real number $a$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "Bisect [a,b]; the midpoint m satisfies f(m) < 0 or f(m) > 0; recurse on the half where sign changes; the nested intervals converge to c with f(c) = 0 by continuity",
+  "output": "To prove the Intermediate Value Theorem (IVT), we use the **bisection argument** and the **continuity** of the function $ f $ on the closed interval $[a, b]$.\n\n---\n\n### **Key Idea:**\n\n- The function $ f $ is **continuous** on $[a, b]$.\n- We are given that $ f(a) < 0 $ and $ f(b) > 0 $.\n- Since $ f $ is continuous, it must take on all values between $ f(a) $ and $ f(b) $ in the interval $[a, b]$.\n\n---\n\n### **Bisection Argument:**\n\n1. **Step 1:** Since $ f(a) < 0 $ and $ f(b) > 0 $, by the **Intermediate Value Theorem**, there must be some point $ c \\in (a, b) $ such that $ f(c) = 0 $.\n\n2. **Step 2:** We can use the **bisection method** to find such a point:\n   - Start with the interval $[a, b]$.\n   - Compute the midpoint $ c = \\frac{a + b}{2} $.\n   - Evaluate $ f(c) $:\n     - If $ f(c) = 0 $, we are done.\n     - If $ f(c) < 0 $, then the root lies in $[c, b]$.\n     - If $ f(c) > 0 $, the root lies in $[a, c]$.\n   - Repeat the process on the subinterval where the sign of $ f $ changes.\n\n3. **Step 3:** Since $ f $ is continuous and the sign changes from negative to positive, the root must lie in some subinterval of $[a, b]$. By repeating this process, we can narrow down the interval to a point where $ f(c) = 0 $.\n\n---\n\n### **Conclusion:**\n\nBy the continuity of $ f $ and the fact that $ f(a) < 0 < f(b) $, there must exist a point $ c \\in (a, b) $ such that $ f(c) = 0 $.\n\n---\n\nFinal answer: <answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Prove the Intermediate Value Theorem: if $f$ is continuous on $[a,b]$ and $f(a) < 0 < f(b)$, then there exists $c \\in (a,b)$ with $f(c) = 0$. (Sketch the key idea using the bisection argument.)"
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "Use the binomial theorem: (x+h)^n = x^n + nx^(n-1)h + O(h\u00b2); subtract x^n, divide by h, take h\u21920",
+  "output": "To prove the power rule $\\dfrac{d}{dx}[x^n] = nx^{n-1}$ for positive integers $n$ using the limit definition of the derivative, we start with the definition:\n\n$$\nf(x) = x^n\n$$\n\nThe derivative is given by:\n\n$$\nf'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}\n$$\n\nSubstitute $f(x) = x^n$ and $f(x+h) = (x+h)^n$:\n\n$$\nf'(x) = \\lim_{h \\to 0} \\frac{(x+h)^n - x^n}{h}\n$$\n\nWe now expand $(x+h)^n$ using the binomial theorem:\n\n$$\n(x+h)^n = x^n + nx^{n-1}h + \\binom{n}{2}x^{n-2}h^2 + \\cdots + h^n\n$$\n\nSubtract $x^n$ from both sides:\n\n$$\n(x+h)^n - x^n = nx^{n-1}h + \\binom{n}{2}x^{n-2}h^2 + \\cdots + h^n\n$$\n\nNow divide by $h$:\n\n$$\n\\frac{(x+h)^n - x^n}{h} = nx^{n-1} + \\binom{n}{2}x^{n-2}h + \\cdots + h^{n-1}\n$$\n\nTake the limit as $h \\to 0$:\n\n$$\nf'(x) = \\lim_{h \\to 0} \\left(nx^{n-1} + \\binom{n}{2}x^{n-2}h + \\cdots + h^{n-1}\\right)\n$$\n\nAs $h \\to 0$, all terms with $h$ vanish, leaving:\n\n$$\nf'(x) = nx^{n-1}\n$$\n\n---\n\nFinal answer: <answer> $nx^{n-1}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Prove the power rule $\\dfrac{d}{dx}[x^n] = nx^{n-1}$ for positive integers $n$ using the limit definition.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "Add and subtract u(x+h)v(x) in the numerator; factor and take h\u21920",
+  "output": "To prove the product rule $(uv)' = u'v + uv'$ from the limit definition, we start with the definition of the derivative:\n\n$$\n(uv)' = \\lim_{h \\to 0} \\frac{uv(h) - uv(0)}{h}\n$$\n\nWe can rewrite this as:\n\n$$\n(uv)' = \\lim_{h \\to 0} \\frac{u(h)v(h) - u(0)v(0)}{h}\n$$\n\nNow, consider the difference:\n\n$$\nu(h)v(h) - u(0)v(0) = u(h)v(h) - u(0)v(0)\n$$\n\nWe can split this into two terms:\n\n$$\nu(h)v(h) - u(0)v(0) = u(h)v(h) - u(0)v(h) + u(0)v(h) - u(0)v(0)\n$$\n\nThis gives:\n\n$$\nu(h)v(h) - u(0)v(0) = [u(h) - u(0)][v(h)] + u(0)[v(h) - v(0)]\n$$\n\nNow, substitute this back into the limit:\n\n$$\n(uv)' = \\lim_{h \\to 0} \\frac{[u(h) - u(0)][v(h)] + u(0)[v(h) - v(0)]}{h}\n$$\n\nSplit the limit into two parts:\n\n$$\n(uv)' = \\lim_{h \\to 0} \\left( \\frac{[u(h) - u(0)]}{h} \\cdot v(h) + \\frac{u(0)[v(h) - v(0)]}{h} \\right)\n$$\n\nNow take the limit as $h \\to 0$:\n\n- $\\lim_{h \\to 0} \\frac{u(h) - u(0)}{h} = u'(0)$\n- $\\lim_{h \\to 0} v(h) = v(0)$\n- $\\lim_{h \\to 0} \\frac{v(h) - v(0)}{h} = v'(0)$\n- $\\lim_{h \\to 0} u(0) = u(0)$\n\nSo, the limit becomes:\n\n$$\n(uv)' = u'(0)v(0) + u(0)v'(0)\n$$\n\nThus, we have:\n\n$$\n(uv)' = u'v + uv'\n$$\n\nFinal answer: <answer> $u'v + uv'$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Prove the product rule $(uv)' = u'v + uv'$ from the limit definition."
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "Write u = (u/v)\u00b7v; differentiate both sides using the product rule; solve for (u/v)'",
+  "output": "To derive the **quotient rule** from the **product rule**, we start with the quotient rule formula:\n\n$$\n\\left( \\frac{u}{v} \\right)' = \\frac{u'v - uv'}{v^2}\n$$\n\nWe can think of the quotient $\\frac{u}{v}$ as a product of $u$ and $\\frac{1}{v}$. Using the **product rule**, we can differentiate this expression:\n\n$$\n\\left( u \\cdot \\frac{1}{v} \\right)' = u' \\cdot \\frac{1}{v} + u \\cdot \\left( \\frac{1}{v} \\right)'\n$$\n\nNow, we need to compute the derivative of $\\frac{1}{v}$, which is $- \\frac{v'}{v^2}$. Substituting this into the expression:\n\n$$\n\\left( u \\cdot \\frac{1}{v} \\right)' = u' \\cdot \\frac{1}{v} + u \\cdot \\left( - \\frac{v'}{v^2} \\right)\n$$\n\nSimplify the expression:\n\n$$\n\\left( \\frac{u}{v} \\right)' = \\frac{u'}{v} - \\frac{u v'}{v^2}\n$$\n\nCombine the terms over a common denominator:\n\n$$\n\\left( \\frac{u}{v} \\right)' = \\frac{u'v - uv'}{v^2}\n$$\n\nThis is the **quotient rule**.\n\n---\n\nFinal answer: <answer> $\\frac{u'v - uv'}{v^2}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Derive the quotient rule from the product rule.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "Write \u0394y/\u0394x = (\u0394y/\u0394u)\u00b7(\u0394u/\u0394x); take \u0394x\u21920; note \u0394u\u21920 so \u0394y/\u0394u\u2192f'(u)",
+  "output": "To prove the chain rule using the limit definition (informal), we consider the derivative of a composite function $ f(g(x)) $.\n\nLet $ f $ and $ g $ be differentiable functions. We want to find:\n\n$$\n\\frac{d}{dx}[f(g(x))] = \\lim_{h \\to 0} \\frac{f(g(x + h)) - f(g(x))}{h}\n$$\n\nWe can rewrite this as:\n\n$$\n\\lim_{h \\to 0} \\frac{f(g(x + h)) - f(g(x))}{h}\n$$\n\nNow, consider the difference quotient for $ g(x + h) - g(x) $:\n\n$$\n\\frac{g(x + h) - g(x)}{h}\n$$\n\nThis is the definition of the derivative of $ g $ at $ x $, denoted $ g'(x) $.\n\nNow, consider the difference $ f(g(x + h)) - f(g(x)) $. We can use the Mean Value Theorem or the idea of approximating the change in $ f $ using the derivative of $ f $ at $ g(x) $.\n\nLet\u2019s define:\n\n$$\n\\frac{f(g(x + h)) - f(g(x))}{g(x + h) - g(x)} = \\frac{f(g(x + h)) - f(g(x))}{g(x + h) - g(x)}\n$$\n\nAs $ h \\to 0 $, the expression $ \\frac{g(x + h) - g(x)}{h} \\to g'(x) $, so the denominator approaches $ g'(x) $.\n\nNow, consider the numerator:\n\n$$\nf(g(x + h)) - f(g(x)) \\approx f'(g(x)) \\cdot [g(x + h) - g(x)]\n$$\n\nThis is based on the Mean Value Theorem, which tells us that for some $ c $ between $ x $ and $ x + h $, we have:\n\n$$\nf(g(x + h)) - f(g(x)) = f'(c) \\cdot [g(x + h) - g(x)]\n$$\n\nAs $ h \\to 0 $, $ c \\to g(x) $, so $ f'(c) \\to f'(g(x)) $.\n\nThus, the numerator becomes approximately $ f'(g(x)) \\cdot [g(x + h) - g(x)] $, and the denominator is approximately $ g'(x) \\cdot h $.\n\nSo the entire expression becomes:\n\n$$\n\\frac{f(g(x + h)) - f(g(x))}{h} \\approx \\frac{f'(g(x)) \\cdot [g(x + h) - g(x)]}{h} \\cdot \\frac{1}{g'(x)}\n$$\n\nAs $ h \\to 0 $, $ \\frac{g(x +",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Sketch a proof of the chain rule $\\dfrac{d}{dx}[f(g(x))] = f'(g(x))g'(x)$ using the limit definition (informal version).",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "By the implicit function theorem, y is locally a differentiable function of x near a point where F_y \u2260 0; differentiating both sides applies the chain rule to y(x)",
+  "output": "Implicit differentiation is valid because the equation $ F(x, y) = 0 $ defines a relationship between $ x $ and $ y $, and differentiating both sides with respect to $ x $ allows us to find $ \\frac{dy}{dx} $ even when $ y $ is not explicitly expressed as a function of $ x $. \n\nWhen we differentiate $ F(x, y) = 0 $ with respect to $ x $, we treat $ y $ as a function of $ x $, and apply the chain rule to the terms involving $ y $. This is valid because the equation defines a relationship between $ x $ and $ y $, and the derivative of $ y $ with respect to $ x $ is a valid concept in this context.\n\nFinal answer: <answer>Implicit differentiation is valid because $ y $ is treated as a function of $ x $, and the chain rule allows us to differentiate both sides of $ F(x, y) = 0 $ with respect to $ x $.",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Explain why implicit differentiation is valid: why can we differentiate both sides of $F(x, y) = 0$ with respect to $x$?",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "ds/dt = (x + 2x^3) / sqrt(x^2 + x^4) * dx/dt",
+  "output": "We are given the curve $ y = x^2 $, and we are to show that the rate of change of the distance from the origin, $ \\dfrac{ds}{dt} $, satisfies the equation:\n\n$$\n\\dfrac{ds}{dt} = \\dfrac{x(1+2x^2)}{\\sqrt{x^2+x^4}}\\dfrac{dx}{dt}\n$$\n\n---\n\n### Step 1: Express $ s $ in terms of $ x $\n\nThe distance from the origin to a point $ (x, y) $ on the curve is:\n\n$$\ns = \\sqrt{x^2 + y^2} = \\sqrt{x^2 + (x^2)^2} = \\sqrt{x^2 + x^4}\n$$\n\n---\n\n### Step 2: Differentiate $ s $ with respect to $ t $\n\n$$\n\\dfrac{ds}{dt} = \\dfrac{d}{dt} \\left( \\sqrt{x^2 + x^4} \\right)\n$$\n\nUse the chain rule:\n\n$$\n\\dfrac{ds}{dt} = \\dfrac{1}{2\\sqrt{x^2 + x^4}} \\cdot \\dfrac{d}{dt}(x^2 + x^4)\n$$\n\nNow differentiate the inside:\n\n$$\n\\dfrac{d}{dt}(x^2 + x^4) = 2x \\dfrac{dx}{dt} + 4x^3 \\dfrac{dx}{dt} = (2x + 4x^3) \\dfrac{dx}{dt}\n$$\n\nSo:\n\n$$\n\\dfrac{ds}{dt} = \\dfrac{1}{2\\sqrt{x^2 + x^4}} \\cdot (2x + 4x^3) \\dfrac{dx}{dt}\n$$\n\nFactor out $ 2x $ from the numerator:\n\n$$\n\\dfrac{ds}{dt} = \\dfrac{2x(1 + 2x^2)}{2\\sqrt{x^2 + x^4}} \\dfrac{dx}{dt}\n$$\n\nSimplify:\n\n$$\n\\dfrac{ds}{dt} = \\dfrac{x(1 + 2x^2)}{\\sqrt{x^2 + x^4}} \\dfrac{dx}{dt}\n$$\n\n---\n\n### Final Answer:\n\n$$\n\\boxed{\\dfrac{ds}{dt} = \\dfrac{x(1+2x^2)}{\\sqrt{x^2+x^4}}\\dfrac{dx}{dt}}\n$$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: A point moves along the curve $y = x^2$. Show that the rate of change of the distance from the origin satisfies $\\dfrac{ds}{dt} = \\dfrac{x(1+2x^2)}{\\sqrt{x^2+x^4}}\\dfrac{dx}{dt}$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "1/2",
+  "output": "To prove that $\\int_0^1 x\\,dx = \\dfrac{1}{2}$ using the limit of right Riemann sums and the formula $\\sum_{i=1}^n i = \\dfrac{n(n+1)}{2}$, we proceed as follows:\n\n---\n\n### Step 1: Define the Riemann sum\n\nWe consider the function $f(x) = x$ on the interval $[0, 1]$. We divide the interval into $n$ equal subintervals, each of width $\\Delta x = \\dfrac{1}{n}$.\n\nThe right Riemann sum for the integral is:\n\n$$\n\\sum_{i=1}^n f(x_i) \\Delta x = \\sum_{i=1}^n x_i \\cdot \\dfrac{1}{n}\n$$\n\nwhere $x_i = \\dfrac{i}{n}$ is the right endpoint of the $i$-th subinterval.\n\n---\n\n### Step 2: Substitute $x_i = \\dfrac{i}{n}$\n\n$$\n\\sum_{i=1}^n \\left( \\dfrac{i}{n} \\right) \\cdot \\dfrac{1}{n} = \\dfrac{1}{n^2} \\sum_{i=1}^n i\n$$\n\n---\n\n### Step 3: Use the formula for the sum of the first $n$ integers\n\n$$\n\\sum_{i=1}^n i = \\dfrac{n(n+1)}{2}\n$$\n\nSubstitute this into the expression:\n\n$$\n\\dfrac{1}{n^2} \\cdot \\dfrac{n(n+1)}{2} = \\dfrac{n(n+1)}{2n^2} = \\dfrac{n+1}{2n}\n$$\n\n---\n\n### Step 4: Take the limit as $n \\to \\infty$\n\n$$\n\\lim_{n \\to \\infty} \\dfrac{n+1}{2n} = \\lim_{n \\to \\infty} \\left( \\dfrac{1}{2} + \\dfrac{1}{2n} \\right) = \\dfrac{1}{2}\n$$\n\n---\n\n### Final Answer:\n\n$$\n\\boxed{\\text{Final answer: } \\dfrac{1}{2}}\n$$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Prove that $\\int_0^1 x\\,dx = \\dfrac{1}{2}$ using the limit of right Riemann sums and the formula $\\sum_{i=1}^n i = \\dfrac{n(n+1)}{2}$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "F'(x) = lim_{h\u21920} [F(x+h)-F(x)]/h = lim_{h\u21920} (1/h)\u222b_x^{x+h} f(t)dt = f(x) by MVT for integrals",
+  "output": "To prove **FTC Part 1**, we use the **definition of the derivative** and the **Fundamental Theorem of Calculus (FTC)**.\n\n### Step 1: Definition of the Derivative\nThe derivative of a function $ F(x) $ is defined as:\n$$\nF'(x) = \\lim_{h \\to 0} \\frac{F(x + h) - F(x)}{h}\n$$\n\n### Step 2: Use the Definition of $ F(x) $\nWe are given:\n$$\nF(x) = \\int_a^x f(t)\\,dt\n$$\nSo,\n$$\nF(x + h) = \\int_a^{x + h} f(t)\\,dt \\quad \\text{and} \\quad F(x) = \\int_a^x f(t)\\,dt\n$$\n\n### Step 3: Compute the Difference Quotient\n$$\n\\frac{F(x + h) - F(x)}{h} = \\frac{1}{h} \\left( \\int_a^{x + h} f(t)\\,dt - \\int_a^x f(t)\\,dt \\right)\n$$\n\n### Step 4: Simplify the Integral Expression\n$$\n\\frac{1}{h} \\left( \\int_a^{x + h} f(t)\\,dt - \\int_a^x f(t)\\,dt \\right) = \\frac{1}{h} \\int_x^{x + h} f(t)\\,dt\n$$\n\n### Step 5: Take the Limit as $ h \\to 0 $\n$$\nF'(x) = \\lim_{h \\to 0} \\frac{1}{h} \\int_x^{x + h} f(t)\\,dt\n$$\n\nBy the **Mean Value Theorem for Integrals**, there exists a $ c \\in (x, x + h) $ such that:\n$$\n\\int_x^{x + h} f(t)\\,dt = f(c) \\cdot h\n$$\n\nSo,\n$$\n\\frac{1}{h} \\int_x^{x + h} f(t)\\,dt = f(c)\n$$\n\nTaking the limit as $ h \\to 0 $, we get:\n$$\nF'(x) = \\lim_{h \\to 0} f(c) = f(x)\n$$\n\n### Final Answer:\n$$\n\\boxed{F'(x) = f(x)}\n$$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Prove FTC Part 1: if $F(x) = \\int_a^x f(t)\\,dt$ and $f$ is continuous, then $F'(x) = f(x)$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "Let F be an antiderivative of f; by the chain rule d/dx[F(g(x))] = f(g(x))g'(x); integrating both sides gives the result",
+  "output": "To prove the substitution rule in calculus, we use the concept of **substitution in integrals**. Here's the reasoning:\n\n---\n\n### **Step 1: Understand the setup**\n\nWe are given:\n- $ u = g(x) $, where $ g(x) $ is differentiable.\n- $ f $ is continuous.\n- The goal is to evaluate the integral:\n  $$\n  \\int f(g(x)) \\cdot g'(x) \\, dx\n  $$\n\n---\n\n### **Step 2: Use substitution**\n\nLet\u2019s make the substitution $ u = g(x) $. Then, we compute $ du $ in terms of $ dx $:\n$$\ndu = g'(x) \\, dx\n$$\n\nNow, rewrite the integral in terms of $ u $:\n$$\n\\int f(g(x)) \\cdot g'(x) \\, dx = \\int f(u) \\, du\n$$\n\n---\n\n### **Step 3: Justify the substitution**\n\nSince $ u = g(x) $ is differentiable, the function $ g(x) $ is invertible (or at least, its derivative is non-zero), and the substitution is valid. The continuity of $ f $ ensures that the integral is well-defined and the substitution is valid for all $ x $ where $ g(x) $ is defined.\n\n---\n\n### **Final Answer:**\nFinal answer: $\\boxed{\\int f(g(x)) \\cdot g'(x) \\, dx = \\int f(u) \\, du}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Prove the substitution rule: if $u = g(x)$ is differentiable and $f$ is continuous, then $\\int f(g(x))g'(x)\\,dx = \\int f(u)\\,du$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "Product rule: (uv)' = u'v + uv'; integrate both sides; rearrange to get \u222bu dv = uv - \u222bv du",
+  "output": "To derive the integration by parts formula from the product rule, we start with the product rule for differentiation:\n\n$$\n\\frac{d}{dx}[u(x)v(x)] = u'(x)v(x) + u(x)v'(x)\n$$\n\nNow, integrate both sides with respect to $ x $:\n\n$$\n\\int \\frac{d}{dx}[u(x)v(x)] \\, dx = \\int \\left( u'(x)v(x) + u(x)v'(x) \\right) \\, dx\n$$\n\nThe left-hand side simplifies to:\n\n$$\nu(x)v(x)\n$$\n\nThe right-hand side becomes:\n\n$$\n\\int u'(x)v(x) \\, dx + \\int u(x)v'(x) \\, dx\n$$\n\nNow, let\u2019s denote the integral $ \\int u'(x)v(x) \\, dx $ as $ \\int u'(x)v(x) \\, dx $, and the other term as $ \\int u(x)v'(x) \\, dx $. This gives us:\n\n$$\nu(x)v(x) = \\int u'(x)v(x) \\, dx + \\int u(x)v'(x) \\, dx\n$$\n\nNow, rearrange the equation to isolate the second integral:\n\n$$\n\\int u(x)v'(x) \\, dx = u(x)v(x) - \\int u'(x)v(x) \\, dx\n$$\n\nThis is the integration by parts formula:\n\n$$\n\\int u(x)v'(x) \\, dx = u(x)v(x) - \\int u'(x)v(x) \\, dx\n$$\n\nThus, the integration by parts formula is:\n\n$$\n\\int u(x)v'(x) \\, dx = u(x)v(x) - \\int u'(x)v(x) \\, dx\n$$\n\nFinal answer: <answer> $\\int u(x)v'(x) \\, dx = u(x)v(x) - \\int u'(x)v(x) \\, dx$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Derive the integration by parts formula from the product rule.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "Let A = (1/(b-a))\u222b_a^b f; since f is continuous on [a,b], by IVT f attains every value between its min and max, including A",
+  "output": "To prove the Mean Value Theorem for Integrals, we need to show that there exists a point $ c \\in [a, b] $ such that:\n\n$$\n\\frac{1}{b - a} \\int_a^b f(x) \\, dx = f(c)\n$$\n\n---\n\n### **Step 1: Define the function and interval**\n\nLet $ f $ be continuous on $ [a, b] $, and let $ F(x) = \\int_a^x f(t) \\, dt $. Then, the average value of $ f $ on $ [a, b] $ is:\n\n$$\n\\text{Average value} = \\frac{1}{b - a} \\int_a^b f(x) \\, dx = \\frac{1}{b - a} \\left[ F(b) - F(a) \\right]\n$$\n\n---\n\n### **Step 2: Consider the function $ F(x) $**\n\nWe define the function:\n\n$$\nF(x) = \\int_a^x f(t) \\, dt\n$$\n\nThen, the average value becomes:\n\n$$\n\\frac{F(b) - F(a)}{b - a}\n$$\n\n---\n\n### **Step 3: Apply the Mean Value Theorem for Integrals**\n\nThe Mean Value Theorem for Integrals states that if $ f $ is continuous on $ [a, b] $, then there exists a point $ c \\in [a, b] $ such that:\n\n$$\n\\int_a^b f(x) \\, dx = f(c)(b - a)\n$$\n\nDividing both sides by $ b - a $, we get:\n\n$$\n\\frac{1}{b - a} \\int_a^b f(x) \\, dx = f(c)\n$$\n\nThis is exactly the average value of $ f $ on $ [a, b] $, and it equals $ f(c) $ for some $ c \\in [a, b] $.\n\n---\n\n### **Final Answer:**\n\nFinal answer: <answer>",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Prove that the average value of $f$ on $[a,b]$ equals $f(c)$ for some $c \\in [a,b]$ (Mean Value Theorem for Integrals)."
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "Separate: dy/y = k dx; integrate: ln|y| = kx + C\u2081; exponentiate: y = Ce^(kx) where C = \u00b1e^(C\u2081)",
+  "output": "To prove that $ y = Ce^{kx} $ is the general solution to the differential equation $ \\dfrac{dy}{dx} = ky $, we follow these steps:\n\n1. **Differentiate the solution**:\n   $$\n   \\dfrac{dy}{dx} = \\dfrac{d}{dx} \\left( Ce^{kx} \\right) = Ck e^{kx}\n   $$\n\n2. **Substitute into the differential equation**:\n   $$\n   \\dfrac{dy}{dx} = ky \\Rightarrow Ck e^{kx} = kCe^{kx}\n   $$\n\n3. **Verify equality**:\n   Both sides are equal, so the solution satisfies the differential equation.\n\n4. **Account for the constant $ C $**:\n   The constant $ C $ is arbitrary, so the general solution includes all possible values of $ C $.\n\nFinal answer: $ \\boxed{y = Ce^{kx}} $",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Prove that $y = Ce^{kx}$ is the general solution to $\\dfrac{dy}{dx} = ky$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "\u03bcy' + \u03bcPy = (\u03bcy)' because \u03bc' = \u03bcP; so d/dx[\u03bcy] = \u03bcQ; integrate both sides",
+  "output": "To derive the integrating factor method, we start with the first-order linear differential equation:\n\n$$\n\\frac{dy}{dx} + P(x)y = Q(x)\n$$\n\n### Step 1: Multiply by the integrating factor\n\nWe multiply both sides of the equation by an integrating factor $\\mu(x) = e^{\\int P(x)\\,dx}$:\n\n$$\ne^{\\int P(x)\\,dx} \\frac{dy}{dx} + e^{\\int P(x)\\,dx} P(x) y = e^{\\int P(x)\\,dx} Q(x)\n$$\n\n### Step 2: Recognize the left side as a derivative\n\nThe left-hand side is now the derivative of the product $y \\cdot \\mu(x)$:\n\n$$\n\\frac{d}{dx} \\left( y e^{\\int P(x)\\,dx} \\right) = e^{\\int P(x)\\,dx} Q(x)\n$$\n\n### Step 3: Integrate both sides\n\nIntegrating both sides with respect to $x$:\n\n$$\ny e^{\\int P(x)\\,dx} = \\int e^{\\int P(x)\\,dx} Q(x)\\,dx + C\n$$\n\nwhere $C$ is the constant of integration.\n\n### Final Answer:\n\nFinal answer: $\\boxed{y e^{\\int P(x)\\,dx} = \\int e^{\\int P(x)\\,dx} Q(x)\\,dx + C}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Derive the integrating factor method: show that multiplying $\\dfrac{dy}{dx} + P(x)y = Q(x)$ by $\\mu = e^{\\int P\\,dx}$ makes the left side an exact derivative.",
+  "ok_symbolic": false
+ }
+]

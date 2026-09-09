@@ -1,0 +1,11 @@
+[project]
+name = "calculearn"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "datasets>=5.0.0",
+    "mlx-lm>=0.31.3",
+    "transformers>=5.7,<5.13",
+]

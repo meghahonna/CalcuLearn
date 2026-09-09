@@ -1,0 +1,992 @@
+[
+  {
+    "id": "lim-definition-conceptual-32h8qb",
+    "conceptId": "limits.definition",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "In your own words, what does $\\lim_{x \\to 3} f(x) = 7$ mean?",
+    "answerRaw": "As x approaches 3, f(x) approaches 7",
+    "answerLatex": "\\text{As } x \\to 3,\\; f(x) \\to 7",
+    "answerType": "text"
+  },
+  {
+    "id": "lim-definition-procedural-ke4f7z",
+    "conceptId": "limits.definition",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Evaluate $\\lim_{x \\to 2} (3x^2 - x + 1)$.",
+    "answerRaw": "11",
+    "answerLatex": "11",
+    "answerType": "numeric"
+  },
+  {
+    "id": "lim-definition-procedural-7ppnj",
+    "conceptId": "limits.definition",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Evaluate $\\lim_{x \\to 1} \\dfrac{x^2 - 1}{x - 1}$.",
+    "answerRaw": "2",
+    "answerLatex": "2",
+    "answerType": "numeric"
+  },
+  {
+    "id": "lim-definition-application-gt272v",
+    "conceptId": "limits.definition",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Find $\\lim_{x \\to 0} \\dfrac{\\sin x}{x}$. (You may use the known result.)",
+    "answerRaw": "1",
+    "answerLatex": "1",
+    "answerType": "numeric"
+  },
+  {
+    "id": "lim-one-sided-conceptual-s9b9ob",
+    "conceptId": "limits.one-sided",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "What is the difference between $\\lim_{x \\to 2^-} f(x)$ and $\\lim_{x \\to 2^+} f(x)$?",
+    "answerRaw": "Left-hand limit approaches from below; right-hand limit approaches from above",
+    "answerLatex": "\\text{Left: } x \\to 2^-\\text{; Right: } x \\to 2^+",
+    "answerType": "text"
+  },
+  {
+    "id": "lim-one-sided-procedural-1hibucb",
+    "conceptId": "limits.one-sided",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Let $f(x) = \\begin{cases} x+1 & x < 2 \\\\ 3x-2 & x \\geq 2 \\end{cases}$. Find $\\lim_{x \\to 2^-} f(x)$ and $\\lim_{x \\to 2^+} f(x)$.",
+    "answerRaw": "3 and 4",
+    "answerLatex": "3 \\text{ and } 4",
+    "answerType": "text"
+  },
+  {
+    "id": "lim-one-sided-procedural-ivvf2a",
+    "conceptId": "limits.one-sided",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Does $\\lim_{x \\to 2} f(x)$ exist for the piecewise function above?",
+    "answerRaw": "No",
+    "answerLatex": "\\text{No — one-sided limits differ}",
+    "answerType": "text"
+  },
+  {
+    "id": "lim-one-sided-application-eqnkss",
+    "conceptId": "limits.one-sided",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "For $f(x) = \\dfrac{|x-3|}{x-3}$, find $\\lim_{x \\to 3^-} f(x)$ and $\\lim_{x \\to 3^+} f(x)$.",
+    "answerRaw": "-1 and 1",
+    "answerLatex": "-1 \\text{ and } 1",
+    "answerType": "text"
+  },
+  {
+    "id": "lim-infinity-conceptual-1ycb5a9",
+    "conceptId": "limits.infinity",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "What does $\\lim_{x \\to \\infty} f(x) = 5$ tell you about the graph of f?",
+    "answerRaw": "The graph has a horizontal asymptote at y = 5",
+    "answerLatex": "y = 5 \\text{ is a horizontal asymptote}",
+    "answerType": "text"
+  },
+  {
+    "id": "lim-infinity-procedural-1ewn0tz",
+    "conceptId": "limits.infinity",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Evaluate $\\lim_{x \\to \\infty} \\dfrac{3x^2 + 2x}{5x^2 - 1}$.",
+    "answerRaw": "3/5",
+    "answerLatex": "\\dfrac{3}{5}",
+    "answerType": "numeric"
+  },
+  {
+    "id": "lim-infinity-procedural-7qqn94",
+    "conceptId": "limits.infinity",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Evaluate $\\lim_{x \\to \\infty} \\dfrac{4x^3 - x}{2x^2 + 7}$.",
+    "answerRaw": "infinity",
+    "answerLatex": "\\infty",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "lim-infinity-application-ifxop5",
+    "conceptId": "limits.infinity",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Find all horizontal asymptotes of $f(x) = \\dfrac{2x}{\\sqrt{x^2+1}}$.",
+    "answerRaw": "y = 2 and y = -2",
+    "answerLatex": "y = 2 \\text{ and } y = -2",
+    "answerType": "text"
+  },
+  {
+    "id": "lim-lhopital-conceptual-osypjq",
+    "conceptId": "limits.lhopital",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "When can you apply L'Hôpital's rule?",
+    "answerRaw": "When the limit gives 0/0 or ∞/∞",
+    "answerLatex": "\\text{Indeterminate forms } 0/0 \\text{ or } \\infty/\\infty",
+    "answerType": "text"
+  },
+  {
+    "id": "lim-lhopital-procedural-1ogwojw",
+    "conceptId": "limits.lhopital",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Use L'Hôpital's rule to evaluate $\\lim_{x \\to 0} \\dfrac{e^x - 1}{x}$.",
+    "answerRaw": "1",
+    "answerLatex": "1",
+    "answerType": "numeric"
+  },
+  {
+    "id": "lim-lhopital-procedural-1klb66o",
+    "conceptId": "limits.lhopital",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Evaluate $\\lim_{x \\to \\infty} \\dfrac{\\ln x}{x}$.",
+    "answerRaw": "0",
+    "answerLatex": "0",
+    "answerType": "numeric"
+  },
+  {
+    "id": "lim-lhopital-application-1fd4uvc",
+    "conceptId": "limits.lhopital",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Evaluate $\\lim_{x \\to 0} \\dfrac{x - \\sin x}{x^3}$.",
+    "answerRaw": "1/6",
+    "answerLatex": "\\dfrac{1}{6}",
+    "answerType": "numeric"
+  },
+  {
+    "id": "cont-definition-conceptual-xw6y9p",
+    "conceptId": "continuity.definition",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "State the three conditions required for $f$ to be continuous at $x = a$.",
+    "answerRaw": "f(a) defined, limit exists, limit equals f(a)",
+    "answerLatex": "f(a)\\text{ defined};\\;\\lim_{x\\to a}f(x)\\text{ exists};\\;\\lim_{x\\to a}f(x)=f(a)",
+    "answerType": "text"
+  },
+  {
+    "id": "cont-definition-procedural-vj5jf0",
+    "conceptId": "continuity.definition",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Is $f(x) = \\dfrac{x^2-4}{x-2}$ continuous at $x = 2$? Explain.",
+    "answerRaw": "No — f(2) is undefined",
+    "answerLatex": "\\text{No — } f(2) \\text{ undefined}",
+    "answerType": "text"
+  },
+  {
+    "id": "cont-definition-procedural-mpnan8",
+    "conceptId": "continuity.definition",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Find the value of $c$ that makes $f(x) = \\begin{cases} cx + 1 & x \\leq 2 \\\\ x^2 - 1 & x > 2 \\end{cases}$ continuous at $x = 2$.",
+    "answerRaw": "c = 1",
+    "answerLatex": "c = 1",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "cont-definition-application-40lo5d",
+    "conceptId": "continuity.definition",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Use the Intermediate Value Theorem to show that $x^3 - x - 1 = 0$ has a root in $(1, 2)$.",
+    "answerRaw": "f(1) = -1 < 0 and f(2) = 5 > 0, so by IVT a root exists",
+    "answerLatex": "f(1)<0,\\;f(2)>0 \\Rightarrow \\exists\\,c\\in(1,2): f(c)=0",
+    "answerType": "text"
+  },
+  {
+    "id": "cont-types-conceptual-b72ads",
+    "conceptId": "continuity.types",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "Describe the difference between a removable discontinuity and a jump discontinuity.",
+    "answerRaw": "Removable: limit exists but ≠ f(a); Jump: one-sided limits exist but differ",
+    "answerLatex": "\\text{Removable: }\\lim f\\text{ exists}\\neq f(a);\\;\\text{Jump: }L^-\\neq L^+",
+    "answerType": "text"
+  },
+  {
+    "id": "cont-types-procedural-7yhado",
+    "conceptId": "continuity.types",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Classify the discontinuity of $f(x) = \\dfrac{x^2-9}{x-3}$ at $x = 3$.",
+    "answerRaw": "Removable discontinuity",
+    "answerLatex": "\\text{Removable discontinuity}",
+    "answerType": "text"
+  },
+  {
+    "id": "cont-types-procedural-urjlhx",
+    "conceptId": "continuity.types",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Classify the discontinuity of $f(x) = \\begin{cases} 2x & x < 1 \\\\ x+3 & x \\geq 1 \\end{cases}$ at $x = 1$.",
+    "answerRaw": "Jump discontinuity",
+    "answerLatex": "\\text{Jump discontinuity}",
+    "answerType": "text"
+  },
+  {
+    "id": "cont-types-application-1pac9qn",
+    "conceptId": "continuity.types",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Use the IVT to prove that $\\cos x = x$ has at least one solution in $(0, \\pi/2)$.",
+    "answerRaw": "Let g(x) = cos x − x; g(0) = 1 > 0, g(π/2) = −π/2 < 0; by IVT a root exists",
+    "answerLatex": "g(0)>0,\\;g(\\pi/2)<0\\Rightarrow\\exists\\,c\\in(0,\\pi/2):g(c)=0",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-power-rule-conceptual-xii59u",
+    "conceptId": "deriv.power-rule",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "State the power rule for differentiation.",
+    "answerRaw": "d/dx[x^n] = n*x^(n-1)",
+    "answerLatex": "\\dfrac{d}{dx}[x^n] = nx^{n-1}",
+    "answerType": "text"
+  },
+  {
+    "id": "deriv-power-rule-procedural-nzpthj",
+    "conceptId": "deriv.power-rule",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Find $f'(x)$ if $f(x) = 4x^3 - 2x^2 + 5x - 7$.",
+    "answerRaw": "12x^2 - 4x + 5",
+    "answerLatex": "12x^2 - 4x + 5",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-power-rule-procedural-dd4xwm",
+    "conceptId": "deriv.power-rule",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Find $\\dfrac{dy}{dx}$ if $y = \\sqrt{x} + \\dfrac{1}{x^2}$.",
+    "answerRaw": "1/(2*sqrt(x)) - 2/x^3",
+    "answerLatex": "\\dfrac{1}{2\\sqrt{x}} - \\dfrac{2}{x^3}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-power-rule-application-1aadn82",
+    "conceptId": "deriv.power-rule",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Find the equation of the tangent line to $y = x^3 - 2x$ at $x = 1$.",
+    "answerRaw": "y = x - 2",
+    "answerLatex": "y = x - 2",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-product-rule-conceptual-fxbfbm",
+    "conceptId": "deriv.product-rule",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "State the product rule.",
+    "answerRaw": "(uv)' = u'v + uv'",
+    "answerLatex": "(uv)' = u'v + uv'",
+    "answerType": "text"
+  },
+  {
+    "id": "deriv-product-rule-procedural-1v80mn",
+    "conceptId": "deriv.product-rule",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Differentiate $f(x) = x^2 \\sin x$.",
+    "answerRaw": "2x*sin(x) + x^2*cos(x)",
+    "answerLatex": "2x\\sin x + x^2\\cos x",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-product-rule-procedural-1f9nhdj",
+    "conceptId": "deriv.product-rule",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Differentiate $g(x) = (3x^2 + 1)(x^3 - 2x)$.",
+    "answerRaw": "6x*(x^3-2x) + (3x^2+1)*(3x^2-2)",
+    "answerLatex": "6x(x^3-2x)+(3x^2+1)(3x^2-2)",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-product-rule-application-ckb72z",
+    "conceptId": "deriv.product-rule",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Find all x where $h(x) = x^2 e^x$ has a horizontal tangent.",
+    "answerRaw": "x = 0 and x = -2",
+    "answerLatex": "x = 0 \\text{ and } x = -2",
+    "answerType": "text"
+  },
+  {
+    "id": "deriv-quotient-rule-conceptual-1tsyra6",
+    "conceptId": "deriv.quotient-rule",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "State the quotient rule.",
+    "answerRaw": "(u/v)' = (u'v - uv') / v^2",
+    "answerLatex": "\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v - uv'}{v^2}",
+    "answerType": "text"
+  },
+  {
+    "id": "deriv-quotient-rule-procedural-20uca1",
+    "conceptId": "deriv.quotient-rule",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$.",
+    "answerRaw": "(x^2 - 6x - 1) / (x-3)^2",
+    "answerLatex": "\\dfrac{x^2 - 6x - 1}{(x-3)^2}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-quotient-rule-procedural-10kpm6m",
+    "conceptId": "deriv.quotient-rule",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Differentiate $g(x) = \\dfrac{\\sin x}{x}$.",
+    "answerRaw": "(x*cos(x) - sin(x)) / x^2",
+    "answerLatex": "\\dfrac{x\\cos x - \\sin x}{x^2}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-quotient-rule-application-xad50e",
+    "conceptId": "deriv.quotient-rule",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Find the critical points of $f(x) = \\dfrac{x}{x^2+1}$.",
+    "answerRaw": "x = 1 and x = -1",
+    "answerLatex": "x = \\pm 1",
+    "answerType": "text"
+  },
+  {
+    "id": "deriv-chain-rule-conceptual-6cb5z0",
+    "conceptId": "deriv.chain-rule",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "State the chain rule for $\\dfrac{d}{dx}[f(g(x))]$.",
+    "answerRaw": "f'(g(x)) * g'(x)",
+    "answerLatex": "f'(g(x)) \\cdot g'(x)",
+    "answerType": "text"
+  },
+  {
+    "id": "deriv-chain-rule-procedural-m6iqvw",
+    "conceptId": "deriv.chain-rule",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Differentiate $y = (3x^2 + 1)^5$.",
+    "answerRaw": "10x*(3x^2+1)^4 * 3 = 30x*(3x^2+1)^4",
+    "answerLatex": "30x(3x^2+1)^4",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-chain-rule-procedural-1dlts9h",
+    "conceptId": "deriv.chain-rule",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Differentiate $h(x) = \\sin(x^3)$.",
+    "answerRaw": "3x^2 * cos(x^3)",
+    "answerLatex": "3x^2\\cos(x^3)",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-chain-rule-application-ov5qxo",
+    "conceptId": "deriv.chain-rule",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Differentiate $f(x) = e^{\\sin x}$.",
+    "answerRaw": "cos(x) * e^(sin(x))",
+    "answerLatex": "e^{\\sin x}\\cos x",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-implicit-conceptual-ojotxl",
+    "conceptId": "deriv.implicit",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "Why do we use implicit differentiation for $x^2 + y^2 = 25$?",
+    "answerRaw": "Because y is not explicitly solved for as a function of x",
+    "answerLatex": "\\text{y is not isolated; differentiate both sides w.r.t. x}",
+    "answerType": "text"
+  },
+  {
+    "id": "deriv-implicit-procedural-1l8fp4a",
+    "conceptId": "deriv.implicit",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Find $\\dfrac{dy}{dx}$ for $x^2 + y^2 = 25$.",
+    "answerRaw": "-x/y",
+    "answerLatex": "-\\dfrac{x}{y}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-implicit-procedural-xzwq8",
+    "conceptId": "deriv.implicit",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Find $\\dfrac{dy}{dx}$ for $x^3 + y^3 = 6xy$.",
+    "answerRaw": "(2y - x^2) / (y^2 - 2x)",
+    "answerLatex": "\\dfrac{2y - x^2}{y^2 - 2x}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-implicit-application-1lwwcuw",
+    "conceptId": "deriv.implicit",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Find the slope of the tangent to $x^2 + y^2 = 25$ at the point $(3, 4)$.",
+    "answerRaw": "-3/4",
+    "answerLatex": "-\\dfrac{3}{4}",
+    "answerType": "numeric"
+  },
+  {
+    "id": "deriv-related-rates-conceptual-1017z01",
+    "conceptId": "deriv.related-rates",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "What is the key strategy for solving a related-rates problem?",
+    "answerRaw": "Write an equation relating the quantities, then differentiate with respect to time",
+    "answerLatex": "\\text{Relate quantities, then differentiate w.r.t. } t",
+    "answerType": "text"
+  },
+  {
+    "id": "deriv-related-rates-procedural-12v42m0",
+    "conceptId": "deriv.related-rates",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "A ladder 10 m long leans against a wall. The bottom slides away at 2 m/s. How fast is the top sliding down when the bottom is 6 m from the wall?",
+    "answerRaw": "-3/2 m/s",
+    "answerLatex": "-\\dfrac{3}{2}\\text{ m/s}",
+    "answerType": "text"
+  },
+  {
+    "id": "deriv-related-rates-procedural-1ozar2f",
+    "conceptId": "deriv.related-rates",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "A spherical balloon is inflated at 10 cm³/s. How fast is the radius increasing when r = 5 cm?",
+    "answerRaw": "1/(10π) cm/s",
+    "answerLatex": "\\dfrac{1}{10\\pi}\\text{ cm/s}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-related-rates-application-oxdiot",
+    "conceptId": "deriv.related-rates",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Water drains from a conical tank (radius 3 m, height 6 m, vertex down) at 2 m³/min. How fast is the water level falling when h = 3 m?",
+    "answerRaw": "-8/(9π) m/min",
+    "answerLatex": "-\\dfrac{8}{9\\pi}\\text{ m/min}",
+    "answerType": "text"
+  },
+  {
+    "id": "deriv-optimisation-conceptual-1qqxba",
+    "conceptId": "deriv.optimisation",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "What is a critical point, and why are critical points important for optimisation?",
+    "answerRaw": "A point where f'(x) = 0 or f'(x) is undefined; extrema can only occur at critical points or endpoints",
+    "answerLatex": "f'(c)=0 \\text{ or undefined}; \\text{ extrema occur at critical points/endpoints}",
+    "answerType": "text"
+  },
+  {
+    "id": "deriv-optimisation-procedural-1wa8257",
+    "conceptId": "deriv.optimisation",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Find the absolute maximum and minimum of $f(x) = x^3 - 3x$ on $[-2, 2]$.",
+    "answerRaw": "Max: 2 at x = -1; Min: -2 at x = 1",
+    "answerLatex": "\\text{Max } 2 \\text{ at } x=-1;\\; \\text{Min } -2 \\text{ at } x=1",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-optimisation-application-1mkvkz0",
+    "conceptId": "deriv.optimisation",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "A farmer has 200 m of fencing to enclose a rectangular field against a barn wall (no fence needed on one side). What dimensions maximise the area?",
+    "answerRaw": "Width = 50 m, Length = 100 m",
+    "answerLatex": "w = 50\\text{ m},\\; l = 100\\text{ m}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-optimisation-proof-sketch-vsihcz",
+    "conceptId": "deriv.optimisation",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Prove that among all rectangles with a fixed perimeter P, the square has the maximum area.",
+    "answerRaw": "Let sides be x and P/2 - x; A = x(P/2 - x); A' = 0 gives x = P/4; both sides equal P/4",
+    "answerLatex": "x = P/4 \\Rightarrow \\text{square maximises area}",
+    "answerType": "text"
+  },
+  {
+    "id": "integ-riemann-conceptual-1fi6jv5",
+    "conceptId": "integ.riemann",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "What does a Riemann sum approximate?",
+    "answerRaw": "The area under a curve (the definite integral)",
+    "answerLatex": "\\int_a^b f(x)\\,dx \\approx \\sum_{i=1}^n f(x_i^*)\\Delta x",
+    "answerType": "text"
+  },
+  {
+    "id": "integ-riemann-procedural-ufmqw4",
+    "conceptId": "integ.riemann",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Compute the left Riemann sum for $f(x) = x^2$ on $[0, 2]$ with $n = 4$ subintervals.",
+    "answerRaw": "7/4",
+    "answerLatex": "\\dfrac{7}{4}",
+    "answerType": "numeric"
+  },
+  {
+    "id": "integ-riemann-procedural-1dunopc",
+    "conceptId": "integ.riemann",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Write the definite integral $\\int_1^3 x^2\\,dx$ as a limit of right Riemann sums.",
+    "answerRaw": "lim_{n→∞} Σ (1 + i*2/n)^2 * (2/n)",
+    "answerLatex": "\\lim_{n\\to\\infty}\\sum_{i=1}^n\\left(1+\\frac{2i}{n}\\right)^2\\cdot\\frac{2}{n}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "integ-riemann-application-ns905n",
+    "conceptId": "integ.riemann",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Explain why $\\int_0^1 x^2\\,dx = 1/3$ using the limit of right Riemann sums and the formula $\\sum_{i=1}^n i^2 = \\frac{n(n+1)(2n+1)}{6}$.",
+    "answerRaw": "1/3",
+    "answerLatex": "\\dfrac{1}{3}",
+    "answerType": "numeric"
+  },
+  {
+    "id": "integ-ftc-conceptual-13d6cjv",
+    "conceptId": "integ.ftc",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "State both parts of the Fundamental Theorem of Calculus.",
+    "answerRaw": "Part 1: d/dx[∫_a^x f(t)dt] = f(x); Part 2: ∫_a^b f(x)dx = F(b) - F(a)",
+    "answerLatex": "\\text{FTC1: }\\frac{d}{dx}\\int_a^x f = f(x);\\;\\text{FTC2: }\\int_a^b f = F(b)-F(a)",
+    "answerType": "text"
+  },
+  {
+    "id": "integ-ftc-procedural-1y4cduc",
+    "conceptId": "integ.ftc",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Evaluate $\\int_1^4 (2x + 3)\\,dx$.",
+    "answerRaw": "21",
+    "answerLatex": "21",
+    "answerType": "numeric"
+  },
+  {
+    "id": "integ-ftc-procedural-sbckme",
+    "conceptId": "integ.ftc",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Find $\\dfrac{d}{dx}\\int_0^{x^2} \\sin t\\,dt$.",
+    "answerRaw": "2x * sin(x^2)",
+    "answerLatex": "2x\\sin(x^2)",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "integ-ftc-application-1lp1ckf",
+    "conceptId": "integ.ftc",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Evaluate $\\int_0^{\\pi} \\sin x\\,dx$.",
+    "answerRaw": "2",
+    "answerLatex": "2",
+    "answerType": "numeric"
+  },
+  {
+    "id": "integ-substitution-conceptual-mce6zg",
+    "conceptId": "integ.substitution",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "What is the key idea behind u-substitution?",
+    "answerRaw": "Reverse the chain rule by substituting u = g(x) to simplify the integrand",
+    "answerLatex": "u = g(x),\\; du = g'(x)\\,dx \\text{ — reverses chain rule}",
+    "answerType": "text"
+  },
+  {
+    "id": "integ-substitution-procedural-1lvepuu",
+    "conceptId": "integ.substitution",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Evaluate $\\int 2x(x^2+1)^4\\,dx$.",
+    "answerRaw": "(x^2+1)^5 / 5 + C",
+    "answerLatex": "\\dfrac{(x^2+1)^5}{5} + C",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "integ-substitution-procedural-bvvwuo",
+    "conceptId": "integ.substitution",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Evaluate $\\int_0^1 x e^{x^2}\\,dx$.",
+    "answerRaw": "(e-1)/2",
+    "answerLatex": "\\dfrac{e-1}{2}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "integ-substitution-application-1plhag5",
+    "conceptId": "integ.substitution",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Evaluate $\\int \\dfrac{\\ln x}{x}\\,dx$.",
+    "answerRaw": "(ln x)^2 / 2 + C",
+    "answerLatex": "\\dfrac{(\\ln x)^2}{2} + C",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "integ-by-parts-conceptual-ge4eiy",
+    "conceptId": "integ.by-parts",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "State the integration by parts formula.",
+    "answerRaw": "∫u dv = uv - ∫v du",
+    "answerLatex": "\\int u\\,dv = uv - \\int v\\,du",
+    "answerType": "text"
+  },
+  {
+    "id": "integ-by-parts-procedural-bia1rg",
+    "conceptId": "integ.by-parts",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Evaluate $\\int x e^x\\,dx$.",
+    "answerRaw": "x*e^x - e^x + C",
+    "answerLatex": "xe^x - e^x + C",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "integ-by-parts-procedural-phjcdz",
+    "conceptId": "integ.by-parts",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Evaluate $\\int x \\ln x\\,dx$.",
+    "answerRaw": "x^2*ln(x)/2 - x^2/4 + C",
+    "answerLatex": "\\dfrac{x^2\\ln x}{2} - \\dfrac{x^2}{4} + C",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "integ-by-parts-application-12dqqzu",
+    "conceptId": "integ.by-parts",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Evaluate $\\int e^x \\sin x\\,dx$.",
+    "answerRaw": "(e^x * sin(x) - e^x * cos(x)) / 2 + C",
+    "answerLatex": "\\dfrac{e^x(\\sin x - \\cos x)}{2} + C",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "integ-definite-apps-conceptual-17iw0x6",
+    "conceptId": "integ.definite-apps",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "How do you find the area between two curves $f(x)$ and $g(x)$ on $[a, b]$ where $f \\geq g$?",
+    "answerRaw": "∫_a^b [f(x) - g(x)] dx",
+    "answerLatex": "\\int_a^b [f(x) - g(x)]\\,dx",
+    "answerType": "text"
+  },
+  {
+    "id": "integ-definite-apps-procedural-6p4okv",
+    "conceptId": "integ.definite-apps",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Find the area between $y = x^2$ and $y = x$ on $[0, 1]$.",
+    "answerRaw": "1/6",
+    "answerLatex": "\\dfrac{1}{6}",
+    "answerType": "numeric"
+  },
+  {
+    "id": "integ-definite-apps-procedural-1mt991u",
+    "conceptId": "integ.definite-apps",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Find the average value of $f(x) = x^2$ on $[0, 3]$.",
+    "answerRaw": "3",
+    "answerLatex": "3",
+    "answerType": "numeric"
+  },
+  {
+    "id": "integ-definite-apps-application-vvk5d4",
+    "conceptId": "integ.definite-apps",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Find the area enclosed by $y = x^2 - 4$ and $y = -x^2 + 4$.",
+    "answerRaw": "64/3",
+    "answerLatex": "\\dfrac{64}{3}",
+    "answerType": "numeric"
+  },
+  {
+    "id": "ode-separable-conceptual-1b3s9i8",
+    "conceptId": "ode.separable",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "What makes a differential equation \"separable\"?",
+    "answerRaw": "It can be written as dy/dx = f(x)g(y), separating x and y to opposite sides",
+    "answerLatex": "\\frac{dy}{dx} = f(x)g(y) \\Rightarrow \\frac{dy}{g(y)} = f(x)\\,dx",
+    "answerType": "text"
+  },
+  {
+    "id": "ode-separable-procedural-6fi4p7",
+    "conceptId": "ode.separable",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Solve $\\dfrac{dy}{dx} = 2xy$ with $y(0) = 1$.",
+    "answerRaw": "y = e^(x^2)",
+    "answerLatex": "y = e^{x^2}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "ode-separable-procedural-1o1ovn1",
+    "conceptId": "ode.separable",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Solve $\\dfrac{dy}{dx} = \\dfrac{x}{y}$.",
+    "answerRaw": "y^2 = x^2 + C",
+    "answerLatex": "y^2 = x^2 + C",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "ode-separable-application-1lscbak",
+    "conceptId": "ode.separable",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "A population grows at rate $\\dfrac{dP}{dt} = 0.03P$. If $P(0) = 500$, find $P(t)$.",
+    "answerRaw": "P(t) = 500*e^(0.03t)",
+    "answerLatex": "P(t) = 500e^{0.03t}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "ode-first-order-linear-conceptual-1s3ee2a",
+    "conceptId": "ode.first-order-linear",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "What is the integrating factor for $\\dfrac{dy}{dx} + P(x)y = Q(x)$?",
+    "answerRaw": "μ(x) = e^(∫P(x)dx)",
+    "answerLatex": "\\mu(x) = e^{\\int P(x)\\,dx}",
+    "answerType": "text"
+  },
+  {
+    "id": "ode-first-order-linear-procedural-1cbovug",
+    "conceptId": "ode.first-order-linear",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Solve $\\dfrac{dy}{dx} + 2y = 4$.",
+    "answerRaw": "y = 2 + Ce^(-2x)",
+    "answerLatex": "y = 2 + Ce^{-2x}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "ode-first-order-linear-procedural-w4nqpl",
+    "conceptId": "ode.first-order-linear",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Solve $x\\dfrac{dy}{dx} + y = x^2$ for $x > 0$.",
+    "answerRaw": "y = x^2/3 + C/x",
+    "answerLatex": "y = \\dfrac{x^2}{3} + \\dfrac{C}{x}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "ode-first-order-linear-application-tm8gz",
+    "conceptId": "ode.first-order-linear",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "A tank contains 100 L of pure water. Brine with 0.5 kg/L flows in at 2 L/min; the well-mixed solution drains at 2 L/min. Find the salt amount $A(t)$ with $A(0) = 0$.",
+    "answerRaw": "A(t) = 50(1 - e^(-t/50))",
+    "answerLatex": "A(t) = 50(1 - e^{-t/50})",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "lim-definition-proof-sketch-13ta28a",
+    "conceptId": "limits.definition",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Using the ε-δ definition, prove that $\\lim_{x \\to 2}(3x - 1) = 5$.",
+    "answerRaw": "Given ε > 0, choose δ = ε/3; then |x-2| < δ implies |(3x-1)-5| = 3|x-2| < ε",
+    "answerLatex": "\\delta = \\varepsilon/3 \\Rightarrow |(3x-1)-5| < \\varepsilon",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "lim-one-sided-proof-sketch-26z14v",
+    "conceptId": "limits.one-sided",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Prove that $\\lim_{x \\to 0} |x|/x$ does not exist by showing the one-sided limits differ.",
+    "answerRaw": "Left limit = -1, right limit = 1; since -1 ≠ 1 the two-sided limit does not exist",
+    "answerLatex": "L^- = -1 \\neq 1 = L^+ \\Rightarrow \\text{limit DNE}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "lim-infinity-proof-sketch-1supboj",
+    "conceptId": "limits.infinity",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Prove that $\\lim_{x \\to \\infty} \\dfrac{1}{x} = 0$ using the formal definition.",
+    "answerRaw": "Given ε > 0, choose N = 1/ε; then x > N implies |1/x - 0| = 1/x < ε",
+    "answerLatex": "N = 1/\\varepsilon \\Rightarrow x > N \\Rightarrow 1/x < \\varepsilon",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "lim-lhopital-proof-sketch-hji4qp",
+    "conceptId": "limits.lhopital",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Explain why L'Hôpital's rule requires the 0/0 or ∞/∞ form, and give an example where applying it to a non-indeterminate form gives the wrong answer.",
+    "answerRaw": "The rule derives from Cauchy's MVT applied to f/g; without the indeterminate form the ratio is already determined. Example: lim_{x→0} x/1 = 0, but applying L'Hôpital gives 1/0 = undefined.",
+    "answerLatex": "\\text{Requires indeterminate form; misapplication: }\\lim_{x\\to 0}\\frac{x}{1}\\neq\\frac{1}{0}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "cont-definition-proof-sketch-1ee2o6v",
+    "conceptId": "continuity.definition",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Prove that $f(x) = x^2$ is continuous at every real number $a$.",
+    "answerRaw": "lim_{x→a} x² = a² = f(a) for all a, so all three continuity conditions hold",
+    "answerLatex": "\\lim_{x\\to a}x^2 = a^2 = f(a) \\;\\forall a\\in\\mathbb{R}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "cont-types-proof-sketch-1s3k0sm",
+    "conceptId": "continuity.types",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Prove the Intermediate Value Theorem: if $f$ is continuous on $[a,b]$ and $f(a) < 0 < f(b)$, then there exists $c \\in (a,b)$ with $f(c) = 0$. (Sketch the key idea using the bisection argument.)",
+    "answerRaw": "Bisect [a,b]; the midpoint m satisfies f(m) < 0 or f(m) > 0; recurse on the half where sign changes; the nested intervals converge to c with f(c) = 0 by continuity",
+    "answerLatex": "\\text{Bisection: nested intervals }[a_n,b_n]\\to c,\\;f(c)=0",
+    "answerType": "text"
+  },
+  {
+    "id": "deriv-power-rule-proof-sketch-16b4fuw",
+    "conceptId": "deriv.power-rule",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Prove the power rule $\\dfrac{d}{dx}[x^n] = nx^{n-1}$ for positive integers $n$ using the limit definition.",
+    "answerRaw": "Use the binomial theorem: (x+h)^n = x^n + nx^(n-1)h + O(h²); subtract x^n, divide by h, take h→0",
+    "answerLatex": "\\lim_{h\\to 0}\\frac{(x+h)^n - x^n}{h} = nx^{n-1}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-product-rule-proof-sketch-7pv8jd",
+    "conceptId": "deriv.product-rule",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Prove the product rule $(uv)' = u'v + uv'$ from the limit definition.",
+    "answerRaw": "Add and subtract u(x+h)v(x) in the numerator; factor and take h→0",
+    "answerLatex": "\\lim_{h\\to 0}\\frac{u(x+h)v(x+h)-u(x)v(x)}{h} = u'v + uv'",
+    "answerType": "text"
+  },
+  {
+    "id": "deriv-quotient-rule-proof-sketch-1d251w",
+    "conceptId": "deriv.quotient-rule",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Derive the quotient rule from the product rule.",
+    "answerRaw": "Write u = (u/v)·v; differentiate both sides using the product rule; solve for (u/v)'",
+    "answerLatex": "\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-chain-rule-proof-sketch-1h01xgg",
+    "conceptId": "deriv.chain-rule",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Sketch a proof of the chain rule $\\dfrac{d}{dx}[f(g(x))] = f'(g(x))g'(x)$ using the limit definition (informal version).",
+    "answerRaw": "Write Δy/Δx = (Δy/Δu)·(Δu/Δx); take Δx→0; note Δu→0 so Δy/Δu→f'(u)",
+    "answerLatex": "\\frac{\\Delta y}{\\Delta x} = \\frac{\\Delta y}{\\Delta u}\\cdot\\frac{\\Delta u}{\\Delta x} \\to f'(g(x))g'(x)",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-implicit-proof-sketch-gn2dfj",
+    "conceptId": "deriv.implicit",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Explain why implicit differentiation is valid: why can we differentiate both sides of $F(x, y) = 0$ with respect to $x$?",
+    "answerRaw": "By the implicit function theorem, y is locally a differentiable function of x near a point where F_y ≠ 0; differentiating both sides applies the chain rule to y(x)",
+    "answerLatex": "F_y \\neq 0 \\Rightarrow y = y(x) \\text{ locally; chain rule applies}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-related-rates-proof-sketch-xnjzy4",
+    "conceptId": "deriv.related-rates",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "A point moves along the curve $y = x^2$. Show that the rate of change of the distance from the origin satisfies $\\dfrac{ds}{dt} = \\dfrac{x(1+2x^2)}{\\sqrt{x^2+x^4}}\\dfrac{dx}{dt}$.",
+    "answerRaw": "ds/dt = (x + 2x^3) / sqrt(x^2 + x^4) * dx/dt",
+    "answerLatex": "\\frac{ds}{dt} = \\frac{x(1+2x^2)}{\\sqrt{x^2+x^4}}\\frac{dx}{dt}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "integ-riemann-proof-sketch-1nd3uwy",
+    "conceptId": "integ.riemann",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Prove that $\\int_0^1 x\\,dx = \\dfrac{1}{2}$ using the limit of right Riemann sums and the formula $\\sum_{i=1}^n i = \\dfrac{n(n+1)}{2}$.",
+    "answerRaw": "1/2",
+    "answerLatex": "\\dfrac{1}{2}",
+    "answerType": "numeric"
+  },
+  {
+    "id": "integ-ftc-proof-sketch-ipduei",
+    "conceptId": "integ.ftc",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Prove FTC Part 1: if $F(x) = \\int_a^x f(t)\\,dt$ and $f$ is continuous, then $F'(x) = f(x)$.",
+    "answerRaw": "F'(x) = lim_{h→0} [F(x+h)-F(x)]/h = lim_{h→0} (1/h)∫_x^{x+h} f(t)dt = f(x) by MVT for integrals",
+    "answerLatex": "F'(x) = \\lim_{h\\to 0}\\frac{1}{h}\\int_x^{x+h}f(t)\\,dt = f(x)",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "integ-substitution-proof-sketch-1x0wkof",
+    "conceptId": "integ.substitution",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Prove the substitution rule: if $u = g(x)$ is differentiable and $f$ is continuous, then $\\int f(g(x))g'(x)\\,dx = \\int f(u)\\,du$.",
+    "answerRaw": "Let F be an antiderivative of f; by the chain rule d/dx[F(g(x))] = f(g(x))g'(x); integrating both sides gives the result",
+    "answerLatex": "\\frac{d}{dx}[F(g(x))] = f(g(x))g'(x) \\Rightarrow \\int f(g(x))g'(x)\\,dx = F(g(x))+C",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "integ-by-parts-proof-sketch-1kgemj4",
+    "conceptId": "integ.by-parts",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Derive the integration by parts formula from the product rule.",
+    "answerRaw": "Product rule: (uv)' = u'v + uv'; integrate both sides; rearrange to get ∫u dv = uv - ∫v du",
+    "answerLatex": "\\int u\\,dv = uv - \\int v\\,du",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "integ-definite-apps-proof-sketch-1q52ni",
+    "conceptId": "integ.definite-apps",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Prove that the average value of $f$ on $[a,b]$ equals $f(c)$ for some $c \\in [a,b]$ (Mean Value Theorem for Integrals).",
+    "answerRaw": "Let A = (1/(b-a))∫_a^b f; since f is continuous on [a,b], by IVT f attains every value between its min and max, including A",
+    "answerLatex": "A = \\frac{1}{b-a}\\int_a^b f \\in [m,M] \\Rightarrow \\exists c: f(c)=A",
+    "answerType": "text"
+  },
+  {
+    "id": "ode-separable-proof-sketch-mc1vxe",
+    "conceptId": "ode.separable",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Prove that $y = Ce^{kx}$ is the general solution to $\\dfrac{dy}{dx} = ky$.",
+    "answerRaw": "Separate: dy/y = k dx; integrate: ln|y| = kx + C₁; exponentiate: y = Ce^(kx) where C = ±e^(C₁)",
+    "answerLatex": "y = Ce^{kx}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "ode-first-order-linear-proof-sketch-1fqkn8n",
+    "conceptId": "ode.first-order-linear",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Derive the integrating factor method: show that multiplying $\\dfrac{dy}{dx} + P(x)y = Q(x)$ by $\\mu = e^{\\int P\\,dx}$ makes the left side an exact derivative.",
+    "answerRaw": "μy' + μPy = (μy)' because μ' = μP; so d/dx[μy] = μQ; integrate both sides",
+    "answerLatex": "\\mu = e^{\\int P\\,dx} \\Rightarrow \\frac{d}{dx}[\\mu y] = \\mu Q",
+    "answerType": "symbolic"
+  }
+]

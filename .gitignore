@@ -33,3 +33,5 @@ models/*.gguf
 
 # Generated helper scripts (not part of the codebase)
 scripts/writeProblems.py
+.python-version
+uv.lock

@@ -1,0 +1,102 @@
+[
+  {
+    "id": "deriv-quotient-rule-conceptual-1tsyra6",
+    "conceptId": "deriv.quotient-rule",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "State the quotient rule.",
+    "answerRaw": "(u/v)' = (u'v - uv') / v^2",
+    "answerLatex": "\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v - uv'}{v^2}",
+    "answerType": "text"
+  },
+  {
+    "id": "deriv-quotient-rule-procedural-20uca1",
+    "conceptId": "deriv.quotient-rule",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$.",
+    "answerRaw": "(x^2 - 6x - 1) / (x-3)^2",
+    "answerLatex": "\\dfrac{x^2 - 6x - 1}{(x-3)^2}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-quotient-rule-procedural-10kpm6m",
+    "conceptId": "deriv.quotient-rule",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Differentiate $g(x) = \\dfrac{\\sin x}{x}$.",
+    "answerRaw": "(x*cos(x) - sin(x)) / x^2",
+    "answerLatex": "\\dfrac{x\\cos x - \\sin x}{x^2}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-quotient-rule-application-xad50e",
+    "conceptId": "deriv.quotient-rule",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Find the critical points of $f(x) = \\dfrac{x}{x^2+1}$.",
+    "answerRaw": "x = 1 and x = -1",
+    "answerLatex": "x = \\pm 1",
+    "answerType": "text"
+  },
+  {
+    "id": "integ-by-parts-conceptual-ge4eiy",
+    "conceptId": "integ.by-parts",
+    "difficulty": "conceptual",
+    "type": "explain-concept",
+    "stem": "State the integration by parts formula.",
+    "answerRaw": "∫u dv = uv - ∫v du",
+    "answerLatex": "\\int u\\,dv = uv - \\int v\\,du",
+    "answerType": "text"
+  },
+  {
+    "id": "integ-by-parts-procedural-bia1rg",
+    "conceptId": "integ.by-parts",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Evaluate $\\int x e^x\\,dx$.",
+    "answerRaw": "x*e^x - e^x + C",
+    "answerLatex": "xe^x - e^x + C",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "integ-by-parts-procedural-phjcdz",
+    "conceptId": "integ.by-parts",
+    "difficulty": "procedural",
+    "type": "free-response",
+    "stem": "Evaluate $\\int x \\ln x\\,dx$.",
+    "answerRaw": "x^2*ln(x)/2 - x^2/4 + C",
+    "answerLatex": "\\dfrac{x^2\\ln x}{2} - \\dfrac{x^2}{4} + C",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "integ-by-parts-application-12dqqzu",
+    "conceptId": "integ.by-parts",
+    "difficulty": "application",
+    "type": "free-response",
+    "stem": "Evaluate $\\int e^x \\sin x\\,dx$.",
+    "answerRaw": "(e^x * sin(x) - e^x * cos(x)) / 2 + C",
+    "answerLatex": "\\dfrac{e^x(\\sin x - \\cos x)}{2} + C",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "deriv-quotient-rule-proof-sketch-1d251w",
+    "conceptId": "deriv.quotient-rule",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Derive the quotient rule from the product rule.",
+    "answerRaw": "Write u = (u/v)·v; differentiate both sides using the product rule; solve for (u/v)'",
+    "answerLatex": "\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}",
+    "answerType": "symbolic"
+  },
+  {
+    "id": "integ-by-parts-proof-sketch-1kgemj4",
+    "conceptId": "integ.by-parts",
+    "difficulty": "proof-sketch",
+    "type": "free-response",
+    "stem": "Derive the integration by parts formula from the product rule.",
+    "answerRaw": "Product rule: (uv)' = u'v + uv'; integrate both sides; rearrange to get ∫u dv = uv - ∫v du",
+    "answerLatex": "\\int u\\,dv = uv - \\int v\\,du",
+    "answerType": "symbolic"
+  }
+]

@@ -1,0 +1,975 @@
+[
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "(u/v)' = (u'v - uv') / v^2",
+  "output": "The quotient rule is a fundamental rule in calculus that helps us find the derivative of a quotient of two functions. The quotient rule states that if we have a function of the form f(x) = g(x) / h(x), where g(x) and h(x) are both differentiable functions, then the derivative of f(x) is given by:\n\nf'(x) = (h(x)g'(x) - g(x)h'(x)) / h(x)^2\n\nFinal answer: (h(x)g'(x) - g(x)h'(x)) / h(x)^2",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: State the quotient rule."
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "(x^2 - 6x - 1) / (x-3)^2",
+  "output": "To solve this problem, we will use the quotient rule of differentiation, which states that if $f(x) = \\frac{u(x)}{v(x)}$, then $f'(x) = \\frac{u'(x)v(x) - u(x)v'(x)}{v(x)^2}$.\n\nHere, let $u(x) = x^2 + 1$ and $v(x) = x - 3$.\n\nFirst, we find the derivatives of $u(x)$ and $v(x)$:\n- $u'(x) = 2x$ (using the power rule)\n- $v'(x) = 1$ (since the derivative of a constant is zero)\n\nNow, we apply the quotient rule:\n\\[\nf'(x) = \\frac{u'(x)v(x) - u(x)v'(x)}{v(x)^2} = \\frac{(2x)(x - 3) - (x^2 + 1)(1)}{(x - 3)^2}\n\\]\n\nSimplify the expression:\n\\[\nf'(x) = \\frac{2x^2 - 6x - x^2 - 1}{(x - 3)^2} = \\frac{x^2 - 6x - 1}{(x - 3)^2}\n\\]\n\nSo, the final answer is:\n\\[\n\\boxed{f'(x) = \\frac{x^2 - 6x - 1}{(x - 3)^2}}\n\\]",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "(x*cos(x) - sin(x)) / x^2",
+  "output": "To differentiate $g(x) = \\dfrac{\\sin x}{x}$, we will use the quotient rule, which states that if $f(x) = \\dfrac{u(x)}{v(x)}$, then $f'(x) = \\dfrac{u'(x)v(x) - u(x)v'(x)}{v(x)^2}$.\n\nHere, $u(x) = \\sin x$ and $v(x) = x$. The derivatives of these functions are $u'(x) = \\cos x$ and $v'(x) = 1$.\n\nApplying the quotient rule, we get:\n\n$g'(x) = \\dfrac{\\cos x \\cdot x - \\sin x \\cdot 1}{x^2}$\n\nSimplifying, we have:\n\n$g'(x) = \\dfrac{\\cos x x - \\sin x}{x^2}$\n\nFinal answer: $\\boxed{\\dfrac{\\cos x x - \\sin x}{x^2}}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Differentiate $g(x) = \\dfrac{\\sin x}{x}$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "x = 1 and x = -1",
+  "output": "To find the critical points of $f(x) = \\dfrac{x}{x^2+1}$, we first need to find its derivative. Using the quotient rule, we get:\n\n$$f'(x) = \\dfrac{(x^2+1)(1) - x(2x)}{(x^2+1)^2} = \\dfrac{x^2+1 - 2x^2}{(x^2+1)^2} = \\dfrac{-x^2+1}{(x^2+1)^2}.$$\n\nNow, we set $f'(x) = 0$ to find the critical points:\n\n$$\\dfrac{-x^2+1}{(x^2+1)^2} = 0.$$\n\nThis implies that $-x^2+1 = 0$, which gives us $x^2 = 1$. Therefore, the critical points are $x = \\pm 1$.\n\nFinal answer: $x = \\pm 1$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Find the critical points of $f(x) = \\dfrac{x}{x^2+1}$."
+ },
+ {
+  "task": "solver-manual-review",
+  "ok": null,
+  "expected": "\u222bu dv = uv - \u222bv du",
+  "output": "The integration by parts formula is \u222bu dv = uv - \u222bv du.\n\nFinal answer: \u222bu dv = uv - \u222bv du",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: State the integration by parts formula."
+ },
+ {
+  "task": "solver",
+  "ok": true,
+  "expected": "x*e^x - e^x + C",
+  "output": "To solve this problem, we will use integration by parts. Let's choose $u = x$ and $dv = e^x\\,dx$. Then, $du = dx$ and $v = e^x$.\n\nThe integration by parts formula is:\n\n$$\\int u dv = uv - \\int v du$$\n\nSubstituting our values, we get:\n\n$$\\int x e^x\\,dx = x e^x - \\int e^x\\,dx$$\n\nNow, we need to integrate $e^x$. This is a standard integral, which gives us:\n\n$$\\int e^x\\,dx = e^x + C$$\n\nSo, putting it all together, we have:\n\n$$\\int x e^x\\,dx = x e^x - e^x + C$$\n\nFinal answer: $x e^x - e^x + C$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\int x e^x\\,dx$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "x^2*ln(x)/2 - x^2/4 + C",
+  "output": "To solve this problem, we will use integration by parts. Let's choose $u = \\ln x$ and $dv = x \\,dx$. Then, $du = \\frac{1}{x} \\,dx$ and $v = \\frac{x^2}{2}$.\n\nNow, we can apply the integration by parts formula:\n\n$\\int u \\,dv = uv - \\int v \\,du$\n\nSubstituting our choices, we get:\n\n$\\int x \\ln x\\,dx = \\frac{x^2}{2} \\ln x - \\int \\frac{x^2}{2} \\cdot \\frac{1}{x} \\,dx$\n\nSimplifying the integral on the right-hand side, we have:\n\n$\\int x \\ln x\\,dx = \\frac{x^2}{2} \\ln x - \\int \\frac{x}{2} \\,dx$\n\nNow, we can integrate the remaining integral:\n\n$\\int \\frac{x}{2} \\,dx = \\frac{x^2}{4}$\n\nSo, putting it all together, we have:\n\n$\\int x \\ln x\\,dx = \\frac{x^2}{2} \\ln x - \\frac{x^2}{4} + C$\n\nFinal answer: $\\boxed{\\frac{x^2}{2} \\ln x - \\frac{x^2}{4} + C}$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\int x \\ln x\\,dx$.",
+  "ok_symbolic": true
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "(e^x * sin(x) - e^x * cos(x)) / 2 + C",
+  "output": "To solve this problem, we will use integration by parts. Let's choose $u = \\sin x$ and $dv = e^x\\,dx$. Then, $du = \\cos x\\,dx$ and $v = e^x$.\n\nNow, we can apply the integration by parts formula:\n\n$$\\int u \\, dv = uv - \\int v \\, du$$\n\nSubstituting our choices for $u$ and $dv$, we get:\n\n$$\\int e^x \\sin x\\,dx = e^x \\sin x - \\int e^x \\cos x\\,dx$$\n\nNow, we need to evaluate the remaining integral. We can use integration by parts again, but this time with $u = \\cos x$ and $dv = e^x\\,dx$. Then, $du = -\\sin x\\,dx$ and $v = e^x$.\n\nApplying the integration by parts formula again:\n\n$$\\int e^x \\cos x\\,dx = e^x \\cos x - \\int e^x (-\\sin x)\\,dx$$\n\nSimplifying the integral:\n\n$$\\int e^x \\cos x\\,dx = e^x \\cos x + \\int e^x \\sin x\\,dx$$\n\nNow, we have a repeated integral. Let's call it $I$:\n\n$$I = e^x \\cos x + \\int e^x \\sin x\\,dx$$\n\nSubstituting this back into our original equation:\n\n$$\\int e^x \\sin x\\,dx = e^x \\sin x - I$$\n\nNow, we can solve for $I$:\n\n$$I = e^x \\sin x - \\int e^x \\sin x\\,dx$$\n\n$$\\int e^x \\sin x\\,dx = e^x \\sin x - I$$\n\n$$2I = e^x \\sin x$$\n\n$$I = \\frac{1}{2} e^x \\sin x$$\n\nSo, the final answer is:\n\n$$\\boxed{Final answer: \\frac{1}{2} e^x \\sin x}$$",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Evaluate $\\int e^x \\sin x\\,dx$.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "Write u = (u/v)\u00b7v; differentiate both sides using the product rule; solve for (u/v)'",
+  "output": "The quotient rule is a fundamental rule in calculus that helps us find the derivative of a quotient of two functions. To derive the quotient rule from the product rule, we start with the product rule, which states that the derivative of a product of two functions u(x) and v(x) is given by:\n\nd(uv)/dx = u(dv/dx) + v(du/dx)\n\nNow, let's consider the quotient of two functions, u(x) and v(x), where v(x) is not equal to zero. We can rewrite the quotient as a product by multiplying both the numerator and the denominator by v(x):\n\nu(x) / v(x) = u(x) * (v(x) / v(x))\n\nNow, we can apply the product rule to this new expression:\n\nd(u(x) / v(x))/dx = u(x) * d(v(x) / v(x))/dx + v(x) * d(u(x))/dx\n\nSince v(x) / v(x) is equal to 1, we can simplify the expression:\n\nd(u(x) / v(x))/dx = u(x) * d(v(x) / v(x))/dx + v(x) * d(u(x))/dx\n\nNow, we can substitute d(v(x) / v(x))/dx with (dv/dx) / v(x) and d(u(x))/dx with du/dx:\n\nd(u(x) / v(x))/dx = u(x) * (dv/dx) / v(x) + v(x) * du/dx\n\nFinally, we can factor out v(x) from the numerator:\n\nd(u(x) / v(x))/dx = (v(x) * u(x) - u(x) * v(x)) / v(x)^2\n\nd(u(x) / v(x))/dx = (u(x) * v(x) - u(x) * v(x)) / v(x)^2\n\nd(u(x) / v(x))/dx = (u(x) * v(x) - u(x) * v(x)) / v(x)^2\n\nd(u(x) / v(x))/dx = (u(x) * v(x) * (1 - 1)) / v(x)^2\n\nd(u(x) / v(x))/dx = (u(x) * v(x) * 0",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Derive the quotient rule from the product rule.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "solver",
+  "ok": false,
+  "expected": "Product rule: (uv)' = u'v + uv'; integrate both sides; rearrange to get \u222bu dv = uv - \u222bv du",
+  "output": "The integration by parts formula is derived from the product rule of differentiation. The product rule states that if we have a function of the form f(x)g(x), its derivative can be expressed as f'(x)g(x) + f(x)g'(x).\n\nTo derive the integration by parts formula, we start with the product rule and integrate both sides with respect to x. This gives us:\n\n\u222b(f(x)g(x))' dx = \u222bf'(x)g(x) dx + \u222bf(x)g'(x) dx\n\nNow, we can use the fact that the integral of a derivative is the original function, so we can rewrite the left side as:\n\nf(x)g(x) = \u222bf'(x)g(x) dx + \u222bf(x)g'(x) dx\n\nRearranging the terms, we get:\n\n\u222bf'(x)g(x) dx = f(x)g(x) - \u222bf(x)g'(x) dx\n\nThis is the integration by parts formula. It allows us to integrate a product of functions by differentiating one function and integrating the other, and then adjusting for the constant of integration.\n\nFinal answer: \u222bf'(x)g(x) dx = f(x)g(x) - \u222bf(x)g'(x) dx",
+  "prompt": "Solve this calculus problem. Show brief reasoning, then end with a line formatted exactly as 'Final answer: <answer>'.\n\nProblem: Derive the integration by parts formula from the product rule.",
+  "ok_symbolic": false
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "How do you differentiate a quotient?",
+  "output": "The quotient rule is a fundamental rule in calculus that helps you find the derivative of a quotient of two functions. It states that if you have a function of the form f(x) = g(x)/h(x), where g(x) and h(x) are both differentiable functions, then the derivative of f(x) is given by:\n\nf'(x) = (h(x)g'(x) - g(x)h'(x)) / h(x)^2\n\nThis rule is a direct application of the product rule and the chain rule, making it a powerful tool for differentiating complex functions.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 1. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: beginner\nProblem stem: State the quotient rule.\nAvailable first step: State the formula\nKeep "
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Identify and differentiate u and v.",
+  "output": "To differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$, we will apply the quotient rule. The quotient rule states that if $f(x) = \\dfrac{u(x)}{v(x)}$, then $f'(x) = \\dfrac{u'(x)v(x) - u(x)v'(x)}{v(x)^2}$.\n\nHere, let $u(x) = x^2 + 1$ and $v(x) = x - 3$. We find $u'(x) = 2x$ and $v'(x) = 1$. Substituting these into the quotient rule formula, we get $f'(x) = \\dfrac{(2x)(x - 3) - (x^2 + 1)(1)}{(x - 3)^2}$.\n\nSimplifying, we have $f'(x) = \\dfrac{2x^2 - 6x - x^2 - 1}{(x - 3)^2}$. Combining like terms, we get $f'(x) = \\dfrac{x",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 1. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: developing\nProblem stem: Differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$.\nAvailable first step:"
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Apply (u'v \u2212 uv')/v\u00b2.",
+  "output": "To differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$, we apply the quotient rule. The quotient rule states that if $f(x) = \\dfrac{u(x)}{v(x)}$, then $f'(x) = \\dfrac{u'(x)v(x) - u(x)v'(x)}{v(x)^2}$. Here, $u(x) = x^2 + 1$ and $v(x) = x - 3$.\n\nFirst, find the derivatives of $u(x)$ and $v(x)$. The derivative of $u(x) = x^2 + 1$ is $u'(x) = 2x$, and the derivative of $v(x) = x - 3$ is $v'(x) = 1$.\n\nNow, substitute these derivatives into the quotient rule formula: $f'(x) = \\dfrac{(2x)(x - 3) - (x^2 + 1)(1)}{(x - 3)^2}$.\n\nSimplify the expression: $f'(x",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 2. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: confident\nProblem stem: Differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$.\nAvailable first step: "
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Expand and collect like terms.",
+  "output": "To differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$, we apply the quotient rule. The quotient rule states that if $f(x) = \\dfrac{u(x)}{v(x)}$, then $f'(x) = \\dfrac{u'(x)v(x) - u(x)v'(x)}{v(x)^2}$.\n\nHere, let $u(x) = x^2 + 1$ and $v(x) = x - 3$. Then, $u'(x) = 2x$ and $v'(x) = 1$. Substituting these into the quotient rule formula, we get:\n\n$f'(x) = \\dfrac{(2x)(x - 3) - (x^2 + 1)(1)}{(x - 3)^2}$\n\nSimplifying, we have:\n\n$f'(x) = \\dfrac{2x^2 - 6x - x^2 - 1}{(x - 3)^2}$\n\n$f'(x) = \\dfrac{x^",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 3. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: beginner\nProblem stem: Differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$.\nAvailable first step: u"
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Identify u and v.",
+  "output": "To differentiate $g(x) = \\dfrac{\\sin x}{x}$, we can use the quotient rule. The quotient rule states that if $g(x) = \\dfrac{u(x)}{v(x)}$, then $g'(x) = \\dfrac{u'(x)v(x) - u(x)v'(x)}{v(x)^2}$.\n\nHere, let $u(x) = \\sin x$ and $v(x) = x$. We know that $u'(x) = \\cos x$ and $v'(x) = 1$.\n\nNow, substitute these into the quotient rule formula:\n\n$g'(x) = \\dfrac{\\cos x \\cdot x - \\sin x \\cdot 1}{x^2}$\n\nSimplify the expression:\n\n$g'(x) = \\dfrac{\\cos x x - \\sin x}{x^2}$\n\nThis is the derivative of $g(x) = \\dfrac{\\sin x}{x}$.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 1. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: developing\nProblem stem: Differentiate $g(x) = \\dfrac{\\sin x}{x}$.\nAvailable first step: u = "
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Apply (u'v \u2212 uv')/v\u00b2.",
+  "output": "To differentiate $g(x) = \\dfrac{\\sin x}{x}$, we apply the quotient rule. The quotient rule states that if $g(x) = \\dfrac{u(x)}{v(x)}$, then $g'(x) = \\dfrac{u'(x)v(x) - u(x)v'(x)}{v(x)^2}$. Here, $u(x) = \\sin x$ and $v(x) = x$.\n\nFirst, find the derivatives of $u(x)$ and $v(x)$. The derivative of $\\sin x$ is $\\cos x$, and the derivative of $x$ is $1$.\n\nNow, substitute these derivatives into the quotient rule formula: $g'(x) = \\dfrac{\\cos x \\cdot x - \\sin x \\cdot 1}{\\sin^2 x}$.\n\nSimplify the expression: $g'(x) = \\dfrac{\\cos x x - \\sin x}{\\sin^2 x}$.\n\nThis is the derivative of $g(x) = \\dfrac{\\sin x}{x}$.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 2. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: confident\nProblem stem: Differentiate $g(x) = \\dfrac{\\sin x}{x}$.\nAvailable first step: u = s"
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Apply the quotient rule and simplify.",
+  "output": "To find the critical points of $f(x) = \\dfrac{x}{x^2+1}$, we first need to find its derivative. The derivative of $f(x)$ is given by:\n\n$$f'(x) = \\dfrac{d}{dx} \\left( \\dfrac{x}{x^2+1} \\right) = \\dfrac{(x^2+1) - 2x^2}{(x^2+1)^2} = \\dfrac{1-x^2}{(x^2+1)^2}$$\n\nNow, we set $f'(x) = 0$ to find the critical points:\n\n$$\\dfrac{1-x^2}{(x^2+1)^2} = 0$$\n\nThis implies that $1-x^2 = 0$, which gives us $x = \\pm 1$.\n\nSo, the critical points of $f(x)$ are $x = 1$ and $x = -1$.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 1. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: beginner\nProblem stem: Find the critical points of $f(x) = \\dfrac{x}{x^2+1}$.\nAvailable first"
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "The denominator is never zero \u2014 set the numerator to zero.",
+  "output": "To find the critical points of $f(x) = \\dfrac{x}{x^2+1}$, we first need to find its derivative. Using the quotient rule, we get:\n\nf'(x) = (x\u00b2+1 \u2212 2x\u00b2)/(x\u00b2+1)\u00b2 = (1\u2212x\u00b2)/(x\u00b2+1)\u00b2\n\nNow, we set f'(x) equal to zero to find the critical points:\n\n(1\u2212x\u00b2)/(x\u00b2+1)\u00b2 = 0\n\nThis equation simplifies to:\n\n1\u2212x\u00b2 = 0\n\nSolving for x, we get:\n\nx\u00b2 = 1\n\nx = \u00b11\n\nSo, the critical points of $f(x) = \\dfrac{x}{x^2+1}$ are x = 1 and x = -1.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 2. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: developing\nProblem stem: Find the critical points of $f(x) = \\dfrac{x}{x^2+1}$.\nAvailable fir"
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "This reverses the product rule.",
+  "output": "Integration by Parts is a technique used to integrate products of functions. The formula for Integration by Parts is:\n\n\u222bu dv = uv - \u222bv du\n\nHere, u and v are functions of the variable x. The goal is to choose u and dv such that the integral on the right side is easier to evaluate than the original integral.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 1. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: beginner\nProblem stem: State the integration by parts formula.\nAvailable first step: State "
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Which type of function should be u?",
+  "output": "Integration by Parts is a technique used to integrate products of functions. The formula is:\n\n\u222bu dv = uv - \u222bv du\n\nHere, u and v are functions of the variable x. The goal is to choose u and dv such that the integral on the right side is easier to evaluate than the original integral.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 2. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: developing\nProblem stem: State the integration by parts formula.\nAvailable first step: Stat"
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Choose u = x (algebraic) by LIATE.",
+  "output": "To solve the integral $\\int x e^x\\,dx$, we can use integration by parts. Here, we choose u = x and dv = e^x dx. This means du = dx and v = e^x. Applying the formula for integration by parts, we get:\n\n$\\int x e^x\\,dx = x \\cdot e^x - \\int e^x\\,dx$\n\nNow, we need to evaluate the remaining integral, which is straightforward since it's the integral of e^x. This gives us:\n\n$\\int x e^x\\,dx = x \\cdot e^x - e^x + C$\n\nSo, the final answer is $x \\cdot e^x - e^x + C$.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 1. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: confident\nProblem stem: Evaluate $\\int x e^x\\,dx$.\nAvailable first step: u = x, dv = e\u02e3 dx;"
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Apply \u222bu dv = uv \u2212 \u222bv du.",
+  "output": "To solve the integral $\\int x e^x\\,dx$, we'll use integration by parts. Here, we choose u = x and dv = e^x dx. This gives us du = dx and v = e^x. Applying the formula for integration by parts, we get:\n\n$\\int x e^x\\,dx = x e^x - \\int e^x\\,dx$\n\nNow, we need to evaluate the remaining integral, which is straightforward since it's the integral of e^x. This gives us:\n\n$\\int e^x\\,dx = e^x + C$\n\nCombining these results, we have:\n\n$\\int x e^x\\,dx = x e^x - e^x + C$\n\nSo, the final answer is $x e^x - e^x + C$.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 2. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: beginner\nProblem stem: Evaluate $\\int x e^x\\,dx$.\nAvailable first step: u = x, dv = e\u02e3 dx; "
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Choose u = ln x (logarithm) by LIATE.",
+  "output": "To integrate x * ln x, let's use the method of integration by parts. Here, u = ln x and dv = x dx. This gives us du = dx/x and v = x\u00b2/2. Now, applying the formula for integration by parts, \u222bu dv = uv - \u222bv du, we get \u222bx * ln x dx = (x\u00b2/2) * ln x - \u222b(x\u00b2/2) * (1/x) dx. Simplifying further, we have \u222bx * ln x dx = (x\u00b2/2) * ln x - (1/2) * \u222bx dx. Now, integrating x dx gives (1/3)x\u00b3, so \u222bx * ln x dx = (x\u00b2/2) * ln x - (1/3)x\u00b3 + C, where C is the constant of integration.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 1. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: developing\nProblem stem: Evaluate $\\int x \\ln x\\,dx$.\nAvailable first step: u = ln x, dv = "
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Simplify the remaining integral.",
+  "output": "To solve the integral $\\int x \\ln x\\,dx$, we'll use integration by parts. Let's choose u = ln x and dv = x dx. This gives us du = dx/x and v = x\u00b2/2.\n\nNow, apply the integration by parts formula: \u222bu dv = uv - \u222bv du. Substituting our values, we get:\n\n\u222bx \\ln x\\,dx = \\frac{x^2 \\ln x}{2} - \\int \\frac{x^2}{2} \\cdot \\frac{1}{x}\\,dx\n\nSimplify the integral:\n\n\u222bx \\ln x\\,dx = \\frac{x^2 \\ln x}{2} - \\frac{1}{2} \\int x\\,dx\n\nNow, integrate x:\n\n\u222bx \\ln x\\,dx = \\frac{x^2 \\ln x}{2} - \\frac{1}{2} \\left(\\frac{x^2}{2}\\right) + C\n\nCombine the terms:\n\n\u222bx \\ln x\\,dx = \\frac{x^2 \\ln x}{",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 2. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: confident\nProblem stem: Evaluate $\\int x \\ln x\\,dx$.\nAvailable first step: u = ln x, dv = x"
+ },
+ {
+  "task": "hint",
+  "ok": false,
+  "expected": "Apply by parts with u = sin x, dv = e\u02e3 dx.",
+  "output": "To solve the integral \u222be^x sin x dx, we can use integration by parts. Let's apply it twice.\n\nFirst, let u = e^x and dv = sin x dx. Then, du = e^x dx and v = -cos x.\n\nNow, we can apply the integration by parts formula: \u222bu dv = uv - \u222bv du.\n\nSo, \u222be^x sin x dx = -e^x cos x + \u222be^x cos x dx.\n\nNow, we need to evaluate \u222be^x cos x dx. Let's apply integration by parts again.\n\nLet u = e^x and dv = cos x dx. Then, du = e^x dx and v = sin x.\n\nApplying the integration by parts formula again, we get \u222be^x cos x dx = e^x sin x - \u222be^x sin x dx.\n\nNow, we have \u222be^x sin x dx = -e^x cos x + e^x sin x - \u222be^x sin x dx.\n\nNotice that the integral on the right side is the same as the original integral.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 1. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: beginner\nProblem stem: Evaluate $\\int e^x \\sin x\\,dx$.\nAvailable first step: Apply by parts"
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Apply by parts again.",
+  "output": "To solve the integral \u222be^x sin x dx, we can apply integration by parts twice. Let I = \u222be^x sin x dx.\n\nFirst, choose u = sin x and dv = e^x dx. Then, du = cos x dx and v = e^x.\n\nApplying integration by parts, we get I = e^x sin x - \u222be^x cos x dx.\n\nNow, we need to evaluate \u222be^x cos x dx. Let J = \u222be^x cos x dx.\n\nChoose u = cos x and dv = e^x dx. Then, du = -sin x dx and v = e^x.\n\nApplying integration by parts again, we get J = e^x cos x - \u222be^x sin x dx.\n\nNotice that J = I. So, we have I = e^x sin x - e^x cos x + C, where C is the constant of integration.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 2. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: developing\nProblem stem: Evaluate $\\int e^x \\sin x\\,dx$.\nAvailable first step: Apply by par"
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Recognise I appears on both sides.",
+  "output": "To solve the integral \u222be^x sin x dx, we can apply integration by parts twice. Let I = \u222be^x sin x dx. \n\nFirst, choose u = sin x and dv = e^x dx. Then, du = cos x dx and v = e^x. Applying integration by parts, we get:\n\nI = e^x sin x - \u222be^x cos x dx\n\nNow, apply integration by parts again to the remaining integral. Let J = \u222be^x cos x dx. Choose u = cos x and dv = e^x dx. Then, du = -sin x dx and v = e^x. Applying integration by parts, we get:\n\nJ = e^x cos x - \u222be^x sin x dx\n\nNotice that J is the same as the original integral I. So, we can write:\n\nI = e^x sin x - (e^x cos x - I)\n\nCombine like terms:\n\nI = e^x (sin x - cos x) + C\n\nThis is the final answer.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 3. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: confident\nProblem stem: Evaluate $\\int e^x \\sin x\\,dx$.\nAvailable first step: Apply by part"
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Apply the product rule to (u/v)\u00b7v.",
+  "output": "To derive the quotient rule from the product rule, let's start by writing u as u = (u/v)\u00b7v. This allows us to express u as a product of two functions. Now, we can apply the product rule to differentiate u. The product rule states that the derivative of a product of two functions is the derivative of the first function times the second function plus the first function times the derivative of the second function.\n\nApplying the product rule to u, we get d(u)/dx = d((u/v)\u00b7v)/dx = d(u/v)/dx \u00b7 v + u/v \u00b7 dv/dx. Simplifying this expression, we get d(u)/dx = (v/v)\u00b7u/v + u/v \u00b7 v/v\u00b2 = u/v\u00b2 + u\u00b2/v\u00b3.\n\nNow, we can rewrite u as u = (u/v)\u00b7v, which allows us to express the quotient rule in terms of the product rule. The quotient rule states that the derivative of u/v is (v/v\u00b2)\u00b7u/v + u\u00b2/v\u00b3, which simplifies to u/v\u00b2 + u\u00b2/v\u00b3.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 1. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: developing\nProblem stem: Derive the quotient rule from the product rule.\nAvailable first step"
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Isolate (u/v)' and multiply through by 1/v.",
+  "output": "To derive the quotient rule from the product rule, let's start by writing u as u = (u/v)\u00b7v. This allows us to express u as a product of two functions. Now, we can apply the product rule to differentiate u. The product rule states that the derivative of a product of two functions is the derivative of the first function times the second function plus the first function times the derivative of the second function.\n\nApplying the product rule to u, we get d(u)/dx = d((u/v)\u00b7v)/dx = d(u/v)/dx \u00b7 v + u/v \u00b7 dv/dx. Simplifying this expression, we get d(u)/dx = (v/v)\u00b7u/v + u/v \u00b7 v/v\u00b2 = u/v\u00b2 + u\u00b2/v\u00b3.\n\nNow, we can rewrite u as u = (u/v)\u00b7v, which allows us to express the quotient rule in terms of the product rule. The quotient rule states that the derivative of u/v is (v/v\u00b2)\u00b7u/v + u\u00b2/v\u00b3, which simplifies to u/v\u00b2 + u\u00b2/v\u00b3. This is",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 2. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: confident\nProblem stem: Derive the quotient rule from the product rule.\nAvailable first step:"
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Write the product rule.",
+  "output": "To derive the integration by parts formula from the product rule, we start with the product rule: (uv)' = u'v + uv'. Now, let's integrate both sides with respect to the variable. This gives us \u222b(uv)' = \u222b(u'v + uv'). The left side integrates to uv, and the right side integrates to \u222bu'v + \u222buv'. The integral of u'v is uv - \u222bu'v, and the integral of \u222buv' is uv. Combining these results, we get uv = uv - \u222bu'v + uv', which simplifies to \u222bu'v = uv - \u222bu'v. Rearranging, we find the integration by parts formula: \u222bu'v = uv - \u222bu'v.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 1. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: beginner\nProblem stem: Derive the integration by parts formula from the product rule.\nAvail"
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Integrate both sides with respect to x.",
+  "output": "To derive the integration by parts formula from the product rule, we start with the product rule: (uv)' = u'v + uv'. Now, let's integrate both sides with respect to the variable. This gives us \u222b(uv)' = \u222b(u'v + uv'). The left side integrates to uv, and the right side integrates to \u222bu'v + \u222buv'. The integral of u'v is uv - \u222bu'v, and the integral of \u222buv' is uv. Combining these results, we get uv = uv - \u222bu'v + uv', which simplifies to \u222bu'v = uv - \u222bu'v. Rearranging, we find the integration by parts formula: \u222bu'v = uv - \u222bu'v.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 2. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: developing\nProblem stem: Derive the integration by parts formula from the product rule.\nAva"
+ },
+ {
+  "task": "hint",
+  "ok": true,
+  "expected": "Isolate one integral.",
+  "output": "To derive the integration by parts formula from the product rule, we start with the product rule: (uv)' = u'v + uv'. Now, let's integrate both sides with respect to the variable. This gives us \u222b(uv)' = \u222b(u'v + uv'). The left side integrates to uv, and the right side integrates to \u222bu'v + \u222buv'. The integral of u'v is uv, and the integral of uv is uv^2/2 + C, where C is the constant of integration. Combining these results, we get uv = uv^2/2 + C. Rearranging, we find the integration by parts formula: \u222bu'v = uv - \u222buv'.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give Socratic hint level 3. Do not reveal the final answer or any later solution steps.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: confident\nProblem stem: Derive the integration by parts formula from the product rule.\nAvai"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "Try checking your formula with something simple you already know. You know $\\frac{d}{dx}\\left[\\frac{x}{1}\\right]$ should equal $1$. If you plug $f(x)=x$ and $g(x)=1$ into your version of the quotient rule, do you get $1$ or $-1$?",
+  "output": "Student, it seems you've swapped the terms in the numerator and denominator of the quotient rule. Let's correct this. The correct form of the quotient rule is:\n\n$$\\frac{d}{dx}\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{f(x)\\cdot g'(x) - g(x)\\cdot f'(x)}{[g(x)]^2}$$\n\nTo find the derivative of $\\frac{x^2}{\\sin x}$, we should use the correct form of the quotient rule. The derivative of the top ($f$) is $2x$, and the derivative of the bottom ($g$) is $\\cos x$. So, the derivative of $\\frac{x^2}{\\sin x}$ is:\n\n$$\\frac{2x\\cdot \\cos x - \\sin x \\cdot 2x}{(\\sin x)^2} = \\frac{2x\\cos x - 2x\\sin x}{\\sin^2 x}$$\n\nNow, let's simplify this expression.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate incorrect feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: developing\nProblem stem: The student writes the quotient r"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "You can derive the quotient rule by writing $\\frac{f}{g} = f \\cdot g^{-1}$ and using the product rule. When you do that and combine everything over a common denominator, what power of $g(x)$ do you end up with on the bottom?",
+  "output": "Student, it seems you've forgotten to square the denominator in the quotient rule. The correct formula is: $$\\frac{d}{dx}\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{g(x)\\cdot f'(x) - f(x)\\cdot g'(x)}{g(x)}$$ To find the derivative of $\\frac{e^x}{x}$, you should rewrite it as a product: $$\\frac{e^x}{x} = e^x \\cdot \\frac{1}{x}$$ Then, apply the product rule: $$\\frac{d}{dx}\\left[\\frac{e^x}{x}\\right] = e^x \\cdot \\frac{1}{x^2} + \\frac{e^x}{x} \\cdot \\frac{1}{x}$$ Simplify the expression by combining the terms over a common denominator: $$\\frac{d}{dx}\\left[\\frac{e^x}{x}\\right] = \\frac{e^x \\cdot x - e^x}{x^2} = \\frac{x \\cdot e^x - e^x}{x^2}$$ This is the correct",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate incorrect feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: confident\nProblem stem: The student forgets to square the "
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "Let's test that idea on a case you can verify. You know $\\frac{x}{x} = 1$, so its derivative should be $0$. Using your method, you'd get $\\frac{1}{1} = 1$. Since that doesn't match, what does that tell you about differentiating the numerator and denominator separately?",
+  "output": "Student, it seems you've applied the constant multiple rule incorrectly. The derivative of a quotient is not the quotient of the derivatives. Instead, you should apply the quotient rule, which states that the derivative of a quotient is the denominator times the derivative of the numerator minus the numerator times the derivative of the denominator, all divided by the square of the denominator.\n\nNow, let's find the correct derivative. What is the derivative of the numerator, $3x^2$, and the derivative of the denominator, $-\\sin x$?",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate incorrect feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: beginner\nProblem stem: The student simply differentiates t"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "You correctly identified the quotient rule structure \u2014 nice. Now look specifically at how you differentiated $\\sin(3x)$. If I asked you to find $\\frac{d}{dx}[\\sin(3x)]$ by itself, with no quotient involved, what would you get and why?",
+  "output": "Student, it seems you've applied the quotient rule correctly, but you've forgotten to apply the chain rule to the inner function. Remember, the quotient rule is a rule for differentiating a quotient of two functions, but the chain rule is needed when the numerator or denominator involves a composite function. Let's focus on the inner function, $3x$, and apply the chain rule to find its derivative.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate incorrect feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: developing\nProblem stem: When the numerator or denominator"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "Before you start the quotient rule, look at $\\frac{3}{x^4}$. Could you rewrite this expression using a negative exponent so that it's a simple power rule problem instead? What would that look like?",
+  "output": "Student, let's take a closer look at your answer. The quotient rule is a powerful tool, but it's essential to remember that it's most effective when both $f$ and $g$ are functions of $x$. In your case, the constant terms $1$ and $3$ in $\\frac{x^3+1}{5}$ and $\\frac{3}{x^4}$, respectively, can be simplified using basic algebraic properties.\n\nTo find the correct derivative, consider the following: What if we were to rewrite $\\frac{x^3+1}{5}$ as $\\frac{1}{5}(x^3+1)$? And what if we simplified $\\frac{3}{x^4}$ to $3x^{-4}$? These simplifications can significantly reduce the complexity of the problem and make the quotient rule unnecessary.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate incorrect feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: confident\nProblem stem: The student applies the full quoti"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "After you applied integration by parts with your choice, did the new integral $\\int v \\, du$ get simpler or harder than the original? What would happen if you swapped your choices so that the algebraic part $x$ is $u$ instead?",
+  "output": "Student, it seems you've chosen $u = e^x$ and $dv = \\frac{x^2}{2}$. However, this approach makes the integral harder instead of simpler. Remember, the goal of integration by parts is to simplify the integral on each application. In this case, $du = e^x \\, dx$ is more complex than the original $x$, and $v = \\frac{x^2}{2}$ is more complicated than the original $x$. Try choosing $u = x$ and $dv = e^x \\, dx$ to see if it simplifies the integral.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate incorrect feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: beginner\nProblem stem: The student picks $u$ and $dv$ in"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "Try differentiating your final answer and see if you recover $x \\cos x$. If you get a sign error, can you trace it back to the formula you used and compare it with the product rule $d(uv) = u\\,dv + v\\,du$ rearranged for $u\\,dv$?",
+  "output": "Student, it seems you've applied the integration by parts formula incorrectly. The correct formula is $\\int u \\, dv = uv - \\int v \\, du$. This is because the product rule for differentiation, $d(uv) = u \\, dv + v \\, du$, is integrated to give $u \\, dv = d(uv) - v \\, du$. By rearranging and integrating both sides, we get the minus sign in the formula. This is a common mistake, but it's important to understand the correct steps to avoid it. Now, let's work through the problem together. What's the next step in integrating this function?",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate incorrect feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: developing\nProblem stem: The student writes the integrat"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "If your answer is $x e^x + C$, what do you get when you differentiate it? Does that match the original integrand $x e^x$, and if not, what part of the integration by parts formula might you have left out?",
+  "output": "Student, it seems you've applied integration by parts correctly, but you've overlooked the crucial step of including the $- \\int v \\, du$ term. This term is essential as it ensures the antiderivative is complete. To find the antiderivative of $xe^x$, you would first find $u$ and $dv$ as usual, then compute $v$ and $du$. After that, you would apply integration by parts, and finally, add the $- \\int v \\, du$ term to your result. Remember, the formula $\\int u \\, dv = uv - \\int v \\, du$ is a guideline, not a hard and fast rule. It's important to verify your work by differentiating the antiderivative you've found to ensure it matches the original function.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate incorrect feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: confident\nProblem stem: The student treats integration b"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "You noticed the original integral showed up again on the right side \u2014 what if you called that integral $I$ and treated the whole equation algebraically? Could you isolate $I$ the same way you would solve $I = \\text{stuff} - I$ for $I$?",
+  "output": "Student, you've successfully applied integration by parts twice and encountered a similar integral reappearing. This is not a dead end, but rather an equation you can solve. You've got $I = e^x(\\sin x - \\cos x) - e^x(\\sin x - \\cos x)$, which simplifies to $2I = e^x(\\sin x - \\cos x)$. Now, divide both sides by 2 to find $I = \\frac{e^x(\\sin x - \\cos x)}{2} + C$. This reappearance of $I$ is a feature, not a bug. You've successfully used integration by parts to solve a more complex integral.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate incorrect feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: beginner\nProblem stem: When integrating something like $"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "Suppose you use $v = \\sin x + C_1$ and carry it through the full formula $uv - \\int v \\, du$. What happens to the $C_1$ terms when you expand everything \u2014 do they survive, or do they cancel? What does that tell you about which value of $C_1$ is most convenient to use?",
+  "output": "Student, you're right to consider the constant of integration when computing $v$ from $dv$. However, when you choose $v = \\sin x + C_1$, the constant $C_1$ cancels out with the $C_1 \\cdot u$ term in the original expression. This means you can safely set $C_1 = 0$ for simplicity. The constant of integration at the very end is what matters, and it should be the same as the one at the beginning.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate incorrect feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: developing\nProblem stem: The student worries about (or a"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "Well reasoned. How do you differentiate a quotient? How would you convince a classmate your answer is right?",
+  "output": "The quotient rule is a fundamental rule in calculus that helps us find the derivative of a quotient of two functions. It states that if we have a function of the form f(x) = u(x)/v(x), then its derivative is given by f'(x) = (u'(x)v(x) - u(x)v'(x)) / v(x)^2. This rule is a direct application of the product rule and the chain rule, and it's a powerful tool for differentiating complex functions.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate correct feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: developing\nProblem stem: State the quotient rule.\nStudent ra"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "That checks out. Expand and collect like terms. How would you convince a classmate your answer is right?",
+  "output": "To differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$, we can apply the quotient rule. The quotient rule states that if $f(x) = \\dfrac{u(x)}{v(x)}$, then $f'(x) = \\dfrac{u'(x)v(x) - u(x)v'(x)}{v(x)^2}$.\n\nIn this case, let $u(x) = x^2 + 1$ and $v(x) = x - 3$. Then, $u'(x) = 2x$ and $v'(x) = 1$.\n\nNow, substitute these into the quotient rule formula:\n\n$f'(x) = \\dfrac{(2x)(x - 3) - (x^2 + 1)(1)}{(x - 3)^2}$\n\nSimplify the expression:\n\n$f'(x) = \\dfrac{2x^2 - 6x - x^2 - 1}{(x - 3)^2}$\n\nCombine like terms:\n\n$f'(",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate correct feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: confident\nProblem stem: Differentiate $f(x) = \\dfrac{x^2 + 1"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "Good \u2014 your steps hold up. Apply (u'v \u2212 uv')/v\u00b2. How would you convince a classmate your answer is right?",
+  "output": "To differentiate $g(x) = \\dfrac{\\sin x}{x}$, we can apply the quotient rule. The quotient rule states that if $f(x) = \\dfrac{u(x)}{v(x)}$, then $f'(x) = \\dfrac{u'(x)v(x) - u(x)v'(x)}{v(x)^2}$.\n\nIn this case, let $u(x) = \\sin x$ and $v(x) = x$. Then, $u'(x) = \\cos x$ and $v'(x) = 1$. Substituting these into the quotient rule formula, we get $g'(x) = \\dfrac{\\cos x \\cdot x - \\sin x \\cdot 1}{x^2}$. Simplifying, we find $g'(x) = \\dfrac{\\cos x x - \\sin x}{x^2}$.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate correct feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: beginner\nProblem stem: Differentiate $g(x) = \\dfrac{\\sin x}{"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "Correct. The denominator is never zero \u2014 set the numerator to zero. How would you convince a classmate your answer is right?",
+  "output": "To find the critical points of $f(x) = \\dfrac{x}{x^2+1}$, we need to find the points where the derivative is zero or undefined. The derivative of $f(x)$ is given by $f'(x) = \\dfrac{d}{dx} \\left(\\dfrac{x}{x^2+1}\\right) = \\dfrac{(x^2+1) - x(2x)}{(x^2+1)^2} = \\dfrac{1 - x^2}{(x^2+1)^2}$. Setting $f'(x) = 0$ gives us $1 - x^2 = 0$, which simplifies to $x^2 = 1$. Therefore, the critical points are $x = \\pm 1$.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate correct feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: developing\nProblem stem: Find the critical points of $f(x) ="
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "Well reasoned. Which type of function should be u? How would you convince a classmate your answer is right?",
+  "output": "\"Great job on recognizing the integration by parts formula! Now, let's think about how we can apply it to a specific problem. Can you think of a situation where integration by parts would be useful, and how you would set up the problem?\"",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate correct feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: beginner\nProblem stem: State the integration by parts form"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "That checks out. Apply \u222bu dv = uv \u2212 \u222bv du. How would you convince a classmate your answer is right?",
+  "output": "To evaluate the integral $\\int x e^x\\,dx$, let's use the integration by parts formula. This formula states that $\\int u v'\\,dx = u v - \\int u' v\\,dx$. Here, we can choose $u = x$ and $v' = e^x$. \n\nNow, we need to find $u'$ and $v$. The derivative of $x$ is $1$, and the derivative of $e^x$ is also $e^x$. So, $u' = 1$ and $v = e^x$. \n\nApplying the integration by parts formula, we get $\\int x e^x\\,dx = x e^x - \\int e^x\\,dx$. The integral of $e^x$ is $e^x$ itself, so we have $\\int x e^x\\,dx = x e^x - e^x + C$.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate correct feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: developing\nProblem stem: Evaluate $\\int x e^x\\,dx$.\nStuden"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "Good \u2014 your steps hold up. Simplify the remaining integral. How would you convince a classmate your answer is right?",
+  "output": "To evaluate the integral $\\int x \\ln x\\,dx$, let's use integration by parts. We choose $u = \\ln x$ and $dv = x\\,dx$. Then, $du = \\frac{1}{x}\\,dx$ and $v = \\frac{x^2}{2}$. Applying the integration by parts formula, we get:\n\n$$\\int x \\ln x\\,dx = \\frac{x^2}{2} \\ln x - \\int \\frac{x^2}{2} \\cdot \\frac{1}{x}\\,dx$$\n\nSimplifying, we have:\n\n$$\\int x \\ln x\\,dx = \\frac{x^2}{2} \\ln x - \\frac{1}{2} \\int x\\,dx$$\n\nNow, integrate $x$ with respect to $x$:\n\n$$\\int x\\,dx = \\frac{x^2}{2}$$\n\nSubstituting back, we get:\n\n$$\\int x \\ln x\\,dx = \\frac{x^2}{2} \\ln x - \\frac{1}{2} \\cdot \\frac{x^",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate correct feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: confident\nProblem stem: Evaluate $\\int x \\ln x\\,dx$.\nStude"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "Correct. Divide by 2. How would you convince a classmate your answer is right?",
+  "output": "Let's break down the problem step by step. To integrate e^x * sin(x), we can use integration by parts. This method involves differentiating one function and integrating the other, then switching the order and subtracting the result.\n\nQuestion: What is the first function you should differentiate and integrate in integration by parts?",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate correct feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: beginner\nProblem stem: Evaluate $\\int e^x \\sin x\\,dx$.\nStu"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "Well reasoned. Isolate (u/v)' and multiply through by 1/v. How would you convince a classmate your answer is right?",
+  "output": "Let's break down the problem step by step.\n\nQuestion: How can we derive the quotient rule from the product rule?\n\nStudent's raw answer: Write u = (u/v)\u00b7v; differentiate both sides using the product rule; solve for (u/v)'\n\nFeedback: To derive the quotient rule from the product rule, we need to manipulate the equation u = (u/v)\u00b7v. First, let's express v as v = u/u. Now, substitute this into the equation u = (u/v)\u00b7v. This gives us u = (u/u)\u00b7u. Simplifying, we get u = 1\u00b7u, which is true for all u. However, this doesn't help us find the derivative of (u/v). To proceed, we need to differentiate both sides of the equation u = (u/v)\u00b7v using the product rule. This gives us 1 = (1/v)\u00b7v + (u/v)\u00b7(1/v)\u00b7v'. Now, we can solve for (u/v)' by isolating it on one side of the equation. This gives us (u/v)' = 1 - (1/",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate correct feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: beginner\nProblem stem: Derive the quotient rule from the pro"
+ },
+ {
+  "task": "feedback",
+  "ok": true,
+  "expected": "Correct. Isolate one integral. How would you convince a classmate your answer is right?",
+  "output": "Great job on the product rule! Now, let's integrate both sides of the equation to get the integration by parts formula. Can you think of a way to integrate the right side of the equation?",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate correct feedback. Do not reveal the answer. Ask one guiding question that helps the student find the next step.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: developing\nProblem stem: Derive the integration by parts f"
+ },
+ {
+  "task": "worked-example",
+  "ok": true,
+  "expected": "Example: Find the derivative of $h(x) = \\dfrac{3x + 1}{x + 4}$. Identify the top and bottom of the fraction as two separate functions. - Top (numerator): $f(x) = 3x + 1$ - Bottom (denominator): $g(x) = x + 4$ Find the derivative of the top and the derivative of the bottom separately. $$f'(x) = 3 \\qquad g'(x) = 1$$ Write down the Quotient Rule formula: $$h'(x) = \\frac{g(x) \\cdot f'(x) \\;-\\; f(x) \\cdot g'(x)}{\\big[g(x)\\big]^2}$$ A handy mnemonic: \"Low d-High minus High d-Low, over Low squared.\" - \"Low\" = bottom = $g(x)$ - \"High\" = top = $f(x)$ - \"d-\" means \"derivative of\" Plug everything in: $$h'(x) = \\frac{(x+4)(3) \\;-\\; (3x+1)(1)}{(x+4)^2}$$ Expand the numerator and simplify: $$\\text{Numerator} = 3(x+4) - 1(3x+1)$$ $$= 3x + 12 - 3x - 1$$ $$= 11$$ So the final answer is: $$h'(x) = \\frac{11}{(x+4)^2}$$",
+  "output": "Sure, here's a worked example for the concept \"Quotient Rule\":\n\nLet's find the derivative of the function f(x) = (2x + 1) / (x - 3).\n\nFirst, identify u and v: u = 2x + 1 and v = x - 3.\n\nNext, find the derivatives of u and v: u' = 2 and v' = 1.\n\nNow, apply the quotient rule: (f(x) / g(x))' = (f'(x)g(x) - f(x)g'(x)) / g(x)\u00b2.\n\nSubstitute u, v, u', and v' into the formula: (f(x) / g(x))' = ((2)(x - 3) - (2x + 1)(1)) / (x - 3)\u00b2.\n\nSimplify the expression: (f(x) / g(x))' = (2x - 6 - 2x - 1) / (x - 3)\u00b2.\n\nCombine like terms: (f(x) / g(x))' = (-",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give a worked example for concept \"Quotient Rule\" (deriv.quotient-rule).\nMastery label: beginner\nConcept description: Quotient rule (u/v)' = (u'v \u2212 uv')/v\u00b2; differentiation of rational functions.\nKeep the explanation at or below 150 words."
+ },
+ {
+  "task": "worked-example",
+  "ok": true,
+  "expected": "Example: Find $\\dfrac{d}{dx}\\left[\\dfrac{3x^2 - 5}{x^3 + 2}\\right]$. Identify the top and bottom functions and their derivatives: $$f(x) = 3x^2 - 5 \\quad \\Rightarrow \\quad f'(x) = 6x$$ $$g(x) = x^3 + 2 \\quad \\Rightarrow \\quad g'(x) = 3x^2$$ Write down the Quotient Rule template: $$\\frac{d}{dx}\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{f'(x)\\,g(x) - f(x)\\,g'(x)}{\\bigl[g(x)\\bigr]^2}$$ Substitute everything in: $$\\frac{(6x)(x^3 + 2) - (3x^2 - 5)(3x^2)}{(x^3 + 2)^2}$$ Expand each product in the numerator: $$(6x)(x^3+2) = 6x^4 + 12x$$ $$(3x^2-5)(3x^2) = 9x^4 - 15x^2$$ So the numerator becomes: $$6x^4 + 12x - 9x^4 + 15x^2$$ Combine like terms in the numerator: $$6x^4 - 9x^4 + 15x^2 + 12x = -3x^4 + 15x^2 + 12x$$ So the final answer is: $$\\frac{d}{dx}\\left[\\frac{3x^2-5}{x^3+2}\\right] = \\frac{-3x^4 + 15x^2 + 12x}{(x^3+2)^2}$$",
+  "output": "Sure, here's a worked example for the concept \"Quotient Rule\":\n\nLet's find the derivative of the function f(x) = (2x + 1) / (x - 3).\n\nFirst, we identify u(x) = 2x + 1 and v(x) = x - 3.\n\nNext, we find their derivatives: u'(x) = 2 and v'(x) = 1.\n\nNow, we apply the quotient rule: (f(x))' = (u'(x)v(x) - u(x)v'(x)) / v(x)\u00b2.\n\nSubstituting the values, we get: (f(x))' = (2(x - 3) - (2x + 1)(1)) / (x - 3)\u00b2.\n\nSimplifying, we get: (f(x))' = (2x - 6 - 2x - 1) / (x - 3)\u00b2.\n\nCombining like terms, we get: (f(x))' = -7 / (x - 3)\u00b2.\n\nSo, the derivative of f",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give a worked example for concept \"Quotient Rule\" (deriv.quotient-rule).\nMastery label: developing\nConcept description: Quotient rule (u/v)' = (u'v \u2212 uv')/v\u00b2; differentiation of rational functions.\nKeep the explanation at or below 150 words."
+ },
+ {
+  "task": "worked-example",
+  "ok": true,
+  "expected": "Example: Differentiate $h(x) = \\dfrac{e^{x^2}}{\\ln(x^2 + 1)}$ and state the domain on which the derivative is valid. Quotient Rule statement. If $h(x) = \\dfrac{u(x)}{v(x)}$ with $v(x) \\neq 0$, then $$h'(x) = \\frac{u'(x)\\,v(x) - u(x)\\,v'(x)}{[v(x)]^2}.$$ Identify the pieces. Set $u(x) = e^{x^2}$ and $v(x) = \\ln(x^2 + 1)$. Both require the chain rule internally: $$u'(x) = e^{x^2} \\cdot 2x, \\qquad v'(x) = \\frac{2x}{x^2 + 1}.$$ Assemble the quotient rule. $$h'(x) = \\frac{2x\\,e^{x^2}\\cdot \\ln(x^2+1) \\;-\\; e^{x^2}\\cdot \\dfrac{2x}{x^2+1}}{\\left[\\ln(x^2+1)\\right]^2}.$$ Factor and simplify. Pull $2x\\,e^{x^2}$ from the numerator: $$h'(x) = \\frac{2x\\,e^{x^2}}{\\left[\\ln(x^2+1)\\right]^2} \\left[\\ln(x^2+1) - \\frac{1}{x^2+1}\\right].$$ Determine the domain of $h'$. We need $v(x) = \\ln(x^2+1) \\neq 0$, i.e., $x^2+1 \\neq 1$, so $x \\neq 0$. Additionally, $x^2+1 > 0$ for all $x$, so the $\\ln$ and the original function are defined everywhere. Therefore $$\\text{dom}(h') = \\mathbb{R} \\setminus \\{0\\} = (-\\infty,0)\\cup(0,\\infty).$$",
+  "output": "Sure, here's a worked example for the concept \"Quotient Rule\":\n\nLet's find the derivative of the function f(x) = (2x + 1) / (x - 3).\n\nFirst, we identify u(x) = 2x + 1 and v(x) = x - 3.\n\nNext, we find their derivatives: u'(x) = 2 and v'(x) = 1.\n\nNow, we apply the quotient rule: (f(x))' = (u'(x)v(x) - u(x)v'(x)) / v(x)\u00b2.\n\nSubstituting the values, we get: (f(x))' = (2(x - 3) - (2x + 1)(1)) / (x - 3)\u00b2.\n\nSimplifying, we get: (f(x))' = (2x - 6 - 2x - 1) / (x - 3)\u00b2.\n\nFurther simplification gives us: (f(x))' = -7 / (x - 3)\u00b2.\n\nSo, the derivative of f(x",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give a worked example for concept \"Quotient Rule\" (deriv.quotient-rule).\nMastery label: advanced\nConcept description: Quotient rule (u/v)' = (u'v \u2212 uv')/v\u00b2; differentiation of rational functions.\nKeep the explanation at or below 150 words."
+ },
+ {
+  "task": "worked-example",
+  "ok": true,
+  "expected": "Example: Evaluate $\\int x \\, e^x \\, dx$. We need to split the integrand $x \\cdot e^x$ into two pieces: one piece we will call $u$ and the other $dv$. Choose: $$u = x \\qquad dv = e^x \\, dx$$ Compute $du$ and $v$ from our choices: $$du = 1 \\cdot dx = dx$$ $$v = \\int e^x \\, dx = e^x$$ Plug everything into the integration-by-parts formula: $$\\int x \\, e^x \\, dx = u \\cdot v - \\int v \\, du = x \\cdot e^x - \\int e^x \\, dx$$ Evaluate the remaining integral: $$\\int e^x \\, dx = e^x$$ So we have: $$x \\cdot e^x - e^x$$ Add the constant of integration to get the final answer: $$\\boxed{\\int x \\, e^x \\, dx = x\\,e^x - e^x + C}$$ You can also factor this as $e^x(x - 1) + C$ if you like.",
+  "output": "Integration by Parts:\n\nGiven \u222bu dv, we use the formula \u222bu dv = uv - \u222bv du.\n\nFor example, \u222bx sin(x) dx.\n\nFirst, choose u = x and dv = sin(x) dx. Then, find du = dx and v = -cos(x).\n\nNow, apply the formula: \u222bx sin(x) dx = x(-cos(x)) - \u222b(-cos(x)) dx.\n\nSimplify: \u222bx sin(x) dx = -x cos(x) + \u222bcos(x) dx.\n\nNext, integrate \u222bcos(x) dx, which is sin(x).\n\nSo, \u222bx sin(x) dx = -x cos(x) + sin(x) + C, where C is the constant of integration.\n\nThis example demonstrates how integration by parts can be used to solve integrals involving products of functions.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give a worked example for concept \"Integration by Parts\" (integ.by-parts).\nMastery label: beginner\nConcept description: \u222bu dv = uv \u2212 \u222bv du; LIATE heuristic; repeated integration by parts.\nKeep the explanation at or below 150 words."
+ },
+ {
+  "task": "worked-example",
+  "ok": true,
+  "expected": "Example: Evaluate $$\\int x\\, e^{2x}\\, dx.$$ Identify the parts for Integration by Parts. Recall the formula: $$\\int u\\, dv = uv - \\int v\\, du.$$ Choose $u = x$ and $dv = e^{2x}\\, dx$. Compute $du$ and $v$: $$du = dx, \\qquad v = \\int e^{2x}\\, dx = \\frac{1}{2}e^{2x}.$$ Substitute into the Integration by Parts formula: $$\\int x\\, e^{2x}\\, dx = x \\cdot \\frac{1}{2}e^{2x} - \\int \\frac{1}{2}e^{2x}\\, dx = \\frac{x}{2}e^{2x} - \\frac{1}{2}\\int e^{2x}\\, dx.$$ Evaluate the remaining integral: $$\\frac{1}{2}\\int e^{2x}\\, dx = \\frac{1}{2} \\cdot \\frac{1}{2}e^{2x} = \\frac{1}{4}e^{2x}.$$ Combine and attach the constant of integration: $$\\int x\\, e^{2x}\\, dx = \\frac{x}{2}e^{2x} - \\frac{1}{4}e^{2x} + C.$$ You can factor if you like: $$= \\frac{e^{2x}}{4}(2x - 1) + C.$$",
+  "output": "Integration by Parts:\n\nGiven \u222bu dv, we use the formula \u222bu dv = uv - \u222bv du.\n\nFor example, \u222bx sin(x) dx.\n\nFirst, choose u = x and dv = sin(x) dx. Then, find du = dx and v = -cos(x).\n\nNow, apply the formula: \u222bx sin(x) dx = x(-cos(x)) - \u222b(-cos(x)) dx.\n\nSimplify: \u222bx sin(x) dx = -x cos(x) + \u222bcos(x) dx.\n\nNext, integrate \u222bcos(x) dx, which is sin(x).\n\nSo, \u222bx sin(x) dx = -x cos(x) + sin(x) + C, where C is the constant of integration.\n\nThis example demonstrates how integration by parts can be used to solve integrals involving products of functions.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give a worked example for concept \"Integration by Parts\" (integ.by-parts).\nMastery label: developing\nConcept description: \u222bu dv = uv \u2212 \u222bv du; LIATE heuristic; repeated integration by parts.\nKeep the explanation at or below 150 words."
+ },
+ {
+  "task": "worked-example",
+  "ok": true,
+  "expected": "Example: Evaluate $$\\int e^x \\cos x \\, dx.$$ Recall the rule and where it comes from. Integration by parts states: $$\\int u \\, dv = uv - \\int v \\, du.$$ This is just the product rule for derivatives, $\\frac{d}{dx}[uv] = u'v + uv'$, integrated on both sides and rearranged. In differential form: $d(uv) = v\\,du + u\\,dv$, so $u\\,dv = d(uv) - v\\,du$. Integrate both sides and you get the formula. Nothing is being \"introduced\" \u2014 you are merely redistributing the derivative between two factors. First application of IBP. Let $u = e^x$, $dv = \\cos x \\, dx$, so $du = e^x \\, dx$, $v = \\sin x$. Then $$\\int e^x \\cos x \\, dx = e^x \\sin x - \\int e^x \\sin x \\, dx.$$",
+  "output": "Integration by Parts:\n\nGiven \u222bu dv, we use the formula \u222bu dv = uv - \u222bv du.\n\nFor example, \u222bx sin(x) dx.\n\nFirst, choose u = x and dv = sin(x) dx. Then, find du = dx and v = -cos(x).\n\nNow, apply the formula: \u222bx sin(x) dx = x(-cos(x)) - \u222b(-cos(x)) dx.\n\nSimplify: \u222bx sin(x) dx = -x cos(x) + \u222bcos(x) dx.\n\nNext, integrate \u222bcos(x) dx, which is sin(x).\n\nSo, \u222bx sin(x) dx = -x cos(x) + sin(x) + C, where C is the constant of integration.\n\nThis example demonstrates how integration by parts can be used to solve integrals involving products of functions.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Give a worked example for concept \"Integration by Parts\" (integ.by-parts).\nMastery label: advanced\nConcept description: \u222bu dv = uv \u2212 \u222bv du; LIATE heuristic; repeated integration by parts.\nKeep the explanation at or below 150 words."
+ },
+ {
+  "task": "semantic-eval",
+  "ok": false,
+  "expected": "{\"isCorrect\":true,\"partialCredit\":1,\"feedbackHints\":[]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"The quotient rule is a rule in calculus that helps you find the derivative of a quotient of two functions. It is used when you have a function of the form f(x)/g(x). The quotient rule states that the derivative of f(x)/g(x) is (f'(x)g(x) - f(x)g'(x)) / g(x)^2.\"\n  ]\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: deriv.quotient-rule\nProblem stem: State the quotient rule.\nCanonical answer: (u/v)' = (u'v - uv') / v^2\nStudent answer: (u/v)' = (u'v - uv') / v^2\nReturn JSON with fields: isCorrect (bool"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": true,
+  "expected": "{\"isCorrect\":false,\"partialCredit\":0,\"feedbackHints\":[\"How do you differentiate a quotient?\"]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"The quotient rule is a formula for differentiating a quotient of two functions. It states that the derivative of u/v is (u'v - uv') / v^2.\",\n    \"To apply the quotient rule, you need to know the derivatives of u and v, as well as their product and difference.\"\n  ]\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: deriv.quotient-rule\nProblem stem: State the quotient rule.\nCanonical answer: (u/v)' = (u'v - uv') / v^2\nStudent answer: can you just tell me\nReturn JSON with fields: isCorrect (boolean), "
+ },
+ {
+  "task": "semantic-eval",
+  "ok": false,
+  "expected": "{\"isCorrect\":true,\"partialCredit\":1,\"feedbackHints\":[]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"To differentiate this function, apply the quotient rule. The quotient rule states that if you have a function of the form f(x) = g(x) / h(x), then its derivative is given by f'(x) = (h(x)g'(x) - g(x)h'(x)) / h(x)^2. In this case, g(x) = x^2 + 1 and h(x) = x - 3. First, find the derivatives of g(x) and h(x). Then, apply the quotient rule.\",\n    \"Notice that g(x) is a polynomial, so its derivative is simply g'(x) = 2x. For h(x), the derivative is h'(x) = 1. Now, substitute these derivatives into the quotient rule formula.\",\n    \"Substitute g'(x) = 2x, h'(x) = 1, g(x) = x^2 + 1, and h(x) = x - 3 into the quotient",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: deriv.quotient-rule\nProblem stem: Differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$.\nCanonical answer: (x^2 - 6x - 1) / (x-3)^2\nStudent answer: (x^2 - 6x - 1) / (x-3)^2\nReturn JSON with field"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": false,
+  "expected": "{\"isCorrect\":false,\"partialCredit\":0,\"feedbackHints\":[\"Identify and differentiate u and v.\"]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"To differentiate a quotient, use the quotient rule. The quotient rule states that if you have a function of the form f(x) = g(x) / h(x), then its derivative is given by f'(x) = (h(x)g'(x) - g(x)h'(x)) / h(x)^2. In your case, g(x) = x^2 + 1 and h(x) = x - 3. First, find the derivatives of g(x) and h(x). Then, apply the quotient rule.\",\n    \"Notice that g(x) is a polynomial, so its derivative is simply g'(x) = 2x. For h(x), the derivative is h'(x) = 1. Now, substitute these derivatives into the quotient rule formula.\",\n    \"Substitute g'(x) = 2x, h'(x) = 1, g(x) = x^2 + 1, and h(x) = x - 3 into the quot",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: deriv.quotient-rule\nProblem stem: Differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$.\nCanonical answer: (x^2 - 6x - 1) / (x-3)^2\nStudent answer: 42?\nReturn JSON with fields: isCorrect (boolean"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": false,
+  "expected": "{\"isCorrect\":true,\"partialCredit\":1,\"feedbackHints\":[]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"To differentiate g(x) = sin(x)/x, apply the quotient rule. The quotient rule states that if f(x) = g(x)/h(x), then f'(x) = (h(x)*g'(x) - g(x)*h'(x)) / h(x)^2. Here, g(x) = sin(x) and h(x) = x. So, g'(x) = cos(x) and h'(x) = 1. Substituting these into the quotient rule formula gives f'(x) = (x*cos(x) - sin(x)) / x^2.\",\n    \"Notice that the derivative of sin(x) is cos(x), and the derivative of x is 1. This is a fundamental property of the sine and cosine functions, and it's what allows us to simplify the derivative of sin(x)/x to (x*cos(x) - sin(x)) / x^2.\"\n  ]\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: deriv.quotient-rule\nProblem stem: Differentiate $g(x) = \\dfrac{\\sin x}{x}$.\nCanonical answer: (x*cos(x) - sin(x)) / x^2\nStudent answer: (x*cos(x) - sin(x)) / x^2\nReturn JSON with fields: "
+ },
+ {
+  "task": "semantic-eval",
+  "ok": true,
+  "expected": "{\"isCorrect\":false,\"partialCredit\":0,\"feedbackHints\":[\"Identify u and v.\"]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"Start by applying the quotient rule, which states that if you have a function of the form f(x) = g(x)/h(x), then its derivative is given by f'(x) = (h(x)g'(x) - g(x)h'(x)) / h(x)^2. In your case, g(x) = sin(x) and h(x) = x.\",\n    \"Notice that h(x) is not zero, so you can proceed with the quotient rule. Differentiate g(x) and h(x) separately and then plug them into the formula.\",\n    \"For g(x) = sin(x), its derivative is g'(x) = cos(x). For h(x) = x, its derivative is h'(x) = 1.\",\n    \"Now, plug these derivatives into the quotient rule formula: f'(x) = (x*cos(x) - sin(x)) / x^2.\"\n  ]\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: deriv.quotient-rule\nProblem stem: Differentiate $g(x) = \\dfrac{\\sin x}{x}$.\nCanonical answer: (x*cos(x) - sin(x)) / x^2\nStudent answer: this is too hard\nReturn JSON with fields: isCorrect"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": true,
+  "expected": "{\"isCorrect\":true,\"partialCredit\":1,\"feedbackHints\":[]}",
+  "output": "{\n  \"isCorrect\": true,\n  \"partialCredit\": 0.5,\n  \"feedbackHints\": [\n    \"To find the critical points, first find the derivative of the function. Then, set the derivative equal to zero and solve for x.\",\n    \"The derivative of f(x) = \\frac{x}{x^2+1} is f'(x) = \\frac{x^2 - 1}{(x^2+1)^2}. Setting f'(x) = 0 gives x^2 - 1 = 0, which has solutions x = 1 and x = -1.\"\n  ]\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: deriv.quotient-rule\nProblem stem: Find the critical points of $f(x) = \\dfrac{x}{x^2+1}$.\nCanonical answer: x = 1 and x = -1\nStudent answer: x = 1 and x = -1\nReturn JSON with fields: isCor"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": false,
+  "expected": "{\"isCorrect\":false,\"partialCredit\":0,\"feedbackHints\":[\"Apply the quotient rule and simplify.\"]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"To find the critical points, first find the derivative of the function.\",\n    \"The derivative of $f(x) = \\dfrac{x}{x^2+1}$ is $f'(x) = \\dfrac{x^2 - 1}{(x^2+1)^2}$.\",\n    \"Now, set the derivative equal to zero and solve for $x$.\"\n  ]\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: deriv.quotient-rule\nProblem stem: Find the critical points of $f(x) = \\dfrac{x}{x^2+1}$.\nCanonical answer: x = 1 and x = -1\nStudent answer: idk\nReturn JSON with fields: isCorrect (boolean"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": false,
+  "expected": "{\"isCorrect\":true,\"partialCredit\":1,\"feedbackHints\":[]}",
+  "output": "{\n  \"isCorrect\": true,\n  \"partialCredit\": 1,\n  \"feedbackHints\": [\n    \"The integration by parts formula is a powerful tool for integrating functions. It states that \u222bu dv = uv - \u222bv du.\",\n    \"In this formula, u and v are functions of the variable x, and du and dv are their respective differentials.\",\n    \"To apply this formula, choose u and v such that du and dv are easy to integrate and differentiate, respectively.\",\n    \"For example, if u = x^2 and dv = sin(x) dx, then du = 2x dx and v = -cos(x).\",\n    \"Using the formula, we get \u222bx^2 sin(x) dx = -x^2 cos(x) + 2 \u222bx cos(x) dx.\",\n    \"To integrate \u222bx cos(x) dx, we can use integration by parts again, with u = x and dv = cos(x) dx.\",\n    \"This gives us \u222bx cos(x) dx = x sin(x) - \u222bsin(x) dx.\",\n    \"Finally,",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: integ.by-parts\nProblem stem: State the integration by parts formula.\nCanonical answer: \u222bu dv = uv - \u222bv du\nStudent answer: \u222bu dv = uv - \u222bv du\nReturn JSON with fields: isCorrect (boolean), "
+ },
+ {
+  "task": "semantic-eval",
+  "ok": false,
+  "expected": "{\"isCorrect\":false,\"partialCredit\":0,\"feedbackHints\":[\"This reverses the product rule.\"]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"Start by identifying the functions u and v in the integral.\",\n    \"Remember, u dv = uv - \u222bv du.\",\n    \"In this case, u = x^2 and dv = e^x dx.\",\n    \"Now, find du and v.\",\n    \"du = 2x dx, v = e^x.\",\n    \"Apply integration by parts, \u222bu dv = uv - \u222bv du.\",\n    \"This gives you \u222bx^2 e^x dx = x^2 e^x - \u222be^x 2x dx.\",\n    \"Now, integrate \u222be^x 2x dx.\",\n    \"This is a standard integral, \u222be^x 2x dx = x^2 e^x - 2 \u222be^x x dx.\",\n    \"Integrate \u222be^x x dx.\",\n    \"This is another standard integral, \u222be^x x dx = (1/2) e^x^2 - (1/2) e^x.\",\n    \"Combine",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: integ.by-parts\nProblem stem: State the integration by parts formula.\nCanonical answer: \u222bu dv = uv - \u222bv du\nStudent answer: this is too hard\nReturn JSON with fields: isCorrect (boolean), pa"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": true,
+  "expected": "{\"isCorrect\":true,\"partialCredit\":1,\"feedbackHints\":[]}",
+  "output": "{\n  \"isCorrect\": true,\n  \"partialCredit\": 0.5,\n  \"feedbackHints\": [\n    \"Start by recognizing that the integral of e^x is e^x.\",\n    \"Now, use integration by parts to find the integral of x*e^x.\"\n  ]\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: integ.by-parts\nProblem stem: Evaluate $\\int x e^x\\,dx$.\nCanonical answer: x*e^x - e^x + C\nStudent answer: x*e^x - e^x + C\nReturn JSON with fields: isCorrect (boolean), partialCredit (numb"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": true,
+  "expected": "{\"isCorrect\":false,\"partialCredit\":0,\"feedbackHints\":[\"Choose u = x (algebraic) by LIATE.\"]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"Start by recognizing that this is an integral of the form \u222bu*v*du, where u = x and v = e^x. Recall the integration by parts formula: \u222bu*v*du = u*v - \u222bv*du. In this case, u = x and v = e^x, so we can apply the formula.\",\n    \"Notice that the integral of e^x is e^x itself, since the derivative of e^x is e^x. So, \u222be^x*dx = e^x + C.\",\n    \"Now, substitute these results back into the original integral: \u222bx*e^x*dx = x*e^x - \u222be^x*dx = x*e^x - e^x + C.\"\n  ]\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: integ.by-parts\nProblem stem: Evaluate $\\int x e^x\\,dx$.\nCanonical answer: x*e^x - e^x + C\nStudent answer: idk\nReturn JSON with fields: isCorrect (boolean), partialCredit (number in [0, 1]"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": false,
+  "expected": "{\"isCorrect\":true,\"partialCredit\":1,\"feedbackHints\":[]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"To solve this integral, use integration by parts. Recall that integration by parts states that \u222bu dv = uv - \u222bv du. In this case, let u = x and dv = ln(x) dx. Then, du = dx and v = x*ln(x). Now, apply integration by parts formula: \u222bx*ln(x) dx = x*ln(x) - \u222bx*ln(x) dx. To solve the remaining integral, apply integration by parts again, but this time let u = ln(x) and dv = x dx. Then, du = dx/x and v = x^2/2. Now, apply integration by parts formula again: \u222bx^2*ln(x) dx = x^2*ln(x) - \u222bx^2*ln(x) dx. Notice that the remaining integral is the same as the original one. So, \u222bx^2*ln(x) dx = x^2*ln(x) - x^2",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: integ.by-parts\nProblem stem: Evaluate $\\int x \\ln x\\,dx$.\nCanonical answer: x^2*ln(x)/2 - x^2/4 + C\nStudent answer: x^2*ln(x)/2 - x^2/4 + C\nReturn JSON with fields: isCorrect (boolean), p"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": true,
+  "expected": "{\"isCorrect\":false,\"partialCredit\":0,\"feedbackHints\":[\"Choose u = ln x (logarithm) by LIATE.\"]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"Consider the product rule for differentiation and integration.\",\n    \"Integrate by parts, setting u = x and dv = ln(x) dx.\",\n    \"Apply the formula for integration by parts: \u222bu dv = uv - \u222bv du.\",\n    \"Substitute u = x and dv = ln(x) dx into the formula.\",\n    \"Evaluate the integral \u222bx ln(x) dx using the result from integration by parts.\",\n    \"Apply the power rule for integration and the constant multiple rule for integration.\",\n    \"Combine the results to obtain the final answer.\"\n  ]\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: integ.by-parts\nProblem stem: Evaluate $\\int x \\ln x\\,dx$.\nCanonical answer: x^2*ln(x)/2 - x^2/4 + C\nStudent answer: no idea\nReturn JSON with fields: isCorrect (boolean), partialCredit (nu"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": true,
+  "expected": "{\"isCorrect\":true,\"partialCredit\":1,\"feedbackHints\":[]}",
+  "output": "{\n  \"isCorrect\": true,\n  \"partialCredit\": 0.5,\n  \"feedbackHints\": [\n    \"Start by using the product rule for differentiation to find the derivative of e^x * sin(x).\",\n    \"Then, use the fact that the derivative of sin(x) is cos(x) to find the derivative of e^x * sin(x).\",\n    \"Finally, integrate both sides of the equation to find the antiderivative of e^x * sin(x).\"\n  ]\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: integ.by-parts\nProblem stem: Evaluate $\\int e^x \\sin x\\,dx$.\nCanonical answer: (e^x * sin(x) - e^x * cos(x)) / 2 + C\nStudent answer: (e^x * sin(x) - e^x * cos(x)) / 2 + C\nReturn JSON with"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": false,
+  "expected": "{\"isCorrect\":false,\"partialCredit\":0,\"feedbackHints\":[\"Apply by parts with u = sin x, dv = e\u02e3 dx.\"]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"Start by using integration by parts. Let u = e^x and dv = sin(x) dx. Then, du = e^x dx and v = -cos(x).\",\n    \"Now, apply the integration by parts formula: \u222bu dv = uv - \u222bv du.\",\n    \"Substitute the values: \u222be^x sin(x) dx = -e^x cos(x) - \u222b-cos(x) e^x dx.\",\n    \"Notice that the integral on the right side is the same as the original integral. So, we can write it as: \u222be^x sin(x) dx = -e^x cos(x) + \u222be^x cos(x) dx.\",\n    \"Now, use integration by parts again for the integral \u222be^x cos(x) dx. Let u = e^x and dv = cos(x) dx. Then, du = e^x dx and v = sin(x).\",\n    \"Apply the integration by parts formula: \ufffd",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: integ.by-parts\nProblem stem: Evaluate $\\int e^x \\sin x\\,dx$.\nCanonical answer: (e^x * sin(x) - e^x * cos(x)) / 2 + C\nStudent answer: can you just tell me\nReturn JSON with fields: isCorrec"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": false,
+  "expected": "{\"isCorrect\":true,\"partialCredit\":1,\"feedbackHints\":[]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"Start by differentiating both sides of the equation u = (u/v)\u00b7v.\",\n    \"On the left side, apply the product rule to u = (u/v)\u00b7v.\",\n    \"On the right side, apply the product rule to u = (u/v)\u00b7v.\",\n    \"Now, solve for (u/v)'.\",\n    \"Remember, the quotient rule is a special case of the product rule, so you can use the same rules to derive it.\"\n  ]\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: deriv.quotient-rule\nProblem stem: Derive the quotient rule from the product rule.\nCanonical answer: Write u = (u/v)\u00b7v; differentiate both sides using the product rule; solve for (u/v)'\nSt"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": true,
+  "expected": "{\"isCorrect\":false,\"partialCredit\":0,\"feedbackHints\":[\"Apply the product rule to (u/v)\u00b7v.\"]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"Start by expressing the quotient as a product of two functions.\",\n    \"Differentiate both sides of the equation with respect to u.\",\n    \"Solve for (u/v)'.\"\n  ]\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: deriv.quotient-rule\nProblem stem: Derive the quotient rule from the product rule.\nCanonical answer: Write u = (u/v)\u00b7v; differentiate both sides using the product rule; solve for (u/v)'\nSt"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": false,
+  "expected": "{\"isCorrect\":true,\"partialCredit\":1,\"feedbackHints\":[]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"The product rule states that the derivative of a product of two functions is the derivative of the first function times the second function plus the first function times the derivative of the second function.\",\n    \"To derive the integration by parts formula, integrate both sides of the product rule equation with respect to the variable of integration.\"\n  ]\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: integ.by-parts\nProblem stem: Derive the integration by parts formula from the product rule.\nCanonical answer: Product rule: (uv)' = u'v + uv'; integrate both sides; rearrange to get \u222bu dv"
+ },
+ {
+  "task": "semantic-eval",
+  "ok": true,
+  "expected": "{\"isCorrect\":false,\"partialCredit\":0,\"feedbackHints\":[\"Write the product rule.\"]}",
+  "output": "{\n  \"isCorrect\": false,\n  \"partialCredit\": 0,\n  \"feedbackHints\": [\n    \"Start by differentiating the product u*v using the product rule.\",\n    \"Integrate both sides of the equation to get \u222bu dv = uv - \u222bv du.\",\n    \"Notice that the integral on the right side is the same as the original integral, which is not correct in this case.\",\n    \"The correct integration by parts formula is \u222bu dv = uv - \u222bv du.\"\n  ]\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Score the student answer against the canonical answer. Return JSON only.\nConcept ID: integ.by-parts\nProblem stem: Derive the integration by parts formula from the product rule.\nCanonical answer: Product rule: (uv)' = u'v + uv'; integrate both sides; rearrange to get \u222bu dv"
+ },
+ {
+  "task": "problem-variant",
+  "ok": false,
+  "expected": "{\"id\":\"deriv-quotient-rule-procedural-10kpm6m\",\"conceptId\":\"deriv.quotient-rule\",\"difficulty\":\"procedural\",\"type\":\"free-response\",\"stem\":\"Differentiate $g(x) = \\\\dfrac{\\\\sin x}{x}$.\",\"answer\":{\"raw\":\"(x*cos(x) - sin(x)) / x^2\",\"latex\":\"\\\\dfrac{x\\\\cos x - \\\\sin x}{x^2}\",\"type\":\"symbolic\"},\"solutionSteps\":[{\"stepNumber\":1,\"description\":\"u = sin x, v = x\",\"expression\":\"u'=\\\\cos x,\\\\;v'=1\",\"hint\":\"Identify u and v.\"},{\"stepNumber\":2,\"description\":\"Apply quotient rule\",\"expression\":\"\\\\frac{x\\\\cos x - \\\\sin x}{x^2}\",\"hint\":\"Apply (u'v \u2212 uv')/v\u00b2.\"}],\"commonMisconceptions\":[]}",
+  "output": "{\n  \"id\": \"deriv.quotient-rule.1\",\n  \"conceptId\": \"deriv.quotient-rule\",\n  \"difficulty\": \"procedural\",\n  \"type\": \"problem\",\n  \"stem\": \"Differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$.\",\n  \"answer\": \"(x^2 - 6x - 1) / (x-3)^2\",\n  \"solutionSteps\": \"1. Apply the quotient rule: \\[ f'(x) = \\frac{(x-3)(2x) - (x^2 + 1)(1)}{(x-3)^2} \\] 2. Simplify the expression: \\[ f'(x) = \\frac{2x^2 - 6x - x^2 - 1}{(x-3)^2} \\] 3. Combine like terms: \\[ f'(x) = \\frac{x^2 - 6x - 1}{(x-3)^2} \\] 4. The final answer is \\( \\boxed{(x^2 - 6x - 1) / (x-3)^2} \\).\",\n  \"commonMisconceptions\": \"Some students may mistakenly apply the product rule or chain rule in this problem, or they may struggle with the algebraic manipulation required to apply the quotient rule.\"\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate one novel calculus problem variant as JSON only.\nConcept ID: deriv.quotient-rule\nDifficulty: procedural\nTemplate stem: Differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$.\nAnswer template: (x^2 - 6x - 1) / (x-3)^2\nReturn fields: id, conceptId, difficulty, type, stem, a"
+ },
+ {
+  "task": "problem-variant",
+  "ok": false,
+  "expected": "{\"id\":\"deriv-quotient-rule-procedural-20uca1\",\"conceptId\":\"deriv.quotient-rule\",\"difficulty\":\"procedural\",\"type\":\"free-response\",\"stem\":\"Differentiate $f(x) = \\\\dfrac{x^2 + 1}{x - 3}$.\",\"answer\":{\"raw\":\"(x^2 - 6x - 1) / (x-3)^2\",\"latex\":\"\\\\dfrac{x^2 - 6x - 1}{(x-3)^2}\",\"type\":\"symbolic\"},\"solutionSteps\":[{\"stepNumber\":1,\"description\":\"u = x\u00b2+1, v = x\u22123; u' = 2x, v' = 1\",\"expression\":\"u'=2x,\\\\;v'=1\",\"hint\":\"Identify and differentiate u and v.\"},{\"stepNumber\":2,\"description\":\"Apply quotient rule\",\"expression\":\"\\\\frac{2x(x-3)-(x^2+1)(1)}{(x-3)^2}\",\"hint\":\"Apply (u'v \u2212 uv')/v\u00b2.\"},{\"stepNumber\":3,\"description\":\"Simplify numerator\",\"expression\":\"\\\\frac{2x^2-6x-x^2-1}{(x-3)^2} = \\\\frac{x^2-6x-1}{(x-3)^2}\",\"hint\":\"Expand and collect like terms.\"}],\"commonMisconceptions\":[]}",
+  "output": "{\n  \"id\": \"deriv.quotient-rule\",\n  \"conceptId\": \"deriv.quotient-rule\",\n  \"difficulty\": \"procedural\",\n  \"type\": \"calculus\",\n  \"stem\": \"Differentiate $g(x) = \\dfrac{\\sin x}{x}$.\",\n  \"answer\": \"(x\\cos(x) - \\sin(x)) / x^2\",\n  \"solutionSteps\": \"1. Apply the quotient rule: \\[ g'(x) = \\frac{x\\cos(x) - \\sin(x)}{x^2} \\] 2. Simplify the expression.\",\n  \"commonMisconceptions\": \"Some students may mistakenly apply the product rule or chain rule instead of the quotient rule.\"\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate one novel calculus problem variant as JSON only.\nConcept ID: deriv.quotient-rule\nDifficulty: procedural\nTemplate stem: Differentiate $g(x) = \\dfrac{\\sin x}{x}$.\nAnswer template: (x*cos(x) - sin(x)) / x^2\nReturn fields: id, conceptId, difficulty, type, stem, answe"
+ },
+ {
+  "task": "problem-variant",
+  "ok": false,
+  "expected": "{\"id\":\"integ-by-parts-procedural-phjcdz\",\"conceptId\":\"integ.by-parts\",\"difficulty\":\"procedural\",\"type\":\"free-response\",\"stem\":\"Evaluate $\\\\int x \\\\ln x\\\\,dx$.\",\"answer\":{\"raw\":\"x^2*ln(x)/2 - x^2/4 + C\",\"latex\":\"\\\\dfrac{x^2\\\\ln x}{2} - \\\\dfrac{x^2}{4} + C\",\"type\":\"symbolic\"},\"solutionSteps\":[{\"stepNumber\":1,\"description\":\"u = ln x, dv = x dx; du = dx/x, v = x\u00b2/2\",\"expression\":\"u=\\\\ln x,\\\\;dv=x\\\\,dx\",\"hint\":\"Choose u = ln x (logarithm) by LIATE.\"},{\"stepNumber\":2,\"description\":\"Apply formula\",\"expression\":\"\\\\frac{x^2\\\\ln x}{2} - \\\\int\\\\frac{x^2}{2}\\\\cdot\\\\frac{1}{x}\\\\,dx = \\\\frac{x^2\\\\ln x}{2} - \\\\frac{x^2}{4} + C\",\"hint\":\"Simplify the remaining integral.\"}],\"commonMisconceptions\":[]}",
+  "output": "{\n  \"id\": \"1\",\n  \"conceptId\": \"integ.by-parts\",\n  \"difficulty\": \"procedural\",\n  \"type\": \"integral\",\n  \"stem\": \"Evaluate \\int x e^x\\,dx.\",\n  \"answer\": \"x*e^x - e^x + C\",\n  \"solutionSteps\": [\n    \"Integrate by parts with u = x and dv = e^x\\n\",\n    \"du = dx\\n\",\n    \"v = e^x\\n\",\n    \"\u222bx e^x\\,dx = x*e^x - \u222be^x\\,dx\\n\",\n    \"\u222be^x\\,dx = e^x\\n\",\n    \"\u2234 \u222bx e^x\\,dx = x*e^x - e^x + C\"\n  ],\n  \"commonMisconceptions\": [\n    \"Some students may mistakenly integrate by parts with u = e^x and dv = x\\n\",\n    \"This will lead to an incorrect answer and solution steps\"\n  ]\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate one novel calculus problem variant as JSON only.\nConcept ID: integ.by-parts\nDifficulty: procedural\nTemplate stem: Evaluate $\\int x e^x\\,dx$.\nAnswer template: x*e^x - e^x + C\nReturn fields: id, conceptId, difficulty, type, stem, answer, solutionSteps, commonMiscon"
+ },
+ {
+  "task": "problem-variant",
+  "ok": false,
+  "expected": "{\"id\":\"integ-by-parts-procedural-bia1rg\",\"conceptId\":\"integ.by-parts\",\"difficulty\":\"procedural\",\"type\":\"free-response\",\"stem\":\"Evaluate $\\\\int x e^x\\\\,dx$.\",\"answer\":{\"raw\":\"x*e^x - e^x + C\",\"latex\":\"xe^x - e^x + C\",\"type\":\"symbolic\"},\"solutionSteps\":[{\"stepNumber\":1,\"description\":\"u = x, dv = e\u02e3 dx; du = dx, v = e\u02e3\",\"expression\":\"u=x,\\\\;dv=e^x\\\\,dx\",\"hint\":\"Choose u = x (algebraic) by LIATE.\"},{\"stepNumber\":2,\"description\":\"Apply formula: xe^x \u2212 \u222be\u02e3 dx\",\"expression\":\"xe^x - e^x + C\",\"hint\":\"Apply \u222bu dv = uv \u2212 \u222bv du.\"}],\"commonMisconceptions\":[]}",
+  "output": "{\n  \"id\": \"1\",\n  \"conceptId\": \"integ.by-parts\",\n  \"difficulty\": \"procedural\",\n  \"type\": \"problem\",\n  \"stem\": \"Evaluate $\\int x \\ln x\\,dx$.\",\n  \"answer\": \"x^2*ln(x)/2 - x^2/4 + C\",\n  \"solutionSteps\": \"1. Use integration by parts with u = x and dv = \\ln x\\,dx.\n  2. Compute du = dx and v = \\frac{\\ln x}{2}.\n  3. Apply the integration by parts formula: \\int u dv = uv - \\int v du.\n  4. Substitute u, v, and du into the formula: \\int x \\ln x\\,dx = \\frac{x^2 \\ln x}{2} - \\int \\frac{x^2}{2} \\,dx.\n  5. Simplify the integral: \\int x^2 \\ln x\\,dx = \\frac{x^2 \\ln x}{2} - \\frac{x^3}{6} + C.\",\n  \"commonMisconceptions\": \"Some students may mistakenly apply integration by parts to a problem that does not require it, or they may forget to apply the formula correctly.\"\n}",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Generate one novel calculus problem variant as JSON only.\nConcept ID: integ.by-parts\nDifficulty: procedural\nTemplate stem: Evaluate $\\int x \\ln x\\,dx$.\nAnswer template: x^2*ln(x)/2 - x^2/4 + C\nReturn fields: id, conceptId, difficulty, type, stem, answer, solutionSteps, co"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Suppose you want to find the derivative of $\\frac{x^2}{x+1}$. The Quotient Rule says: to differentiate a fraction, you do $$\\frac{(\\text{bottom})(\\text{derivative of top}) - (\\text{top})(\\text{derivative of bottom})}{(\\text{bottom})^2}$$ Here the \"top\" is $x^2$ and the \"bottom\" is $x+1$. Fill in the blank: The derivative of the top, $x^2$, is ______ , and the derivative of the bottom, $x+1$, is ______.\nEXPECT"
+ },
+ {
+  "task": "classifier",
+  "ok": true,
+  "expected": "partial_correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Suppose you want to find the derivative of $\\frac{x^2}{x+1}$. The Quotient Rule says: to differentiate a fraction, you do $$\\frac{(\\text{bottom})(\\text{derivative of top}) - (\\text{top})(\\text{derivative of bottom})}{(\\text{bottom})^2}$$ Here the \"top\" is $x^2$ and the \"bottom\" is $x+1$. Fill in the blank: The derivative of the top, $x^2$, is ______ , and the derivative of the bottom, $x+1$, is ______.\nEXPECT"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "misconception:1",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Suppose you want to find the derivative of $\\frac{x^2}{x+1}$. The Quotient Rule says: to differentiate a fraction, you do $$\\frac{(\\text{bottom})(\\text{derivative of top}) - (\\text{top})(\\text{derivative of bottom})}{(\\text{bottom})^2}$$ Here the \"top\" is $x^2$ and the \"bottom\" is $x+1$. Fill in the blank: The derivative of the top, $x^2$, is ______ , and the derivative of the bottom, $x+1$, is ______.\nEXPECT"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "off_topic",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Suppose you want to find the derivative of $\\frac{x^2}{x+1}$. The Quotient Rule says: to differentiate a fraction, you do $$\\frac{(\\text{bottom})(\\text{derivative of top}) - (\\text{top})(\\text{derivative of bottom})}{(\\text{bottom})^2}$$ Here the \"top\" is $x^2$ and the \"bottom\" is $x+1$. Fill in the blank: The derivative of the top, $x^2$, is ______ , and the derivative of the bottom, $x+1$, is ______.\nEXPECT"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: A student tried to use the Quotient Rule on $\\frac{x^3}{x+2}$ and wrote: $$\\frac{(x^3)(1) - (x+2)(3x^2)}{(x+2)^2}$$ Spot the mistake. Which of the following describes what went wrong? - (A) The student swapped the top and bottom in the numerator \u2014 it should be (bottom)(derivative of top) minus (top)(derivative of bottom), not the other way around. - (B) The student forgot to square the bottom. - (C) The stude"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "partial_correct",
+  "output": "misconception:1",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: A student tried to use the Quotient Rule on $\\frac{x^3}{x+2}$ and wrote: $$\\frac{(x^3)(1) - (x+2)(3x^2)}{(x+2)^2}$$ Spot the mistake. Which of the following describes what went wrong? - (A) The student swapped the top and bottom in the numerator \u2014 it should be (bottom)(derivative of top) minus (top)(derivative of bottom), not the other way around. - (B) The student forgot to square the bottom. - (C) The stude"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "misconception:2",
+  "output": "off_topic",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: A student tried to use the Quotient Rule on $\\frac{x^3}{x+2}$ and wrote: $$\\frac{(x^3)(1) - (x+2)(3x^2)}{(x+2)^2}$$ Spot the mistake. Which of the following describes what went wrong? - (A) The student swapped the top and bottom in the numerator \u2014 it should be (bottom)(derivative of top) minus (top)(derivative of bottom), not the other way around. - (B) The student forgot to square the bottom. - (C) The stude"
+ },
+ {
+  "task": "classifier",
+  "ok": true,
+  "expected": "off_topic",
+  "output": "off_topic",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: A student tried to use the Quotient Rule on $\\frac{x^3}{x+2}$ and wrote: $$\\frac{(x^3)(1) - (x+2)(3x^2)}{(x+2)^2}$$ Spot the mistake. Which of the following describes what went wrong? - (A) The student swapped the top and bottom in the numerator \u2014 it should be (bottom)(derivative of top) minus (top)(derivative of bottom), not the other way around. - (B) The student forgot to square the bottom. - (C) The stude"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake in this student's work: Find $\\frac{d}{dx}\\left[\\frac{x^2}{\\sin x}\\right]$. Student writes: $$\\frac{\\sin x \\cdot 2x - x^2 \\cdot \\cos x}{\\sin x}$$ What did they get wrong?\nEXPECTED ANSWER: The denominator should be $(\\sin x)^2$, not $\\sin x$. The quotient rule gives $\\frac{(\\text{lo})(d\\text{hi}) - (\\text{hi})(d\\text{lo})}{(\\text{lo})^2}$, so the bottom must be squared.\n\nSTUDENT RESPONSE: \"The"
+ },
+ {
+  "task": "classifier",
+  "ok": true,
+  "expected": "partial_correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake in this student's work: Find $\\frac{d}{dx}\\left[\\frac{x^2}{\\sin x}\\right]$. Student writes: $$\\frac{\\sin x \\cdot 2x - x^2 \\cdot \\cos x}{\\sin x}$$ What did they get wrong?\nEXPECTED ANSWER: The denominator should be $(\\sin x)^2$, not $\\sin x$. The quotient rule gives $\\frac{(\\text{lo})(d\\text{hi}) - (\\text{hi})(d\\text{lo})}{(\\text{lo})^2}$, so the bottom must be squared.\n\nSTUDENT RESPONSE: \"The"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "misconception:3",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake in this student's work: Find $\\frac{d}{dx}\\left[\\frac{x^2}{\\sin x}\\right]$. Student writes: $$\\frac{\\sin x \\cdot 2x - x^2 \\cdot \\cos x}{\\sin x}$$ What did they get wrong?\nEXPECTED ANSWER: The denominator should be $(\\sin x)^2$, not $\\sin x$. The quotient rule gives $\\frac{(\\text{lo})(d\\text{hi}) - (\\text{hi})(d\\text{lo})}{(\\text{lo})^2}$, so the bottom must be squared.\n\nSTUDENT RESPONSE: \"\\fr"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "off_topic",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake in this student's work: Find $\\frac{d}{dx}\\left[\\frac{x^2}{\\sin x}\\right]$. Student writes: $$\\frac{\\sin x \\cdot 2x - x^2 \\cdot \\cos x}{\\sin x}$$ What did they get wrong?\nEXPECTED ANSWER: The denominator should be $(\\sin x)^2$, not $\\sin x$. The quotient rule gives $\\frac{(\\text{lo})(d\\text{hi}) - (\\text{hi})(d\\text{lo})}{(\\text{lo})^2}$, so the bottom must be squared.\n\nSTUDENT RESPONSE: \"who"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Fill in the blank. The quotient rule says: $$\\frac{d}{dx}\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{g(x)\\cdot f'(x) \\;-\\; \\underline{\\quad?\\quad}}{[g(x)]^2}$$ What expression fills the blank? (And quick side question: does the order of the two terms in the numerator matter?)\nEXPECTED ANSWER: The blank is $f(x) \\cdot g'(x)$. Yes, the order matters \u2014 swapping the two terms flips the sign, giving you the wrong deriv"
+ },
+ {
+  "task": "classifier",
+  "ok": true,
+  "expected": "partial_correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Fill in the blank. The quotient rule says: $$\\frac{d}{dx}\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{g(x)\\cdot f'(x) \\;-\\; \\underline{\\quad?\\quad}}{[g(x)]^2}$$ What expression fills the blank? (And quick side question: does the order of the two terms in the numerator matter?)\nEXPECTED ANSWER: The blank is $f(x) \\cdot g'(x)$. Yes, the order matters \u2014 swapping the two terms flips the sign, giving you the wrong deriv"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "misconception:4",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Fill in the blank. The quotient rule says: $$\\frac{d}{dx}\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{g(x)\\cdot f'(x) \\;-\\; \\underline{\\quad?\\quad}}{[g(x)]^2}$$ What expression fills the blank? (And quick side question: does the order of the two terms in the numerator matter?)\nEXPECTED ANSWER: The blank is $f(x) \\cdot g'(x)$. Yes, the order matters \u2014 swapping the two terms flips the sign, giving you the wrong deriv"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "off_topic",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Fill in the blank. The quotient rule says: $$\\frac{d}{dx}\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{g(x)\\cdot f'(x) \\;-\\; \\underline{\\quad?\\quad}}{[g(x)]^2}$$ What expression fills the blank? (And quick side question: does the order of the two terms in the numerator matter?)\nEXPECTED ANSWER: The blank is $f(x) \\cdot g'(x)$. Yes, the order matters \u2014 swapping the two terms flips the sign, giving you the wrong deriv"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake. A student \"derives\" the quotient rule by writing $\\frac{d}{dx}\\!\\left[\\frac{f}{g}\\right] = \\frac{f'}{g'}$, arguing that differentiation is a linear operator so it distributes over fractions. In one sentence, explain the core flaw in this reasoning.\nEXPECTED ANSWER: Linearity of differentiation means $\\frac{d}{dx}[af+bg]=af'+bg'$ for constants $a,b$. It does not extend to quotients because $g"
+ },
+ {
+  "task": "classifier",
+  "ok": true,
+  "expected": "partial_correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake. A student \"derives\" the quotient rule by writing $\\frac{d}{dx}\\!\\left[\\frac{f}{g}\\right] = \\frac{f'}{g'}$, arguing that differentiation is a linear operator so it distributes over fractions. In one sentence, explain the core flaw in this reasoning.\nEXPECTED ANSWER: Linearity of differentiation means $\\frac{d}{dx}[af+bg]=af'+bg'$ for constants $a,b$. It does not extend to quotients because $g"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "misconception:5",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake. A student \"derives\" the quotient rule by writing $\\frac{d}{dx}\\!\\left[\\frac{f}{g}\\right] = \\frac{f'}{g'}$, arguing that differentiation is a linear operator so it distributes over fractions. In one sentence, explain the core flaw in this reasoning.\nEXPECTED ANSWER: Linearity of differentiation means $\\frac{d}{dx}[af+bg]=af'+bg'$ for constants $a,b$. It does not extend to quotients because $g"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "off_topic",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake. A student \"derives\" the quotient rule by writing $\\frac{d}{dx}\\!\\left[\\frac{f}{g}\\right] = \\frac{f'}{g'}$, arguing that differentiation is a linear operator so it distributes over fractions. In one sentence, explain the core flaw in this reasoning.\nEXPECTED ANSWER: Linearity of differentiation means $\\frac{d}{dx}[af+bg]=af'+bg'$ for constants $a,b$. It does not extend to quotients because $g"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Fill in the blank (linear-approximation link). Near a point $a$ where $g(a)\\neq 0$, replace $f$ and $g$ by their linearizations: $f(a)+f'(a)\\,\\Delta x$ and $g(a)+g'(a)\\,\\Delta x$. The ratio is $$\\frac{f(a)+f'(a)\\,\\Delta x}{g(a)+g'(a)\\,\\Delta x}.$$ Expand to first order in $\\Delta x$ (use $\\frac{1}{1+u}\\approx 1-u$). The coefficient of $\\Delta x$ should be $\\rule{3cm}{0.4pt}$. Verify it matches the quotient ru"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "misconception:1",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Fill in the blank (linear-approximation link). Near a point $a$ where $g(a)\\neq 0$, replace $f$ and $g$ by their linearizations: $f(a)+f'(a)\\,\\Delta x$ and $g(a)+g'(a)\\,\\Delta x$. The ratio is $$\\frac{f(a)+f'(a)\\,\\Delta x}{g(a)+g'(a)\\,\\Delta x}.$$ Expand to first order in $\\Delta x$ (use $\\frac{1}{1+u}\\approx 1-u$). The coefficient of $\\Delta x$ should be $\\rule{3cm}{0.4pt}$. Verify it matches the quotient ru"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "off_topic",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Fill in the blank (linear-approximation link). Near a point $a$ where $g(a)\\neq 0$, replace $f$ and $g$ by their linearizations: $f(a)+f'(a)\\,\\Delta x$ and $g(a)+g'(a)\\,\\Delta x$. The ratio is $$\\frac{f(a)+f'(a)\\,\\Delta x}{g(a)+g'(a)\\,\\Delta x}.$$ Expand to first order in $\\Delta x$ (use $\\frac{1}{1+u}\\approx 1-u$). The coefficient of $\\Delta x$ should be $\\rule{3cm}{0.4pt}$. Verify it matches the quotient ru"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Integration by parts is built on a simple idea: you split your integral into two pieces \u2014 one piece you call $u$ (which you will take the derivative of) and another you call $dv$ (which you will integrate). Suppose you want to find $\\int x \\cos(x)\\, dx$. You have two factors here: $x$ and $\\cos(x)$. Which one would be smarter to pick as $u$ \u2014 the part you'll take the derivative of? (a) $u = x$, because its de"
+ },
+ {
+  "task": "classifier",
+  "ok": true,
+  "expected": "partial_correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Integration by parts is built on a simple idea: you split your integral into two pieces \u2014 one piece you call $u$ (which you will take the derivative of) and another you call $dv$ (which you will integrate). Suppose you want to find $\\int x \\cos(x)\\, dx$. You have two factors here: $x$ and $\\cos(x)$. Which one would be smarter to pick as $u$ \u2014 the part you'll take the derivative of? (a) $u = x$, because its de"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "misconception:1",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Integration by parts is built on a simple idea: you split your integral into two pieces \u2014 one piece you call $u$ (which you will take the derivative of) and another you call $dv$ (which you will integrate). Suppose you want to find $\\int x \\cos(x)\\, dx$. You have two factors here: $x$ and $\\cos(x)$. Which one would be smarter to pick as $u$ \u2014 the part you'll take the derivative of? (a) $u = x$, because its de"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "off_topic",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Integration by parts is built on a simple idea: you split your integral into two pieces \u2014 one piece you call $u$ (which you will take the derivative of) and another you call $dv$ (which you will integrate). Suppose you want to find $\\int x \\cos(x)\\, dx$. You have two factors here: $x$ and $\\cos(x)$. Which one would be smarter to pick as $u$ \u2014 the part you'll take the derivative of? (a) $u = x$, because its de"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: The integration-by-parts formula says: $$\\int u\\, dv = u \\cdot v - \\int v\\, du$$ Think of it like a trade: you swap the original integral for a (hopefully easier) new integral on the right side. Let's say you chose $u = x$ and $dv = \\cos(x)\\, dx$. You already know $du = 1\\, dx$ (the derivative of $x$). Now you need $v$, which means you integrate $dv = \\cos(x)\\, dx$. Fill in the blank: $v = $ ______\nEXPECTED A"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "misconception:2",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: The integration-by-parts formula says: $$\\int u\\, dv = u \\cdot v - \\int v\\, du$$ Think of it like a trade: you swap the original integral for a (hopefully easier) new integral on the right side. Let's say you chose $u = x$ and $dv = \\cos(x)\\, dx$. You already know $du = 1\\, dx$ (the derivative of $x$). Now you need $v$, which means you integrate $dv = \\cos(x)\\, dx$. Fill in the blank: $v = $ ______\nEXPECTED A"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "off_topic",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: The integration-by-parts formula says: $$\\int u\\, dv = u \\cdot v - \\int v\\, du$$ Think of it like a trade: you swap the original integral for a (hopefully easier) new integral on the right side. Let's say you chose $u = x$ and $dv = \\cos(x)\\, dx$. You already know $du = 1\\, dx$ (the derivative of $x$). Now you need $v$, which means you integrate $dv = \\cos(x)\\, dx$. Fill in the blank: $v = $ ______\nEXPECTED A"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: You want to evaluate $\\int x\\,e^{2x}\\,dx$ using integration by parts. You need to choose $u$ and $dv$. Fill in the blanks: $u = $ ______ , $dv = $ ______ Then state what $du$ and $v$ are after differentiating/integrating your choices.\nEXPECTED ANSWER: $u = x$, so $du = dx$. $dv = e^{2x}\\,dx$, so $v = \\dfrac{1}{2}e^{2x}$. The key reasoning: picking $u = x$ is smart because differentiating it makes things simpl"
+ },
+ {
+  "task": "classifier",
+  "ok": true,
+  "expected": "partial_correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: You want to evaluate $\\int x\\,e^{2x}\\,dx$ using integration by parts. You need to choose $u$ and $dv$. Fill in the blanks: $u = $ ______ , $dv = $ ______ Then state what $du$ and $v$ are after differentiating/integrating your choices.\nEXPECTED ANSWER: $u = x$, so $du = dx$. $dv = e^{2x}\\,dx$, so $v = \\dfrac{1}{2}e^{2x}$. The key reasoning: picking $u = x$ is smart because differentiating it makes things simpl"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "misconception:3",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: You want to evaluate $\\int x\\,e^{2x}\\,dx$ using integration by parts. You need to choose $u$ and $dv$. Fill in the blanks: $u = $ ______ , $dv = $ ______ Then state what $du$ and $v$ are after differentiating/integrating your choices.\nEXPECTED ANSWER: $u = x$, so $du = dx$. $dv = e^{2x}\\,dx$, so $v = \\dfrac{1}{2}e^{2x}$. The key reasoning: picking $u = x$ is smart because differentiating it makes things simpl"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "off_topic",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: You want to evaluate $\\int x\\,e^{2x}\\,dx$ using integration by parts. You need to choose $u$ and $dv$. Fill in the blanks: $u = $ ______ , $dv = $ ______ Then state what $du$ and $v$ are after differentiating/integrating your choices.\nEXPECTED ANSWER: $u = x$, so $du = dx$. $dv = e^{2x}\\,dx$, so $v = \\dfrac{1}{2}e^{2x}$. The key reasoning: picking $u = x$ is smart because differentiating it makes things simpl"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake in the following work. A student writes: $$\\int \\ln(x)\\,dx$$ Let $u = \\ln(x)$, $dv = dx$, so $du = \\dfrac{1}{x}\\,dx$, $v = x$. Applying the formula $\\int u\\,dv = uv - \\int v\\,du$: $$\\int \\ln(x)\\,dx = x\\ln(x) + \\int x \\cdot \\frac{1}{x}\\,dx = x\\ln(x) + x + C$$ What went wrong?\nEXPECTED ANSWER: The student used a plus sign instead of a minus sign after $x\\ln(x)$. The integration by parts formula"
+ },
+ {
+  "task": "classifier",
+  "ok": true,
+  "expected": "partial_correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake in the following work. A student writes: $$\\int \\ln(x)\\,dx$$ Let $u = \\ln(x)$, $dv = dx$, so $du = \\dfrac{1}{x}\\,dx$, $v = x$. Applying the formula $\\int u\\,dv = uv - \\int v\\,du$: $$\\int \\ln(x)\\,dx = x\\ln(x) + \\int x \\cdot \\frac{1}{x}\\,dx = x\\ln(x) + x + C$$ What went wrong?\nEXPECTED ANSWER: The student used a plus sign instead of a minus sign after $x\\ln(x)$. The integration by parts formula"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "misconception:4",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake in the following work. A student writes: $$\\int \\ln(x)\\,dx$$ Let $u = \\ln(x)$, $dv = dx$, so $du = \\dfrac{1}{x}\\,dx$, $v = x$. Applying the formula $\\int u\\,dv = uv - \\int v\\,du$: $$\\int \\ln(x)\\,dx = x\\ln(x) + \\int x \\cdot \\frac{1}{x}\\,dx = x\\ln(x) + x + C$$ What went wrong?\nEXPECTED ANSWER: The student used a plus sign instead of a minus sign after $x\\ln(x)$. The integration by parts formula"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "off_topic",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake in the following work. A student writes: $$\\int \\ln(x)\\,dx$$ Let $u = \\ln(x)$, $dv = dx$, so $du = \\dfrac{1}{x}\\,dx$, $v = x$. Applying the formula $\\int u\\,dv = uv - \\int v\\,du$: $$\\int \\ln(x)\\,dx = x\\ln(x) + \\int x \\cdot \\frac{1}{x}\\,dx = x\\ln(x) + x + C$$ What went wrong?\nEXPECTED ANSWER: The student used a plus sign instead of a minus sign after $x\\ln(x)$. The integration by parts formula"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Integration by parts is derived by integrating both sides of the product rule for differentiation. Starting from $\\frac{d}{dx}[u\\,v] = u\\,v' + u'\\,v$, rearrange and integrate to obtain the IBP formula. Fill in the blank: $$\\int u\\,dv = uv - \\text{\\_\\_\\_\\_\\_\\_}$$ Now, briefly: why does the formula require that $u$ and $v$ are continuous on the interval of integration? What would go wrong at a discontinuity?\nEX"
+ },
+ {
+  "task": "classifier",
+  "ok": true,
+  "expected": "partial_correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Integration by parts is derived by integrating both sides of the product rule for differentiation. Starting from $\\frac{d}{dx}[u\\,v] = u\\,v' + u'\\,v$, rearrange and integrate to obtain the IBP formula. Fill in the blank: $$\\int u\\,dv = uv - \\text{\\_\\_\\_\\_\\_\\_}$$ Now, briefly: why does the formula require that $u$ and $v$ are continuous on the interval of integration? What would go wrong at a discontinuity?\nEX"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "misconception:5",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Integration by parts is derived by integrating both sides of the product rule for differentiation. Starting from $\\frac{d}{dx}[u\\,v] = u\\,v' + u'\\,v$, rearrange and integrate to obtain the IBP formula. Fill in the blank: $$\\int u\\,dv = uv - \\text{\\_\\_\\_\\_\\_\\_}$$ Now, briefly: why does the formula require that $u$ and $v$ are continuous on the interval of integration? What would go wrong at a discontinuity?\nEX"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "off_topic",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Integration by parts is derived by integrating both sides of the product rule for differentiation. Starting from $\\frac{d}{dx}[u\\,v] = u\\,v' + u'\\,v$, rearrange and integrate to obtain the IBP formula. Fill in the blank: $$\\int u\\,dv = uv - \\text{\\_\\_\\_\\_\\_\\_}$$ Now, briefly: why does the formula require that $u$ and $v$ are continuous on the interval of integration? What would go wrong at a discontinuity?\nEX"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake in the following evaluation: $$\\int_0^\\infty x\\,e^{-x}\\,dx$$ A student writes: Let $u = x$, $dv = e^{-x}\\,dx$, so $du = dx$, $v = -e^{-x}$. $$= \\Big[-x\\,e^{-x}\\Big]_0^\\infty + \\int_0^\\infty e^{-x}\\,dx = 0 + \\Big[-e^{-x}\\Big]_0^\\infty = 0 - (-1) = 1$$ The final answer $1$ is correct. So where exactly is the reasoning sloppy, and what justification is missing?\nEXPECTED ANSWER: The student write"
+ },
+ {
+  "task": "classifier",
+  "ok": true,
+  "expected": "partial_correct",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake in the following evaluation: $$\\int_0^\\infty x\\,e^{-x}\\,dx$$ A student writes: Let $u = x$, $dv = e^{-x}\\,dx$, so $du = dx$, $v = -e^{-x}$. $$= \\Big[-x\\,e^{-x}\\Big]_0^\\infty + \\int_0^\\infty e^{-x}\\,dx = 0 + \\Big[-e^{-x}\\Big]_0^\\infty = 0 - (-1) = 1$$ The final answer $1$ is correct. So where exactly is the reasoning sloppy, and what justification is missing?\nEXPECTED ANSWER: The student write"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "misconception:1",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake in the following evaluation: $$\\int_0^\\infty x\\,e^{-x}\\,dx$$ A student writes: Let $u = x$, $dv = e^{-x}\\,dx$, so $du = dx$, $v = -e^{-x}$. $$= \\Big[-x\\,e^{-x}\\Big]_0^\\infty + \\int_0^\\infty e^{-x}\\,dx = 0 + \\Big[-e^{-x}\\Big]_0^\\infty = 0 - (-1) = 1$$ The final answer $1$ is correct. So where exactly is the reasoning sloppy, and what justification is missing?\nEXPECTED ANSWER: The student write"
+ },
+ {
+  "task": "classifier",
+  "ok": false,
+  "expected": "off_topic",
+  "output": "partial_correct",
+  "prompt": "You are a strict classifier. Classify the student's response into ONE label.\n\nQUESTION: Spot the mistake in the following evaluation: $$\\int_0^\\infty x\\,e^{-x}\\,dx$$ A student writes: Let $u = x$, $dv = e^{-x}\\,dx$, so $du = dx$, $v = -e^{-x}$. $$= \\Big[-x\\,e^{-x}\\Big]_0^\\infty + \\int_0^\\infty e^{-x}\\,dx = 0 + \\Big[-e^{-x}\\Big]_0^\\infty = 0 - (-1) = 1$$ The final answer $1$ is correct. So where exactly is the reasoning sloppy, and what justification is missing?\nEXPECTED ANSWER: The student write"
+ },
+ {
+  "task": "intro",
+  "ok": true,
+  "expected": "Here's a Quotient Rule problem. Remember: How to differentiate a ratio of two functions, with a sign and denominator-squared you cannot skip. How do you differentiate a quotient?",
+  "output": "The quotient rule is a fundamental rule in calculus that helps you find the derivative of a quotient of two functions. It states that if you have a function of the form f(x) = g(x)/h(x), where g(x) and h(x) are both differentiable functions, then the derivative of f(x) is given by:\n\nf'(x) = (h(x)g'(x) - g(x)h'(x)) / h(x)^2\n\nThis rule is a direct application of the product rule and the chain rule, making it a powerful tool for differentiating complex functions.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Introduce the next calculus problem. Be Socratic and concise.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: confident\nProblem stem: State the quotient rule.\nKeep the response at or below 150 words."
+ },
+ {
+  "task": "intro",
+  "ok": true,
+  "expected": "Let's look at Quotient Rule: How to differentiate a ratio of two functions, with a sign and denominator-squared you cannot skip. Read the problem above carefully. Identify and differentiate u and v.",
+  "output": "Let's explore the Quotient Rule, a fundamental concept in calculus. The Quotient Rule is used to differentiate functions of the form $f(x) = \\frac{g(x)}{h(x)}$. The rule states that the derivative of such a function is given by $f'(x) = \\frac{g'(x)h(x) - g(x)h'(x)}{[h(x)]^2}$.\n\nFor your problem, $f(x) = \\frac{x^2 + 1}{x - 3}$, we identify $g(x) = x^2 + 1$ and $h(x) = x - 3$. Now, we calculate the derivatives of $g(x)$ and $h(x)$: $g'(x) = 2x$ and $h'(x) = 1$.\n\nApplying the Quotient Rule, we get $f'(x) = \\frac{(2x)(x - 3) - (x^2 + 1)(1)}{(x - 3)^2}$. Simplifying this expression, we find $f'(x) = \\frac{2x^2",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Introduce the next calculus problem. Be Socratic and concise.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: beginner\nProblem stem: Differentiate $f(x) = \\dfrac{x^2 + 1}{x - 3}$.\nKeep the response at or below 150 words."
+ },
+ {
+  "task": "intro",
+  "ok": true,
+  "expected": "Time to practice Quotient Rule. Before you compute anything: Identify u and v.",
+  "output": "Let's explore the Quotient Rule, a fundamental concept in calculus. The Quotient Rule is used to differentiate functions of the form $y = \\frac{u}{v}$, where $u$ and $v$ are both functions of $x$. The rule states that the derivative of such a function is given by $\\frac{d}{dx} \\left(\\frac{u}{v}\\right) = \\frac{v \\cdot \\frac{du}{dx} - u \\cdot \\frac{dv}{dx}}{v^2}$.\n\nIn your case, we have $g(x) = \\dfrac{\\sin x}{x}$. Here, $u = \\sin x$ and $v = x$. To apply the Quotient Rule, we need to find the derivatives of $u$ and $v$ with respect to $x$. The derivative of $u$ is $\\frac{d}{dx}(\\sin x) = \\cos x$, and the derivative of $v$ is $\\frac{d}{dx}(x) = 1$.\n\nNow, substitute these derivatives into the Quotient Rule formula: $\\frac{d}{dx} \\left(\\frac{\\sin x}{x}\\right",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Introduce the next calculus problem. Be Socratic and concise.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: developing\nProblem stem: Differentiate $g(x) = \\dfrac{\\sin x}{x}$.\nKeep the response at or below 150 words."
+ },
+ {
+  "task": "intro",
+  "ok": true,
+  "expected": "Here's a Quotient Rule problem. Remember: How to differentiate a ratio of two functions, with a sign and denominator-squared you cannot skip. Apply the quotient rule and simplify.",
+  "output": "To find the critical points of $f(x) = \\dfrac{x}{x^2+1}$, we first need to find its derivative. The quotient rule states that if $f(x) = \\dfrac{u(x)}{v(x)}$, then $f'(x) = \\dfrac{u'(x)v(x) - u(x)v'(x)}{v(x)^2}$. Here, $u(x) = x$ and $v(x) = x^2+1$. Applying the quotient rule, we get $f'(x) = \\dfrac{x(x^2+1) - x(2x)}{(x^2+1)^2} = \\dfrac{x^3+x - 2x^2}{(x^2+1)^2}$. Simplifying, we find $f'(x) = \\dfrac{x^3 - x^2 + x}{(x^2+1)^2}$. To find the critical points, we set $f'(x) = 0$ and solve for $x$. This will give us the values of $x$ where the function's",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Introduce the next calculus problem. Be Socratic and concise.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: confident\nProblem stem: Find the critical points of $f(x) = \\dfrac{x}{x^2+1}$.\nKeep the response at or below 150 words."
+ },
+ {
+  "task": "intro",
+  "ok": true,
+  "expected": "Time to practice Integration by Parts. Before you compute anything: This reverses the product rule.",
+  "output": "Integration by Parts: The formula for integration by parts is \u222bu dv = uv - \u222bv du. This formula helps you integrate functions that can be expressed as the product of two simpler functions. By choosing u and dv wisely, you can simplify complex integrals and solve them more easily.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Introduce the next calculus problem. Be Socratic and concise.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: developing\nProblem stem: State the integration by parts formula.\nKeep the response at or below 150 words."
+ },
+ {
+  "task": "intro",
+  "ok": true,
+  "expected": "Here's a Integration by Parts problem. Remember: Reversing the product rule: $\\int u \\, dv = uv - \\int v \\, du$. Choose u = x (algebraic) by LIATE.",
+  "output": "To tackle the problem $\\int x e^x\\,dx$, let's recall the integration by parts formula: $\\int u\\,dv = uv - \\int v\\,du$. Here, $u = x$ and $dv = e^x\\,dx$. \n\nFirst, find $du$ and $v$: $du = dx$ and $v = e^x$. Now, apply the formula: $\\int x e^x\\,dx = x e^x - \\int e^x\\,dx$. The integral of $e^x$ is $e^x$, so $\\int e^x\\,dx = e^x$. \n\nCombine the results: $\\int x e^x\\,dx = x e^x - e^x + C$, where $C$ is the constant of integration. This is your final answer.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Introduce the next calculus problem. Be Socratic and concise.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: confident\nProblem stem: Evaluate $\\int x e^x\\,dx$.\nKeep the response at or below 150 words."
+ },
+ {
+  "task": "intro",
+  "ok": true,
+  "expected": "Let's look at Integration by Parts: Reversing the product rule: $\\int u \\, dv = uv - \\int v \\, du$. Read the problem above carefully. Choose u = ln x (logarithm) by LIATE.",
+  "output": "To tackle the problem $\\int x \\ln x\\,dx$, let's recall the integration by parts formula: $\\int u \\, dv = uv - \\int v \\, du$. Here, we can choose $u = \\ln x$ and $dv = x \\, dx$.\n\nFirst, find $du$ and $v$: $du = \\frac{1}{x} \\, dx$ and $v = \\frac{1}{2}x^2$.\n\nNow, apply the formula: $\\int x \\ln x\\,dx = \\frac{1}{2}x^2 \\ln x - \\int \\frac{1}{2}x^2 \\cdot \\frac{1}{x}\\,dx = \\frac{1}{2}x^2 \\ln x - \\frac{1}{4}x^2 + C$.\n\nThus, the solution is $\\boxed{\\frac{1}{2}x^2 \\ln x - \\frac{1}{4}x^2 + C}$.",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Introduce the next calculus problem. Be Socratic and concise.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: beginner\nProblem stem: Evaluate $\\int x \\ln x\\,dx$.\nKeep the response at or below 150 words."
+ },
+ {
+  "task": "intro",
+  "ok": true,
+  "expected": "Time to practice Integration by Parts. Before you compute anything: Apply by parts with u = sin x, dv = e\u02e3 dx.",
+  "output": "To tackle this problem, let's recall the integration by parts formula: $\\int u \\, dv = uv - \\int v \\, du$. Here, we have $u = e^x$ and $dv = \\sin x \\, dx$. \n\nFirst, find $du$ and $v$: $du = e^x \\, dx$ and $v = -\\cos x$. Now, apply the formula: $\\int e^x \\sin x \\, dx = -e^x \\cos x + \\int e^x \\cos x \\, dx$.\n\nNext, apply integration by parts again to the remaining integral. Let $u = e^x$ and $dv = \\cos x \\, dx$. Then, $du = e^x \\, dx$ and $v = \\sin x$. \n\nNow, apply the formula again: $\\int e^x \\cos x \\, dx = e^x \\sin x - \\int e^x \\sin x \\, dx$. Substitute this back into our original equation: $\\int e^x \\sin x \\, dx = -e^x \\cos x + e^x \\sin x - \\int e^x \\sin x",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Introduce the next calculus problem. Be Socratic and concise.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: developing\nProblem stem: Evaluate $\\int e^x \\sin x\\,dx$.\nKeep the response at or below 150 words."
+ },
+ {
+  "task": "intro",
+  "ok": true,
+  "expected": "Time to practice Quotient Rule. Before you compute anything: Apply the product rule to (u/v)\u00b7v.",
+  "output": "\"Let's explore the quotient rule, a derivative rule that follows naturally from the product rule. The quotient rule states that if we have a function of the form f(x) = g(x)/h(x), its derivative is given by f'(x) = (h(x)g'(x) - g(x)h'(x)) / h(x)^2.\n\nTo derive this rule, we can start by applying the product rule to the function f(x) = g(x) * (1/h(x)). This gives us f'(x) = g'(x) * (1/h(x)) + g(x) * d(1/h(x))/dx.\n\nNow, we can simplify the expression for d(1/h(x))/dx using the chain rule. This yields d(1/h(x))/dx = -1/h(x)^2 * h'(x). Substituting this back into our product rule expression, we get f'(x) = g'(x) * (1/h(x)) - g(x) * (-1/h(x)^2) * h'(x).\n\nRearranging the",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Introduce the next calculus problem. Be Socratic and concise.\nCurrent concept ID: deriv.quotient-rule\nCurrent concept name: Quotient Rule\nMastery label: developing\nProblem stem: Derive the quotient rule from the product rule.\nKeep the response at or below 150 words."
+ },
+ {
+  "task": "intro",
+  "ok": true,
+  "expected": "Here's a Integration by Parts problem. Remember: Reversing the product rule: $\\int u \\, dv = uv - \\int v \\, du$. Write the product rule.",
+  "output": "\"Let's explore the integration by parts formula, which is a direct consequence of the product rule. The product rule states that the derivative of a product of two functions u(x) and v(x) is given by d(uv)/dx = u(dv/dx) + v(du/dx). Now, let's integrate both sides with respect to x. This gives us \u222bd(uv)/dx dx = \u222bu(dv/dx) dx + \u222bv(du/dx) dx. The left side integrates to uv, and the right side integrates to \u222bu(dv/dx) dx + \u222bv(du/dx) dx. This simplifies to uv = \u222bu(dv/dx) dx + \u222bv(du/dx) dx. Rearranging terms, we get \u222bu(dv/dx) dx = uv - \u222bv(du/dx) dx. This is the integration by parts formula. Remember, the key is to choose u and dv wisely to simplify the integral. Let's practice applying this formula to a specific problem.\"",
+  "prompt": "You are CalcuLearn, an offline Socratic calculus tutor running on-device. Guide the student with questions and reasoning. Do not reveal final answers in hints or feedback. Use concise language suitable for a small screen.\nTask: Introduce the next calculus problem. Be Socratic and concise.\nCurrent concept ID: integ.by-parts\nCurrent concept name: Integration by Parts\nMastery label: confident\nProblem stem: Derive the integration by parts formula from the product rule.\nKeep the response at or below "
+ }
+]
